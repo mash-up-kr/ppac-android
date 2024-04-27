@@ -4,28 +4,17 @@ plugins {
 }
 
 android {
-    namespace = libs.versions.namespace.get()
+    namespace = "team.ppac.common.android"
     compileSdk = libs.versions.compileSdk.get().toInt()
-
-    defaultConfig {
-        minSdk = 26
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
 
 dependencies {
+    implementation(project(":core:designsystem"))
+
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.bundles.compose)
+    implementation(platform(libs.compose.bom))
+    implementation(libs.timber)
 }

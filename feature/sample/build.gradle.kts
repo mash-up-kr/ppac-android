@@ -5,8 +5,22 @@ plugins {
 
 android {
     namespace = "team.ppac.feature.sample"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 }
 
 dependencies {
+    implementation(project(":core:common:android"))
+    implementation(project(":core:common:kotlin"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:designsystem"))
 
+    implementation(platform(libs.compose.bom))
+    implementation(libs.bundles.compose)
+    implementation(libs.bundles.lifecycle)
+    implementation(libs.appcompat)
+    implementation(libs.core.ktx)
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.kotlin.coroutines.core)
+    implementation(libs.timber)
 }
