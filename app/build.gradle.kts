@@ -63,11 +63,8 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle)
-    implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.material)
+    implementation(libs.bundles.compose)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
