@@ -21,4 +21,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "PPAC"
 include(":app")
- 
+include(":core:data")
+include(":core:domain")
+include(":core:designsystem")
+include(":core:common:android")
+include(":core:common:kotlin")
+include(":core:remote")
+include(":feature:sample")
+include(":core:navigator")
