@@ -19,8 +19,6 @@ dependencies {
     implementation(libs.bundles.lifecycle)
     implementation(libs.appcompat)
     implementation(libs.core.ktx)
-    implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlin.coroutines.android)
-    implementation(libs.kotlin.coroutines.core)
     implementation(libs.timber)
 }
