@@ -12,8 +12,8 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
     initialState: S,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(initialState)
-    val state = _uiState.asStateFlow()
+    private val _state = MutableStateFlow(initialState)
+    val state = _state.asStateFlow()
 
 
     private val _sideEffect: MutableSharedFlow<SE> = MutableSharedFlow()
@@ -21,7 +21,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
 
     // Get current state
     protected val currentState: S
-        get() = _uiState.value
+        get() = _state.value
 
     fun intent(intent: I) {
         viewModelScope.launch {
@@ -33,7 +33,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
 
     protected fun reduce(reduce: S.() -> S) {
         val state = currentState.reduce()
-        _uiState.value = state
+        _state.value = state
     }
 
     protected fun postSideEffect(sideEffect: SE) {
