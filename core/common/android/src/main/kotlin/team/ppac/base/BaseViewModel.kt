@@ -23,7 +23,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
     protected val currentState: S
         get() = _uiState.value
 
-    open fun intent(intent: I) {
+    fun intent(intent: I) {
         viewModelScope.launch {
             handleIntent(intent)
         }
@@ -36,7 +36,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
         _uiState.value = state
     }
 
-    protected fun sendEffect(sideEffect: SE) {
+    protected fun postSideEffect(sideEffect: SE) {
         viewModelScope.launch { _sideEffect.emit(sideEffect) }
     }
 }
