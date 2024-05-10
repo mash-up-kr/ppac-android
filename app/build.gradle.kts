@@ -40,9 +40,10 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.12"
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
     packaging {
         resources {
@@ -60,6 +61,7 @@ dependencies {
     implementation(project(":core:navigator"))
     implementation(project(":core:remote"))
     implementation(project(":feature:sample"))
+    implementation(project(":feature:onboard"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle)
