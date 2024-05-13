@@ -12,18 +12,16 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
     initialState: S,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(initialState)
+    private val _state = MutableStateFlow(initialState)// 늘 값이 있어
     val state = _state.asStateFlow()
 
-
-    private val _sideEffect: MutableSharedFlow<SE> = MutableSharedFlow()
+    private val _sideEffect: MutableSharedFlow<SE> = MutableSharedFlow() // 없을수도 있고
     val sideEffect = _sideEffect.asSharedFlow()
 
-    // Get current state
     protected val currentState: S
         get() = _state.value
 
-    fun intent(intent: I) {
+    fun intent(intent: I) { // 사용완료
         viewModelScope.launch {
             handleIntent(intent)
         }

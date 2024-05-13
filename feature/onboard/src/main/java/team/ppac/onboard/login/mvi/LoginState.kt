@@ -4,4 +4,7 @@ import team.ppac.base.UiState
 
 data class LoginState(
     val isLoading: Boolean = true,
-): UiState
+    val phoneNumber: String = "",
+    val nickname: String = "",
+    val toastVisible: Boolean = false,
+) : UiState
