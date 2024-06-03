@@ -1,4 +1,4 @@
 package team.ppac.remote.api
 
-interface SampleApi {
+internal interface SampleApi {
 }
