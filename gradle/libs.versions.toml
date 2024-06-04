@@ -105,6 +105,7 @@ okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp
 okhttp = { module = "com.squareup.okhttp3:okhttp" }
 okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
 moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
@@ -127,5 +128,5 @@ jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 [bundles]
 lifecycle = ["lifecycle", "lifecycle-viewmodel"]
 compose = ["ui", "ui-graphics", "ui-tooling", "ui-tooling-preview", "material-compose", "coil-compose", "compose-lottie", "ui-foundation", "activity-compose", "navigation-compose", "lifecycle-compose", "hilt-navigation-compose"]
-moshi = ["moshi", "moshi-adapter", "moshi-codegen"]
+moshi = ["moshi", "moshi-adapter", "moshi-codegen", "retrofit-converter-moshi"]
 okhttp = ["okhttp", "okhttp-logging-interceptor"]
