@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
+    alias(libs.plugins.kotlin.ksp) apply false
 }
