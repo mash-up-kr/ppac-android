@@ -7,7 +7,6 @@ import team.ppac.local.entity.MemeEntity
 
 @Dao
 interface MemeDao : BaseDao<MemeEntity> {
-
     @Query("SELECT * FROM memes")
     fun getMemes(): Flow<List<MemeEntity>>
 }

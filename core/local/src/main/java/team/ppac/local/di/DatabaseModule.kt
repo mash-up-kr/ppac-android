@@ -22,6 +22,4 @@ object DatabaseModule {
             klass = FarmemeDatabase::class.java,
             name = FarmemeDatabase.DATABASE_NAME
         ).build()
-
-
 }
