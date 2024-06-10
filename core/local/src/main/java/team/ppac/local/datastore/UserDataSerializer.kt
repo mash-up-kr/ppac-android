@@ -10,7 +10,7 @@ import team.ppac.local.entity.UserData
 import java.io.InputStream
 import java.io.OutputStream
 
-object UserDataSerializer : Serializer<UserData> {
+internal object UserDataSerializer : Serializer<UserData> {
 
     override val defaultValue: UserData = UserData.EMPTY
 

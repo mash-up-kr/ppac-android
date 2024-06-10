@@ -10,7 +10,7 @@ import team.ppac.local.entity.MemeEntity
     version = 1,
     exportSchema = false, // TODO(EvergreenTree97) : 이후 true로 변경
 )
-abstract class FarmemeDatabase : RoomDatabase() {
+internal abstract class FarmemeDatabase : RoomDatabase() {
 
     abstract fun memeDao(): MemeDao
 

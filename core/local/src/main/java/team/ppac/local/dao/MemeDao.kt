@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import team.ppac.local.entity.MemeEntity
 
 @Dao
-interface MemeDao : BaseDao<MemeEntity> {
+internal interface MemeDao : BaseDao<MemeEntity> {
     @Query("SELECT * FROM memes")
     fun getMemes(): Flow<List<MemeEntity>>
 }
