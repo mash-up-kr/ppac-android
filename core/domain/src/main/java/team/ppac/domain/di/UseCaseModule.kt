@@ -10,7 +10,7 @@ import team.ppac.domain.usecase.SampleUseCaseImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
-abstract class UseCaseModule {
+internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindSampleUseCase(impl: SampleUseCaseImpl): SampleUseCase

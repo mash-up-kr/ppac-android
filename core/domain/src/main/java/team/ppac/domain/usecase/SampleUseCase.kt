@@ -8,7 +8,7 @@ interface SampleUseCase {
     suspend fun getImages(): List<SampleImageModel>
 }
 
-class SampleUseCaseImpl @Inject constructor(
+internal class SampleUseCaseImpl @Inject constructor(
     private val sampleRepository: SampleRepository
 ) : SampleUseCase {
     override suspend fun getImages(): List<SampleImageModel> {
