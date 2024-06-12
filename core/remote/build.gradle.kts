@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "team.ppac.remote"
     compileSdk = libs.versions.compileSdk.get().toInt()
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

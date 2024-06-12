@@ -1,11 +1,24 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
     namespace = "team.ppac.feature.sample"
     compileSdk = libs.versions.compileSdk.get().toInt()
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    buildFeatures{
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
 }
 
 dependencies {
@@ -21,4 +34,6 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.timber)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
