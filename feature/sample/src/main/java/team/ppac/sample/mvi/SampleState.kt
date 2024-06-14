@@ -1,5 +1,9 @@
 package team.ppac.sample.mvi
 
 import team.ppac.base.UiState
+import team.ppac.domain.model.SampleImageModel
 
-class SampleState() : UiState
+data class SampleState(
+    val isLoading: Boolean = true,
+    val images: List<SampleImageModel> = emptyList(),
+) : UiState
