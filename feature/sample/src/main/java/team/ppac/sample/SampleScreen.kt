@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import team.ppac.sample.mvi.SampleIntent
@@ -28,6 +29,13 @@ fun SampleScreen(viewModel: SampleViewModel) {
             },
         ) {
             Text("이미지 로드")
+        }
+
+        if (state.isLoading) {
+            Text(
+                fontSize = 30.sp,
+                text = "로딩중",
+            )
         }
 
         LazyColumn {

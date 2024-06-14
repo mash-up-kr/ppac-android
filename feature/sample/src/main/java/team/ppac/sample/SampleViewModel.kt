@@ -20,12 +20,20 @@ class SampleViewModel @Inject constructor(
         }
     }
 
+    private fun updateLoading(isLoading: Boolean) {
+        reduce {
+            copy(isLoading = isLoading)
+        }
+    }
+
     private fun getImages() {
         viewModelScope.launch {
+            updateLoading(true)
             val images = sampleUseCase.getImages()
             reduce {
                 copy(images = images)
             }
+            updateLoading(false)
         }
     }
 }
