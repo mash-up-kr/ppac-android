@@ -38,20 +38,20 @@ object FarmemeTheme {
 
 @Composable
 fun FarmemeTheme(
-    text: FarmemeTextColor = FarmemeTheme.text,
-    icon: FarmemeIconColor = FarmemeTheme.icon,
-    border: FarmemeBorderColor = FarmemeTheme.border,
-    background: FarmemeBackgroundColor = FarmemeTheme.background,
-    skeleton: FarmemeSkeletonColor = FarmemeTheme.skeleton,
+    textColor: FarmemeTextColor = FarmemeTheme.text,
+    iconColor: FarmemeIconColor = FarmemeTheme.icon,
+    borderColor: FarmemeBorderColor = FarmemeTheme.border,
+    backgroundColor: FarmemeBackgroundColor = FarmemeTheme.background,
+    skeletonColor: FarmemeSkeletonColor = FarmemeTheme.skeleton,
     typography: FarmemeTypography = FarmemeTheme.typography,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalFarmemeTextColor provides text,
-        LocalFarmemeIconColor provides icon,
-        LocalFarmemeBorderColor provides border,
-        LocalFarmemeBackgroundColor provides background,
-        LocalFarmemeSkeletonColor provides skeleton,
+        LocalFarmemeTextColor provides textColor,
+        LocalFarmemeIconColor provides iconColor,
+        LocalFarmemeBorderColor provides borderColor,
+        LocalFarmemeBackgroundColor provides backgroundColor,
+        LocalFarmemeSkeletonColor provides skeletonColor,
         LocalFarmemeTypography provides typography,
         content = content
     )
