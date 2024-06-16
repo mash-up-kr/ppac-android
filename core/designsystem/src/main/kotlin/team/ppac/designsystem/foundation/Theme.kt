@@ -5,6 +5,11 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 
 object FarmemeTheme {
+    val border: FarmemeBorder
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalFarmemeBorder.current
+
     val typography: FarmemeTypography
         @Composable
         @ReadOnlyComposable
