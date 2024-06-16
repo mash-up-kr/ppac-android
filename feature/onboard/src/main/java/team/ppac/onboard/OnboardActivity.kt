@@ -15,4 +15,4 @@ class OnboardActivity : ComponentActivity() {
             LoginScreen(viewModel = hiltViewModel())
         }
     }
-}`
+}
