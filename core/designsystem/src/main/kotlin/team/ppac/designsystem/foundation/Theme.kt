@@ -5,27 +5,27 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 
 object FarmemeTheme {
-    val text: FarmemeTextColor
+    val textColor: FarmemeTextColor
         @Composable
         @ReadOnlyComposable
         get() = LocalFarmemeTextColor.current
 
-    val icon: FarmemeIconColor
+    val iconColor: FarmemeIconColor
         @Composable
         @ReadOnlyComposable
         get() = LocalFarmemeIconColor.current
 
-    val border: FarmemeBorderColor
+    val borderColor: FarmemeBorderColor
         @Composable
         @ReadOnlyComposable
         get() = LocalFarmemeBorderColor.current
 
-    val background: FarmemeBackgroundColor
+    val backgroundColor: FarmemeBackgroundColor
         @Composable
         @ReadOnlyComposable
         get() = LocalFarmemeBackgroundColor.current
 
-    val skeleton: FarmemeSkeletonColor
+    val skeletonColor: FarmemeSkeletonColor
         @Composable
         @ReadOnlyComposable
         get() = LocalFarmemeSkeletonColor.current
@@ -38,11 +38,11 @@ object FarmemeTheme {
 
 @Composable
 fun FarmemeTheme(
-    textColor: FarmemeTextColor = FarmemeTheme.text,
-    iconColor: FarmemeIconColor = FarmemeTheme.icon,
-    borderColor: FarmemeBorderColor = FarmemeTheme.border,
-    backgroundColor: FarmemeBackgroundColor = FarmemeTheme.background,
-    skeletonColor: FarmemeSkeletonColor = FarmemeTheme.skeleton,
+    textColor: FarmemeTextColor = FarmemeTheme.textColor,
+    iconColor: FarmemeIconColor = FarmemeTheme.iconColor,
+    borderColor: FarmemeBorderColor = FarmemeTheme.borderColor,
+    backgroundColor: FarmemeBackgroundColor = FarmemeTheme.backgroundColor,
+    skeletonColor: FarmemeSkeletonColor = FarmemeTheme.skeletonColor,
     typography: FarmemeTypography = FarmemeTheme.typography,
     content: @Composable () -> Unit,
 ) {
