@@ -1,4 +1,4 @@
-package team.ppac.onboard
+package team.ppac.onboard.login
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
