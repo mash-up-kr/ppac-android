@@ -3,7 +3,7 @@ package team.ppac.sample
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import team.ppac.base.BaseViewModel
+import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.sample.mvi.SampleIntent
 import team.ppac.sample.mvi.SampleSideEffect
