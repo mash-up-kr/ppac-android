@@ -50,6 +50,7 @@ moshi = "1.14.0"
 junitVersion = "4.13.2"
 androidxJunit = "1.1.5"
 espressoCore = "3.5.1"
+activity-ktx = "1.9.0"
 
 
 [libraries]
@@ -116,6 +117,7 @@ junit = { group = "junit", name = "junit", version.ref = "junitVersion" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin-serilization-json" }
+activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
