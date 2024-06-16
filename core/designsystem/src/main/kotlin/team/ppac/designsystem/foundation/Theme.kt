@@ -5,30 +5,30 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 
 object FarmemeTheme {
-    val text: FarmemeText
+    val text: FarmemeTextColor
         @Composable
         @ReadOnlyComposable
-        get() = LocalFarmemeText.current
+        get() = LocalFarmemeTextColor.current
 
-    val icon: FarmemeIcon
+    val icon: FarmemeIconColor
         @Composable
         @ReadOnlyComposable
-        get() = LocalFarmemeIcon.current
+        get() = LocalFarmemeIconColor.current
 
-    val border: FarmemeBorder
+    val border: FarmemeBorderColor
         @Composable
         @ReadOnlyComposable
-        get() = LocalFarmemeBorder.current
+        get() = LocalFarmemeBorderColor.current
 
-    val background: FarmemeBackground
+    val background: FarmemeBackgroundColor
         @Composable
         @ReadOnlyComposable
-        get() = LocalFarmemeBackground.current
+        get() = LocalFarmemeBackgroundColor.current
 
-    val skeleton: FarmemeSkeleton
+    val skeleton: FarmemeSkeletonColor
         @Composable
         @ReadOnlyComposable
-        get() = LocalFarmemeSkeleton.current
+        get() = LocalFarmemeSkeletonColor.current
 
     val typography: FarmemeTypography
         @Composable
@@ -38,20 +38,20 @@ object FarmemeTheme {
 
 @Composable
 fun FarmemeTheme(
-    text: FarmemeText = FarmemeTheme.text,
-    icon: FarmemeIcon = FarmemeTheme.icon,
-    border: FarmemeBorder = FarmemeTheme.border,
-    background: FarmemeBackground = FarmemeTheme.background,
+    text: FarmemeTextColor = FarmemeTheme.text,
+    icon: FarmemeIconColor = FarmemeTheme.icon,
+    border: FarmemeBorderColor = FarmemeTheme.border,
+    background: FarmemeBackgroundColor = FarmemeTheme.background,
+    skeleton: FarmemeSkeletonColor = FarmemeTheme.skeleton,
     typography: FarmemeTypography = FarmemeTheme.typography,
-    skeleton: FarmemeSkeleton = FarmemeTheme.skeleton,
     content: @Composable () -> Unit,
 ) {
     CompositionLocalProvider(
-        LocalFarmemeText provides text,
-        LocalFarmemeIcon provides icon,
-        LocalFarmemeBorder provides border,
-        LocalFarmemeBackground provides background,
-        LocalFarmemeSkeleton provides skeleton,
+        LocalFarmemeTextColor provides text,
+        LocalFarmemeIconColor provides icon,
+        LocalFarmemeBorderColor provides border,
+        LocalFarmemeBackgroundColor provides background,
+        LocalFarmemeSkeletonColor provides skeleton,
         LocalFarmemeTypography provides typography,
         content = content
     )

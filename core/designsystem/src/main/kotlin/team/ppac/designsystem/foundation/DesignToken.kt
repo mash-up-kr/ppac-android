@@ -3,7 +3,7 @@ package team.ppac.designsystem.foundation
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
-data class FarmemeText(
+data class FarmemeTextColor(
     val primary: Color = Gray90,
     val secondary: Color = Gray70,
     val tertiary: Color = Gray60,
@@ -13,7 +13,7 @@ data class FarmemeText(
     val brand: Color = Orange100,
 )
 
-data class FarmemeIcon(
+data class FarmemeIconColor(
     val primary: Color = Gray90,
     val secondary: Color = Gray70,
     val tertiary: Color = Gray60,
@@ -23,40 +23,40 @@ data class FarmemeIcon(
     val brand: Color = Orange100,
 )
 
-data class FarmemeBorder(
+data class FarmemeBorderColor(
     val primary: Color = Gray90,
     val secondary: Color = Gray20,
     val assistive: Color = Gray10,
 )
 
-data class FarmemeBackground(
+data class FarmemeBackgroundColor(
     val primary: Color = Gray90,
     val assistive: Color = Gray10,
-    val dimmer: Color = Alpha40,
+    val dimmer: Color = BlackAlpha40,
     val brand: Color = Orange100,
 )
 
-data class FarmemeSkeleton(
+data class FarmemeSkeletonColor(
     val primary: Color = Gray20,
     val secondary: Color = Gray30,
 )
 
-val LocalFarmemeText = staticCompositionLocalOf {
-    FarmemeText()
+val LocalFarmemeTextColor = staticCompositionLocalOf {
+    FarmemeTextColor()
 }
 
-val LocalFarmemeIcon = staticCompositionLocalOf {
-    FarmemeIcon()
+val LocalFarmemeIconColor = staticCompositionLocalOf {
+    FarmemeIconColor()
 }
 
-val LocalFarmemeBorder = staticCompositionLocalOf {
-    FarmemeBorder()
+val LocalFarmemeBorderColor = staticCompositionLocalOf {
+    FarmemeBorderColor()
 }
 
-val LocalFarmemeBackground = staticCompositionLocalOf {
-    FarmemeBackground()
+val LocalFarmemeBackgroundColor = staticCompositionLocalOf {
+    FarmemeBackgroundColor()
 }
 
-val LocalFarmemeSkeleton = staticCompositionLocalOf {
-    FarmemeSkeleton()
+val LocalFarmemeSkeletonColor = staticCompositionLocalOf {
+    FarmemeSkeletonColor()
 }
