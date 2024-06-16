@@ -17,22 +17,22 @@ internal val Pretendards = FontFamily(
 internal val LocalFarmemeTypography = staticCompositionLocalOf { FarmemeTypography() }
 
 class FarmemeTypography {
-    val Heading = Heading()
-    val Body = Body()
+    val heading = Heading()
+    val body = Body()
 }
 
 class Heading {
-    val Large = pretendard(
+    val large = pretendard(
         size = 24,
         fontWeight = FontWeight.Bold,
         lineHeight = 30,
     )
-    val Medium = pretendard(
+    val medium = pretendard(
         size = 20,
         fontWeight = FontWeight.Bold,
         lineHeight = 24,
     )
-    val Small = pretendard(
+    val small = pretendard(
         size = 18,
         fontWeight = FontWeight.Bold,
         lineHeight = 20,
@@ -40,27 +40,27 @@ class Heading {
 }
 
 class Body {
-    val XLarge = pretendard(
+    val xLarge = pretendard(
         size = 16,
         fontWeight = FontWeight.Bold,
         lineHeight = 20,
     )
-    val Large = pretendard(
+    val large = pretendard(
         size = 15,
         fontWeight = FontWeight.Bold,
         lineHeight = 18,
     )
-    val Medium = pretendard(
+    val medium = pretendard(
         size = 14,
         fontWeight = FontWeight.Bold,
         lineHeight = 17,
     )
-    val Small = pretendard(
+    val small = pretendard(
         size = 13,
         fontWeight = FontWeight.Bold,
         lineHeight = 16,
     )
-    val XSmall = pretendard(
+    val xSmall = pretendard(
         size = 12,
         fontWeight = FontWeight.Bold,
         lineHeight = 15,
