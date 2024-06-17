@@ -1,5 +1,5 @@
 package team.ppac.onboard.login.mvi
 
-import team.ppac.base.UiSideEffect
+import team.ppac.common.android.base.UiSideEffect
 
 sealed class LoginSideEffect: UiSideEffect

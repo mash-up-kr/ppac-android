@@ -1,8 +1,7 @@
 package team.ppac.onboard.login
 
-import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import team.ppac.base.BaseViewModel
+import team.ppac.common.android.base.BaseViewModel
 import team.ppac.onboard.login.mvi.LoginIntent
 import team.ppac.onboard.login.mvi.LoginSideEffect
 import team.ppac.onboard.login.mvi.LoginState

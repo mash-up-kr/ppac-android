@@ -17,4 +17,5 @@ dependencies {
     implementation(project(":core:common:kotlin"))
 
     implementation(libs.timber)
+    implementation(libs.activity.ktx)
 }

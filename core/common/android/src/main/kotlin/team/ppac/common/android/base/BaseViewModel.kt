@@ -1,4 +1,4 @@
-package team.ppac.base
+package team.ppac.common.android.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

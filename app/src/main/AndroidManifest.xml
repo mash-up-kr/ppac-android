@@ -16,7 +16,7 @@
         android:theme="@style/Theme.PPAC"
         tools:targetApi="31">
         <activity
-            android:name=".onboard.OnboardActivity"
+            android:name=".onboard.login.OnboardActivity"
             android:exported="true"
             android:theme="@style/Theme.PPAC" />
 
