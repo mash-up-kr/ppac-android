@@ -1,8 +1,20 @@
-package team.ppac.designsystem.foundation
+package team.ppac.designsystem
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
+import team.ppac.designsystem.foundation.FarmemeBackgroundColor
+import team.ppac.designsystem.foundation.FarmemeBorderColor
+import team.ppac.designsystem.foundation.FarmemeIconColor
+import team.ppac.designsystem.foundation.FarmemeSkeletonColor
+import team.ppac.designsystem.foundation.FarmemeTextColor
+import team.ppac.designsystem.foundation.FarmemeTypography
+import team.ppac.designsystem.foundation.LocalFarmemeBackgroundColor
+import team.ppac.designsystem.foundation.LocalFarmemeBorderColor
+import team.ppac.designsystem.foundation.LocalFarmemeIconColor
+import team.ppac.designsystem.foundation.LocalFarmemeSkeletonColor
+import team.ppac.designsystem.foundation.LocalFarmemeTextColor
+import team.ppac.designsystem.foundation.LocalFarmemeTypography
 
 object FarmemeTheme {
     val textColor: FarmemeTextColor

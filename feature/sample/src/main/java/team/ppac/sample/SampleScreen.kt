@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import team.ppac.designsystem.foundation.FarmemeTheme
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.sample.mvi.SampleIntent
 
 @Composable
