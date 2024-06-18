@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import team.ppac.onboard.login.mvi.LoginIntent
-import team.ppac.onboard.login.mvi.NavigateToSample
+import team.ppac.onboard.login.mvi.LoginSideEffect
 
 @Composable
 fun LoginScreen(
@@ -18,7 +18,7 @@ fun LoginScreen(
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                NavigateToSample -> navigateToSample()
+                LoginSideEffect.NavigateToSample -> navigateToSample()
             }
         }
     }
