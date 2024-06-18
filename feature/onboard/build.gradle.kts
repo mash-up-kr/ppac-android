@@ -27,6 +27,7 @@ dependencies {
     implementation(project(":core:common:kotlin"))
     implementation(project(":core:domain"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:navigator"))
 
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
