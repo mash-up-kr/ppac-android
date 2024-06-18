@@ -16,6 +16,142 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_back_24),
         contentDescription = null,
-        tint = tint
+        tint = tint,
+    )
+
+    @Composable
+    fun BookmarkFilled(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_bookmark_filled_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun BookmarkLine(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_bookmark_line_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Copy(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_copy_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Delete(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_delete_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Level1(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_level_1_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun Level2(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_level_2_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun Level3(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_level_3_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun Level4(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_level_4_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun LevelCheck(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_level_check_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun Search(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_search_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Setting(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_setting_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun Share(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_share_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Success(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_success_24),
+        contentDescription = null,
+        tint = tint,
     )
 }
