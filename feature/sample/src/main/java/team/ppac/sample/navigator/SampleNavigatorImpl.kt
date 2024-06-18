@@ -7,9 +7,9 @@ import androidx.activity.result.ActivityResultLauncher
 import team.ppac.common.android.extension.getIntent
 import team.ppac.navigator.SampleNavigator
 import team.ppac.sample.SampleActivity
+import javax.inject.Inject
 
-class SampleNavigatorImpl : SampleNavigator {
-
+class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
     override fun navigateFrom(
         activity: Activity,
         intentBuilder: Intent.() -> Intent,
