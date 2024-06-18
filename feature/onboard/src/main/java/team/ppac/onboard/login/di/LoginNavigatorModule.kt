@@ -10,7 +10,7 @@ import team.ppac.onboard.login.navigator.LoginNavigatorImpl
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class LoginNavigatorModule {
+internal abstract class LoginNavigatorModule {
     @Binds
     @ActivityScoped
     abstract fun bindLoginNavigator(impl: LoginNavigatorImpl): LoginNavigator

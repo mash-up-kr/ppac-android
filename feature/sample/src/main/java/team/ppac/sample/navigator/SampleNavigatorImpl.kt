@@ -9,7 +9,7 @@ import team.ppac.navigator.SampleNavigator
 import team.ppac.sample.SampleActivity
 import javax.inject.Inject
 
-class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
+internal class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
     override fun navigateFrom(
         activity: Activity,
         intentBuilder: Intent.() -> Intent,

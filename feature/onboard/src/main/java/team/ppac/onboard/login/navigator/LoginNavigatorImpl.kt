@@ -9,7 +9,7 @@ import team.ppac.navigator.LoginNavigator
 import team.ppac.onboard.login.OnboardActivity
 import javax.inject.Inject
 
-class LoginNavigatorImpl @Inject constructor() : LoginNavigator {
+internal class LoginNavigatorImpl @Inject constructor() : LoginNavigator {
     override fun navigateFrom(
         activity: Activity,
         intentBuilder: Intent.() -> Intent,
