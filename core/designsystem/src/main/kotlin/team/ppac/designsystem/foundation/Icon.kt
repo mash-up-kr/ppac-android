@@ -9,7 +9,7 @@ import team.ppac.designsystem.R
 
 object FarmemeIcon {
     @Composable
-    fun Back24(
+    fun Back(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
     ) = Icon(
