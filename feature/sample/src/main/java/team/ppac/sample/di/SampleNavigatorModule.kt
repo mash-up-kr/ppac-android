@@ -10,7 +10,7 @@ import team.ppac.sample.navigator.SampleNavigatorImpl
 
 @Module
 @InstallIn(ActivityComponent::class)
-abstract class SampleNavigatorModule {
+internal abstract class SampleNavigatorModule {
 
     @Binds
     @ActivityScoped

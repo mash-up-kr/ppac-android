@@ -1,21 +1,21 @@
-package team.ppac.sample.navigator
+package team.ppac.onboard.login.navigator
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import team.ppac.common.android.extension.getIntent
-import team.ppac.navigator.SampleNavigator
-import team.ppac.sample.SampleActivity
+import team.ppac.navigator.LoginNavigator
+import team.ppac.onboard.login.OnboardActivity
 import javax.inject.Inject
 
-internal class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
+internal class LoginNavigatorImpl @Inject constructor() : LoginNavigator {
     override fun navigateFrom(
         activity: Activity,
         intentBuilder: Intent.() -> Intent,
         withFinish: Boolean,
     ) {
-        activity.startActivity(activity.getIntent<SampleActivity>(intentBuilder))
+        activity.startActivity(activity.getIntent<OnboardActivity>(intentBuilder))
         if (withFinish) activity.finish()
     }
 
@@ -24,7 +24,7 @@ internal class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
         activity: Activity,
         intentBuilder: Intent.() -> Intent,
     ) {
-        launcher.launch(activity.getIntent<SampleActivity>(intentBuilder))
+        launcher.launch(activity.getIntent<OnboardActivity>(intentBuilder))
     }
 
     override fun navigateResultLauncher(
@@ -32,6 +32,6 @@ internal class SampleNavigatorImpl @Inject constructor() : SampleNavigator {
         context: Context,
         intentBuilder: Intent.() -> Intent,
     ) {
-        launcher.launch(context.getIntent<SampleActivity>(intentBuilder))
+        launcher.launch(context.getIntent<OnboardActivity>(intentBuilder))
     }
 }

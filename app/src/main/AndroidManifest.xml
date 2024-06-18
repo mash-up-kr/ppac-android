@@ -18,11 +18,6 @@
         <activity
             android:name=".onboard.login.OnboardActivity"
             android:exported="true"
-            android:theme="@style/Theme.PPAC" />
-
-        <activity
-            android:name=".sample.SampleActivity"
-            android:exported="true"
             android:theme="@style/Theme.PPAC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".sample.SampleActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PPAC" />
     </application>
 
 </manifest>
