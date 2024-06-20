@@ -66,7 +66,7 @@ fun FarmemeWeakButton(
         Spacer(Modifier.width(4.dp))
         Text(
             text = text,
-            style = FarmemeTheme.typography.body.xLarge,
+            style = FarmemeTheme.typography.body.xLarge.semibold,
             color = textColor,
         )
     }
@@ -95,7 +95,7 @@ fun FarmemeFilledButton(
     ) {
         Text(
             text = text,
-            style = FarmemeTheme.typography.body.large,
+            style = FarmemeTheme.typography.body.large.semibold,
             color = textColor,
         )
     }

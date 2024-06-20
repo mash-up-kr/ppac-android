@@ -34,7 +34,7 @@ fun SampleScreen(viewModel: SampleViewModel) {
 
         if (state.isLoading) {
             Text(
-                style = FarmemeTheme.typography.body.large,
+                style = FarmemeTheme.typography.body.large.bold,
                 fontSize = 30.sp,
                 text = "로딩중",
             )
