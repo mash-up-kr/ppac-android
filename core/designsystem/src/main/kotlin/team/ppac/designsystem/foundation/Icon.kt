@@ -124,12 +124,63 @@ object FarmemeIcon {
     )
 
     @Composable
+    fun MyActive(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_my_active_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun MyInactive(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_my_inactive_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun RecommendActive(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_recommend_active_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
+    fun RecommendInactive(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_recommend_inactive_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
     fun Search(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
     ) = Icon(
         modifier = modifier,
         painter = painterResource(R.drawable.ic_search_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun SearchActive(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_search_active_24),
         contentDescription = null,
         tint = tint,
     )
