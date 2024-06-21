@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -53,8 +54,7 @@ fun FarmemeWeakButton(
 ) {
     Row(
         modifier = modifier
-            .wrapContentWidth()
-            .height(50.dp)
+            .wrapContentSize()
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
             .clickable { onClick() }
@@ -82,8 +82,7 @@ fun FarmemeFilledButton(
 ) {
     Box(
         modifier = modifier
-            .wrapContentWidth()
-            .height(42.dp)
+            .wrapContentSize()
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = backgroundColor)
             .clickable { onClick() }
