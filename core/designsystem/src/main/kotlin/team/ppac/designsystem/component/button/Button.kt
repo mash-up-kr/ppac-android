@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
@@ -93,4 +95,34 @@ fun FarmemeFilledButton(
             color = textColor,
         )
     }
+}
+
+@Composable
+@Preview
+fun FarmemeCircleButtonPreview() {
+    FarmemeCircleButton(
+        backgroundColor = FarmemeTheme.backgroundColor.assistive,
+        icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
+    )
+}
+
+@Composable
+@Preview
+fun FarmemeWeakButtonPreview() {
+    FarmemeWeakButton(
+        backgroundColor = FarmemeTheme.backgroundColor.assistive,
+        icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
+        text = "버튼",
+        textColor = FarmemeTheme.textColor.primary,
+    )
+}
+
+@Composable
+@Preview
+fun FarmemeFilledButtonPreview() {
+    FarmemeFilledButton(
+        backgroundColor = FarmemeTheme.backgroundColor.primary,
+        text = "버튼",
+        textColor = FarmemeTheme.textColor.inverse,
+    )
 }
