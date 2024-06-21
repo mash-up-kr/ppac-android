@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +17,7 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 fun FarmemeChip(
     modifier: Modifier = Modifier,
     text: String,
-    isActive: Boolean,
+    isActive: Boolean = false,
     onClick: () -> Unit = { },
 ) {
     val (backgroundColor, textStyle, textColor) = if (isActive) {
@@ -37,7 +36,6 @@ fun FarmemeChip(
 
     Box(
         modifier = modifier
-            .wrapContentSize()
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
             .clickable(onClick = onClick)
