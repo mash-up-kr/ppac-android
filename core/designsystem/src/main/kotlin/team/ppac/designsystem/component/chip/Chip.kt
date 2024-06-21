@@ -18,12 +18,12 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 fun FarmemeChip(
     modifier: Modifier = Modifier,
     text: String,
-    isActive: Boolean = false,
+    enabled: Boolean = false,
     onClick: () -> Unit = { },
 ) {
-    val (backgroundColor, textStyle, textColor) = if (isActive) {
+    val (backgroundColor, textStyle, textColor) = if (enabled) {
         Triple(
-            FarmemeTheme.backgroundColor.brandassistive,
+            FarmemeTheme.backgroundColor.brandAssistive,
             FarmemeTheme.typography.body.medium.bold,
             FarmemeTheme.textColor.brand
         )
@@ -59,7 +59,7 @@ fun FarmemeChip(
 fun FarmemeChipEnabledPreview() {
     FarmemeChip(
         text = "Text",
-        isActive = true,
+        enabled = true,
     )
 }
 
@@ -68,6 +68,6 @@ fun FarmemeChipEnabledPreview() {
 fun FarmemeChipDisabledPreview() {
     FarmemeChip(
         text = "Text",
-        isActive = false,
+        enabled = false,
     )
 }
