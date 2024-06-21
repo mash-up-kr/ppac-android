@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,7 +34,7 @@ fun FarmemeCircleButton(
             .size(size)
             .clip(FarmemeRadius.Radius40.shape)
             .background(color = backgroundColor)
-            .clickable { onClick() },
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
         icon()
@@ -47,9 +45,9 @@ fun FarmemeCircleButton(
 fun FarmemeWeakButton(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
-    icon: @Composable () -> Unit,
     text: String,
     textColor: Color,
+    icon: @Composable () -> Unit,
     onClick: () -> Unit = { },
 ) {
     Row(
@@ -57,7 +55,7 @@ fun FarmemeWeakButton(
             .wrapContentSize()
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
-            .clickable { onClick() }
+            .clickable(onClick = onClick)
             .padding(15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -85,7 +83,7 @@ fun FarmemeFilledButton(
             .wrapContentSize()
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = backgroundColor)
-            .clickable { onClick() }
+            .clickable(onClick = onClick)
             .padding(
                 horizontal = 16.dp,
                 vertical = 12.dp,

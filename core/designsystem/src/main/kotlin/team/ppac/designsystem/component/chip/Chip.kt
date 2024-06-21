@@ -40,7 +40,7 @@ fun FarmemeChip(
             .wrapContentSize()
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
-            .clickable { onClick() }
+            .clickable(onClick = onClick)
             .padding(
                 horizontal = 10.dp,
                 vertical = 5.dp,
