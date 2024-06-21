@@ -19,6 +19,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.button.FarmemeCircleButton
 import team.ppac.designsystem.component.button.FarmemeFilledButton
 import team.ppac.designsystem.component.button.FarmemeWeakButton
+import team.ppac.designsystem.component.chip.FarmemeChip
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.sample.mvi.SampleIntent
 
@@ -61,6 +62,16 @@ fun SampleScreen(viewModel: SampleViewModel) {
             backgroundColor = FarmemeTheme.backgroundColor.primary,
             text = "버튼",
             textColor = FarmemeTheme.textColor.inverse,
+        )
+
+        FarmemeChip(
+            text = "Text",
+            isActive = true,
+        )
+
+        FarmemeChip(
+            text = "Text",
+            isActive = false,
         )
 
         LazyColumn {
