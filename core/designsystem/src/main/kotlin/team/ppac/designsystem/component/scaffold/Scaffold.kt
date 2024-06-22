@@ -1,5 +1,7 @@
 package team.ppac.designsystem.component.scaffold
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +10,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,25 +21,44 @@ import team.ppac.designsystem.foundation.FarmemeTheme
 fun FarmemeScaffold(
     modifier: Modifier = Modifier,
     isIncludeHorizontalPadding: Boolean = true,
-    backgroundColor: Color = FarmemeTheme.backgroundColor.brand,
+    isGradientBackgroundColor: Boolean = true,
+    backgroundColor: Color? = null,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        backgroundColor = backgroundColor,
-        topBar = topBar,
-        bottomBar = bottomBar
-    ) { paddingValues ->
-        val innerPadding = PaddingValues(
-            top = paddingValues.calculateTopPadding(),
-            start = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
-            end = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
-            bottom = paddingValues.calculateBottomPadding()
+    val backgroundModifier = if (isGradientBackgroundColor) {
+        modifier.background(
+            brush = FarmemeTheme.backgroundColor.brandLinearGradient
         )
+    } else {
+        backgroundColor?.let { color ->
+            modifier.background(
+                brush = Brush.horizontalGradient(listOf(color, color))
+            )
+        }
+    } ?: modifier
 
-        content(innerPadding)
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .then(backgroundModifier),
+    ) {
+        Scaffold(
+            modifier = modifier.fillMaxSize(),
+            backgroundColor = Color.Transparent,
+            topBar = topBar,
+            bottomBar = bottomBar
+        ) { paddingValues ->
+            val innerPadding = PaddingValues(
+                top = paddingValues.calculateTopPadding(),
+                start = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
+                end = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
+                bottom = paddingValues.calculateBottomPadding()
+            )
+
+            content(innerPadding)
+        }
     }
 }
 
@@ -49,7 +71,9 @@ private fun FarmemeScaffoldPreview() {
         },
         bottomBar = {
             Text(text = "파밈파밈파밈파밈")
-        }
+        },
+//        backgroundColor = FarmemeTheme.backgroundColor.brand
+        isGradientBackgroundColor = true
     ) {
         Column(
             modifier = Modifier.padding(it)
