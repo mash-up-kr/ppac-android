@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -16,6 +17,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:error-handling"))
 
     implementation(libs.retrofit)
     implementation(platform(libs.okhttp.bom))
@@ -24,4 +26,5 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
+    implementation(libs.kotlin.serialization)
 }
