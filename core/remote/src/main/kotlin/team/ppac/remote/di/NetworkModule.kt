@@ -6,11 +6,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -20,10 +23,35 @@ internal class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+    fun provideJson(): Json {
+        return Json {
+            encodeDefaults = true
+            prettyPrint = true
+            ignoreUnknownKeys = true
+            coerceInputValues = true
         }
+    }
+    @Provides
+    @Singleton
+    fun provideHttpLoggingInterceptor(
+        json: Json,
+    ): HttpLoggingInterceptor {
+        val loggingInterceptor = HttpLoggingInterceptor { message ->
+            when {
+                !message.isJsonObject() && !message.isJsonArray() ->
+                    Timber.tag(HTTP_LOG_TAG).w(message)
+
+                else -> runCatching {
+                    json.encodeToString(Json.parseToJsonElement(message))
+                }.onSuccess {
+                    Timber.tag(HTTP_LOG_TAG).w(it)
+                }.onFailure {
+                    Timber.tag(HTTP_LOG_TAG).w(message)
+                }
+            }
+        }
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+        return loggingInterceptor
     }
 
     @Provides
@@ -37,7 +65,7 @@ internal class NetworkModule {
     @Provides
     @Singleton
     fun provideConverterFactory(
-        moshi: Moshi
+        moshi: Moshi,
     ): Converter.Factory {
         return MoshiConverterFactory.create(moshi)
     }
@@ -45,10 +73,10 @@ internal class NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
+            .addNetworkInterceptor(httpLoggingInterceptor)
             .readTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
             .connectTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
             .build()
@@ -59,7 +87,7 @@ internal class NetworkModule {
     @Singleton
     fun provideRetrofit(
         converterFactory: Converter.Factory,
-        okHttpClient: OkHttpClient
+        okHttpClient: OkHttpClient,
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -69,7 +97,11 @@ internal class NetworkModule {
     }
 
     companion object {
-        const val BASE_URL = "https://picsum.photos/" // sample url
-        const val TIMEOUT_MILLIS = 5_000L
+        private const val BASE_URL = "https://picsum.photos/" // sample url
+        private const val TIMEOUT_MILLIS = 5_000L
+        private const val HTTP_LOG_TAG = "HTTP Client"
+
+        private fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
+        private fun String?.isJsonArray(): Boolean = this?.startsWith("[") == true && this.endsWith("]")
     }
 }
