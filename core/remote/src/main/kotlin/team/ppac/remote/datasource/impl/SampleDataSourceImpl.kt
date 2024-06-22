@@ -10,6 +10,10 @@ internal class SampleDataSourceImpl @Inject constructor(
     private val sampleApi: SampleApi,
 ) : SampleDataSource {
     override suspend fun getImages(): List<SampleResponse> {
-        return sampleApi.getImages().catchException()
+        return sampleApi.getImages()
+    }
+
+    suspend fun getSample(): List<SampleResponse> {
+        return sampleApi.getSample().catchException()
     }
 }
