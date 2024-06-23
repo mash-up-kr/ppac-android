@@ -1,11 +1,11 @@
 package team.ppac.errorhandling
 
-import java.lang.Exception
+import java.io.IOException
 
-class FarmemeException(
+open class FarmemeException(
     val code: Int,
     override val message: String?,
-) : Exception(message)
+) : IOException(message)
 
 fun throwFarmemeException(
     code: Int,

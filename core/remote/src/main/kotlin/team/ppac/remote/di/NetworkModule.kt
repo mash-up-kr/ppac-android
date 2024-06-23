@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import team.ppac.remote.interceptor.ErrorInterceptor
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -74,9 +75,11 @@ internal class NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
+        errorInterceptor: ErrorInterceptor,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addNetworkInterceptor(httpLoggingInterceptor)
+            .addInterceptor(errorInterceptor)
             .readTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
             .connectTimeout(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
             .build()
