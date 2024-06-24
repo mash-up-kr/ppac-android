@@ -41,6 +41,17 @@ object FarmemeIcon {
     )
 
     @Composable
+    fun Category(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_category_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
     fun Check(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
@@ -202,6 +213,17 @@ object FarmemeIcon {
     ) = Icon(
         modifier = modifier,
         painter = painterResource(R.drawable.ic_share_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Special(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_special_24),
         contentDescription = null,
         tint = tint,
     )
