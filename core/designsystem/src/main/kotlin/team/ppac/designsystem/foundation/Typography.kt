@@ -22,58 +22,83 @@ class FarmemeTypography {
 }
 
 class Heading {
-    val large = pretendard(
-        size = 24,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 30,
+    val large = TextStyleSet(
+        bold = pretendardBold(size = 24, lineHeight = 30),
+        semibold = pretendardSemiBold(size = 24, lineHeight = 30),
+        medium = pretendardMedium(size = 24, lineHeight = 30),
     )
-    val medium = pretendard(
-        size = 20,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 24,
+    val medium = TextStyleSet(
+        bold = pretendardBold(size = 20, lineHeight = 24),
+        semibold = pretendardSemiBold(size = 20, lineHeight = 24),
+        medium = pretendardMedium(size = 20, lineHeight = 24),
     )
-    val small = pretendard(
-        size = 18,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 20,
+    val small = TextStyleSet(
+        bold = pretendardBold(size = 18, lineHeight = 20),
+        semibold = pretendardSemiBold(size = 18, lineHeight = 20),
+        medium = pretendardMedium(size = 18, lineHeight = 20),
     )
 }
 
 class Body {
-    val xLarge = pretendard(
-        size = 16,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 20,
+    val xLarge = TextStyleSet(
+        bold = pretendardBold(size = 16, lineHeight = 20),
+        semibold = pretendardSemiBold(size = 16, lineHeight = 20),
+        medium = pretendardMedium(size = 16, lineHeight = 20),
     )
-    val large = pretendard(
-        size = 15,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 18,
+    val large = TextStyleSet(
+        bold = pretendardBold(size = 15, lineHeight = 18),
+        semibold = pretendardSemiBold(size = 15, lineHeight = 18),
+        medium = pretendardMedium(size = 15, lineHeight = 18),
     )
-    val medium = pretendard(
-        size = 14,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 17,
+    val medium = TextStyleSet(
+        bold = pretendardBold(size = 14, lineHeight = 17),
+        semibold = pretendardSemiBold(size = 14, lineHeight = 17),
+        medium = pretendardMedium(size = 14, lineHeight = 17),
     )
-    val small = pretendard(
-        size = 13,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 16,
+    val small = TextStyleSet(
+        bold = pretendardBold(size = 13, lineHeight = 16),
+        semibold = pretendardSemiBold(size = 13, lineHeight = 16),
+        medium = pretendardMedium(size = 13, lineHeight = 16),
     )
-    val xSmall = pretendard(
-        size = 12,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 15,
+    val xSmall = TextStyleSet(
+        bold = pretendardBold(size = 12, lineHeight = 15),
+        semibold = pretendardSemiBold(size = 12, lineHeight = 15),
+        medium = pretendardMedium(size = 12, lineHeight = 15),
     )
 }
 
-private fun pretendard(
+class TextStyleSet(
+    val bold: TextStyle,
+    val semibold: TextStyle,
+    val medium: TextStyle,
+)
+
+private fun pretendardBold(
     size: Int,
-    fontWeight: FontWeight,
     lineHeight: Int,
 ) = TextStyle(
     fontFamily = Pretendards,
-    fontWeight = fontWeight,
+    fontWeight = FontWeight.Bold,
+    fontSize = size.sp,
+    lineHeight = lineHeight.sp,
+)
+
+private fun pretendardSemiBold(
+    size: Int,
+    lineHeight: Int,
+) = TextStyle(
+    fontFamily = Pretendards,
+    fontWeight = FontWeight.SemiBold,
+    fontSize = size.sp,
+    lineHeight = lineHeight.sp,
+)
+
+private fun pretendardMedium(
+    size: Int,
+    lineHeight: Int,
+) = TextStyle(
+    fontFamily = Pretendards,
+    fontWeight = FontWeight.Medium,
     fontSize = size.sp,
     lineHeight = lineHeight.sp,
 )

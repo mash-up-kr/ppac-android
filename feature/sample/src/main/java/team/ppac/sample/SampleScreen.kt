@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import team.ppac.designsystem.foundation.FarmemeTheme
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.sample.mvi.SampleIntent
 
 @Composable
@@ -34,7 +34,7 @@ fun SampleScreen(viewModel: SampleViewModel) {
 
         if (state.isLoading) {
             Text(
-                style = FarmemeTheme.typography.body.large,
+                style = FarmemeTheme.typography.body.large.bold,
                 fontSize = 30.sp,
                 text = "로딩중",
             )
