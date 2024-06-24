@@ -23,7 +23,7 @@ class ErrorInterceptor @Inject constructor(
                 val errorBody = json.decodeFromString<FarmemeResponse<*>>(it.string())
                 throw FarmemeException(
                     code = errorBody.code,
-                    message = errorBody.message
+                    message = errorBody.message,
                 )
             }
             return response
