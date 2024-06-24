@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "team.ppac.navigator"
+    namespace = "team.ppac.errorhandling"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -16,8 +16,5 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:common:kotlin"))
-
-    implementation(libs.timber)
-    implementation(libs.activity.ktx)
+    implementation(libs.kotlin.serialization)
 }

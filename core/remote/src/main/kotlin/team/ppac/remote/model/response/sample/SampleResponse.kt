@@ -1,4 +1,4 @@
-package team.ppac.remote.model.sample
+package team.ppac.remote.model.response.sample
 
 data class SampleResponse(
     val author: String,

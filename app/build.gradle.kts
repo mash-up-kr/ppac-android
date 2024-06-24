@@ -57,6 +57,7 @@ dependencies {
     implementation(project(":core:common:kotlin"))
     implementation(project(":core:data"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:error-handling"))
     implementation(project(":core:domain"))
     implementation(project(":core:navigator"))
     implementation(project(":core:remote"))

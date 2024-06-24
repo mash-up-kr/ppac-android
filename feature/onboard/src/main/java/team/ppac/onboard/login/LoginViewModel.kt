@@ -5,7 +5,6 @@ import team.ppac.common.android.base.BaseViewModel
 import team.ppac.onboard.login.mvi.LoginIntent
 import team.ppac.onboard.login.mvi.LoginSideEffect
 import team.ppac.onboard.login.mvi.LoginState
-import team.ppac.onboard.login.mvi.NavigateToSample
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,7 +13,7 @@ class LoginViewModel @Inject constructor() :
     override suspend fun handleIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.ClickLoginButton -> {
-                postSideEffect(NavigateToSample)
+                postSideEffect(LoginSideEffect.NavigateToSample)
             }
         }
     }

@@ -46,7 +46,7 @@ lottie = "6.0.1"
 kakao = "2.14.0"
 splash-screen = "1.0.1"
 javax-inject = "1"
-moshi = "1.14.0"
+moshi = "1.15.0"
 junitVersion = "4.13.2"
 androidxJunit = "1.1.5"
 espressoCore = "3.5.1"
@@ -133,5 +133,5 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 [bundles]
 lifecycle = ["lifecycle", "lifecycle-viewmodel"]
 compose = ["ui", "ui-graphics", "ui-tooling", "ui-tooling-preview", "material-compose", "coil-compose", "compose-lottie", "ui-foundation", "activity-compose", "navigation-compose", "lifecycle-compose", "hilt-navigation-compose"]
-moshi = ["moshi", "moshi-adapter", "moshi-codegen", "retrofit-converter-moshi"]
+moshi = ["moshi", "moshi-adapter", "retrofit-converter-moshi"]
 okhttp = ["okhttp", "okhttp-logging-interceptor"]
