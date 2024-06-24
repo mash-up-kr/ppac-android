@@ -32,6 +32,7 @@ internal class NetworkModule {
             coerceInputValues = true
         }
     }
+
     @Provides
     @Singleton
     fun provideHttpLoggingInterceptor(
@@ -103,8 +104,8 @@ internal class NetworkModule {
         private const val BASE_URL = "https://picsum.photos/" // sample url
         private const val TIMEOUT_MILLIS = 5_000L
         private const val HTTP_LOG_TAG = "HTTP Client"
-
-        private fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
-        private fun String?.isJsonArray(): Boolean = this?.startsWith("[") == true && this.endsWith("]")
     }
 }
+
+private fun String?.isJsonObject(): Boolean = this?.startsWith("{") == true && this.endsWith("}")
+private fun String?.isJsonArray(): Boolean = this?.startsWith("[") == true && this.endsWith("]")
