@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "team.ppac.designsystem"
     compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig{
+    defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
     }
 
@@ -14,7 +14,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures{
+    buildFeatures {
         compose = true
     }
     composeOptions {
