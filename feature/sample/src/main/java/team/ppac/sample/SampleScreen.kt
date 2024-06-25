@@ -1,11 +1,16 @@
 package team.ppac.sample
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,12 +19,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.domain.model.SampleImageModel
 import team.ppac.sample.mvi.SampleIntent
 
 @Composable
@@ -48,6 +55,8 @@ fun SampleScreen(viewModel: SampleViewModel) {
             )
         }
 
+
+        HeroHorizontalPager(images = state.images)
         LazyColumn {
             items(items = state.images) {
                 var bitmap = remember<Bitmap?> { null }
@@ -66,5 +75,26 @@ fun SampleScreen(viewModel: SampleViewModel) {
                 )
             }
         }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun HeroHorizontalPager(
+    images: List<SampleImageModel>,
+) {
+    val pagerState = rememberPagerState {
+        images.size
+    }
+    HorizontalPager(
+        modifier = Modifier.fillMaxWidth(),
+        state = pagerState,
+        contentPadding = PaddingValues(horizontal = 60.dp),
+        pageSpacing = 12.dp,
+    ) { page ->
+        AsyncImage(
+            model = images[page].imageUrl,
+            contentDescription = "",
+        )
     }
 }
