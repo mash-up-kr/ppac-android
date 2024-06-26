@@ -1,7 +1,6 @@
 package team.ppac.designsystem.component.scaffold
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,8 +13,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.ContentMargin
-import team.ppac.designsystem.foundation.FarmemeTheme
 
 @Composable
 fun FarmemeScaffold(
@@ -28,9 +27,7 @@ fun FarmemeScaffold(
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val backgroundModifier = if (isGradientBackgroundColor) {
-        modifier.background(
-            brush = FarmemeTheme.backgroundColor.brandLinearGradient
-        )
+        modifier.background(FarmemeTheme.backgroundColor.brandLemonGradient)
     } else {
         backgroundColor?.let { color ->
             modifier.background(
@@ -39,10 +36,8 @@ fun FarmemeScaffold(
         }
     } ?: modifier
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .then(backgroundModifier),
+    Column(
+        modifier = modifier.then(backgroundModifier),
     ) {
         Scaffold(
             modifier = modifier.fillMaxSize(),
