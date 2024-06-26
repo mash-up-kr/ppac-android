@@ -1,5 +1,7 @@
 package team.ppac.navigation
 
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
 import team.ppac.R
 import team.ppac.designsystem.R as DesignSystemR
 
@@ -28,3 +30,8 @@ enum class FarmemeTopDestination(
         textLabelId = DesignSystemR.string.recommendation_title,
     );
 }
+
+fun NavDestination?.isTopLevelDestinationInHierarchy(destination: FarmemeTopDestination) =
+    this?.hierarchy?.any {
+        it.route?.contains(destination.name, true) ?: false
+    } ?: false
