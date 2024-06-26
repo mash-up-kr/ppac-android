@@ -63,6 +63,10 @@ dependencies {
     implementation(project(":core:remote"))
     implementation(project(":feature:sample"))
     implementation(project(":feature:onboard"))
+    implementation(project(":feature:detail"))
+    implementation(project(":feature:mypage"))
+    implementation(project(":feature:recommendation"))
+    implementation(project(":feature:search"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle)
