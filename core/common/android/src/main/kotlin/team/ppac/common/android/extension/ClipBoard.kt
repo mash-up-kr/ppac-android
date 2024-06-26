@@ -11,8 +11,8 @@ import java.io.File
 import java.io.FileOutputStream
 
 /* bitmap을 ClipBoard에 copy하는 함수, Menifest에 FileProvider 정의 필요*/
-fun Context.copyImageToClipBoard(bitmap: Bitmap) {
-    runCatching {
+fun Context.copyImageToClipBoard(bitmap: Bitmap): Boolean {
+    return runCatching {
         // 비트맵 File로 저장
         val imagesFolder = File(cacheDir, "images").apply {
             mkdir()
@@ -39,5 +39,5 @@ fun Context.copyImageToClipBoard(bitmap: Bitmap) {
     }.onFailure {
         Toast.makeText(this, "기기의 저장공간을 확인해주세요!", Toast.LENGTH_LONG).show()
         Timber.e(it)
-    }
+    }.isSuccess
 }
