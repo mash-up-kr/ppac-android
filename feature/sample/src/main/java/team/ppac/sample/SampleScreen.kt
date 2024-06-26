@@ -101,18 +101,19 @@ fun HeroHorizontalPager(
             modifier = Modifier
                 .size(300.dp, 300.dp)
                 .graphicsLayer {
-                val pageOffset = ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction)
-                alpha = lerp(
-                    start = 1f,
-                    stop = 0.6f,
-                    fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
-                )
-                scaleY = lerp(
-                    start = 1f,
-                    stop = 0.8f,
-                    fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
-                )
-            },
+                    val pageOffset =
+                        ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction)
+                    alpha = lerp(
+                        start = 1f,
+                        stop = 0.6f,
+                        fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                    )
+                    scaleY = lerp(
+                        start = 1f,
+                        stop = 0.8f,
+                        fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                    )
+                },
             model = images[page].imageUrl,
             contentDescription = "",
         )
