@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import team.ppac.common.android.extension.copyImageToClipBoard
+import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.sample.mvi.SampleIntent
 
