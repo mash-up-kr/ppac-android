@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
-import team.ppac.designsystem.foundation.FarmemeTheme
 
 @Composable
 internal fun RecommendationScreen(

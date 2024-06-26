@@ -5,12 +5,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
-import team.ppac.designsystem.foundation.FarmemeTheme
 
 @Composable
 internal fun SearchScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
