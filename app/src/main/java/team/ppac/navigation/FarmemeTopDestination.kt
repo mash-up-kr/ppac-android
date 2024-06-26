@@ -10,20 +10,20 @@ enum class FarmemeTopDestination(
     val textLabelId: Int,
 ) {
     RECOMMENDATION(
-        selectedIcon = R.drawable.ic_launcher_foreground,
-        unselectedIcon = R.drawable.ic_launcher_foreground,
+        selectedIcon = DesignSystemR.drawable.ic_recommend_active_24,
+        unselectedIcon = DesignSystemR.drawable.ic_recommend_inactive_24,
         iconTextId = DesignSystemR.string.recommendation_title,
         textLabelId = DesignSystemR.string.recommendation_title,
     ),
     SEARCH(
-        selectedIcon = R.drawable.ic_launcher_foreground,
+        selectedIcon = DesignSystemR.drawable.ic_search_active_24,
         unselectedIcon = R.drawable.ic_launcher_foreground,
         iconTextId = DesignSystemR.string.recommendation_title,
         textLabelId = DesignSystemR.string.recommendation_title,
     ),
     MY_PAGE(
-        selectedIcon = R.drawable.ic_launcher_foreground,
-        unselectedIcon = R.drawable.ic_launcher_foreground,
+        selectedIcon = DesignSystemR.drawable.ic_my_active_24,
+        unselectedIcon = DesignSystemR.drawable.ic_my_inactive_24,
         iconTextId = DesignSystemR.string.recommendation_title,
         textLabelId = DesignSystemR.string.recommendation_title,
     );
