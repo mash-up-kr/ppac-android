@@ -249,4 +249,15 @@ object FarmemeIcon {
         contentDescription = null,
         tint = tint,
     )
+
+    @Composable
+    fun CheckRectangle(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_check_rectangle_24),
+        contentDescription = null,
+        tint = tint,
+    )
 }
