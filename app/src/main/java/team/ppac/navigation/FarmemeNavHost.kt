@@ -49,7 +49,7 @@ fun NavHostController.navigateToTopLevelDestination(topLevelDestination: Farmeme
             this@navigateToTopLevelDestination.navigateToSearch(topLevelNavOptions)
 
         FarmemeTopDestination.MY_PAGE ->
-            this@navigateToTopLevelDestination.navigateToMyPage(topLevelNavOptions      )
+            this@navigateToTopLevelDestination.navigateToMyPage(topLevelNavOptions)
     }
 
 }
