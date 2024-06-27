@@ -1,33 +1,30 @@
 package team.ppac.navigation
 
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import team.ppac.R
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.R as DesignSystemR
 
 enum class FarmemeTopDestination(
-    val selectedIcon: Int,
-    val unselectedIcon: Int,
-    val iconTextId: Int,
+    val selectedIcon: @Composable () -> Unit,
+    val unselectedIcon: @Composable () -> Unit,
     val textLabelId: Int,
 ) {
     RECOMMENDATION(
-        selectedIcon = DesignSystemR.drawable.ic_recommend_active_24,
-        unselectedIcon = DesignSystemR.drawable.ic_recommend_inactive_24,
-        iconTextId = DesignSystemR.string.recommendation_title,
-        textLabelId = DesignSystemR.string.recommendation_title,
+        selectedIcon = { FarmemeIcon.RecommendActive() },
+        unselectedIcon = { FarmemeIcon.RecommendInactive() },
+        textLabelId = DesignSystemR.string.recommendation_title
     ),
     SEARCH(
-        selectedIcon = DesignSystemR.drawable.ic_search_active_24,
-        unselectedIcon = R.drawable.ic_launcher_foreground,
-        iconTextId = DesignSystemR.string.recommendation_title,
-        textLabelId = DesignSystemR.string.recommendation_title,
+        selectedIcon = { FarmemeIcon.DiscoverActive() },
+        unselectedIcon = { FarmemeIcon.DiscoverInactive() },
+        textLabelId = DesignSystemR.string.search_title
     ),
     MY_PAGE(
-        selectedIcon = DesignSystemR.drawable.ic_my_active_24,
-        unselectedIcon = DesignSystemR.drawable.ic_my_inactive_24,
-        iconTextId = DesignSystemR.string.recommendation_title,
-        textLabelId = DesignSystemR.string.recommendation_title,
+        selectedIcon = { FarmemeIcon.MyActive() },
+        unselectedIcon = { FarmemeIcon.MyInactive() },
+        textLabelId = DesignSystemR.string.mypage_title
     );
 }
 
