@@ -186,12 +186,23 @@ object FarmemeIcon {
     )
 
     @Composable
-    fun SearchActive(
+    fun DiscoverActive(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
     ) = Icon(
         modifier = modifier,
-        painter = painterResource(R.drawable.ic_search_active_24),
+        painter = painterResource(R.drawable.ic_discover_active_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun DiscoverInactive(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_discover_inactive_24),
         contentDescription = null,
         tint = tint,
     )
