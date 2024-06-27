@@ -12,14 +12,14 @@ fun RowScope.FarmemeNavigationBarItem(
     isSelected: Boolean,
     enabled: Boolean = true,
     onClick: () -> Unit,
-    icon: @Composable () -> Unit,
     selectedIcon: @Composable () -> Unit,
+    unselectedIcon: @Composable () -> Unit,
 ) {
     BottomNavigationItem(
         modifier = modifier,
         selected = isSelected,
         enabled = enabled,
         onClick = onClick,
-        icon = if (isSelected) selectedIcon else icon
+        icon = if (isSelected) selectedIcon else unselectedIcon
     )
 }
