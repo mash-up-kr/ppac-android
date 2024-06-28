@@ -6,7 +6,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 
 @Composable
@@ -15,8 +14,7 @@ internal fun MyPageScreen(
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
-        isGradientBackgroundColor = false,
-        backgroundColor = FarmemeTheme.backgroundColor.white,
+        isGradientBackground = false,
         scaffoldState = rememberScaffoldState()
     ) {
         Text(text = "마이페이지 일걸?ㅋㅅㅋ")

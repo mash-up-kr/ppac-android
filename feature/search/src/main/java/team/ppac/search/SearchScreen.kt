@@ -15,8 +15,7 @@ internal fun SearchScreen(
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
-        isGradientBackgroundColor = false,
-        backgroundColor = FarmemeTheme.backgroundColor.white,
+        isGradientBackground = false,
         scaffoldState = rememberScaffoldState()
     ) {
         Text(text = "검색 스크린 일걸?ㅋㅅㅋ")

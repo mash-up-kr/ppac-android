@@ -11,33 +11,33 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.component.scaffold.type.rememberBackgroundColorType
 import team.ppac.designsystem.foundation.ContentMargin
 
 @Composable
 fun FarmemeScaffold(
     modifier: Modifier = Modifier,
-    isIncludeHorizontalPadding: Boolean = true,
-    isGradientBackgroundColor: Boolean = true,
-    backgroundColor: Color? = null,
+    isGradientBackground: Boolean,
     scaffoldState: ScaffoldState,
+    isIncludeHorizontalPadding: Boolean = true,
+    backgroundColorType: BackgroundColorType = rememberBackgroundColorType(isGradientBackground = isGradientBackground),
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
 ) {
-    val backgroundModifier = if (isGradientBackgroundColor) {
-        modifier.background(FarmemeTheme.backgroundColor.brandLemonGradient)
-    } else {
-        backgroundColor?.let { color ->
-            modifier.background(
-                brush = Brush.horizontalGradient(listOf(color, color))
-            )
+    val backgroundModifier = when (backgroundColorType) {
+        is BackgroundColorType.GradientColor -> {
+            Modifier.background(brush = backgroundColorType.brush)
         }
-    } ?: modifier
+
+        is BackgroundColorType.SolidColor -> {
+            Modifier.background(color = backgroundColorType.color)
+        }
+    }
 
     Column(
         modifier = modifier.then(backgroundModifier),
@@ -71,8 +71,7 @@ private fun FarmemeScaffoldPreview() {
         bottomBar = {
             Text(text = "파밈파밈파밈파밈")
         },
-//        backgroundColor = FarmemeTheme.backgroundColor.brand
-        isGradientBackgroundColor = true,
+        isGradientBackground = false,
         scaffoldState = rememberScaffoldState()
     ) {
         Column(

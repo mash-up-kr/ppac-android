@@ -44,6 +44,7 @@ private fun FarmemeBottomBarPreview() {
     val navController = rememberNavController()
     FarmemeScaffold(
         scaffoldState = rememberScaffoldState(),
+        isGradientBackground = false,
         bottomBar = {
             FarmemeBottomBar(
                 navigateToDestination = {},

@@ -14,7 +14,7 @@ internal fun RecommendationScreen(
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
-        isGradientBackgroundColor = true,
+        isGradientBackground = true,
         scaffoldState = rememberScaffoldState()
     ) {
         Text(text = "추천밈 스크린 일걸?ㅋㅅㅋ")

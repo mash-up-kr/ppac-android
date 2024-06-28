@@ -33,11 +33,12 @@ class MainActivity : ComponentActivity() {
                             currentDestination = navController.currentBackStackEntryAsState().value?.destination
                         )
                     },
+                    isGradientBackground = false,
                     scaffoldState = scaffoldState
                 ) {
                     FarmemeNavHost(
                         navController = navController,
-                        onShowSnackBar = { _, _ -> false }
+                        onShowSnackBar = { _ -> false }
                     )
                 }
             }

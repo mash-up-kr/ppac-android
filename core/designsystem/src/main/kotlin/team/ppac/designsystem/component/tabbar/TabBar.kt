@@ -79,6 +79,7 @@ private fun FarmemeTabBarPreview() {
             TabBar() {}
         },
         scaffoldState = rememberScaffoldState(),
+        isGradientBackground = false,
         content = {},
     )
 }
