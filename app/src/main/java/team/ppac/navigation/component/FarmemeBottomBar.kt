@@ -1,6 +1,7 @@
 package team.ppac.navigation.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,12 +43,13 @@ fun FarmemeBottomBar(
 private fun FarmemeBottomBarPreview() {
     val navController = rememberNavController()
     FarmemeScaffold(
+        scaffoldState = rememberScaffoldState(),
         bottomBar = {
             FarmemeBottomBar(
                 navigateToDestination = {},
                 currentDestination = navController.currentBackStackEntryAsState().value?.destination
             )
-        }
+        },
     ) {
 
     }

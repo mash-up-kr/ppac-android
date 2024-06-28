@@ -2,6 +2,7 @@ package team.ppac.mypage
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,7 +16,8 @@ internal fun MyPageScreen(
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
         isGradientBackgroundColor = false,
-        backgroundColor = FarmemeTheme.backgroundColor.white
+        backgroundColor = FarmemeTheme.backgroundColor.white,
+        scaffoldState = rememberScaffoldState()
     ) {
         Text(text = "마이페이지 일걸?ㅋㅅㅋ")
     }
