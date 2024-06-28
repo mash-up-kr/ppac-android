@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -22,6 +24,7 @@ fun FarmemeScaffold(
     isIncludeHorizontalPadding: Boolean = true,
     isGradientBackgroundColor: Boolean = true,
     backgroundColor: Color? = null,
+    scaffoldState: ScaffoldState,
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
@@ -40,10 +43,11 @@ fun FarmemeScaffold(
         modifier = modifier.then(backgroundModifier),
     ) {
         Scaffold(
-            modifier = modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             backgroundColor = Color.Transparent,
             topBar = topBar,
-            bottomBar = bottomBar
+            bottomBar = bottomBar,
+            scaffoldState = scaffoldState,
         ) { paddingValues ->
             val innerPadding = PaddingValues(
                 top = paddingValues.calculateTopPadding(),
@@ -68,7 +72,8 @@ private fun FarmemeScaffoldPreview() {
             Text(text = "파밈파밈파밈파밈")
         },
 //        backgroundColor = FarmemeTheme.backgroundColor.brand
-        isGradientBackgroundColor = true
+        isGradientBackgroundColor = true,
+        scaffoldState = rememberScaffoldState()
     ) {
         Column(
             modifier = Modifier.padding(it)
