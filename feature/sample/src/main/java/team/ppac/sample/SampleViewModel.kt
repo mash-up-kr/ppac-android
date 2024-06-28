@@ -20,6 +20,10 @@ class SampleViewModel @Inject constructor(
         }
     }
 
+    init {
+        getImages()
+    }
+
     private fun updateLoading(isLoading: Boolean) {
         reduce {
             copy(isLoading = isLoading)
