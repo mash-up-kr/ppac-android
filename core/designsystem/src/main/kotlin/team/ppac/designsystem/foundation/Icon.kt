@@ -260,4 +260,37 @@ object FarmemeIcon {
         contentDescription = null,
         tint = tint,
     )
+
+    @Composable
+    fun SoFunny(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_so_funny),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Lol(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_lol),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun Stroke(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_stroke_24),
+        contentDescription = null,
+        tint = tint,
+    )
 }

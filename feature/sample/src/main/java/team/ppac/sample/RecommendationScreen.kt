@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -25,10 +26,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.component.button.FarmemeCircleButton
+import team.ppac.designsystem.component.button.FarmemeWeakButton
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.Lemon10
 import team.ppac.designsystem.foundation.Orange10
@@ -41,6 +45,7 @@ internal fun RecommendationScreen(viewModel: SampleViewModel = hiltViewModel()) 
     val heroModulePagerState = rememberPagerState {
         state.images.size
     }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -88,6 +93,52 @@ internal fun RecommendationScreen(viewModel: SampleViewModel = hiltViewModel()) 
                 images = state.images,
                 pagerState = heroModulePagerState,
             )
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
+            ) {
+                listOf("#웃긴", "#놀람", "#동물", "#웃긴", "#놀람", "#동물").forEach {
+                    Text(
+                        text = it,
+                        style = FarmemeTheme.typography.body.medium.medium,
+                        color = FarmemeTheme.textColor.secondary,
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.padding(top = 30.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                FarmemeWeakButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    text = "",
+                    textColor = Color.Unspecified,
+                    icon = {
+                        Row {
+                            FarmemeIcon.Lol()
+                            FarmemeIcon.SoFunny()
+                        }
+                    }
+                )
+                FarmemeCircleButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    icon = { FarmemeIcon.Stroke() },
+                )
+
+                FarmemeCircleButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    icon = { FarmemeIcon.Share() },
+                )
+
+                FarmemeCircleButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    icon = { FarmemeIcon.BookmarkLine() },
+                )
+            }
         }
     }
 }
