@@ -5,7 +5,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-// TODO : 디자인 수정 필요
+// TODO(JaesungLeee) : 디자인 수정 필요
 @Composable
 fun RowScope.FarmemeNavigationBarItem(
     modifier: Modifier = Modifier,

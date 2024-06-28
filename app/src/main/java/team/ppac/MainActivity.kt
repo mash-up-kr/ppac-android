@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             FarmemeTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
-                
+
                 FarmemeScaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {

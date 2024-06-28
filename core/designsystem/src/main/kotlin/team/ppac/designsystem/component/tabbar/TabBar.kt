@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.Surface
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,7 +51,7 @@ fun TabBar(
         modifier = modifier
             .background(color = Color(0XFFFCFCFC), shape = FarmemeRadius.Radius30.shape)
             .boxShadow(
-                color = Color(0X0D000000),  // TODO : 컬러 재정의 필요
+                color = Color(0X0D000000),  // TODO(JaesungLeee) : 컬러 재정의 필요
                 blurRadius = 20.dp,
                 offset = DpOffset(x = 0.dp, y = (-4).dp)
             )
@@ -77,6 +78,7 @@ private fun FarmemeTabBarPreview() {
         bottomBar = {
             TabBar() {}
         },
-        content = {}
+        scaffoldState = rememberScaffoldState(),
+        content = {},
     )
 }
