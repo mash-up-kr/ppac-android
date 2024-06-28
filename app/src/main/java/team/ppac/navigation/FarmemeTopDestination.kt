@@ -1,5 +1,6 @@
 package team.ppac.navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -9,7 +10,7 @@ import team.ppac.designsystem.R as DesignSystemR
 enum class FarmemeTopDestination(
     val selectedIcon: @Composable () -> Unit,
     val unselectedIcon: @Composable () -> Unit,
-    val textLabelId: Int,
+    @StringRes val textLabelId: Int,
 ) {
     RECOMMENDATION(
         selectedIcon = { FarmemeIcon.RecommendActive() },
