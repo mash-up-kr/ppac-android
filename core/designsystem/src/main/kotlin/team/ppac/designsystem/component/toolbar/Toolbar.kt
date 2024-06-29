@@ -10,16 +10,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
 
 @Composable
@@ -36,11 +33,9 @@ fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
 @Composable
 fun FarmemeBackToolBar(title: String, onClickBackIcon: () -> Unit) {
     FarmemeToolbar(title = title, navigationIcon = {
-        FarmemeIcon.Back(
-            modifier = Modifier
-                .padding(12.dp)
-                .clickable { onClickBackIcon() }
-        )
+        FarmemeIcon.Back(modifier = Modifier
+            .padding(12.dp)
+            .clickable { onClickBackIcon() })
     })
 }
 
