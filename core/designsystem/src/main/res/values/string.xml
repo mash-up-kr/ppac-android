@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="recommendation_title">추천</string>
+    <string name="search_title">검색</string>
+    <string name="mypage_title">마이</string>
+</resources>

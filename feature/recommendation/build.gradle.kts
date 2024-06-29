@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "team.ppac.feature.sample"
+    namespace = "team.ppac.feature.recommendation"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()

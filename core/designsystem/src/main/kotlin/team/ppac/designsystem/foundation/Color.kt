@@ -22,6 +22,11 @@ internal val Orange10 = Color(0xFFFFECE4)
 internal val Orange50 = Color(0xFFFFBDA0)
 internal val Orange100 = Color(0xFFFE573A)
 
+// Lemon
+internal val Lemon10 = Color(0xFFFFFEEE)
+internal val Lemon50 = Color(0xFFFDFF8D)
+internal val Lemon100 = Color(0xFFF5F947)
+
 // Red
 internal val Red = Color(0xFFDD2626)
 

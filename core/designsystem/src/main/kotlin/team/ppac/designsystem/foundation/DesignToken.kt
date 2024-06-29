@@ -1,6 +1,7 @@
 package team.ppac.designsystem.foundation
 
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 data class FarmemeTextColor(
@@ -36,7 +37,10 @@ data class FarmemeBackgroundColor(
     val brand: Color = Orange100,
     val brandAssistive: Color = Orange10,
     val white: Color = White,
-)
+) {
+    val brandLemonGradient: Brush = Brush.linearGradient(listOf(brandAssistive, Lemon10))
+    val brandWhiteGradient: Brush = Brush.linearGradient(listOf(brandAssistive, White))
+}
 
 data class FarmemeSkeletonColor(
     val primary: Color = Gray20,
