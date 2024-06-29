@@ -87,13 +87,13 @@ fun FarmemeToolbar(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewBackTitleToolbar() {
     FarmemeBackToolBar(title = "키워드") {}
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewActionToolbar() {
     FarmemeActionToolBar {}
