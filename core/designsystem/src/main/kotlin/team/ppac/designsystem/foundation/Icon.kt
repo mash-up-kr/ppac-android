@@ -14,7 +14,7 @@ object FarmemeIcon {
         tint: Color = Color.Unspecified,
     ) = Icon(
         modifier = modifier,
-        painter = painterResource(R.drawable.ic_back_20),
+        painter = painterResource(R.drawable.ic_back_24),
         contentDescription = null,
         tint = tint,
     )
