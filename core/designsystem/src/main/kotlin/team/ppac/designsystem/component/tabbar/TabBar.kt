@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
+import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.boxShadow
 
@@ -79,7 +80,7 @@ private fun FarmemeTabBarPreview() {
             TabBar() {}
         },
         scaffoldState = rememberScaffoldState(),
-        isGradientBackground = false,
+        backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
         content = {},
     )
 }

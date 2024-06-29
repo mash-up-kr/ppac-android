@@ -17,14 +17,4 @@ sealed class BackgroundColorType {
 }
 
 @Composable
-fun rememberBackgroundColorType(
-    isGradientBackground: Boolean,
-    gradientColor: Brush = FarmemeTheme.backgroundColor.brandLemonGradient,
-    solidColor: Color = FarmemeTheme.backgroundColor.white
-) = remember(gradientColor, solidColor) {
-    if (isGradientBackground) {
-        BackgroundColorType.GradientColor(gradientColor)
-    } else {
-        BackgroundColorType.SolidColor(solidColor)
-    }
-}
+fun defaultColorType() = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white)

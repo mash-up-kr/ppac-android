@@ -14,17 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
-import team.ppac.designsystem.component.scaffold.type.rememberBackgroundColorType
+import team.ppac.designsystem.component.scaffold.type.defaultColorType
 import team.ppac.designsystem.foundation.ContentMargin
 
 @Composable
 fun FarmemeScaffold(
     modifier: Modifier = Modifier,
-    isGradientBackground: Boolean,
     scaffoldState: ScaffoldState,
     isIncludeHorizontalPadding: Boolean = true,
-    backgroundColorType: BackgroundColorType = rememberBackgroundColorType(isGradientBackground = isGradientBackground),
+    backgroundColorType: BackgroundColorType = defaultColorType(),
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
@@ -71,7 +71,7 @@ private fun FarmemeScaffoldPreview() {
         bottomBar = {
             Text(text = "파밈파밈파밈파밈")
         },
-        isGradientBackground = false,
+        backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
         scaffoldState = rememberScaffoldState()
     ) {
         Column(

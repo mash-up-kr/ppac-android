@@ -6,15 +6,17 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
+import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 
 @Composable
 internal fun RecommendationScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
-        isGradientBackground = true,
+        backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
         scaffoldState = rememberScaffoldState()
     ) {
         Text(text = "추천밈 스크린 일걸?ㅋㅅㅋ")

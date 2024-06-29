@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
+import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.navigation.FarmemeNavHost
 import team.ppac.navigation.component.FarmemeBottomBar
 import team.ppac.navigation.navigateToTopLevelDestination
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
                             currentDestination = navController.currentBackStackEntryAsState().value?.destination
                         )
                     },
-                    isGradientBackground = false,
+                    backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
                     scaffoldState = scaffoldState
                 ) {
                     FarmemeNavHost(
