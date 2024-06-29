@@ -17,7 +17,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.search.model.HotKeywordUiModel
 
 @Composable
-fun HotKeywordContent(
+internal fun HotKeywordContent(
     modifier: Modifier = Modifier,
     keywords: ImmutableList<HotKeywordUiModel>
 ) {

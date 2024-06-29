@@ -29,7 +29,7 @@ import team.ppac.search.model.HotKeywordUiModel
 import team.ppac.search.preview.HotKeywordCardProvider
 
 @Composable
-fun HotKeywordCard(
+internal fun HotKeywordCard(
     modifier: Modifier = Modifier,
     imageUrl: String?,
     description: String,
