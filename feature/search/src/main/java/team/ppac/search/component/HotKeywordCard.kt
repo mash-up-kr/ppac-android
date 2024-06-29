@@ -18,12 +18,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.search.model.HotKeywordUiModel
+import team.ppac.search.preview.HotKeywordCardProvider
 
 @Composable
 fun HotKeywordCard(
@@ -67,14 +70,15 @@ fun HotKeywordCard(
 
 @Preview
 @Composable
-private fun HotKeywordCardPreview() {
-    Column(
+private fun HotKeywordCardPreview(
+    @PreviewParameter(provider = HotKeywordCardProvider::class) card: HotKeywordUiModel
+) {
+    Box(
         modifier = Modifier.background(Color.White)
     ) {
         HotKeywordCard(
-            imageUrl = null,
-            description = "출근"
+            imageUrl = card.imageUrl,
+            description = card.description
         )
-
     }
 }
