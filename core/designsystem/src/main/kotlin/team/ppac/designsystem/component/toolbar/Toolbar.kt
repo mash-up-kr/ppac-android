@@ -21,22 +21,29 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 
 @Composable
 fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
-    FarmemeToolbar(actionIcons = {
-        FarmemeIcon.Setting(
-            modifier = Modifier
-                .padding(12.dp)
-                .clickable { onClickActionIcon() },
-        )
-    })
+    FarmemeToolbar(
+        actionIcons = {
+            FarmemeIcon.Setting(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .clickable { onClickActionIcon() },
+            )
+        }
+    )
 }
 
 @Composable
 fun FarmemeBackToolBar(title: String, onClickBackIcon: () -> Unit) {
-    FarmemeToolbar(title = title, navigationIcon = {
-        FarmemeIcon.Back(modifier = Modifier
-            .padding(12.dp)
-            .clickable { onClickBackIcon() })
-    })
+    FarmemeToolbar(
+        title = title,
+        navigationIcon = {
+            FarmemeIcon.Back(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .clickable { onClickBackIcon() }
+            )
+        }
+    )
 }
 
 @Composable
