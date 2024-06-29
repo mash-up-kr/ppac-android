@@ -1,6 +1,5 @@
 package team.ppac.designsystem.component.toolbar
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -53,7 +52,6 @@ fun FarmemeToolbar(
 ) {
     Row(
         modifier = modifier
-            .background(color = FarmemeTheme.backgroundColor.white)
             .fillMaxWidth()
             .height(50.dp)
             .statusBarsPadding(),
