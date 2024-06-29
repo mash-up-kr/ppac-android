@@ -36,7 +36,9 @@ fun FarmemeListHeader(
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = title,
-            style = FarmemeTheme.typography.heading.small.semibold
+            style = FarmemeTheme.typography.heading.small.semibold.copy(
+                color = FarmemeTheme.textColor.primary
+            )
         )
     }
 }
