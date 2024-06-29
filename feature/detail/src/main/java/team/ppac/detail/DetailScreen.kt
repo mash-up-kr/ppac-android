@@ -1,14 +1,17 @@
 package team.ppac.detail
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,13 +27,15 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
+import team.ppac.designsystem.foundation.FarmemeRadius
+
 @Composable
 fun DetailScreen() {
     Box(
         modifier = Modifier.border(
             width = 2.dp,
             color = FarmemeTheme.borderColor.primary,
-            shape = RoundedCornerShape(20.dp)
+            shape = FarmemeRadius.Radius20.shape
         ),
     ) {
         Column(
@@ -39,10 +44,10 @@ fun DetailScreen() {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current).data(TEST_IMAGE_PREVIEW)
                     .crossfade(true).build(),
-                placeholder = painterResource(team.ppac.designsystem.R.drawable.detail_sample),
+                placeholder = painterResource(R.drawable.detail_sample),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(RoundedCornerShape(10.dp))
+                modifier = Modifier.clip(FarmemeRadius.Radius10.shape)
             )
             DetailTexts()
             DetailButton()
@@ -53,23 +58,54 @@ fun DetailScreen() {
 @Composable
 fun DetailTexts() {
     Spacer(modifier = Modifier.height(25.dp))
-    Text(text = "나는 공부를 찢어")
+    Text(
+        text = "나는 공부를 찢어",
+        color = FarmemeTheme.textColor.primary,
+        style = FarmemeTheme.typography.heading.large.semibold
+    )
     Spacer(modifier = Modifier.height(5.dp))
-    Text(text = "#공부 #학생 #시험기간 #힘듦 #피곤")
+    Text(
+        text = "#공부 #학생 #시험기간 #힘듦 #피곤",
+        color = FarmemeTheme.textColor.tertiary,
+        style = FarmemeTheme.typography.body.large.medium
+    )
     Spacer(modifier = Modifier.height(11.dp))
-    Text(text = "출처: 출처에 대한 내용이 들어갑니다.")
+    Text(
+        text = "출처: 출처에 대한 내용이 들어갑니다.",
+        color = FarmemeTheme.textColor.assistive,
+        style = FarmemeTheme.typography.body.xSmall.medium
+    )
+    Spacer(modifier = Modifier.height(20.dp))
 }
 
 @Composable
 fun DetailButton() {
-    Button(onClick = {}) {
-        Row {
-            Icon(painter = painterResource(id = R.drawable.ic_kk), contentDescription = null)
+    Button(modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 10.dp)
+        .padding(bottom = 10.dp)
+        .height(46.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = FarmemeTheme.skeletonColor.primary
+        ),
+        elevation = null,
+        onClick = {}) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_kk),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(6.dp))
             Icon(
                 painter = painterResource(id = R.drawable.ic_funny),
                 contentDescription = null
             )
         }
+
     }
 }
 
