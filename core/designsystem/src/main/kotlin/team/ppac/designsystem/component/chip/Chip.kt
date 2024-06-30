@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,31 +23,23 @@ fun FarmemeSmallChip(
     text: String,
     enabled: Boolean = false,
 ) {
-    val (backgroundColor, textColor) = if (enabled) {
+    val (textColor, backgroundColor) = if (enabled) {
         chipColors.textColor to chipColors.backgroundColor
     } else {
         chipColors.disabledTextColor to chipColors.disabledBackgroundColor
     }
 
-    val textStyle = if (enabled) {
-        FarmemeTheme.typography.body.medium.bold
-    } else {
-        FarmemeTheme.typography.body.medium.semibold
-    }
-
     Box(
         modifier = modifier
+            .width(65.dp)
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
-            .padding(
-                horizontal = 10.dp,
-                vertical = 5.dp,
-            ),
+            .padding(vertical = 5.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             text = text,
-            style = textStyle,
+            style = FarmemeTheme.typography.body.small.semibold,
             color = textColor,
         )
     }
