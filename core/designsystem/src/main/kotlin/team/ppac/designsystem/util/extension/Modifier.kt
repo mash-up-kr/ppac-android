@@ -29,12 +29,14 @@ import androidx.compose.ui.unit.isSpecified
 fun Modifier.noRippleClickable(
     enabled: Boolean = true,
     onClick: () -> Unit,
+    debounceMillis: Long = 300L,
 ): Modifier = composed {
+    val multipleEventsCutter = remember { MultipleEventsCutter(debounceMillis) }
     clickable(
         indication = null,
         enabled = enabled,
         interactionSource = remember { MutableInteractionSource() },
-        onClick = onClick
+        onClick = { multipleEventsCutter.processEvent(onClick) },
     )
 }
 
