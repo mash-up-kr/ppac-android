@@ -16,8 +16,7 @@ class SampleActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FarmemeTheme {
-                RecommendationScreen()
-                //SampleScreen(viewModel = hiltViewModel())
+                SampleScreen(viewModel = hiltViewModel())
             }
         }
     }

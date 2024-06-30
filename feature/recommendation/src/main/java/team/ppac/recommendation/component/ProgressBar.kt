@@ -1,4 +1,4 @@
-package team.ppac.sample
+package team.ppac.recommendation.component
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth
