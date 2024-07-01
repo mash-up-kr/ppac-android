@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,7 +37,19 @@ fun MyPageSpeechBubble(
 fun MyPageSpeechBubbleMain(
     modifier: Modifier = Modifier,
 ) {
-    val text = "밈 폼 미쳤다"
+    val strings = listOf(
+        "밈 폼 미쳤다",
+        "밈 천재가 돼",
+        "완전 럭키비키잖아~",
+        "너 드립 좀 친다?",
+        "하이하이!",
+        "신나게 밈 흔들어!",
+        "중꺾마!",
+        "밈린이 라고할 뻔",
+        "렛츠고 밈천재",
+        "밈야호~"
+    )
+    val text = strings.random()
 
     Box(
         modifier = modifier
