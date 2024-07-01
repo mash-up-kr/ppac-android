@@ -37,8 +37,8 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 @Composable
 fun DetailScreen() {
     Box(
-        modifier =
-            Modifier.border(
+        modifier = Modifier
+            .border(
                 width = 2.dp,
                 color = FarmemeTheme.borderColor.primary,
                 shape = FarmemeRadius.Radius20.shape,
@@ -49,11 +49,11 @@ fun DetailScreen() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             AsyncImage(
-                model =
-                    ImageRequest
-                        .Builder(LocalContext.current)
-                        .data(TEST_IMAGE_PREVIEW)
-                        .crossfade(true).build(),
+                model = ImageRequest
+                    .Builder(LocalContext.current)
+                    .data(TEST_IMAGE_PREVIEW)
+                    .crossfade(true)
+                    .build(),
                 placeholder = painterResource(R.drawable.detail_sample),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -91,12 +91,11 @@ fun DetailTexts() {
 @Composable
 fun DetailFunnyButton() {
     Button(
-        modifier =
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .padding(bottom = 10.dp)
-                .height(46.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp)
+            .padding(bottom = 10.dp)
+            .height(46.dp),
         colors =
             ButtonDefaults.buttonColors(
                 backgroundColor = FarmemeTheme.skeletonColor.primary,
@@ -126,11 +125,10 @@ fun DetailFunnyButton() {
 fun DetailBottomBar() {
     TabBar(modifier = Modifier.fillMaxWidth()) {
         Row(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterVertically)
-                    .padding(horizontal = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterVertically)
+                .padding(horizontal = 20.dp),
         ) {
             DetailBottomButton(
                 icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
@@ -158,11 +156,10 @@ fun RowScope.DetailBottomButton(
     onClickButton: () -> Unit,
 ) {
     Row(
-        modifier =
-            Modifier
-                .weight(1f)
-                .height(50.dp)
-                .clickable(onClick = onClickButton),
+        modifier = Modifier
+            .weight(1f)
+            .height(50.dp)
+            .clickable(onClick = onClickButton),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
