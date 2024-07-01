@@ -1,14 +1,17 @@
 package team.ppac.detail
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -27,30 +30,37 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
+import team.ppac.designsystem.component.tabbar.TabBar
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
 fun DetailScreen() {
     Box(
-        modifier = Modifier.border(
-            width = 2.dp,
-            color = FarmemeTheme.borderColor.primary,
-            shape = FarmemeRadius.Radius20.shape
-        ),
+        modifier =
+            Modifier.border(
+                width = 2.dp,
+                color = FarmemeTheme.borderColor.primary,
+                shape = FarmemeRadius.Radius20.shape,
+            ),
     ) {
         Column(
-            modifier = Modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current).data(TEST_IMAGE_PREVIEW)
-                    .crossfade(true).build(),
+                model =
+                    ImageRequest
+                        .Builder(LocalContext.current)
+                        .data(TEST_IMAGE_PREVIEW)
+                        .crossfade(true).build(),
                 placeholder = painterResource(R.drawable.detail_sample),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(FarmemeRadius.Radius10.shape)
+                modifier = Modifier.clip(FarmemeRadius.Radius10.shape),
             )
             DetailTexts()
-            DetailButton()
+            DetailFunnyButton()
         }
     }
 }
@@ -61,51 +71,108 @@ fun DetailTexts() {
     Text(
         text = "나는 공부를 찢어",
         color = FarmemeTheme.textColor.primary,
-        style = FarmemeTheme.typography.heading.large.semibold
+        style = FarmemeTheme.typography.heading.large.semibold,
     )
     Spacer(modifier = Modifier.height(5.dp))
     Text(
         text = "#공부 #학생 #시험기간 #힘듦 #피곤",
         color = FarmemeTheme.textColor.tertiary,
-        style = FarmemeTheme.typography.body.large.medium
+        style = FarmemeTheme.typography.body.large.medium,
     )
     Spacer(modifier = Modifier.height(11.dp))
     Text(
         text = "출처: 출처에 대한 내용이 들어갑니다.",
         color = FarmemeTheme.textColor.assistive,
-        style = FarmemeTheme.typography.body.xSmall.medium
+        style = FarmemeTheme.typography.body.xSmall.medium,
     )
     Spacer(modifier = Modifier.height(20.dp))
 }
 
 @Composable
-fun DetailButton() {
-    Button(modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 10.dp)
-        .padding(bottom = 10.dp)
-        .height(46.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = FarmemeTheme.skeletonColor.primary
-        ),
+fun DetailFunnyButton() {
+    Button(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .padding(bottom = 10.dp)
+                .height(46.dp),
+        colors =
+            ButtonDefaults.buttonColors(
+                backgroundColor = FarmemeTheme.skeletonColor.primary,
+            ),
         elevation = null,
-        onClick = {}) {
+        onClick = {},
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_kk),
-                contentDescription = null
+                contentDescription = null,
             )
             Spacer(modifier = Modifier.width(6.dp))
             Icon(
                 painter = painterResource(id = R.drawable.ic_funny),
-                contentDescription = null
+                contentDescription = null,
             )
         }
+    }
+}
 
+@Composable
+fun DetailBottomBar() {
+    TabBar(modifier = Modifier.fillMaxWidth()) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)
+                    .padding(horizontal = 20.dp),
+        ) {
+            DetailBottomButton(
+                icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
+                title = "복사",
+            ) {
+            }
+            DetailBottomButton(
+                icon = { FarmemeIcon.Share(modifier = Modifier.size(20.dp)) },
+                title = "공유",
+            ) {
+            }
+            DetailBottomButton(
+                icon = { FarmemeIcon.BookmarkLine(modifier = Modifier.size(20.dp)) },
+                title = "북마크",
+            ) {
+            }
+        }
+    }
+}
+
+@Composable
+fun RowScope.DetailBottomButton(
+    icon: @Composable () -> Unit,
+    title: String,
+    onClickButton: () -> Unit,
+) {
+    Row(
+        modifier =
+            Modifier
+                .weight(1f)
+                .height(50.dp)
+                .clickable(onClick = onClickButton),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        icon()
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = title,
+            style = FarmemeTheme.typography.body.xLarge.semibold,
+            color = FarmemeTheme.textColor.primary,
+        )
     }
 }
 
@@ -113,6 +180,12 @@ fun DetailButton() {
 @Preview(showBackground = true)
 fun PreviewDetailScreen() {
     DetailScreen()
+}
+
+@Composable
+@Preview(showBackground = true)
+fun PreviewDetailBottomBar() {
+    DetailBottomBar()
 }
 
 private const val TEST_IMAGE_PREVIEW =
