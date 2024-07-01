@@ -1,7 +1,6 @@
-package team.ppac.designsystem.util.extension
+package team.ppac.common.kotlin.model
 
-
-internal class MultipleEventsCutter(
+class MultipleEventsCutter(
     private val debounceMillis: Long
 ) {
     private val now: Long
