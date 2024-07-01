@@ -39,7 +39,7 @@ fun MyPageSpeechBubbleMain(
 ) {
     val strings = listOf(
         "밈 폼 미쳤다",
-        "밈 천재가 돼",
+        "밈 천재가 되",
         "완전 럭키비키잖아~",
         "너 드립 좀 친다?",
         "하이하이!",
