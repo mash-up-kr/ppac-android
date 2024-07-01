@@ -18,7 +18,7 @@ import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-fun MyPageSpeechBubble(
+internal fun MyPageSpeechBubble(
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -34,7 +34,7 @@ fun MyPageSpeechBubble(
 }
 
 @Composable
-fun MyPageSpeechBubbleMain(
+private fun MyPageSpeechBubbleMain(
     modifier: Modifier = Modifier,
 ) {
     val strings = listOf(
@@ -68,7 +68,7 @@ fun MyPageSpeechBubbleMain(
 
 @Preview
 @Composable
-fun MyPageSpeechBubblePreview(
+private fun MyPageSpeechBubblePreview(
     modifier: Modifier = Modifier,
 ) {
     MyPageSpeechBubble()

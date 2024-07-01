@@ -23,7 +23,7 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.MyPageLevel
 
 @Composable
-fun MyPageLevelStep(
+internal fun MyPageLevelStep(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -38,7 +38,7 @@ fun MyPageLevelStep(
 }
 
 @Composable
-fun MyPageLevelStepProgress(
+private fun MyPageLevelStepProgress(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -55,7 +55,7 @@ fun MyPageLevelStepProgress(
 }
 
 @Composable
-fun MyPageDottedLines(
+private fun MyPageDottedLines(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
 ) {
@@ -85,7 +85,7 @@ fun MyPageDottedLines(
 }
 
 @Composable
-fun MyPageDottedLine(
+private fun MyPageDottedLine(
     modifier: Modifier = Modifier,
     enabled: Boolean = false,
 ) {
@@ -104,7 +104,7 @@ fun MyPageDottedLine(
 }
 
 @Composable
-fun MyPageStepIcons(
+private fun MyPageStepIcons(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -125,7 +125,7 @@ fun MyPageStepIcons(
 }
 
 @Composable
-fun MyPageStepChips(
+private fun MyPageStepChips(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -146,6 +146,6 @@ fun MyPageStepChips(
 
 @Preview
 @Composable
-fun MyPageLevelStepPreview() {
+private fun MyPageLevelStepPreview() {
     MyPageLevelStep(level = MyPageLevel.LEVEL3, count = 15)
 }

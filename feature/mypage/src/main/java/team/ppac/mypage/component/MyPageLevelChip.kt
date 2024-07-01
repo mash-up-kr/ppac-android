@@ -13,7 +13,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-fun MyPageLevelChip(
+internal fun MyPageLevelChip(
     modifier: Modifier = Modifier,
     count: Int,
 ) {
@@ -38,6 +38,6 @@ fun MyPageLevelChip(
 
 @Preview
 @Composable
-fun MyPageLevelChipPreview() {
+private fun MyPageLevelChipPreview() {
     MyPageLevelChip(count = 10)
 }

@@ -25,7 +25,7 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.mypage.MyPageLevel
 
 @Composable
-fun MyPageProgressBar(
+internal fun MyPageProgressBar(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -43,7 +43,7 @@ fun MyPageProgressBar(
 }
 
 @Composable
-fun MyPageProgressBarActive(
+private fun MyPageProgressBarActive(
     modifier: Modifier = Modifier,
     maxWidth: Dp,
     level: MyPageLevel,
@@ -84,7 +84,7 @@ fun MyPageProgressBarActive(
 }
 
 @Composable
-fun MyPageProgressBarBackground(
+private fun MyPageProgressBarBackground(
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -105,7 +105,7 @@ fun MyPageProgressBarBackground(
 
 @Preview
 @Composable
-fun MyPageProgressBarPreview() {
+private fun MyPageProgressBarPreview() {
     MyPageProgressBar(
         level = MyPageLevel.LEVEL3,
         count = 15,

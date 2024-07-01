@@ -22,7 +22,7 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.mypage.MyPageLevel
 
 @Composable
-fun MyPageLevelBox(
+internal fun MyPageLevelBox(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -51,7 +51,7 @@ fun MyPageLevelBox(
 }
 
 @Composable
-fun MyPageLevelTop(
+private fun MyPageLevelTop(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
     count: Int,
@@ -69,7 +69,7 @@ fun MyPageLevelTop(
 }
 
 @Composable
-fun MyPageLevelTitle(
+private fun MyPageLevelTitle(
     modifier: Modifier = Modifier,
     level: MyPageLevel,
 ) {
@@ -96,7 +96,7 @@ fun MyPageLevelTitle(
 }
 
 @Composable
-fun MyPageLevelBottom(
+private fun MyPageLevelBottom(
     modifier: Modifier = Modifier,
     count: Int,
     level: MyPageLevel,
@@ -114,7 +114,7 @@ fun MyPageLevelBottom(
 
 @Preview
 @Composable
-fun MyPageLevelPreview() {
+private fun MyPageLevelPreview() {
     MyPageLevelBox(
         level = MyPageLevel.LEVEL3,
         count = 15,
