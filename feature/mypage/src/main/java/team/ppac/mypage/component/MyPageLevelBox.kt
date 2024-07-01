@@ -19,12 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.mypage.MyPageLevel
 
 @Composable
 fun MyPageLevelBox(
     modifier: Modifier = Modifier,
+    level: MyPageLevel,
     count: Int,
-    step: Int,
 ) {
     Column(
         modifier = modifier
@@ -37,7 +38,7 @@ fun MyPageLevelBox(
     ) {
         MyPageLevelTop(
             count = count,
-            step = step,
+            level = level,
         )
         Spacer(
             modifier = Modifier
@@ -45,15 +46,15 @@ fun MyPageLevelBox(
                 .height(2.dp)
                 .background(FarmemeTheme.borderColor.secondary)
         )
-        MyPageLevelBottom(step = step)
+        MyPageLevelBottom(level = level, count = count)
     }
 }
 
 @Composable
 fun MyPageLevelTop(
     modifier: Modifier = Modifier,
+    level: MyPageLevel,
     count: Int,
-    step: Int,
 ) {
     Row(
         modifier = modifier
@@ -62,7 +63,7 @@ fun MyPageLevelTop(
             .padding(start = 20.dp, top = 16.dp, end = 20.dp, bottom = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        MyPageLevelTitle(step = step)
+        MyPageLevelTitle(level = level)
         MyPageLevelChip(count = count)
     }
 }
@@ -70,15 +71,15 @@ fun MyPageLevelTop(
 @Composable
 fun MyPageLevelTitle(
     modifier: Modifier = Modifier,
-    step: Int,
+    level: MyPageLevel,
 ) {
     Column(
         modifier = modifier,
     ) {
         Text(
-            text = when (step) {
-                0, 1, 2 -> "다음 레벨 달성 조건"
-                else -> "최종 레벨 달성 조건"
+            text = when (level) {
+                MyPageLevel.LEVEL4 -> "최종 레벨 달성 조건"
+                else -> "다음 레벨 달성 조건"
             },
             color = FarmemeTheme.textColor.tertiary,
             textAlign = TextAlign.Start,
@@ -86,12 +87,7 @@ fun MyPageLevelTitle(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = when (step) {
-                0 -> "밈 20번 보기"
-                1 -> "ㅋㅋ 반응 20번 남기기"
-                2 -> "밈 20번 공유하기"
-                else -> "밈 20번 저장하기"
-            },
+            text = level.stepTitle,
             color = FarmemeTheme.textColor.primary,
             textAlign = TextAlign.Start,
             style = FarmemeTheme.typography.heading.small.semibold,
@@ -102,7 +98,8 @@ fun MyPageLevelTitle(
 @Composable
 fun MyPageLevelBottom(
     modifier: Modifier = Modifier,
-    step: Int,
+    count: Int,
+    level: MyPageLevel,
 ) {
     Box(
         modifier = modifier
@@ -110,7 +107,7 @@ fun MyPageLevelBottom(
             .background(FarmemeTheme.backgroundColor.white)
             .padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 30.dp),
     ) {
-        MyPageLevelStep(step = step)
+        MyPageLevelStep(level = level, count = count)
     }
 }
 
@@ -119,7 +116,7 @@ fun MyPageLevelBottom(
 @Composable
 fun MyPageLevelPreview() {
     MyPageLevelBox(
-        count = 1,
-        step = 2
+        level = MyPageLevel.LEVEL3,
+        count = 15,
     )
 }

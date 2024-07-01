@@ -33,11 +33,9 @@ import team.ppac.mypage.component.MyPageSpeechBubble
 internal fun MyPageScreen(
     modifier: Modifier = Modifier
 ) {
-    // TODO : 수정 필요
-    val myLevel = MyPageLevel.LEVEL4
-    val count = 1
-    val step = 2
-    val progress = 0.0f
+    // 임시 데이터
+    val level = MyPageLevel.LEVEL3
+    val count = 15
 
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
@@ -65,20 +63,20 @@ internal fun MyPageScreen(
                 contentDescription = null,
             )
             Text(
-                text = myLevel.title,
+                text = level.title,
                 modifier = Modifier.padding(vertical = 30.dp),
                 textAlign = TextAlign.Center,
                 style = FarmemeTheme.typography.highlight.normal,
             )
             MyPageProgressBar(
-                progress = progress,
-                level = myLevel,
+                count = count,
+                level = level,
             )
             Spacer(modifier = Modifier.height(16.dp))
             MyPageLevelBox(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 count = count,
-                step = step,
+                level = level,
             )
             Spacer(modifier = Modifier.height(40.dp))
             Spacer(
@@ -99,10 +97,27 @@ private fun MyPageScreenPreview() {
 
 enum class MyPageLevel(
     val title: String,
+    val stepTitle: String,
     val level: Int,
 ) {
-    LEVEL1(title = "LV.1 호기심 많은 밈린이", 1),
-    LEVEL2(title = "LV.2 은은하게 밈친자", 2),
-    LEVEL3(title = "LV.3 입담 좋은 밈수저", 3),
-    LEVEL4(title = "LV.4 독보적인 밈천재", 4),
+    LEVEL1(
+        title = "LV.1 호기심 많은 밈린이",
+        stepTitle = "밈 20번 보기",
+        level = 1,
+    ),
+    LEVEL2(
+        title = "LV.2 은은하게 밈친자",
+        stepTitle = "ㅋㅋ 반응 20번 남기기",
+        level = 2,
+    ),
+    LEVEL3(
+        title = "LV.3 입담 좋은 밈수저",
+        stepTitle = "밈 20번 공유하기",
+        level = 3,
+    ),
+    LEVEL4(
+        title = "LV.4 독보적인 밈천재",
+        stepTitle = "밈 20번 저장하기",
+        level = 4,
+    ),
 }

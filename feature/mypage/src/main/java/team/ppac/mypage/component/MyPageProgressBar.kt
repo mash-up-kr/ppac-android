@@ -1,6 +1,5 @@
 package team.ppac.mypage.component
 
-import androidx.annotation.FloatRange
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -28,9 +27,8 @@ import team.ppac.mypage.MyPageLevel
 @Composable
 fun MyPageProgressBar(
     modifier: Modifier = Modifier,
-    @FloatRange(from = 0.0, to = 1.0)
-    progress: Float,
     level: MyPageLevel,
+    count: Int,
 ) {
     BoxWithConstraints(
         modifier = modifier.padding(horizontal = 20.dp),
@@ -38,7 +36,7 @@ fun MyPageProgressBar(
         MyPageProgressBarBackground()
         MyPageProgressBarActive(
             maxWidth = maxWidth,
-            progress = progress,
+            count = count,
             level = level,
         )
     }
@@ -48,14 +46,14 @@ fun MyPageProgressBar(
 fun MyPageProgressBarActive(
     modifier: Modifier = Modifier,
     maxWidth: Dp,
-    progress: Float,
     level: MyPageLevel,
+    count: Int,
 ) {
     val minWidth = 96.dp
 
     Row(
         modifier = modifier
-            .width(minWidth + (maxWidth - minWidth) * progress)
+            .width(minWidth + (maxWidth - minWidth) * 0.05f * count)
             .height(44.dp)
             .border(
                 width = 2.dp,
@@ -109,7 +107,7 @@ fun MyPageProgressBarBackground(
 @Composable
 fun MyPageProgressBarPreview() {
     MyPageProgressBar(
-        progress = 0.0f,
-        level = MyPageLevel.LEVEL4,
+        level = MyPageLevel.LEVEL3,
+        count = 15,
     )
 }
