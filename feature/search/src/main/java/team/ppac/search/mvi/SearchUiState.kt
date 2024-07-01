@@ -8,6 +8,7 @@ import team.ppac.search.model.HotKeywordUiModel
 
 data class SearchUiState(
     val isLoading: Boolean,
+    val showServiceOpenDialog: Boolean,
     val hotKeywords: ImmutableList<HotKeywordUiModel>,
     val memeCategories: ImmutableList<CategoryUiModel>,
 ) : UiState {
@@ -15,6 +16,7 @@ data class SearchUiState(
     companion object {
         val INITIAL_STATE = SearchUiState(
             isLoading = false,
+            showServiceOpenDialog = false,
             hotKeywords = persistentListOf(
                 HotKeywordUiModel(
                     description = "키워드가 길어지면 말줄임",
