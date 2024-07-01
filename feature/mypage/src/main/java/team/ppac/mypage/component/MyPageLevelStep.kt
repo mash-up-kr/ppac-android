@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.chip.FarmemeSmallChip
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.mypage.MyPageLevel
+import team.ppac.mypage.model.MyPageLevel
 
 @Composable
 internal fun MyPageLevelStep(

@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.mypage.MyPageLevel
+import team.ppac.mypage.model.MyPageLevel
 
 @Composable
 internal fun MyPageLevelBox(
@@ -110,7 +110,6 @@ private fun MyPageLevelBottom(
         MyPageLevelStep(level = level, count = count)
     }
 }
-
 
 @Preview
 @Composable

@@ -28,6 +28,7 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
+import team.ppac.mypage.model.MyPageLevel
 
 @Composable
 internal fun MyPageScreen(
@@ -93,31 +94,4 @@ internal fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     MyPageScreen()
-}
-
-enum class MyPageLevel(
-    val title: String,
-    val stepTitle: String,
-    val level: Int,
-) {
-    LEVEL1(
-        title = "LV.1 호기심 많은 밈린이",
-        stepTitle = "밈 20번 보기",
-        level = 1,
-    ),
-    LEVEL2(
-        title = "LV.2 은은하게 밈친자",
-        stepTitle = "ㅋㅋ 반응 20번 남기기",
-        level = 2,
-    ),
-    LEVEL3(
-        title = "LV.3 입담 좋은 밈수저",
-        stepTitle = "밈 20번 공유하기",
-        level = 3,
-    ),
-    LEVEL4(
-        title = "LV.4 독보적인 밈천재",
-        stepTitle = "밈 20번 저장하기",
-        level = 4,
-    ),
 }
