@@ -29,7 +29,6 @@ internal fun MyPageLevelBox(
 ) {
     Column(
         modifier = modifier
-            .padding(start = 20.dp, top = 16.dp, end = 20.dp, bottom = 40.dp)
             .clip(FarmemeRadius.Radius20.shape)
             .border(
                 width = 2.dp,

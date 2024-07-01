@@ -60,10 +60,23 @@ internal fun MyPageScreen(
             }
             item { MyPageBody(level = level) }
             item {
-                MyPageProgressBar(level = level, count = count)
+                MyPageProgressBar(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    level = level,
+                    count = count,
+                )
             }
             item {
-                MyPageLevelBox(level = level, count = count)
+                MyPageLevelBox(
+                    modifier = Modifier.padding(
+                        start = 20.dp,
+                        top = 16.dp,
+                        end = 20.dp,
+                        bottom = 40.dp
+                    ),
+                    level = level,
+                    count = count,
+                )
             }
             item {
                 Spacer(

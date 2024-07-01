@@ -31,7 +31,7 @@ internal fun MyPageProgressBar(
     count: Int,
 ) {
     BoxWithConstraints(
-        modifier = modifier.padding(horizontal = 20.dp),
+        modifier = modifier,
     ) {
         MyPageProgressBarBackground()
         MyPageProgressBarActive(
