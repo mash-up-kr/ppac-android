@@ -23,7 +23,6 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 @Composable
 fun MyPageLevel(
     modifier: Modifier = Modifier,
-    title: String,
     count: Int,
     step: Int,
 ) {
@@ -37,8 +36,8 @@ fun MyPageLevel(
             )
     ) {
         MyPageLevelTop(
-            title = title,
             count = count,
+            step = step,
         )
         Spacer(
             modifier = Modifier
@@ -53,8 +52,8 @@ fun MyPageLevel(
 @Composable
 fun MyPageLevelTop(
     modifier: Modifier = Modifier,
-    title: String,
     count: Int,
+    step: Int,
 ) {
     Row(
         modifier = modifier
@@ -63,7 +62,7 @@ fun MyPageLevelTop(
             .padding(start = 20.dp, top = 16.dp, end = 20.dp, bottom = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        MyPageLevelTitle(title = title)
+        MyPageLevelTitle(step = step)
         MyPageLevelChip(count = count)
     }
 }
@@ -71,20 +70,28 @@ fun MyPageLevelTop(
 @Composable
 fun MyPageLevelTitle(
     modifier: Modifier = Modifier,
-    title: String,
+    step: Int,
 ) {
     Column(
         modifier = modifier,
     ) {
         Text(
-            text = "다음 레벨 달성 조건",
+            text = when (step) {
+                0, 1, 2 -> "다음 레벨 달성 조건"
+                else -> "최종 레벨 달성 조건"
+            },
             color = FarmemeTheme.textColor.tertiary,
             textAlign = TextAlign.Start,
             style = FarmemeTheme.typography.body.medium.semibold,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = title,
+            text = when (step) {
+                0 -> "밈 20번 보기"
+                1 -> "ㅋㅋ 반응 20번 남기기"
+                2 -> "밈 20번 공유하기"
+                else -> "밈 20번 저장하기"
+            },
             color = FarmemeTheme.textColor.primary,
             textAlign = TextAlign.Start,
             style = FarmemeTheme.typography.heading.small.semibold,
@@ -112,7 +119,6 @@ fun MyPageLevelBottom(
 @Composable
 fun MyPageLevelPreview() {
     MyPageLevel(
-        title = "밈 20번 보기",
         count = 1,
         step = 2
     )
