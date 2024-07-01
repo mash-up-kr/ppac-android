@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -72,6 +73,8 @@ dependencies {
     implementation(libs.lifecycle)
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
+
+    implementation(platform(libs.firebase.bom))
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
