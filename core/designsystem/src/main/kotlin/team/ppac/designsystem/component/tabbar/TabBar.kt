@@ -27,6 +27,8 @@ import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.boxShadow
 
+val TabBarHeight = 64.dp
+
 @Composable
 fun FarmemeNavigationBar(
     modifier: Modifier = Modifier,
@@ -38,8 +40,6 @@ fun FarmemeNavigationBar(
         content = content
     )
 }
-
-internal val TabBarHeight = 64.dp
 
 @Composable
 fun TabBar(
