@@ -89,7 +89,14 @@ private fun MyPageBody(
         MyPageSpeechBubble()
         Spacer(modifier = Modifier.height(5.dp))
         Image(
-            painter = painterResource(R.drawable.img_my_character),
+            painter = painterResource(
+                when (level) {
+                    MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
+                    MyPageLevel.LEVEL2 -> R.drawable.img_character_level_1
+                    MyPageLevel.LEVEL3 -> R.drawable.img_character_level_1
+                    MyPageLevel.LEVEL4 -> R.drawable.img_character_level_1
+                }
+            ),
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(30.dp))
