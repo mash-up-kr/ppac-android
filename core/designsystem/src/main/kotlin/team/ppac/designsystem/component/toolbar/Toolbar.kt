@@ -23,7 +23,7 @@ fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
     FarmemeToolbar(
         actionIcon = {
             FarmemeIcon.Setting(
-                modifier = Modifier
+                modifier = Modifier.size(20.dp)
                     .clickable { onClickActionIcon() },
             )
         }
@@ -36,7 +36,7 @@ fun FarmemeBackToolBar(title: String, onClickBackIcon: () -> Unit) {
         title = title,
         navigationIcon = {
             FarmemeIcon.Back(
-                modifier = Modifier
+                modifier = Modifier.size(20.dp)
                     .clickable { onClickBackIcon() }
             )
         }
@@ -44,7 +44,7 @@ fun FarmemeBackToolBar(title: String, onClickBackIcon: () -> Unit) {
 }
 
 @Composable
-fun FarmemeToolbar(
+internal fun FarmemeToolbar(
     modifier: Modifier = Modifier,
     title: String = "",
     navigationIcon: (@Composable () -> Unit)? = null,
@@ -61,7 +61,7 @@ fun FarmemeToolbar(
             modifier = Modifier
                 .padding(start = 20.dp)
                 .padding(vertical = 15.dp)
-                .size(24.dp)
+                .size(20.dp)
         ) {
             if (navigationIcon != null) {
                 navigationIcon()
@@ -78,7 +78,7 @@ fun FarmemeToolbar(
             modifier = Modifier
                 .padding(end = 20.dp)
                 .padding(vertical = 15.dp)
-                .size(24.dp)
+                .size(20.dp)
         ) {
             if (actionIcon != null) {
                 actionIcon()
