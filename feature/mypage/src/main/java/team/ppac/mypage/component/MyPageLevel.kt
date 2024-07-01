@@ -87,7 +87,7 @@ fun MyPageLevelTitle(
             text = title,
             color = FarmemeTheme.textColor.primary,
             textAlign = TextAlign.Start,
-            style = FarmemeTheme.typography.heading.medium.bold,
+            style = FarmemeTheme.typography.heading.small.semibold,
         )
     }
 }
