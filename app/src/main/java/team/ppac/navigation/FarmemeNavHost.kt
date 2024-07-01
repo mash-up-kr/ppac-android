@@ -1,5 +1,6 @@
 package team.ppac.navigation
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -23,9 +24,9 @@ fun FarmemeNavHost(
     onShowSnackBar: suspend (SnackbarMessage) -> Boolean,
 ) {
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier,
     ) {
         recommendationScreen()
         searchScreen()

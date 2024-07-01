@@ -34,10 +34,12 @@ class MainActivity : ComponentActivity() {
                             currentDestination = navController.currentBackStackEntryAsState().value?.destination
                         )
                     },
+                    isIncludeHorizontalPadding = false,
                     backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
-                    scaffoldState = scaffoldState
+                    scaffoldState = scaffoldState,
                 ) {
                     FarmemeNavHost(
+                        modifier = Modifier.fillMaxSize(),
                         navController = navController,
                         onShowSnackBar = { _ -> false }
                     )

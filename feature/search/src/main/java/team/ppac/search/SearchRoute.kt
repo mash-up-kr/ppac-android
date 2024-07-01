@@ -5,7 +5,12 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun SearchRoute(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    SearchScreen()
+    SearchScreen(
+        modifier = modifier,
+        onCategoryClick = {},
+        onSearchClick = {},
+        navigateToSearchDetail = {}
+    )
 }
