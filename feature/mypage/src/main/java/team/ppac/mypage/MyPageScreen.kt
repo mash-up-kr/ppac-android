@@ -23,13 +23,19 @@ import team.ppac.designsystem.component.button.FarmemeImageButton
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.mypage.component.MyPageLevel
+import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 
 @Composable
 internal fun MyPageScreen(
     modifier: Modifier = Modifier
 ) {
+    // TODO : 수정 필요
+    val myLevel = MyPageLevel.LEVEL1
+    val count = 1
+    val step = 2
+    val progress = 0.0f
+
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
@@ -52,7 +58,7 @@ internal fun MyPageScreen(
                     .background(Color.White)
             )
             Text(
-                text = "LV.1 호기심 많은 밈린이",
+                text = myLevel.title,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 30.dp),
@@ -60,15 +66,14 @@ internal fun MyPageScreen(
                 style = FarmemeTheme.typography.highlight.normal,
             )
             MyPageProgressBar(
-                progress = 0.0f,
-                level = 1,
+                progress = progress,
+                level = myLevel.level,
             )
             Spacer(modifier = Modifier.height(16.dp))
-            MyPageLevel(
+            MyPageLevelBox(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                title = "밈 20번 보기",
-                count = 1,
-                step = 2,
+                count = count,
+                step = step,
             )
             Spacer(modifier = Modifier.height(40.dp))
             Spacer(
@@ -85,4 +90,14 @@ internal fun MyPageScreen(
 @Composable
 private fun MyPageScreenPreview() {
     MyPageScreen()
+}
+
+enum class MyPageLevel(
+    val title: String,
+    val level: Int,
+) {
+    LEVEL1(title = "LV.1 호기심 많은 밈린이", 1),
+    LEVEL2(title = "LV.2 은은하게 밈친자", 2),
+    LEVEL3(title = "LV.3 입담 좋은 밈수저", 3),
+    LEVEL4(title = "LV.4 독보적인 밈천재", 4),
 }
