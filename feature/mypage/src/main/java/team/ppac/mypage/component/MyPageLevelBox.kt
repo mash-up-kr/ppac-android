@@ -21,7 +21,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-fun MyPageLevel(
+fun MyPageLevelBox(
     modifier: Modifier = Modifier,
     count: Int,
     step: Int,
@@ -118,7 +118,7 @@ fun MyPageLevelBottom(
 @Preview
 @Composable
 fun MyPageLevelPreview() {
-    MyPageLevel(
+    MyPageLevelBox(
         count = 1,
         step = 2
     )
