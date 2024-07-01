@@ -25,6 +25,7 @@ import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
+import team.ppac.mypage.component.MyPageSpeechBubble
 
 @Composable
 internal fun MyPageScreen(
@@ -41,8 +42,11 @@ internal fun MyPageScreen(
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
         scaffoldState = rememberScaffoldState()
     ) {
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Box(
+                // TODO : App bar로 교체 예정
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.CenterEnd,
             ) {
@@ -51,17 +55,17 @@ internal fun MyPageScreen(
                     icon = { FarmemeIcon.Setting(Modifier.size(20.dp)) }
                 )
             }
+            Spacer(modifier = Modifier.height(8.dp))
+            MyPageSpeechBubble()
+            Spacer(modifier = Modifier.height(5.dp))
             Box( // TODO : character 들어갈 곳
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(260.dp)
+                    .size(width = 189.dp, height = 191.dp)
                     .background(Color.White)
             )
             Text(
                 text = myLevel.title,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 30.dp),
+                modifier = Modifier.padding(vertical = 30.dp),
                 textAlign = TextAlign.Center,
                 style = FarmemeTheme.typography.highlight.normal,
             )
