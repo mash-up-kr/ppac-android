@@ -34,7 +34,7 @@ internal fun MyPageScreen(
     modifier: Modifier = Modifier
 ) {
     // TODO : 수정 필요
-    val myLevel = MyPageLevel.LEVEL1
+    val myLevel = MyPageLevel.LEVEL4
     val count = 1
     val step = 2
     val progress = 0.0f
@@ -72,7 +72,7 @@ internal fun MyPageScreen(
             )
             MyPageProgressBar(
                 progress = progress,
-                level = myLevel.level,
+                level = myLevel,
             )
             Spacer(modifier = Modifier.height(16.dp))
             MyPageLevelBox(

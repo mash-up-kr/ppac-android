@@ -23,13 +23,14 @@ import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.mypage.MyPageLevel
 
 @Composable
 fun MyPageProgressBar(
     modifier: Modifier = Modifier,
     @FloatRange(from = 0.0, to = 1.0)
     progress: Float,
-    level: Int,
+    level: MyPageLevel,
 ) {
     BoxWithConstraints(
         modifier = modifier.padding(horizontal = 20.dp),
@@ -48,9 +49,9 @@ fun MyPageProgressBarActive(
     modifier: Modifier = Modifier,
     maxWidth: Dp,
     progress: Float,
-    level: Int,
+    level: MyPageLevel,
 ) {
-    val minWidth = 95.dp
+    val minWidth = 96.dp
 
     Row(
         modifier = modifier
@@ -70,14 +71,14 @@ fun MyPageProgressBarActive(
         horizontalArrangement = Arrangement.Start,
     ) {
         when (level) {
-            1 -> FarmemeIcon.Level1(modifier = Modifier.size(24.dp))
-            2 -> FarmemeIcon.Level2(modifier = Modifier.size(24.dp))
-            3 -> FarmemeIcon.Level3(modifier = Modifier.size(24.dp))
-            4 -> FarmemeIcon.Level4(modifier = Modifier.size(24.dp))
+            MyPageLevel.LEVEL1 -> FarmemeIcon.Level1(modifier = Modifier.size(24.dp))
+            MyPageLevel.LEVEL2 -> FarmemeIcon.Level2(modifier = Modifier.size(24.dp))
+            MyPageLevel.LEVEL3 -> FarmemeIcon.Level3(modifier = Modifier.size(24.dp))
+            MyPageLevel.LEVEL4 -> FarmemeIcon.Level4(modifier = Modifier.size(24.dp))
         }
         Spacer(Modifier.width(4.dp))
         Text(
-            text = "LV. $level",
+            text = "LV. ${level.level}",
             style = FarmemeTheme.typography.body.xLarge.semibold,
             color = FarmemeTheme.textColor.inverse,
         )
@@ -109,6 +110,6 @@ fun MyPageProgressBarBackground(
 fun MyPageProgressBarPreview() {
     MyPageProgressBar(
         progress = 0.0f,
-        level = 1,
+        level = MyPageLevel.LEVEL4,
     )
 }
