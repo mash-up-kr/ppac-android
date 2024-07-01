@@ -1,5 +1,6 @@
 package team.ppac.mypage
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,11 +15,12 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.R
 import team.ppac.designsystem.component.button.FarmemeImageButton
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
@@ -58,10 +60,9 @@ internal fun MyPageScreen(
             Spacer(modifier = Modifier.height(8.dp))
             MyPageSpeechBubble()
             Spacer(modifier = Modifier.height(5.dp))
-            Box( // TODO : character 들어갈 곳
-                modifier = Modifier
-                    .size(width = 189.dp, height = 191.dp)
-                    .background(Color.White)
+            Image(
+                painter = painterResource(R.drawable.img_my_character),
+                contentDescription = null,
             )
             Text(
                 text = myLevel.title,
