@@ -34,7 +34,7 @@ internal fun MyPageScreen(
 ) {
     // 임시 데이터
     val myPageUiModel = MyPageUiModel(
-        userLevel = MyPageLevel.LEVEL3,
+        userLevel = MyPageLevel.LEVEL2,
         memeCount = 15
     )
 
@@ -95,7 +95,7 @@ private fun MyPageBody(
             painter = painterResource(
                 when (myPageUiModel.userLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
-                    MyPageLevel.LEVEL2 -> R.drawable.img_character_level_1
+                    MyPageLevel.LEVEL2 -> R.drawable.img_character_level_2
                     MyPageLevel.LEVEL3 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL4 -> R.drawable.img_character_level_1
                 }
