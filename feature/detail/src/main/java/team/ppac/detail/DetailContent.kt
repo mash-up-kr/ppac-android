@@ -1,5 +1,6 @@
 package team.ppac.detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,9 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +33,7 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-fun DetailScreen() {
+fun DetailContent() {
     Box(
         modifier = Modifier
             .border(
@@ -90,34 +88,19 @@ fun DetailTexts() {
 
 @Composable
 fun DetailFunnyButton() {
-    Button(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp)
-            .padding(bottom = 10.dp)
-            .height(46.dp),
-        colors =
-            ButtonDefaults.buttonColors(
-                backgroundColor = FarmemeTheme.skeletonColor.primary,
-            ),
-        elevation = null,
-        onClick = {},
+            .height(46.dp)
+            .clip(FarmemeRadius.Radius10.shape)
+            .background(color = FarmemeTheme.skeletonColor.primary)
+            .clickable { },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_kk),
-                contentDescription = null,
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-            Icon(
-                painter = painterResource(id = R.drawable.ic_funny),
-                contentDescription = null,
-            )
-        }
+        FarmemeIcon.KK()
+        Spacer(modifier = Modifier.width(6.dp))
+        FarmemeIcon.Funny()
     }
 }
 
@@ -133,18 +116,18 @@ fun DetailBottomBar() {
             DetailBottomButton(
                 icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
                 title = "복사",
-            ) {
-            }
+                onClickButton = {}
+            )
             DetailBottomButton(
                 icon = { FarmemeIcon.Share(modifier = Modifier.size(20.dp)) },
                 title = "공유",
-            ) {
-            }
+                onClickButton = {}
+            )
             DetailBottomButton(
                 icon = { FarmemeIcon.BookmarkLine(modifier = Modifier.size(20.dp)) },
                 title = "북마크",
-            ) {
-            }
+                onClickButton = {}
+            )
         }
     }
 }
@@ -158,8 +141,8 @@ fun RowScope.DetailBottomButton(
     Row(
         modifier = Modifier
             .weight(1f)
-            .height(50.dp)
-            .clickable(onClick = onClickButton),
+            .clickable(onClick = onClickButton)
+            .padding(vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
@@ -175,8 +158,8 @@ fun RowScope.DetailBottomButton(
 
 @Composable
 @Preview(showBackground = true)
-fun PreviewDetailScreen() {
-    DetailScreen()
+fun PreviewDetailContent() {
+    DetailContent()
 }
 
 @Composable

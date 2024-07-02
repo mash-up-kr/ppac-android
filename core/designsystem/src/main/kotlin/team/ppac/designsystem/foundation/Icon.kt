@@ -271,6 +271,28 @@ object FarmemeIcon {
     )
 
     @Composable
+    fun Funny(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_funny),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun KK(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_kk),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
     fun CheckRectangle(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
