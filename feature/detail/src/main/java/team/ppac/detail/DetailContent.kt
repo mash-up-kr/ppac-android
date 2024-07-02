@@ -122,7 +122,6 @@ fun DetailBottomBar() {
                 .fillMaxWidth()
                 .align(Alignment.CenterVertically)
                 .padding(horizontal = 20.dp),
-            verticalAlignment = Alignment.CenterVertically
         ) {
             DetailBottomButton(
                 icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
