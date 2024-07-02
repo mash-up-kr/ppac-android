@@ -72,11 +72,7 @@ fun DetailTexts() {
         style = FarmemeTheme.typography.heading.large.semibold,
     )
     Spacer(modifier = Modifier.height(5.dp))
-    Text(
-        text = "#공부 #학생 #시험기간 #힘듦 #피곤",
-        color = FarmemeTheme.textColor.tertiary,
-        style = FarmemeTheme.typography.body.large.medium,
-    )
+    DetailTags()
     Spacer(modifier = Modifier.height(11.dp))
     Text(
         text = "출처: 출처에 대한 내용이 들어갑니다.",
@@ -84,6 +80,20 @@ fun DetailTexts() {
         style = FarmemeTheme.typography.body.xSmall.medium,
     )
     Spacer(modifier = Modifier.height(20.dp))
+}
+
+@Composable
+fun DetailTags(tags: List<String> = listOf("#공부", "#학생", "#시험기간", "힘듦", "피곤")) {
+    Row {
+        tags.forEach { tag ->
+            Text(
+                text = tag,
+                color = FarmemeTheme.textColor.tertiary,
+                style = FarmemeTheme.typography.body.large.medium,
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+        }
+    }
 }
 
 @Composable
@@ -112,6 +122,7 @@ fun DetailBottomBar() {
                 .fillMaxWidth()
                 .align(Alignment.CenterVertically)
                 .padding(horizontal = 20.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             DetailBottomButton(
                 icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
