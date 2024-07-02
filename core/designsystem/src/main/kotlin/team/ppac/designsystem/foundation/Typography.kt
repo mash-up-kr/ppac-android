@@ -14,11 +14,16 @@ internal val Pretendards = FontFamily(
     Font(R.font.pretendard_medium, FontWeight.Medium)
 )
 
+internal val SdSamliphopangcheOutline = FontFamily(
+    Font(R.font.sd_samliphopangche_outline)
+)
+
 internal val LocalFarmemeTypography = staticCompositionLocalOf { FarmemeTypography() }
 
 class FarmemeTypography {
     val heading = Heading()
     val body = Body()
+    val highlight = Highlight()
 }
 
 class Heading {
@@ -67,6 +72,10 @@ class Body {
     )
 }
 
+class Highlight {
+    val normal = sdSamliphopangcheOutline(size = 24)
+}
+
 class TextStyleSet(
     val bold: TextStyle,
     val semibold: TextStyle,
@@ -101,4 +110,11 @@ private fun pretendardMedium(
     fontWeight = FontWeight.Medium,
     fontSize = size.sp,
     lineHeight = lineHeight.sp,
+)
+
+private fun sdSamliphopangcheOutline(
+    size: Int,
+) = TextStyle(
+    fontFamily = SdSamliphopangcheOutline,
+    fontSize = size.sp,
 )

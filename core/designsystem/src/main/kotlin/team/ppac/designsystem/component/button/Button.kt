@@ -27,8 +27,8 @@ fun FarmemeCircleButton(
     modifier: Modifier = Modifier,
     size: Dp = 50.dp,
     backgroundColor: Color,
-    icon: @Composable () -> Unit,
     onClick: () -> Unit = { },
+    icon: @Composable () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -48,8 +48,8 @@ fun FarmemeWeakButton(
     backgroundColor: Color,
     text: String,
     textColor: Color,
-    icon: @Composable () -> Unit,
     onClick: () -> Unit = { },
+    icon: @Composable () -> Unit,
 ) {
     Row(
         modifier = modifier
