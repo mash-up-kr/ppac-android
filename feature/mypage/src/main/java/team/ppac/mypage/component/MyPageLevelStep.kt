@@ -134,12 +134,21 @@ private fun MyPageStepChips(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        FarmemeSmallChip(text = "밈 보기", enabled = (level.level >= MyPageLevel.LEVEL2.level))
-        FarmemeSmallChip(text = "ㅋ 남기기", enabled = (level.level >= MyPageLevel.LEVEL3.level))
-        FarmemeSmallChip(text = "밈 공유", enabled = (level.level >= MyPageLevel.LEVEL4.level))
+        FarmemeSmallChip(
+            text = "밈 보기",
+            enabled = (level.level >= MyPageLevel.LEVEL2.level),
+        )
+        FarmemeSmallChip(
+            text = "ㅋ 남기기",
+            enabled = (level.level >= MyPageLevel.LEVEL3.level),
+        )
+        FarmemeSmallChip(
+            text = "밈 공유",
+            enabled = (level.level >= MyPageLevel.LEVEL4.level),
+        )
         FarmemeSmallChip(
             text = "밈 저장",
-            enabled = (level.level >= MyPageLevel.LEVEL4.level) && count == 20
+            enabled = (level.level >= MyPageLevel.LEVEL4.level) && (count == 20),
         )
     }
 }

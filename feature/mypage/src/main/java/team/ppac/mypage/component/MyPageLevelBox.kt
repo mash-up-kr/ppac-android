@@ -14,7 +14,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
@@ -82,14 +81,12 @@ private fun MyPageLevelTitle(
                 else -> "다음 레벨 달성 조건"
             },
             color = FarmemeTheme.textColor.tertiary,
-            textAlign = TextAlign.Start,
             style = FarmemeTheme.typography.body.medium.semibold,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = level.stepTitle,
             color = FarmemeTheme.textColor.primary,
-            textAlign = TextAlign.Start,
             style = FarmemeTheme.typography.heading.small.semibold,
         )
     }
