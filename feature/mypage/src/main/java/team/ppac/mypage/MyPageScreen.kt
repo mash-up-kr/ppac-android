@@ -21,6 +21,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
@@ -45,13 +46,8 @@ internal fun MyPageScreen(
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            item {// TODO : App bar로 교체 예정
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .background(FarmemeTheme.skeletonColor.primary)
-                )
+            item {
+                FarmemeActionToolBar(onClickActionIcon = { })
             }
             item { MyPageBody(myPageUiModel = myPageUiModel) }
             item {
