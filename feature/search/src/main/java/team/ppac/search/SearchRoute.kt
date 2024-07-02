@@ -10,7 +10,6 @@ internal fun SearchRoute(
     SearchScreen(
         modifier = modifier,
         onCategoryClick = {},
-        onSearchClick = {},
         navigateToSearchDetail = {}
     )
 }

@@ -23,6 +23,8 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.search.component.FarmemeSearchBar
 import team.ppac.search.component.HotKeywordContent
 import team.ppac.search.component.MemeCategoryContent
+import team.ppac.search.component.OpenServiceDialog
+import team.ppac.search.mvi.SearchIntent
 import team.ppac.search.mvi.SearchSideEffect
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -31,7 +33,6 @@ internal fun SearchScreen(
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = hiltViewModel(),
     onCategoryClick: () -> Unit,
-    onSearchClick: () -> Unit,
     navigateToSearchDetail: () -> Unit,
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
@@ -45,7 +46,10 @@ internal fun SearchScreen(
     }
 
     if (uiState.showServiceOpenDialog) {
-
+        OpenServiceDialog(
+            onConfirmClick = { viewModel.showServiceOpenDialog(false) },
+            onDismiss = { viewModel.showServiceOpenDialog(false) }
+        )
     }
 
     FarmemeScaffold(
@@ -59,7 +63,7 @@ internal fun SearchScreen(
             stickyHeader {
                 FarmemeSearchBar(
                     modifier = Modifier,
-                    onSearchClick = onSearchClick
+                    onSearchClick = { viewModel.intent(SearchIntent.ClickSearch(true)) }
                 )
             }
             item {
@@ -92,7 +96,6 @@ internal fun SearchScreen(
 private fun MyPageScreenPreview() {
     SearchScreen(
         onCategoryClick = {},
-        onSearchClick = {},
         navigateToSearchDetail = {}
     )
 }
