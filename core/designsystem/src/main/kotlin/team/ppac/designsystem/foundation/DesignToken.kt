@@ -35,10 +35,12 @@ data class FarmemeBackgroundColor(
     val assistive: Color = Gray10,
     val dimmer: Color = BlackAlpha40,
     val brand: Color = Orange100,
+    val brandSub: Color = Lemon100,
     val brandAssistive: Color = Orange10,
+    val brandSubAssistive: Color = Lemon10,
     val white: Color = White,
 ) {
-    val brandLemonGradient: Brush = Brush.linearGradient(listOf(brandAssistive, Lemon10))
+    val brandLemonGradient: Brush = Brush.linearGradient(listOf(brandAssistive, brandSubAssistive))
     val brandWhiteGradient: Brush = Brush.linearGradient(listOf(brandAssistive, White))
 }
 
