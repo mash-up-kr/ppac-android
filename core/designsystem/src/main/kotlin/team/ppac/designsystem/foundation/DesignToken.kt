@@ -26,7 +26,8 @@ data class FarmemeIconColor(
 
 data class FarmemeBorderColor(
     val primary: Color = Gray90,
-    val secondary: Color = Gray20,
+    val secondary: Color = Gray30,
+    val tertiary: Color = Gray20,
     val assistive: Color = Gray10,
 )
 
@@ -45,8 +46,8 @@ data class FarmemeBackgroundColor(
 }
 
 data class FarmemeSkeletonColor(
-    val primary: Color = Gray20,
-    val secondary: Color = Gray30,
+    val primary: Color = Gray10,
+    val secondary: Color = Gray20,
 )
 
 val LocalFarmemeTextColor = staticCompositionLocalOf {
