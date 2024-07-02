@@ -15,7 +15,7 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 @Composable
 internal fun MyPageLevelChip(
     modifier: Modifier = Modifier,
-    count: Int,
+    memeCount: Int,
 ) {
     Row(
         modifier = modifier
@@ -24,7 +24,7 @@ internal fun MyPageLevelChip(
             .padding(horizontal = 10.dp, vertical = 5.dp),
     ) {
         Text(
-            text = "$count",
+            text = "$memeCount",
             color = FarmemeTheme.textColor.brand,
             style = FarmemeTheme.typography.body.large.semibold,
         )
@@ -39,5 +39,5 @@ internal fun MyPageLevelChip(
 @Preview
 @Composable
 private fun MyPageLevelChipPreview() {
-    MyPageLevelChip(count = 10)
+    MyPageLevelChip(memeCount = 10)
 }

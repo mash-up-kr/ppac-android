@@ -25,14 +25,17 @@ import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.model.MyPageLevel
+import team.ppac.mypage.model.MyPageUiModel
 
 @Composable
 internal fun MyPageScreen(
     modifier: Modifier = Modifier
 ) {
     // 임시 데이터
-    val level = MyPageLevel.LEVEL3
-    val count = 15
+    val myPageUiModel = MyPageUiModel(
+        userLevel = MyPageLevel.LEVEL3,
+        memeCount = 15
+    )
 
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
@@ -50,12 +53,11 @@ internal fun MyPageScreen(
                         .background(FarmemeTheme.skeletonColor.primary)
                 )
             }
-            item { MyPageBody(level = level) }
+            item { MyPageBody(myPageUiModel = myPageUiModel) }
             item {
                 MyPageProgressBar(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    level = level,
-                    count = count,
+                    myPageUiModel = myPageUiModel,
                 )
             }
             item {
@@ -64,10 +66,9 @@ internal fun MyPageScreen(
                         start = 20.dp,
                         top = 16.dp,
                         end = 20.dp,
-                        bottom = 40.dp
+                        bottom = 40.dp,
                     ),
-                    level = level,
-                    count = count,
+                    myPageUiModel = myPageUiModel,
                 )
             }
             item {
@@ -85,7 +86,7 @@ internal fun MyPageScreen(
 @Composable
 private fun MyPageBody(
     modifier: Modifier = Modifier,
-    level: MyPageLevel,
+    myPageUiModel: MyPageUiModel,
 ) {
     Column(
         modifier = modifier,
@@ -96,7 +97,7 @@ private fun MyPageBody(
         Spacer(modifier = Modifier.height(5.dp))
         Image(
             painter = painterResource(
-                when (level) {
+                when (myPageUiModel.userLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL2 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL3 -> R.drawable.img_character_level_1
@@ -107,7 +108,8 @@ private fun MyPageBody(
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
-            text = level.title,
+            text = myPageUiModel.userLevel.title,
+            color = FarmemeTheme.textColor.primary,
             style = FarmemeTheme.typography.highlight.normal,
         )
         Spacer(modifier = Modifier.height(30.dp))

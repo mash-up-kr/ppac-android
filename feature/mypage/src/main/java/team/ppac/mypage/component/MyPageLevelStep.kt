@@ -21,27 +21,26 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.chip.FarmemeSmallChip
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.model.MyPageLevel
+import team.ppac.mypage.model.MyPageUiModel
 
 @Composable
 internal fun MyPageLevelStep(
     modifier: Modifier = Modifier,
-    level: MyPageLevel,
-    count: Int,
+    myPageUiModel: MyPageUiModel,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
-        MyPageLevelStepProgress(level = level, count = count)
+        MyPageLevelStepProgress(myPageUiModel = myPageUiModel)
         Spacer(modifier = Modifier.height(10.dp))
-        MyPageStepChips(level = level, count = count)
+        MyPageStepChips(myPageUiModel = myPageUiModel)
     }
 }
 
 @Composable
 private fun MyPageLevelStepProgress(
     modifier: Modifier = Modifier,
-    level: MyPageLevel,
-    count: Int,
+    myPageUiModel: MyPageUiModel,
 ) {
     Box(
         modifier = modifier
@@ -49,15 +48,15 @@ private fun MyPageLevelStepProgress(
             .padding(horizontal = 20.5.dp),
         contentAlignment = Alignment.Center,
     ) {
-        MyPageDottedLines(level = level)
-        MyPageStepIcons(level = level, count = count)
+        MyPageDottedLines(level = myPageUiModel.userLevel.level)
+        MyPageStepIcons(myPageUiModel = myPageUiModel)
     }
 }
 
 @Composable
 private fun MyPageDottedLines(
     modifier: Modifier = Modifier,
-    level: MyPageLevel,
+    level: Int,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -68,18 +67,18 @@ private fun MyPageDottedLines(
             modifier = Modifier
                 .weight(1.0f)
                 .padding(start = 12.dp),
-            enabled = level.level > MyPageLevel.LEVEL1.level,
+            enabled = level > MyPageLevel.LEVEL1.level,
         )
         MyPageDottedLine(
             modifier = Modifier
                 .weight(1.0f),
-            enabled = level.level > MyPageLevel.LEVEL2.level,
+            enabled = level > MyPageLevel.LEVEL2.level,
         )
         MyPageDottedLine(
             modifier = Modifier
                 .weight(1.0f)
                 .padding(end = 12.dp),
-            enabled = level.level > MyPageLevel.LEVEL3.level,
+            enabled = level > MyPageLevel.LEVEL3.level,
         )
     }
 }
@@ -106,8 +105,7 @@ private fun MyPageDottedLine(
 @Composable
 private fun MyPageStepIcons(
     modifier: Modifier = Modifier,
-    level: MyPageLevel,
-    count: Int,
+    myPageUiModel: MyPageUiModel,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -116,9 +114,15 @@ private fun MyPageStepIcons(
     ) {
         for (idx in 1..4) {
             when {
-                (idx < level.level) || (level.level == MyPageLevel.LEVEL4.level && count == 20) -> FarmemeIcon.LevelCheck()
-                idx == level.level -> FarmemeIcon.LevelCurrent()
-                else -> FarmemeIcon.LevelDisabled()
+                (idx < myPageUiModel.userLevel.level)
+                        || (myPageUiModel.userLevel.level == MyPageLevel.LEVEL4.level && myPageUiModel.memeCount == 20)
+                -> FarmemeIcon.LevelCheck()
+
+                idx == myPageUiModel.userLevel.level
+                -> FarmemeIcon.LevelCurrent()
+
+                else
+                -> FarmemeIcon.LevelDisabled()
             }
         }
     }
@@ -127,8 +131,7 @@ private fun MyPageStepIcons(
 @Composable
 private fun MyPageStepChips(
     modifier: Modifier = Modifier,
-    level: MyPageLevel,
-    count: Int,
+    myPageUiModel: MyPageUiModel,
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -136,19 +139,20 @@ private fun MyPageStepChips(
     ) {
         FarmemeSmallChip(
             text = "밈 보기",
-            enabled = (level.level >= MyPageLevel.LEVEL2.level),
+            enabled = (myPageUiModel.userLevel.level >= MyPageLevel.LEVEL2.level),
         )
         FarmemeSmallChip(
             text = "ㅋ 남기기",
-            enabled = (level.level >= MyPageLevel.LEVEL3.level),
+            enabled = (myPageUiModel.userLevel.level >= MyPageLevel.LEVEL3.level),
         )
         FarmemeSmallChip(
             text = "밈 공유",
-            enabled = (level.level >= MyPageLevel.LEVEL4.level),
+            enabled = (myPageUiModel.userLevel.level >= MyPageLevel.LEVEL4.level),
         )
         FarmemeSmallChip(
             text = "밈 저장",
-            enabled = (level.level >= MyPageLevel.LEVEL4.level) && (count == 20),
+            enabled = (myPageUiModel.userLevel.level >= MyPageLevel.LEVEL4.level)
+                    && (myPageUiModel.memeCount == 20),
         )
     }
 }
@@ -156,5 +160,10 @@ private fun MyPageStepChips(
 @Preview
 @Composable
 private fun MyPageLevelStepPreview() {
-    MyPageLevelStep(level = MyPageLevel.LEVEL3, count = 15)
+    MyPageLevelStep(
+        myPageUiModel = MyPageUiModel(
+            userLevel = MyPageLevel.LEVEL3,
+            memeCount = 15,
+        )
+    )
 }

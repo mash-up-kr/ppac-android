@@ -1,6 +1,6 @@
 package team.ppac.mypage.model
 
-internal enum class MyPageLevel(
+enum class MyPageLevel(
     val level: Int,
     val title: String,
     val stepTitle: String,
