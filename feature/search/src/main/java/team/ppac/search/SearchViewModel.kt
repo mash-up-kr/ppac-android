@@ -10,20 +10,21 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
 
-) : BaseViewModel<SearchUiState, SearchSideEffect, SearchIntent>(SearchUiState.INITIAL_STATE){
+) : BaseViewModel<SearchUiState, SearchSideEffect, SearchIntent>(SearchUiState.INITIAL_STATE) {
 
     override suspend fun handleIntent(intent: SearchIntent) {
         when (intent) {
-            SearchIntent.ClickSearch -> {
-                updateServiceOpenDialog()
+            is SearchIntent.ClickSearch -> {
+                showServiceOpenDialog(intent.showDialog)
             }
-            SearchIntent.ClickKeywordCard, SearchIntent.ClickMemeCategory -> {
+
+            is SearchIntent.ClickKeywordCard, SearchIntent.ClickMemeCategory -> {
                 postSideEffect(SearchSideEffect.NavigateToSearchDetail)
             }
         }
     }
 
-    private fun updateServiceOpenDialog(showServiceOpenDialog: Boolean = true) {
+    fun showServiceOpenDialog(showServiceOpenDialog: Boolean) {
         reduce {
             copy(showServiceOpenDialog = showServiceOpenDialog)
         }
