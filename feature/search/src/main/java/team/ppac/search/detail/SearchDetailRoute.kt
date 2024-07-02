@@ -13,6 +13,8 @@ internal fun SearchDetailRoute(
     viewModel: SearchDetailViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
@@ -20,7 +22,6 @@ internal fun SearchDetailRoute(
             }
         }
     }
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     SearchDetailScreen(
         modifier = modifier,
