@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -19,9 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
+import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
@@ -74,6 +77,27 @@ internal fun MyPageScreen(
                         .height(10.dp)
                         .background(FarmemeTheme.skeletonColor.primary)
                 )
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+            item {
+                FarmemeListHeader(
+                    title = "최근 본 밈",
+                    leadingIcon = {
+                        FarmemeIcon.SuccessOutlined(Modifier.size(20.dp))
+                    }
+                )
+            }
+            item {
+                // list
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp)
+                        .background(FarmemeTheme.skeletonColor.secondary)
+                )
+            }
+            item {
+                Spacer(modifier = Modifier.height(50.dp))
             }
         }
     }
