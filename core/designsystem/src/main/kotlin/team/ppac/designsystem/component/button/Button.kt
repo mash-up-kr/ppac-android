@@ -23,19 +23,6 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-fun FarmemeImageButton(
-    modifier: Modifier = Modifier,
-    icon: @Composable () -> Unit,
-    onClick: () -> Unit = { },
-) {
-    Box(
-        modifier = modifier.clickable(onClick = onClick),
-    ) {
-        icon()
-    }
-}
-
-@Composable
 fun FarmemeCircleButton(
     modifier: Modifier = Modifier,
     size: Dp = 50.dp,

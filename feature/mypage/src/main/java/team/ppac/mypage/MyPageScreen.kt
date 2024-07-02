@@ -2,14 +2,12 @@ package team.ppac.mypage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -21,10 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
-import team.ppac.designsystem.component.button.FarmemeImageButton
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
-import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
@@ -47,16 +43,12 @@ internal fun MyPageScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {// TODO : App bar로 교체 예정
-                Box(
-
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.CenterEnd,
-                ) {
-                    FarmemeImageButton(
-                        modifier = Modifier.padding(top = 15.dp, end = 20.dp, bottom = 15.dp),
-                        icon = { FarmemeIcon.Setting(Modifier.size(20.dp)) }
-                    )
-                }
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(FarmemeTheme.skeletonColor.primary)
+                )
             }
             item { MyPageBody(level = level) }
             item {
@@ -99,6 +91,7 @@ private fun MyPageBody(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Spacer(modifier = Modifier.height(8.dp))
         MyPageSpeechBubble()
         Spacer(modifier = Modifier.height(5.dp))
         Image(
