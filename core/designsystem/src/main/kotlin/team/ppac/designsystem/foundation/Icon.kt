@@ -52,12 +52,23 @@ object FarmemeIcon {
     )
 
     @Composable
-    fun Check(
+    fun SuccessFilled(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
     ) = Icon(
         modifier = modifier,
-        painter = painterResource(R.drawable.ic_check_24),
+        painter = painterResource(R.drawable.ic_success_filled_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun SuccessOutlined(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_success_outlined_24),
         contentDescription = null,
         tint = tint,
     )
