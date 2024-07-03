@@ -1,4 +1,4 @@
-package team.ppac.detail
+package team.ppac.detail.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -33,9 +33,9 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-fun DetailContent() {
+internal fun DetailContent(modifier : Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = 2.dp,
                 color = FarmemeTheme.borderColor.primary,
@@ -64,7 +64,7 @@ fun DetailContent() {
 }
 
 @Composable
-fun DetailTexts() {
+internal fun DetailTexts() {
     Spacer(modifier = Modifier.height(25.dp))
     Text(
         text = "나는 공부를 찢어",
@@ -83,7 +83,7 @@ fun DetailTexts() {
 }
 
 @Composable
-fun DetailTags(tags: List<String> = listOf("#공부", "#학생", "#시험기간", "힘듦", "피곤")) {
+internal fun DetailTags(tags: List<String> = listOf("#공부", "#학생", "#시험기간", "힘듦", "피곤")) {
     Row {
         tags.forEach { tag ->
             Text(
@@ -115,67 +115,9 @@ fun DetailFunnyButton() {
 }
 
 @Composable
-fun DetailBottomBar() {
-    TabBar(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.CenterVertically)
-                .padding(horizontal = 20.dp),
-        ) {
-            DetailBottomButton(
-                icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
-                title = "복사",
-                onClickButton = {}
-            )
-            DetailBottomButton(
-                icon = { FarmemeIcon.Share(modifier = Modifier.size(20.dp)) },
-                title = "공유",
-                onClickButton = {}
-            )
-            DetailBottomButton(
-                icon = { FarmemeIcon.BookmarkLine(modifier = Modifier.size(20.dp)) },
-                title = "북마크",
-                onClickButton = {}
-            )
-        }
-    }
-}
-
-@Composable
-fun RowScope.DetailBottomButton(
-    icon: @Composable () -> Unit,
-    title: String,
-    onClickButton: () -> Unit,
-) {
-    Row(
-        modifier = Modifier
-            .weight(1f)
-            .clickable(onClick = onClickButton)
-            .padding(vertical = 15.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-    ) {
-        icon()
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = title,
-            style = FarmemeTheme.typography.body.xLarge.semibold,
-            color = FarmemeTheme.textColor.primary,
-        )
-    }
-}
-
-@Composable
 @Preview(showBackground = true)
 fun PreviewDetailContent() {
-    DetailContent()
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewDetailBottomBar() {
-    DetailBottomBar()
+    DetailContent(Modifier)
 }
 
 private const val TEST_IMAGE_PREVIEW =
