@@ -1,4 +1,4 @@
-package team.ppac.search.component
+package team.ppac.search.search.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.search.model.HotKeywordUiModel
+import team.ppac.search.search.model.HotKeywordUiModel
 
 @Composable
 internal fun HotKeywordContent(

@@ -1,4 +1,4 @@
-package team.ppac.search.component
+package team.ppac.search.search.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

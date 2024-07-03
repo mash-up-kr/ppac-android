@@ -1,4 +1,4 @@
-package team.ppac.search
+package team.ppac.search.search
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,12 +20,12 @@ import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.search.component.FarmemeSearchBar
-import team.ppac.search.component.HotKeywordContent
-import team.ppac.search.component.MemeCategoryContent
-import team.ppac.search.component.OpenServiceDialog
-import team.ppac.search.mvi.SearchIntent
-import team.ppac.search.mvi.SearchSideEffect
+import team.ppac.search.search.component.FarmemeSearchBar
+import team.ppac.search.search.component.HotKeywordContent
+import team.ppac.search.search.component.MemeCategoryContent
+import team.ppac.search.search.component.OpenServiceDialog
+import team.ppac.search.search.mvi.SearchIntent
+import team.ppac.search.search.mvi.SearchSideEffect
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

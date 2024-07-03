@@ -1,7 +1,7 @@
-package team.ppac.search.preview
+package team.ppac.search.search.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import team.ppac.search.model.HotKeywordUiModel
+import team.ppac.search.search.model.HotKeywordUiModel
 
 class HotKeywordCardProvider : PreviewParameterProvider<HotKeywordUiModel> {
     private val sampleUrl = "https://picsum.photos/id/10/2500/1667"

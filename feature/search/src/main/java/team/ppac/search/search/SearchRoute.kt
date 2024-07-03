@@ -1,4 +1,4 @@
-package team.ppac.search
+package team.ppac.search.search
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
