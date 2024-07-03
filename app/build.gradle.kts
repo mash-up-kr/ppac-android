@@ -68,6 +68,7 @@ dependencies {
     implementation(project(":feature:mypage"))
     implementation(project(":feature:recommendation"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:setting"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle)
