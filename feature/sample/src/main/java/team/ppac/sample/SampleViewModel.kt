@@ -1,5 +1,6 @@
 package team.ppac.sample
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,8 +13,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SampleViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val sampleUseCase: SampleUseCase,
-) : BaseViewModel<SampleState, SampleSideEffect, SampleIntent>(SampleState()) {
+) : BaseViewModel<SampleState, SampleSideEffect, SampleIntent>(savedStateHandle) {
+
+    override fun createInitialState(savedStateHandle: SavedStateHandle): SampleState {
+        return SampleState()
+    }
+
     override suspend fun handleIntent(intent: SampleIntent) {
         when (intent) {
             is SampleIntent.ClickGetImagesButton -> getImages()
