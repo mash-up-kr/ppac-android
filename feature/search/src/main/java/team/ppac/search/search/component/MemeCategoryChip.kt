@@ -50,7 +50,7 @@ internal fun MemeCategoryChip(
 internal fun MemeCategoryChips(
     modifier: Modifier = Modifier,
     categories: ImmutableList<String>,
-    onCategoryClick: () -> Unit,
+    onCategoryClick: (String) -> Unit,
 ) {
     FlowRow(
         modifier = modifier.fillMaxWidth(),
@@ -61,7 +61,7 @@ internal fun MemeCategoryChips(
             val category = categories[index]
             MemeCategoryChip(
                 title = category,
-                onClick = onCategoryClick
+                onClick = { onCategoryClick(category) }
             )
         }
     }

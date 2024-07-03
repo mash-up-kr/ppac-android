@@ -1,6 +1,5 @@
 package team.ppac.search.detail.navigation
 
-import androidx.navigation.NavArgument
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -13,10 +12,11 @@ const val SEARCH_DETAIL_ROUTE = "search_detail"
 
 fun NavController.navigateToSearchDetail(
     memeCategory: String,
-    navOptions: NavOptions
 ) = navigate("$SEARCH_DETAIL_ROUTE/${memeCategory}")
 
-fun NavGraphBuilder.searchDetailScreen() {
+fun NavGraphBuilder.searchDetailScreen(
+    navigateBack: () -> Unit,
+) {
     composable(
         route = "$SEARCH_DETAIL_ROUTE/{memeCategory}",
         arguments = listOf(
@@ -25,6 +25,8 @@ fun NavGraphBuilder.searchDetailScreen() {
             }
         )
     ) {
-        SearchDetailRoute()
+        SearchDetailRoute(
+            navigateBack = navigateBack
+        )
     }
 }

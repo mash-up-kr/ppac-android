@@ -17,7 +17,7 @@ import team.ppac.search.search.model.CategoryUiModel
 internal fun MemeCategoryContent(
     modifier: Modifier = Modifier,
     uiModel: CategoryUiModel,
-    onCategoryClick: () -> Unit,
+    onCategoryClick: (String) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
