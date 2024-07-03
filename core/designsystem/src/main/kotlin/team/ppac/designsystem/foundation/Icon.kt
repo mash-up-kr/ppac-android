@@ -9,6 +9,17 @@ import team.ppac.designsystem.R
 
 object FarmemeIcon {
     @Composable
+    fun ArrowRight(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_arrow_right_24),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
     fun Back(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
