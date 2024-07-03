@@ -13,6 +13,7 @@ import team.ppac.mypage.navigation.navigateToMyPage
 import team.ppac.recommendation.navigation.RECOMMENDATION_ROUTE
 import team.ppac.recommendation.navigation.navigateToRecommendation
 import team.ppac.recommendation.navigation.recommendationScreen
+import team.ppac.search.detail.navigation.searchDetailScreen
 import team.ppac.search.search.navigation.navigateToSearch
 import team.ppac.search.search.navigation.searchScreen
 
@@ -30,6 +31,7 @@ fun FarmemeNavHost(
     ) {
         recommendationScreen()
         searchScreen()
+        searchDetailScreen()
         myPageScreen()
     }
 }
