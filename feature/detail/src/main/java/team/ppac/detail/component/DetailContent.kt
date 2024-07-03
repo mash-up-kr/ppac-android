@@ -2,17 +2,14 @@ package team.ppac.detail.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,12 +25,12 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
-import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
-internal fun DetailContent(modifier : Modifier) {
+internal fun DetailContent(modifier: Modifier) {
     Box(
         modifier = modifier
             .border(
@@ -104,7 +101,7 @@ fun DetailFunnyButton() {
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = FarmemeTheme.skeletonColor.primary)
-            .clickable { },
+            .noRippleClickable(onClick = {}),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {

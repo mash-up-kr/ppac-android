@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
 internal fun DetailBottomBar() {
@@ -56,7 +57,7 @@ internal fun RowScope.DetailBottomButton(
     Row(
         modifier = Modifier
             .weight(1f)
-            .clickable(onClick = onClickButton)
+            .noRippleClickable(onClick = onClickButton)
             .padding(vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,

@@ -17,14 +17,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
 fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
     FarmemeToolbar(
         actionIcon = {
             FarmemeIcon.Setting(
-                modifier = Modifier.size(20.dp)
-                    .clickable { onClickActionIcon() },
+                modifier = Modifier
+                    .size(20.dp)
+                    .noRippleClickable(onClick = onClickActionIcon),
             )
         }
     )
@@ -36,8 +38,9 @@ fun FarmemeBackToolBar(title: String, onClickBackIcon: () -> Unit) {
         title = title,
         navigationIcon = {
             FarmemeIcon.Back(
-                modifier = Modifier.size(20.dp)
-                    .clickable { onClickBackIcon() }
+                modifier = Modifier
+                    .size(20.dp)
+                    .noRippleClickable(onClick = onClickBackIcon)
             )
         }
     )
