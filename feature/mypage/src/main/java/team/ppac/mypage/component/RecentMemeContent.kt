@@ -24,7 +24,7 @@ import team.ppac.mypage.model.RecentMemeUiModel
 @Composable
 internal fun RecentMemeContent(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<RecentMemeUiModel>
+    recentMemes: ImmutableList<RecentMemeUiModel>,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -33,14 +33,14 @@ internal fun RecentMemeContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(10.dp)
-                .background(FarmemeTheme.skeletonColor.primary)
+                .background(FarmemeTheme.skeletonColor.primary),
         )
         Spacer(modifier = Modifier.height(20.dp))
         FarmemeListHeader(
             title = "최근 본 밈",
             leadingIcon = {
                 FarmemeIcon.SuccessOutlined(Modifier.size(20.dp))
-            }
+            },
         )
         RecentMemeList(recentMemes = recentMemes)
         Spacer(modifier = Modifier.height(50.dp))
@@ -50,7 +50,7 @@ internal fun RecentMemeContent(
 @Composable
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<RecentMemeUiModel>
+    recentMemes: ImmutableList<RecentMemeUiModel>,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -60,6 +60,7 @@ private fun RecentMemeList(
         items(items = recentMemes) { meme ->
             RecentMemeCard(
                 imageUrl = meme.imageUrl,
+                onClick = { },
             )
         }
     }
@@ -81,6 +82,6 @@ private fun RecentMemeContentPreview() {
             RecentMemeUiModel(imageUrl = sampleUrl)
         ).add(
             RecentMemeUiModel(imageUrl = sampleUrl)
-        )
+        ),
     )
 }
