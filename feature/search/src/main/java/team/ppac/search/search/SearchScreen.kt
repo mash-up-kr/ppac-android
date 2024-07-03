@@ -9,13 +9,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
@@ -23,35 +19,16 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.search.search.component.FarmemeSearchBar
 import team.ppac.search.search.component.HotKeywordContent
 import team.ppac.search.search.component.MemeCategoryContent
-import team.ppac.search.search.component.OpenServiceDialog
-import team.ppac.search.search.mvi.SearchIntent
-import team.ppac.search.search.mvi.SearchSideEffect
+import team.ppac.search.search.mvi.SearchUiState
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun SearchScreen(
     modifier: Modifier = Modifier,
-    viewModel: SearchViewModel = hiltViewModel(),
-    onCategoryClick: () -> Unit,
-    navigateToSearchDetail: () -> Unit,
+    uiState: SearchUiState,
+    onSearchBarClick: () -> Unit,
+    onCategoryClick: (String) -> Unit,
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail()
-            }
-        }
-    }
-
-    if (uiState.showServiceOpenDialog) {
-        OpenServiceDialog(
-            onConfirmClick = { viewModel.showServiceOpenDialog(false) },
-            onDismiss = { viewModel.showServiceOpenDialog(false) }
-        )
-    }
-
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
         isIncludeHorizontalPadding = false,
@@ -63,7 +40,7 @@ internal fun SearchScreen(
             stickyHeader {
                 FarmemeSearchBar(
                     modifier = Modifier,
-                    onSearchClick = { viewModel.intent(SearchIntent.ClickSearch(true)) }
+                    onSearchClick = onSearchBarClick
                 )
             }
             item {
@@ -95,7 +72,8 @@ internal fun SearchScreen(
 @Composable
 private fun MyPageScreenPreview() {
     SearchScreen(
-        onCategoryClick = {},
-        navigateToSearchDetail = {}
+        uiState = SearchUiState.INITIAL_STATE,
+        onSearchBarClick = {},
+        onCategoryClick = {}
     )
 }
