@@ -11,7 +11,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-): BaseViewModel<SearchDetailUiState, SearchDetailSideEffect, SearchDetailIntent>(savedStateHandle){
+) : BaseViewModel<SearchDetailUiState, SearchDetailSideEffect, SearchDetailIntent>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): SearchDetailUiState {
         val memeCategory = savedStateHandle.get<String>("memeCategory") ?: ""
