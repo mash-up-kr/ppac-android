@@ -1,10 +1,10 @@
-package team.ppac.search.mvi
+package team.ppac.search.search.mvi
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.common.android.base.UiState
-import team.ppac.search.model.CategoryUiModel
-import team.ppac.search.model.HotKeywordUiModel
+import team.ppac.search.search.model.CategoryUiModel
+import team.ppac.search.search.model.HotKeywordUiModel
 
 data class SearchUiState(
     val isLoading: Boolean,

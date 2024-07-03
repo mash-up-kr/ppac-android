@@ -1,4 +1,4 @@
-package team.ppac.search.model
+package team.ppac.search.search.model
 
 import kotlinx.collections.immutable.ImmutableList
 

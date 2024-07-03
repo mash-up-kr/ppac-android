@@ -1,10 +1,10 @@
-package team.ppac.search
+package team.ppac.search.search
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import team.ppac.common.android.base.BaseViewModel
-import team.ppac.search.mvi.SearchIntent
-import team.ppac.search.mvi.SearchSideEffect
-import team.ppac.search.mvi.SearchUiState
+import team.ppac.search.search.mvi.SearchIntent
+import team.ppac.search.search.mvi.SearchSideEffect
+import team.ppac.search.search.mvi.SearchUiState
 import javax.inject.Inject
 
 @HiltViewModel
