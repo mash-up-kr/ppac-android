@@ -1,14 +1,11 @@
 package team.ppac.mypage
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -18,18 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
-import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
-import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
+import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.model.MyPageUiModel
+import team.ppac.mypage.model.RecentMemeUiModel
 
 @Composable
 internal fun MyPageScreen(
@@ -39,6 +37,20 @@ internal fun MyPageScreen(
     val myPageUiModel = MyPageUiModel(
         userLevel = MyPageLevel.LEVEL2,
         memeCount = 15
+    )
+
+    val sampleUrl = "https://picsum.photos/id/10/2500/1667"
+
+    val recentMemes = persistentListOf<RecentMemeUiModel>().add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
     )
 
     FarmemeScaffold(
@@ -70,35 +82,7 @@ internal fun MyPageScreen(
                     myPageUiModel = myPageUiModel,
                 )
             }
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(10.dp)
-                        .background(FarmemeTheme.skeletonColor.primary)
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-            }
-            item {
-                FarmemeListHeader(
-                    title = "최근 본 밈",
-                    leadingIcon = {
-                        FarmemeIcon.SuccessOutlined(Modifier.size(20.dp))
-                    }
-                )
-            }
-            item {
-                // list
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(120.dp)
-                        .background(FarmemeTheme.skeletonColor.secondary)
-                )
-            }
-            item {
-                Spacer(modifier = Modifier.height(50.dp))
-            }
+            item { RecentMemeContent(recentMemes = recentMemes) }
         }
     }
 }
