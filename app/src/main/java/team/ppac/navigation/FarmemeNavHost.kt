@@ -1,6 +1,5 @@
 package team.ppac.navigation
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -13,6 +12,7 @@ import team.ppac.mypage.navigation.navigateToMyPage
 import team.ppac.recommendation.navigation.RECOMMENDATION_ROUTE
 import team.ppac.recommendation.navigation.navigateToRecommendation
 import team.ppac.recommendation.navigation.recommendationScreen
+import team.ppac.search.detail.navigation.navigateToSearchDetail
 import team.ppac.search.detail.navigation.searchDetailScreen
 import team.ppac.search.search.navigation.navigateToSearch
 import team.ppac.search.search.navigation.searchScreen
@@ -30,8 +30,12 @@ fun FarmemeNavHost(
         startDestination = startDestination,
     ) {
         recommendationScreen()
-        searchScreen()
-        searchDetailScreen()
+        searchScreen(
+            navigateToSearchDetail = { navController.navigateToSearchDetail(memeCategory = it) }
+        )
+        searchDetailScreen(
+            navigateBack = { navController.navigateUp() }
+        )
         myPageScreen()
     }
 }
