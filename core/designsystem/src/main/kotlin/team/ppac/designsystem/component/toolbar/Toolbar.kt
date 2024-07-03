@@ -1,6 +1,5 @@
 package team.ppac.designsystem.component.toolbar
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +25,7 @@ fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
             FarmemeIcon.Setting(
                 modifier = Modifier
                     .size(20.dp)
-                    .noRippleClickable(onClick = onClickActionIcon),
+                    .noRippleClickable(onClick = onClickActionIcon)
             )
         }
     )
