@@ -1,11 +1,9 @@
 package team.ppac.mypage
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,15 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
+import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.model.MyPageUiModel
+import team.ppac.mypage.model.RecentMemeUiModel
 
 @Composable
 internal fun MyPageScreen(
@@ -33,8 +35,22 @@ internal fun MyPageScreen(
 ) {
     // 임시 데이터
     val myPageUiModel = MyPageUiModel(
-        userLevel = MyPageLevel.LEVEL3,
+        userLevel = MyPageLevel.LEVEL2,
         memeCount = 15
+    )
+
+    val sampleUrl = "https://picsum.photos/id/10/2500/1667"
+
+    val recentMemes = persistentListOf<RecentMemeUiModel>().add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
+    ).add(
+        RecentMemeUiModel(imageUrl = sampleUrl)
     )
 
     FarmemeScaffold(
@@ -45,13 +61,8 @@ internal fun MyPageScreen(
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            item {// TODO : App bar로 교체 예정
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .background(FarmemeTheme.skeletonColor.primary)
-                )
+            item {
+                FarmemeActionToolBar(onClickActionIcon = { })
             }
             item { MyPageBody(myPageUiModel = myPageUiModel) }
             item {
@@ -71,14 +82,7 @@ internal fun MyPageScreen(
                     myPageUiModel = myPageUiModel,
                 )
             }
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(10.dp)
-                        .background(FarmemeTheme.skeletonColor.primary)
-                )
-            }
+            item { RecentMemeContent(recentMemes = recentMemes) }
         }
     }
 }
@@ -99,9 +103,9 @@ private fun MyPageBody(
             painter = painterResource(
                 when (myPageUiModel.userLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
-                    MyPageLevel.LEVEL2 -> R.drawable.img_character_level_1
-                    MyPageLevel.LEVEL3 -> R.drawable.img_character_level_1
-                    MyPageLevel.LEVEL4 -> R.drawable.img_character_level_1
+                    MyPageLevel.LEVEL2 -> R.drawable.img_character_level_2
+                    MyPageLevel.LEVEL3 -> R.drawable.img_character_level_3
+                    MyPageLevel.LEVEL4 -> R.drawable.img_character_level_4
                 }
             ),
             contentDescription = null,

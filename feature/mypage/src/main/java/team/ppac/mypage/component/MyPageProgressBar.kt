@@ -94,7 +94,7 @@ private fun MyPageProgressBarBackground(
             .height(44.dp)
             .border(
                 width = 2.dp,
-                color = FarmemeTheme.borderColor.secondary,
+                color = FarmemeTheme.borderColor.tertiary,
                 shape = FarmemeRadius.Radius40.shape,
             )
             .background(

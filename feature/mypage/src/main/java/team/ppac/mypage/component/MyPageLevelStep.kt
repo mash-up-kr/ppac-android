@@ -115,7 +115,7 @@ private fun MyPageStepIcons(
         for (idx in 1..4) {
             when {
                 (idx < myPageUiModel.userLevel.level)
-                        || (myPageUiModel.userLevel.level == MyPageLevel.LEVEL4.level && myPageUiModel.memeCount == 20)
+                        || (myPageUiModel.userLevel.level == MyPageLevel.LEVEL4.level && myPageUiModel.memeCount == MAX_MEME_COUNT)
                 -> FarmemeIcon.LevelCheck()
 
                 idx == myPageUiModel.userLevel.level
@@ -152,7 +152,7 @@ private fun MyPageStepChips(
         FarmemeSmallChip(
             text = "밈 저장",
             enabled = (myPageUiModel.userLevel.level >= MyPageLevel.LEVEL4.level)
-                    && (myPageUiModel.memeCount == 20),
+                    && (myPageUiModel.memeCount == MAX_MEME_COUNT),
         )
     }
 }
@@ -167,3 +167,5 @@ private fun MyPageLevelStepPreview() {
         )
     )
 }
+
+private const val MAX_MEME_COUNT = 20
