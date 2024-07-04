@@ -20,19 +20,19 @@ data class SearchUiState(
             hotKeywords = persistentListOf(
                 HotKeywordUiModel(
                     description = "키워드가 길어지면 말줄임",
-                    imageUrl = null
+                    imageUrl = ""
                 ),
                 HotKeywordUiModel(
                     description = "출근",
-                    imageUrl = null
+                    imageUrl = ""
                 ),
                 HotKeywordUiModel(
                     description = "슬픈",
-                    imageUrl = null
+                    imageUrl = ""
                 ),
                 HotKeywordUiModel(
                     description = "직장인",
-                    imageUrl = null
+                    imageUrl = ""
                 ),
             ),
             memeCategories = persistentListOf(
