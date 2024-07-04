@@ -3,6 +3,7 @@ package team.ppac.recommendation
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.usecase.GetLastSeenMemeCountUseCase
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import team.ppac.recommendation.mvi.RecommendationState
@@ -11,6 +12,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RecommendationViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val getLastSeenMemeCountUseCase: GetLastSeenMemeCountUseCase
 ) : BaseViewModel<RecommendationState, RecommendationSideEffect, RecommendationIntent>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): RecommendationState {
