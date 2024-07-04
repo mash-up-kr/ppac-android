@@ -1,5 +1,7 @@
 package team.ppac.designsystem
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -48,6 +50,7 @@ object FarmemeTheme {
         get() = LocalFarmemeTypography.current
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FarmemeTheme(
     textColor: FarmemeTextColor = FarmemeTheme.textColor,
@@ -65,6 +68,7 @@ fun FarmemeTheme(
         LocalFarmemeBackgroundColor provides backgroundColor,
         LocalFarmemeSkeletonColor provides skeletonColor,
         LocalFarmemeTypography provides typography,
+        LocalOverscrollConfiguration provides null,
         content = content
     )
 }
