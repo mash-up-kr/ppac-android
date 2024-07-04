@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
@@ -44,16 +45,7 @@ internal fun HotKeywordCard(
             ),
         contentAlignment = Alignment.Center
     ) {
-        AsyncImage(
-            modifier = Modifier.fillMaxSize(),
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(imageUrl)
-                .crossfade(true)
-                .build(),
-            placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
+        KeywordImage(imageUrl)
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
             text = description,
@@ -63,14 +55,29 @@ internal fun HotKeywordCard(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
-
     }
+}
+
+@Composable
+private fun KeywordImage(imageUrl: String) {
+    AsyncImage(
+        modifier = Modifier.fillMaxSize(),
+        model = ImageRequest.Builder(LocalContext.current)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .data(imageUrl)
+//                .crossfade(true)
+            .build(),
+        placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
+        contentDescription = null,
+        contentScale = ContentScale.Crop
+    )
 }
 
 @Preview
 @Composable
 private fun HotKeywordCardPreview(
-    @PreviewParameter(provider = HotKeywordCardProvider::class) card: HotKeywordUiModel
+    @PreviewParameter(provider = HotKeywordCardProvider::class) card: HotKeywordUiModel,
 ) {
     Box(
         modifier = Modifier.background(Color.White)
