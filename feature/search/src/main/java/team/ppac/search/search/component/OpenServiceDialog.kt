@@ -36,7 +36,10 @@ fun OpenServiceDialog(
                 .clip(FarmemeRadius.Radius20.shape)
                 .fillMaxWidth()
                 .background(FarmemeTheme.backgroundColor.white)
-                .padding(horizontal = 30.dp, vertical = 20.dp)
+                .padding(
+                    horizontal = 30.dp,
+                    vertical = 20.dp
+                )
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
