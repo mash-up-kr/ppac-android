@@ -1,4 +1,4 @@
-package team.ppac.search.search.preview
+package team.ppac.search.main.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 

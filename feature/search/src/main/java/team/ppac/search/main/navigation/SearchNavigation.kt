@@ -1,10 +1,10 @@
-package team.ppac.search.search.navigation
+package team.ppac.search.main.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import team.ppac.search.search.SearchRoute
+import team.ppac.search.main.SearchRoute
 
 const val SEARCH_ROUTE = "search"
 

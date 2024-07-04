@@ -1,4 +1,4 @@
-package team.ppac.search.search.component
+package team.ppac.search.main.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.search.search.model.CategoryUiModel
+import team.ppac.search.main.model.CategoryUiModel
 
 @Composable
 internal fun MemeCategoryContent(

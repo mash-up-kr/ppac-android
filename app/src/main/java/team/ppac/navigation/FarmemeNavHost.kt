@@ -14,8 +14,8 @@ import team.ppac.recommendation.navigation.navigateToRecommendation
 import team.ppac.recommendation.navigation.recommendationScreen
 import team.ppac.search.detail.navigation.navigateToSearchDetail
 import team.ppac.search.detail.navigation.searchDetailScreen
-import team.ppac.search.search.navigation.navigateToSearch
-import team.ppac.search.search.navigation.searchScreen
+import team.ppac.search.main.navigation.navigateToSearch
+import team.ppac.search.main.navigation.searchScreen
 
 @Composable
 fun FarmemeNavHost(
