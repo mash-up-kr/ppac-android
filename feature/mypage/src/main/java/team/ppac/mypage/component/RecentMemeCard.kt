@@ -19,7 +19,7 @@ import team.ppac.designsystem.util.extension.noRippleClickable
 internal fun RecentMemeCard(
     modifier: Modifier = Modifier,
     imageUrl: String?,
-    onClick: () -> Unit = { },
+    onClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -42,5 +42,8 @@ internal fun RecentMemeCard(
 @Preview
 @Composable
 private fun RecentMemeCardPreview() {
-    RecentMemeCard(imageUrl = null)
+    RecentMemeCard(
+        imageUrl = null,
+        onClick = { },
+    )
 }
