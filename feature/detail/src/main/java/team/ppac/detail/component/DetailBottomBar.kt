@@ -1,6 +1,5 @@
 package team.ppac.detail.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -30,29 +29,32 @@ internal fun DetailBottomBar() {
                 .padding(horizontal = 20.dp),
         ) {
             DetailBottomButton(
-                icon = { FarmemeIcon.Copy(modifier = Modifier.size(20.dp)) },
                 title = "복사",
-                onClickButton = {}
-            )
+                onClickButton = {},
+            ) {
+                FarmemeIcon.Copy(modifier = Modifier.size(20.dp))
+            }
             DetailBottomButton(
-                icon = { FarmemeIcon.Share(modifier = Modifier.size(20.dp)) },
                 title = "공유",
-                onClickButton = {}
-            )
+                onClickButton = {},
+            ) {
+                FarmemeIcon.Share(modifier = Modifier.size(20.dp))
+            }
             DetailBottomButton(
-                icon = { FarmemeIcon.BookmarkLine(modifier = Modifier.size(20.dp)) },
                 title = "북마크",
-                onClickButton = {}
-            )
+                onClickButton = {},
+            ) {
+                FarmemeIcon.BookmarkLine(modifier = Modifier.size(20.dp))
+            }
         }
     }
 }
 
 @Composable
 internal fun RowScope.DetailBottomButton(
-    icon: @Composable () -> Unit,
     title: String,
     onClickButton: () -> Unit,
+    icon: @Composable () -> Unit,
 ) {
     Row(
         modifier = Modifier
