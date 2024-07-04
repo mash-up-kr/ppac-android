@@ -35,7 +35,7 @@ internal fun SearchScreen(
         scaffoldState = rememberScaffoldState()
     ) {
         LazyColumn(
-            contentPadding = PaddingValues(bottom = TabBarHeight)
+            contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
             stickyHeader {
                 FarmemeSearchBar(
@@ -48,6 +48,8 @@ internal fun SearchScreen(
                     title = "두둥! 요즘 핫한 #키워드",
                     leadingIcon = { FarmemeIcon.Special(Modifier.size(20.dp)) }
                 )
+            }
+            item {
                 HotKeywordContent(keywords = uiState.hotKeywords)
             }
             item { Spacer(modifier = Modifier.size(40.dp)) }
