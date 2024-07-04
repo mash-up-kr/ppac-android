@@ -1,4 +1,4 @@
-package team.ppac.search.search
+package team.ppac.search.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,9 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import team.ppac.search.search.component.OpenServiceDialog
-import team.ppac.search.search.mvi.SearchIntent
-import team.ppac.search.search.mvi.SearchSideEffect
+import team.ppac.search.main.component.OpenServiceDialog
+import team.ppac.search.main.mvi.SearchIntent
+import team.ppac.search.main.mvi.SearchSideEffect
 
 @Composable
 internal fun SearchRoute(

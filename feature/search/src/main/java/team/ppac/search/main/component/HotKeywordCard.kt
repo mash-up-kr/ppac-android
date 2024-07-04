@@ -1,4 +1,4 @@
-package team.ppac.search.search.component
+package team.ppac.search.main.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,8 +24,8 @@ import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.search.search.model.HotKeywordUiModel
-import team.ppac.search.search.preview.HotKeywordCardProvider
+import team.ppac.search.main.model.HotKeywordUiModel
+import team.ppac.search.main.preview.HotKeywordCardProvider
 
 @Composable
 internal fun HotKeywordCard(

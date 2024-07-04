@@ -1,4 +1,4 @@
-package team.ppac.search.search.model
+package team.ppac.search.main.model
 
 data class HotKeywordUiModel(
     val description: String,

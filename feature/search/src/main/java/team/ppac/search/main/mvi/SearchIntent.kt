@@ -1,4 +1,4 @@
-package team.ppac.search.search.mvi
+package team.ppac.search.main.mvi
 
 import team.ppac.common.android.base.UiIntent
 
