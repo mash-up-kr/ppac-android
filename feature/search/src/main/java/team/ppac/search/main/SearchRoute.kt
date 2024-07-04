@@ -28,15 +28,15 @@ internal fun SearchRoute(
 
     if (uiState.showServiceOpenDialog) {
         OpenServiceDialog(
-            onConfirmClick = { viewModel.showServiceOpenDialog(false) },
-            onDismiss = { viewModel.showServiceOpenDialog(false) }
+            onConfirmClick = { viewModel.intent(SearchIntent.ClickServiceOpenDialogConfirm) },
+            onDismiss = { viewModel.intent(SearchIntent.ClickServiceOpenDialogDismiss) }
         )
     }
 
     SearchScreen(
         modifier = modifier,
         uiState = uiState,
-        onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch(true)) },
+        onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
         onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) }
     )
 }

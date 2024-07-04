@@ -20,7 +20,7 @@ class SearchViewModel @Inject constructor(
     override suspend fun handleIntent(intent: SearchIntent) {
         when (intent) {
             is SearchIntent.ClickSearch -> {
-                showServiceOpenDialog(intent.showDialog)
+                showServiceOpenDialog(true)
             }
 
             is SearchIntent.ClickKeywordCard -> {
@@ -30,10 +30,18 @@ class SearchViewModel @Inject constructor(
             is SearchIntent.ClickMemeCategory -> {
                 postSideEffect(SearchSideEffect.NavigateToSearchDetail(category = intent.category))
             }
+
+            is SearchIntent.ClickServiceOpenDialogConfirm -> {
+                showServiceOpenDialog(false)
+            }
+
+            is SearchIntent.ClickServiceOpenDialogDismiss -> {
+                showServiceOpenDialog(false)
+            }
         }
     }
 
-    fun showServiceOpenDialog(showServiceOpenDialog: Boolean) {
+    private fun showServiceOpenDialog(showServiceOpenDialog: Boolean) {
         reduce {
             copy(showServiceOpenDialog = showServiceOpenDialog)
         }
