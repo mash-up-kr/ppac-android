@@ -38,18 +38,20 @@ internal fun HotKeywordContent(
 @Preview
 @Composable
 private fun HotKeywordContentPreview() {
+    val sampleUrl = "https://picsum.photos/id/10/2500/1667"
+
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
         HotKeywordContent(
             keywords = persistentListOf<HotKeywordUiModel>().add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = null)
+                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = null)
+                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = null)
+                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = null)
+                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = null)
+                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
             )
         )
     }

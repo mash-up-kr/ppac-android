@@ -3,7 +3,6 @@ package team.ppac.search.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -31,7 +30,7 @@ import team.ppac.search.preview.HotKeywordCardProvider
 @Composable
 internal fun HotKeywordCard(
     modifier: Modifier = Modifier,
-    imageUrl: String?,
+    imageUrl: String,
     description: String,
 ) {
     Box(
