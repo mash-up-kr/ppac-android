@@ -104,8 +104,8 @@ private fun MyPageBody(
                 when (myPageUiModel.userLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL2 -> R.drawable.img_character_level_2
-                    MyPageLevel.LEVEL3 -> R.drawable.img_character_level_1
-                    MyPageLevel.LEVEL4 -> R.drawable.img_character_level_1
+                    MyPageLevel.LEVEL3 -> R.drawable.img_character_level_3
+                    MyPageLevel.LEVEL4 -> R.drawable.img_character_level_4
                 }
             ),
             contentDescription = null,
