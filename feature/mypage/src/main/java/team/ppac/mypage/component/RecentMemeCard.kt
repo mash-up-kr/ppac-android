@@ -18,7 +18,7 @@ import team.ppac.designsystem.util.extension.noRippleClickable
 @Composable
 internal fun RecentMemeCard(
     modifier: Modifier = Modifier,
-    imageUrl: String?,
+    imageUrl: String,
     onClick: () -> Unit,
 ) {
     Box(
@@ -43,7 +43,7 @@ internal fun RecentMemeCard(
 @Composable
 private fun RecentMemeCardPreview() {
     RecentMemeCard(
-        imageUrl = null,
+        imageUrl = "https://picsum.photos/id/10/2500/1667",
         onClick = { },
     )
 }
