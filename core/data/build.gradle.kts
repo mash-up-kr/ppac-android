@@ -21,6 +21,7 @@ dependencies {
     implementation(project(":core:common:kotlin"))
     implementation(project(":core:domain"))
     implementation(project(":core:remote"))
+    implementation(project(":core:local"))
 
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.kotlin.coroutines.core)
