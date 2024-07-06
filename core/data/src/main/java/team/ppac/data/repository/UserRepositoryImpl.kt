@@ -1,0 +1,28 @@
+package team.ppac.data.repository
+
+import kotlinx.coroutines.flow.firstOrNull
+import team.ppac.domain.repository.UserRepository
+import team.ppac.local.datasource.AppConfig
+import team.ppac.local.datasource.UserLocalDataSource
+import team.ppac.local.entity.UserData
+import team.ppac.remote.datasource.UserRemoteDataSource
+import javax.inject.Inject
+
+internal class UserRepositoryImpl @Inject constructor(
+    private val userRemoteDataSource: UserRemoteDataSource,
+    private val userLocalDataSource: UserLocalDataSource,
+    private val appConfig: AppConfig,
+) : UserRepository {
+    override suspend fun createUser(): Boolean {
+        val user: UserData? = userLocalDataSource.userDataFlow.firstOrNull()
+
+        return if (user != null) {
+            true
+        } else { // 유저 API로 등록 후 로컬에 등록 여부 저장
+            val id = appConfig.deviceId
+            userRemoteDataSource.postUser(id)
+            userLocalDataSource.setUser(user = UserData(id))
+            false
+        }
+    }
+}
