@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.create
 import team.ppac.remote.api.SampleApi
+import team.ppac.remote.api.UserApi
 import javax.inject.Singleton
 
 @Module
@@ -16,4 +17,8 @@ internal class ApiModule {
     @Provides
     @Singleton
     fun provideSampleApi(retrofit: Retrofit): SampleApi = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideUserApi(retrofit: Retrofit): UserApi = retrofit.create()
 }

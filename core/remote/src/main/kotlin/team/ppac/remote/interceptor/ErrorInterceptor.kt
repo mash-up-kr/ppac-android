@@ -3,8 +3,11 @@ package team.ppac.remote.interceptor
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
+import org.json.JSONObject
 import team.ppac.errorhandling.FarmemeException
 import team.ppac.errorhandling.parseWithNetworkError
+import timber.log.Timber
 import javax.inject.Inject
 import team.ppac.remote.model.response.Response as FarmemeResponse
 
@@ -14,12 +17,13 @@ class ErrorInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
             val response = chain.proceed(chain.request())
-            if (response.isSuccessful) {
-                return response
+            val responseBody = response.body
+            if (responseBody != null && response.isSuccessful) {
+                return response.newBuilder()
+                    .body(JSONObject(responseBody.string())["data"].toString().toResponseBody())
+                    .build()
             }
-
-            //에러가 발생 하는 경우
-            response.body?.let {
+            responseBody?.let {
                 val errorBody = json.decodeFromString<FarmemeResponse<*>>(it.string())
                 throw FarmemeException(
                     code = errorBody.code,
@@ -28,6 +32,7 @@ class ErrorInterceptor @Inject constructor(
             }
             return response
         } catch (e: Exception) {
+            Timber.e(e)
             throw e.parseWithNetworkError()
         }
     }

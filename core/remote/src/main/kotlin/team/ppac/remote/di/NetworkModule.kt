@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import team.ppac.remote.BuildConfig
 import team.ppac.remote.interceptor.ErrorInterceptor
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -101,7 +102,7 @@ internal class NetworkModule {
     }
 
     companion object {
-        private const val BASE_URL = "https://picsum.photos/" // sample url
+        private const val BASE_URL = BuildConfig.BASE_URL
         private const val TIMEOUT_MILLIS = 5_000L
         private const val HTTP_LOG_TAG = "HTTP Client"
     }

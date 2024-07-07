@@ -4,14 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserData(
-    val userId: Long,
-    val name: String,
+    val userId: String,
 ) {
     companion object {
         val EMPTY
             get() = UserData(
-                userId = -1L,
-                name = "",
+                userId = "",
             )
     }
 }
