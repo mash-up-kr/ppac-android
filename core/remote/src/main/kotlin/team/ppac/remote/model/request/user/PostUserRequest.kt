@@ -5,6 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class PostUserRequest(
-    @field:Json(name = "deviceID")
+    @field:Json(name = "deviceId")
     val deviceId: String,
 )
