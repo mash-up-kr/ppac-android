@@ -10,11 +10,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
@@ -31,8 +34,10 @@ import team.ppac.mypage.model.MyPageUiModel
 
 @Composable
 internal fun MyPageScreen(
-    modifier: Modifier = Modifier
+    viewModel: MyPageViewModel = hiltViewModel(),
 ) {
+    val state by viewModel.state.collectAsState()
+
     // 임시 데이터
     val myPageUiModel = MyPageUiModel(
         userLevel = MyPageLevel.LEVEL2,
@@ -70,7 +75,7 @@ internal fun MyPageScreen(
     )
 
     FarmemeScaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
         scaffoldState = rememberScaffoldState()
     ) {
