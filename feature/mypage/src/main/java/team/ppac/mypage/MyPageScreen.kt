@@ -25,9 +25,9 @@ import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
+import team.ppac.mypage.model.Meme
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.model.MyPageUiModel
-import team.ppac.mypage.model.RecentMemeUiModel
 
 @Composable
 internal fun MyPageScreen(
@@ -39,18 +39,34 @@ internal fun MyPageScreen(
         memeCount = 15
     )
 
+    val sampleId = "1234"
     val sampleUrl = "https://picsum.photos/id/10/2500/1667"
 
-    val recentMemes = persistentListOf<RecentMemeUiModel>().add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
+    val recentMemes = persistentListOf<Meme>().add(
+        Meme(
+            id = sampleId,
+            imageUrl = sampleUrl,
+        )
     ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
+        Meme(
+            id = sampleId,
+            imageUrl = sampleUrl,
+        )
     ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
+        Meme(
+            id = sampleId,
+            imageUrl = sampleUrl,
+        )
     ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
+        Meme(
+            id = sampleId,
+            imageUrl = sampleUrl,
+        )
     ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
+        Meme(
+            id = sampleId,
+            imageUrl = sampleUrl,
+        )
     )
 
     FarmemeScaffold(

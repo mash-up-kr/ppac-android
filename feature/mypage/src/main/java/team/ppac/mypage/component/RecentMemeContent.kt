@@ -19,12 +19,12 @@ import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.mypage.model.RecentMemeUiModel
+import team.ppac.mypage.model.Meme
 
 @Composable
 internal fun RecentMemeContent(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<RecentMemeUiModel>,
+    recentMemes: ImmutableList<Meme>,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -50,7 +50,7 @@ internal fun RecentMemeContent(
 @Composable
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<RecentMemeUiModel>,
+    recentMemes: ImmutableList<Meme>,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -69,19 +69,35 @@ private fun RecentMemeList(
 @Preview(showBackground = true)
 @Composable
 private fun RecentMemeContentPreview() {
+    val sampleId = "1234"
     val sampleUrl = "https://picsum.photos/id/10/2500/1667"
 
     RecentMemeContent(
-        recentMemes = persistentListOf<RecentMemeUiModel>().add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+        recentMemes = persistentListOf<Meme>().add(
+            Meme(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            Meme(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            Meme(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            Meme(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
-        ),
+            Meme(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
+        )
     )
 }

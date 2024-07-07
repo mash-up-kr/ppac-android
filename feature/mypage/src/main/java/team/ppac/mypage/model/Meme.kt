@@ -1,5 +1,6 @@
 package team.ppac.mypage.model
 
-internal data class RecentMemeUiModel(
+data class Meme(
+    val id: String,
     val imageUrl: String,
 )
