@@ -22,7 +22,7 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             launch {
-                userCreateUseCase.invoke()
+                userCreateUseCase()
             }
             launch {
                 delay(700L) //splash delay
