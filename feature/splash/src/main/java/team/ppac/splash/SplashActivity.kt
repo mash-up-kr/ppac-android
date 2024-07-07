@@ -4,11 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.navigator.MainNavigator
 import team.ppac.splash.mvi.SplashSideEffect
@@ -37,8 +39,14 @@ class SplashActivity : ComponentActivity() {
                 }
             }
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text("스플래시 이미지")
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(id = team.ppac.designsystem.R.drawable.img_splash_logo),
+                    contentDescription = null,
+                )
             }
         }
     }

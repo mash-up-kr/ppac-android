@@ -22,10 +22,10 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             launch {
-                userCreateUseCase()
+                userCreateUseCase.invoke()
             }
             launch {
-                delay(500L) //splash delay
+                delay(700L) //splash delay
             }
             coroutineContext.job.children.forEach { job ->
                 job.join()
