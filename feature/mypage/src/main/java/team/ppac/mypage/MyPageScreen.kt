@@ -2,6 +2,7 @@ package team.ppac.mypage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -23,6 +24,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
@@ -81,6 +83,7 @@ internal fun MyPageScreen(
     ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
             item {
                 FarmemeActionToolBar(onClickActionIcon = { })
