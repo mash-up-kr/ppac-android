@@ -27,5 +27,13 @@ class MyPageViewModel @Inject constructor(
         return MyPageUiState.INITIAL_STATE
     }
 
-    override suspend fun handleIntent(intent: MyPageIntent) {}
+    override suspend fun handleIntent(intent: MyPageIntent) {
+        when (intent) {
+            is MyPageIntent.ClickSettingButton -> navigateToSetting()
+        }
+    }
+
+    private fun navigateToSetting() {
+        // TODO : Setting 모듈로 Navigate 구현
+    }
 }

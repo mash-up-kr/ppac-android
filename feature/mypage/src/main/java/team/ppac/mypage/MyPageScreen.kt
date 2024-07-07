@@ -31,6 +31,7 @@ import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.model.MyPageUiModel
+import team.ppac.mypage.mvi.MyPageIntent
 
 @Composable
 internal fun MyPageScreen(
@@ -51,7 +52,9 @@ internal fun MyPageScreen(
             contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
             item {
-                FarmemeActionToolBar(onClickActionIcon = { })
+                FarmemeActionToolBar(onClickActionIcon = {
+                    viewModel.intent(MyPageIntent.ClickSettingButton)
+                })
             }
             item { MyPageBody(myPageUiModel = myPageUiModel) }
             item {
