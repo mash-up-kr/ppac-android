@@ -5,8 +5,6 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class UserResponse(
-    @field:Json(name = "_id")
-    val id: String,
     @field:Json(name = "deviceId")
     val deviceId: String,
     @field:Json(name = "isDeleted")

@@ -14,14 +14,14 @@ internal class UserRepositoryImpl @Inject constructor(
     private val appConfig: AppConfig,
 ) : UserRepository {
     override suspend fun createUser(): Boolean {
-        val user: UserData? = userLocalDataSource.userDataFlow.firstOrNull()
+        val user = userLocalDataSource.userDataFlow.firstOrNull()
 
-        return if (user != null) {
+        return if (user != UserData.EMPTY) {
             true
         } else { // 유저 API로 등록 후 로컬에 등록 여부 저장
             val deviceId = appConfig.deviceId
             val userResponse = userRemoteDataSource.postUser(deviceId)
-            userLocalDataSource.setUser(user = UserData(userResponse.id))
+            userLocalDataSource.setUser(user = UserData(userResponse.deviceId))
             false
         }
     }
