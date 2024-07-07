@@ -1,7 +1,9 @@
 package team.ppac.data.repository
 
 import kotlinx.coroutines.flow.firstOrNull
+import team.ppac.data.mapper.toUser
 import team.ppac.datastore.entity.UserData
+import team.ppac.domain.model.User
 import team.ppac.domain.repository.UserRepository
 import team.ppac.local.datasource.AppConfig
 import team.ppac.local.datasource.UserLocalDataSource
@@ -24,5 +26,9 @@ internal class UserRepositoryImpl @Inject constructor(
             userLocalDataSource.setUser(user = UserData(userResponse.deviceId))
             false
         }
+    }
+
+    override suspend fun getUser(): User {
+        return userRemoteDataSource.getUser().toUser()
     }
 }
