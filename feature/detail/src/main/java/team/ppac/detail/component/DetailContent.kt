@@ -28,9 +28,14 @@ import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
+import team.ppac.detail.model.DetailMemeUiModel
+import team.ppac.detail.mvi.DetailUiState
 
 @Composable
-internal fun DetailContent(modifier: Modifier) {
+internal fun DetailContent(
+    modifier: Modifier,
+    uiModel: DetailMemeUiModel
+) {
     Box(
         modifier = modifier
             .border(
@@ -54,25 +59,29 @@ internal fun DetailContent(modifier: Modifier) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.clip(FarmemeRadius.Radius10.shape),
             )
-            DetailTexts()
+            DetailTexts(
+                name = uiModel.name,
+                sourceDescription = uiModel.sourceDescription,
+                hashTags = uiModel.hashTags
+            )
             DetailFunnyButton()
         }
     }
 }
 
 @Composable
-internal fun DetailTexts() {
+internal fun DetailTexts(name: String, sourceDescription: String, hashTags: List<String>) {
     Spacer(modifier = Modifier.height(25.dp))
     Text(
-        text = "나는 공부를 찢어",
+        text = name,
         color = FarmemeTheme.textColor.primary,
         style = FarmemeTheme.typography.heading.large.semibold,
     )
     Spacer(modifier = Modifier.height(5.dp))
-    DetailTags()
+    DetailTags(hashTags = hashTags)
     Spacer(modifier = Modifier.height(11.dp))
     Text(
-        text = "출처: 출처에 대한 내용이 들어갑니다.",
+        text = "출처: $sourceDescription",
         color = FarmemeTheme.textColor.assistive,
         style = FarmemeTheme.typography.body.xSmall.medium,
     )
@@ -80,11 +89,11 @@ internal fun DetailTexts() {
 }
 
 @Composable
-internal fun DetailTags(tags: List<String> = listOf("#공부", "#학생", "#시험기간", "힘듦", "피곤")) {
+internal fun DetailTags(hashTags: List<String>) {
     Row {
-        tags.forEach { tag ->
+        hashTags.forEach { hashTag ->
             Text(
-                text = tag,
+                text = hashTag,
                 color = FarmemeTheme.textColor.tertiary,
                 style = FarmemeTheme.typography.body.large.medium,
             )
@@ -114,7 +123,10 @@ fun DetailFunnyButton() {
 @Composable
 @Preview(showBackground = true)
 fun PreviewDetailContent() {
-    DetailContent(Modifier)
+    DetailContent(
+        modifier = Modifier,
+        uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel
+    )
 }
 
 private const val TEST_IMAGE_PREVIEW =

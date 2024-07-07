@@ -10,10 +10,16 @@ import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.detail.component.DetailBottomBar
 import team.ppac.detail.component.DetailContent
+import team.ppac.detail.model.DetailMemeUiModel
+import team.ppac.detail.mvi.DetailUiState
 
 @Composable
-internal fun DetailScreen() {
+internal fun DetailScreen(
+    modifier: Modifier = Modifier,
+    uiState: DetailUiState,
+) {
     FarmemeScaffold(
+        modifier = modifier,
         scaffoldState = rememberScaffoldState(),
         topBar = {
             FarmemeBackToolBar(
@@ -26,7 +32,8 @@ internal fun DetailScreen() {
         DetailContent(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(top = 31.dp, bottom = 44.dp)
+                .padding(top = 31.dp, bottom = 44.dp),
+            uiModel = uiState.detailMemeUiModel
         )
     }
 }
@@ -34,5 +41,13 @@ internal fun DetailScreen() {
 @Preview
 @Composable
 fun PreviewDetailScreen() {
-    DetailScreen()
+    DetailScreen(
+        uiState = DetailUiState(
+            detailMemeUiModel = DetailMemeUiModel(
+                name = "나는 공부를 찢어",
+                hashTags = listOf("#공부", "#학생", "#시험기간", "#힘듦", "#피곤"),
+                sourceDescription = "출처: 출처에 대한 내용이 들어갑니다."
+            )
+        )
+    )
 }
