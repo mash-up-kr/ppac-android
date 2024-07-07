@@ -31,7 +31,8 @@ import team.ppac.mypage.model.RecentMemeUiModel
 
 @Composable
 internal fun MyPageScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateToDetail: () -> Unit, // Todo viewModel연결 시 Route에서 sideEffect처리 해야함
 ) {
     // 임시 데이터
     val myPageUiModel = MyPageUiModel(
@@ -82,7 +83,12 @@ internal fun MyPageScreen(
                     myPageUiModel = myPageUiModel,
                 )
             }
-            item { RecentMemeContent(recentMemes = recentMemes) }
+            item {
+                RecentMemeContent(
+                    recentMemes = recentMemes,
+                    navigateToDetail = navigateToDetail
+                )
+            }
         }
     }
 }
@@ -123,5 +129,5 @@ private fun MyPageBody(
 @Preview
 @Composable
 private fun MyPageScreenPreview() {
-    MyPageScreen()
+    MyPageScreen(navigateToDetail = {})
 }

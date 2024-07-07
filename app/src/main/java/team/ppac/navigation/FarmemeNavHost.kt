@@ -1,7 +1,9 @@
 package team.ppac.navigation
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -9,6 +11,7 @@ import androidx.navigation.navOptions
 import team.ppac.common.kotlin.model.SnackbarMessage
 import team.ppac.mypage.navigation.myPageScreen
 import team.ppac.mypage.navigation.navigateToMyPage
+import team.ppac.navigator.DetailNavigator
 import team.ppac.recommendation.navigation.RECOMMENDATION_ROUTE
 import team.ppac.recommendation.navigation.navigateToRecommendation
 import team.ppac.recommendation.navigation.recommendationScreen
@@ -23,7 +26,9 @@ fun FarmemeNavHost(
     startDestination: String = RECOMMENDATION_ROUTE,
     navController: NavHostController,
     onShowSnackBar: suspend (SnackbarMessage) -> Boolean,
+    detailNavigator: DetailNavigator,
 ) {
+    val activity: Activity = LocalContext.current as Activity
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -36,7 +41,13 @@ fun FarmemeNavHost(
         searchDetailScreen(
             navigateBack = { navController.navigateUp() }
         )
-        myPageScreen()
+        myPageScreen(
+            navigateToDetail = {
+                detailNavigator.navigateFrom(
+                    activity = activity,
+                )
+            }
+        )
     }
 }
 
