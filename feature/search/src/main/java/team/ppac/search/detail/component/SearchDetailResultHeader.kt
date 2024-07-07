@@ -20,7 +20,7 @@ internal fun SearchDetailResultHeader(
             .fillMaxWidth()
             .background(FarmemeTheme.backgroundColor.white)
             .padding(vertical = 20.dp),
-        text = "${totalCount}개의 밈을 찾았어요.",
+        text = "${totalCount}개의 밈을 찾았어요",
         style = FarmemeTheme.typography.body.medium.medium.copy(
             color = FarmemeTheme.textColor.primary
         )
