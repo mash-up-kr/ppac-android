@@ -1,4 +1,4 @@
-package team.ppac.local.datastore
+package team.ppac.datastore.datastore
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import team.ppac.local.entity.UserData
+import team.ppac.datastore.entity.UserData
 import java.io.InputStream
 import java.io.OutputStream
 

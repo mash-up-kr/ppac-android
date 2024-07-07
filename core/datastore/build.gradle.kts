@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "team.ppac.local"
+    namespace = "team.ppac.datastore"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -19,10 +19,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:datastore"))
-    implementation(libs.datastore)
     implementation(libs.hilt.android)
-    implementation(libs.room.core)
     implementation(libs.datastore)
     implementation(libs.kotlin.serialization)
     ksp(libs.hilt.compiler)

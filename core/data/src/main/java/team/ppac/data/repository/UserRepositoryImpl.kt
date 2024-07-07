@@ -1,10 +1,10 @@
 package team.ppac.data.repository
 
 import kotlinx.coroutines.flow.firstOrNull
+import team.ppac.datastore.entity.UserData
 import team.ppac.domain.repository.UserRepository
 import team.ppac.local.datasource.AppConfig
 import team.ppac.local.datasource.UserLocalDataSource
-import team.ppac.local.entity.UserData
 import team.ppac.remote.datasource.UserRemoteDataSource
 import javax.inject.Inject
 
