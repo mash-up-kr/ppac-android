@@ -1,5 +1,7 @@
 package team.ppac.remote.datasource
 
+import team.ppac.remote.model.response.user.UserResponse
+
 interface UserRemoteDataSource {
-    suspend fun postUser(deviceId: String)
+    suspend fun postUser(deviceId: String): UserResponse
 }

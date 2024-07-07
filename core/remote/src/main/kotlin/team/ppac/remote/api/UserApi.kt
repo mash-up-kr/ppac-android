@@ -7,7 +7,7 @@ import team.ppac.remote.model.response.user.UserResponse
 
 internal interface UserApi {
     @POST("api/user")
-    suspend fun getImages(
+    suspend fun postUser(
         @Body postUserRequest: PostUserRequest,
     ): UserResponse
 }

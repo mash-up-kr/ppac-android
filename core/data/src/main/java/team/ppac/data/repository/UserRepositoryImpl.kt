@@ -19,9 +19,9 @@ internal class UserRepositoryImpl @Inject constructor(
         return if (user != null) {
             true
         } else { // 유저 API로 등록 후 로컬에 등록 여부 저장
-            val id = appConfig.deviceId
-            userRemoteDataSource.postUser(id)
-            userLocalDataSource.setUser(user = UserData(id))
+            val deviceId = appConfig.deviceId
+            val userResponse = userRemoteDataSource.postUser(deviceId)
+            userLocalDataSource.setUser(user = UserData(userResponse.id))
             false
         }
     }
