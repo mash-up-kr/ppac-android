@@ -50,7 +50,7 @@ internal fun RecentMemeContent(
 @Composable
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<Meme>,
+    recentMemes: List<Meme>,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),

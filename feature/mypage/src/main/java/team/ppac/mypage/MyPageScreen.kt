@@ -19,7 +19,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -30,7 +29,6 @@ import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
-import team.ppac.mypage.model.Meme
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.model.MyPageUiModel
 
@@ -39,42 +37,9 @@ internal fun MyPageScreen(
     viewModel: MyPageViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-
-    // 임시 데이터
-    val myPageUiModel = MyPageUiModel(
-        userLevel = MyPageLevel.LEVEL2,
-        memeCount = 15
-    )
-
-    val sampleId = "1234"
-    val sampleUrl = "https://picsum.photos/id/10/2500/1667"
-
-    val recentMemes = persistentListOf<Meme>().add(
-        Meme(
-            id = sampleId,
-            imageUrl = sampleUrl,
-        )
-    ).add(
-        Meme(
-            id = sampleId,
-            imageUrl = sampleUrl,
-        )
-    ).add(
-        Meme(
-            id = sampleId,
-            imageUrl = sampleUrl,
-        )
-    ).add(
-        Meme(
-            id = sampleId,
-            imageUrl = sampleUrl,
-        )
-    ).add(
-        Meme(
-            id = sampleId,
-            imageUrl = sampleUrl,
-        )
-    )
+    val myPageUiModel = state.myPageUiModel
+    val recentMemes = state.recentMemes
+    val savedMemes = state.savedMemes
 
     FarmemeScaffold(
         modifier = Modifier.fillMaxSize(),
