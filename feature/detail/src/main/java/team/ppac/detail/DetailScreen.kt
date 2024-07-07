@@ -44,6 +44,7 @@ fun PreviewDetailScreen() {
     DetailScreen(
         uiState = DetailUiState(
             detailMemeUiModel = DetailMemeUiModel(
+                imageUrl = "",
                 name = "나는 공부를 찢어",
                 hashTags = listOf("#공부", "#학생", "#시험기간", "#힘듦", "#피곤"),
                 sourceDescription = "출처: 출처에 대한 내용이 들어갑니다."

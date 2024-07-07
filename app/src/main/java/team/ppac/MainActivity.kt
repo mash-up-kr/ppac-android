@@ -47,7 +47,9 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         navController = navController,
                         onShowSnackBar = { _ -> false },
-                        detailNavigator = detailNavigator
+                        navigateToDetail = {
+                            detailNavigator.navigateFrom(this)
+                        }
                     )
                 }
             }
