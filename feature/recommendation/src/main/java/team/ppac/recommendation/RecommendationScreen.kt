@@ -51,7 +51,7 @@ internal fun RecommendationScreen(
         val state by viewModel.state.collectAsState()
         val pagerProgress by remember { mutableFloatStateOf(0.5f) }
         val heroModulePagerState = rememberPagerState {
-            state.images.size
+            state.thisWeekMemes.size
         }
 
         Box(
@@ -96,7 +96,7 @@ internal fun RecommendationScreen(
                 }
                 Spacer(modifier = Modifier.padding(top = 36.dp))
                 HeroModulePager(
-                    images = state.images,
+                    images = state.thisWeekMemes,
                     pagerState = heroModulePagerState,
                 )
                 Spacer(modifier = Modifier.padding(top = 20.dp))

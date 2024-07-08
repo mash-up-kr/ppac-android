@@ -12,4 +12,5 @@ internal fun UserResponse.toUser() = User(
     saveCount = save,
     shareCount = share,
     watchCount = watch,
+    memeRecommendWatchCount = memeRecommendWatchCount,
 )

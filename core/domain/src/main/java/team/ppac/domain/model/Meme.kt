@@ -4,7 +4,7 @@ import kotlinx.collections.immutable.ImmutableList
 
 data class Meme(
     val id: String,
-    val image: String,
+    val imageUrl: String,
     val isTodayMeme: Boolean,
     val source: String,
     val title: String,

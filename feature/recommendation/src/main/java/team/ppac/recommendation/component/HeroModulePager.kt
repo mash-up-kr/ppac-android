@@ -16,13 +16,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import coil.compose.AsyncImage
+import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.domain.model.SampleImageModel
+import team.ppac.domain.model.Meme
 import kotlin.math.absoluteValue
 
 @Composable
 fun HeroModulePager(
-    images: List<SampleImageModel>,
+    images: ImmutableList<Meme>,
     pagerState: PagerState,
 ) {
     HorizontalPager(

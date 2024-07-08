@@ -7,8 +7,6 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCaseImpl
-import team.ppac.domain.usecase.GetLastSeenMemeCountUseCase
-import team.ppac.domain.usecase.GetLastSeenMemeCountUseCaseImpl
 import team.ppac.domain.usecase.CreateUserUseCase
 import team.ppac.domain.usecase.CreateUserUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
@@ -29,7 +27,7 @@ internal abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindGetLastSeenMemeCountUseCase(impl: GetLastSeenMemeCountUseCaseImpl): GetLastSeenMemeCountUseCase
+    abstract fun bindGetLastSeenMemeCountUseCase(impl: GetThisWeekRecommendMemesUseCaseImpl): GetThisWeekRecommendMemesUseCase
 
     @Binds
     @ViewModelScoped

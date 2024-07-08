@@ -8,5 +8,6 @@ data class User(
     val reactionCount: Int,
     val saveCount: Int,
     val shareCount: Int,
-    val watchCount: Int
+    val watchCount: Int,
+    val memeRecommendWatchCount: Int?,
 )
