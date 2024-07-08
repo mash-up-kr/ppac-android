@@ -11,12 +11,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.search.main.model.CategoryUiModel
+import team.ppac.search.main.model.RecommendKeywordUiModel
 
 @Composable
 internal fun MemeCategoryContent(
     modifier: Modifier = Modifier,
-    uiModel: CategoryUiModel,
+    uiModel: RecommendKeywordUiModel,
     onCategoryClick: (String) -> Unit,
 ) {
     Column(
@@ -25,7 +25,7 @@ internal fun MemeCategoryContent(
         MemeCategoryHeader(title = uiModel.categoryHeader)
         MemeCategoryChips(
             modifier = Modifier.padding(horizontal = 20.dp),
-            categories = uiModel.categories,
+            categories = uiModel.recommendKeywords,
             onCategoryClick = onCategoryClick
         )
     }
@@ -36,9 +36,9 @@ internal fun MemeCategoryContent(
 private fun MemeCategoryContentPreview() {
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
         MemeCategoryContent(
-            uiModel = CategoryUiModel(
+            uiModel = RecommendKeywordUiModel(
                 categoryHeader = "감정",
-                categories = persistentListOf(
+                recommendKeywords = persistentListOf(
                     "행복",
                     "슬픈",
                     "분노",
