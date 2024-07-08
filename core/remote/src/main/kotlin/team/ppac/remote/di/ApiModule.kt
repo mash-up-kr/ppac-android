@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.create
 import team.ppac.remote.api.MemeApi
+import team.ppac.remote.api.KeywordApi
 import team.ppac.remote.api.SampleApi
 import team.ppac.remote.api.UserApi
 import javax.inject.Singleton
@@ -26,4 +27,8 @@ internal class ApiModule {
     @Provides
     @Singleton
     fun provideMemeApi(retrofit: Retrofit): MemeApi = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideKeywordApi(retrofit: Retrofit): KeywordApi = retrofit.create()
 }
