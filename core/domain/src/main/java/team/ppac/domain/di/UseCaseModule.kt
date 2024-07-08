@@ -5,12 +5,14 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import team.ppac.domain.usecase.CreateUserUseCase
+import team.ppac.domain.usecase.CreateUserUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCaseImpl
+import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.domain.usecase.GetUserUseCaseImpl
 import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.domain.usecase.SampleUseCaseImpl
-import team.ppac.domain.usecase.UserCreateUseCase
-import team.ppac.domain.usecase.UserCreateUseCaseImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -21,7 +23,11 @@ internal abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindUserCreateUseCase(impl: UserCreateUseCaseImpl): UserCreateUseCase
+    abstract fun bindCreateUserUseCase(impl: CreateUserUseCaseImpl): CreateUserUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetUserUseCase(impl: GetUserUseCaseImpl): GetUserUseCase
 
     @Binds
     @ViewModelScoped

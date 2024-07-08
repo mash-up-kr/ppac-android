@@ -12,4 +12,8 @@ internal class UserDataSourceImpl @Inject constructor(
     override suspend fun postUser(deviceId: String): UserResponse {
         return userApi.postUser(postUserRequest = PostUserRequest(deviceId))
     }
+
+    override suspend fun getUser(): UserResponse {
+        return userApi.getUser()
+    }
 }

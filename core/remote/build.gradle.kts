@@ -28,7 +28,8 @@ android {
 
 dependencies {
     implementation(project(":core:error-handling"))
-
+    implementation(project(":core:datastore"))
+    implementation(libs.datastore)
     implementation(libs.retrofit)
     implementation(platform(libs.okhttp.bom))
     implementation(libs.bundles.okhttp)
