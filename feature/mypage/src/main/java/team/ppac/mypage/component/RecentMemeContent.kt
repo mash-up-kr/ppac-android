@@ -25,6 +25,7 @@ import team.ppac.mypage.model.RecentMemeUiModel
 internal fun RecentMemeContent(
     modifier: Modifier = Modifier,
     recentMemes: ImmutableList<RecentMemeUiModel>,
+    navigateToDetail: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -42,7 +43,7 @@ internal fun RecentMemeContent(
                 FarmemeIcon.SuccessOutlined(Modifier.size(20.dp))
             },
         )
-        RecentMemeList(recentMemes = recentMemes)
+        RecentMemeList(recentMemes = recentMemes, navigateToDetail = navigateToDetail)
         Spacer(modifier = Modifier.height(50.dp))
     }
 }
@@ -51,6 +52,7 @@ internal fun RecentMemeContent(
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
     recentMemes: ImmutableList<RecentMemeUiModel>,
+    navigateToDetail: () -> Unit,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -60,7 +62,9 @@ private fun RecentMemeList(
         items(items = recentMemes) { meme ->
             RecentMemeCard(
                 imageUrl = meme.imageUrl,
-                onClick = { },
+                onClick = {
+                    navigateToDetail()
+                },
             )
         }
     }
@@ -83,5 +87,6 @@ private fun RecentMemeContentPreview() {
         ).add(
             RecentMemeUiModel(imageUrl = sampleUrl)
         ),
+        navigateToDetail = {}
     )
 }

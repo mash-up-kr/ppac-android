@@ -15,9 +15,14 @@ import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.navigation.FarmemeNavHost
 import team.ppac.navigation.component.FarmemeBottomBar
 import team.ppac.navigation.navigateToTopLevelDestination
+import team.ppac.navigator.DetailNavigator
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var detailNavigator: DetailNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +46,10 @@ class MainActivity : ComponentActivity() {
                     FarmemeNavHost(
                         modifier = Modifier.fillMaxSize(),
                         navController = navController,
-                        onShowSnackBar = { _ -> false }
+                        onShowSnackBar = { _ -> false },
+                        navigateToDetail = {
+                            detailNavigator.navigateFrom(this)
+                        }
                     )
                 }
             }

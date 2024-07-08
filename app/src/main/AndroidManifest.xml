@@ -26,6 +26,11 @@
             android:theme="@style/Theme.PPAC" />
 
         <activity
+            android:name=".detail.DetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PPAC" />
+
+        <activity
             android:name=".sample.SampleActivity"
             android:exported="false"
             android:theme="@style/Theme.PPAC" />

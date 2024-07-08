@@ -28,9 +28,14 @@ import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
+import team.ppac.detail.model.DetailMemeUiModel
+import team.ppac.detail.mvi.DetailUiState
 
 @Composable
-internal fun DetailContent(modifier: Modifier) {
+internal fun DetailContent(
+    modifier: Modifier,
+    uiModel: DetailMemeUiModel
+) {
     Box(
         modifier = modifier
             .border(
@@ -46,7 +51,7 @@ internal fun DetailContent(modifier: Modifier) {
             AsyncImage(
                 model = ImageRequest
                     .Builder(LocalContext.current)
-                    .data(TEST_IMAGE_PREVIEW)
+                    .data(uiModel.imageUrl)
                     .crossfade(true)
                     .build(),
                 placeholder = painterResource(R.drawable.detail_sample),
@@ -54,25 +59,33 @@ internal fun DetailContent(modifier: Modifier) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.clip(FarmemeRadius.Radius10.shape),
             )
-            DetailTexts()
+            DetailHashTags(
+                name = uiModel.name,
+                sourceDescription = uiModel.sourceDescription,
+                hashTags = uiModel.hashTags
+            )
             DetailFunnyButton()
         }
     }
 }
 
 @Composable
-internal fun DetailTexts() {
+internal fun DetailHashTags(
+    name: String,
+    sourceDescription: String,
+    hashTags: List<String>,
+) {
     Spacer(modifier = Modifier.height(25.dp))
     Text(
-        text = "나는 공부를 찢어",
+        text = name,
         color = FarmemeTheme.textColor.primary,
         style = FarmemeTheme.typography.heading.large.semibold,
     )
     Spacer(modifier = Modifier.height(5.dp))
-    DetailTags()
+    DetailTags(hashTags = hashTags)
     Spacer(modifier = Modifier.height(11.dp))
     Text(
-        text = "출처: 출처에 대한 내용이 들어갑니다.",
+        text = "출처: $sourceDescription",
         color = FarmemeTheme.textColor.assistive,
         style = FarmemeTheme.typography.body.xSmall.medium,
     )
@@ -80,11 +93,11 @@ internal fun DetailTexts() {
 }
 
 @Composable
-internal fun DetailTags(tags: List<String> = listOf("#공부", "#학생", "#시험기간", "힘듦", "피곤")) {
+internal fun DetailTags(hashTags: List<String>) {
     Row {
-        tags.forEach { tag ->
+        hashTags.forEach { hashTag ->
             Text(
-                text = tag,
+                text = hashTag,
                 color = FarmemeTheme.textColor.tertiary,
                 style = FarmemeTheme.typography.body.large.medium,
             )
@@ -114,8 +127,8 @@ fun DetailFunnyButton() {
 @Composable
 @Preview(showBackground = true)
 fun PreviewDetailContent() {
-    DetailContent(Modifier)
+    DetailContent(
+        modifier = Modifier,
+        uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel
+    )
 }
-
-private const val TEST_IMAGE_PREVIEW =
-    "https://s3-alpha-sig.figma.com/img/2215/ecea/fcea7f8dbec74e16f56675f756edb8b5?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=P8TH9OlXy0-7cZDofJLFdsRUNDhXsiEaeRgPKZSvHAQM8jNRMRulpsz7s1cvBuQWRvoB1vfYpY1eGZdRyPGgZEWafyvNXDh9GxJS2n~PBNgGSxGy10c2uRU1OmOxE5hwMlci6BGGvLamKTO1LZ4A4yPEaCwPtVyZswWFbAXYdCSUMidW0zp94EDCCCcFPmOp0Un6usY7AsZ18bchDMY-iQmqSG9V8dqyQELHKhJefdt0pqBdiCw3wPjovNp3KfwUy4hnV4s9rKmv4P5YZkALvTsurix~U5TjXR9GpDFeTPMlgLRXS86sd1yPnTk0Ajs9kEacCNCxQHb7QBpt1hrKcg__"

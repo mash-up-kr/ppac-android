@@ -5,7 +5,8 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun MyPageRoute(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateToDetail: () -> Unit,
 ) {
-    MyPageScreen()
+    MyPageScreen(navigateToDetail = navigateToDetail)
 }
