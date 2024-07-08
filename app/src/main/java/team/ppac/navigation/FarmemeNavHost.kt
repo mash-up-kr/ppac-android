@@ -27,7 +27,6 @@ fun FarmemeNavHost(
     onShowSnackBar: suspend (SnackbarMessage) -> Boolean,
     navigateToDetail: () -> Unit,
 ) {
-    val activity: Activity = LocalContext.current as Activity
     NavHost(
         modifier = modifier,
         navController = navController,

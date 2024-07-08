@@ -1,10 +1,12 @@
 package team.ppac.detail.model
 
+import kotlinx.collections.immutable.ImmutableList
+
 data class DetailMemeUiModel(
     val imageUrl: String = TEST_IMAGE_URL,
     val name: String,
-    val hashTags: List<String>,
-    val sourceDescription: String
+    val hashTags: ImmutableList<String>,
+    val sourceDescription: String,
 ) {
     companion object {
         //Todo 서버에서 이미지 로드 url이 에러가있어서 임시로 url로 대체한건데 수정해야함

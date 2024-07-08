@@ -38,6 +38,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
     implementation(libs.kotlin.serialization)
+    implementation(libs.kotlinx.collections.immutable)
 }
 
 fun getLocalProperties(key: String): String {

@@ -22,18 +22,18 @@ class DetailViewModel @Inject constructor(
         getMeme()
     }
 
-    private fun getMeme() {
-        viewModelScope.launch {
-            val meme = getMemeUseCase("668a44950289555e368174a6") //Todo memeId navigate할때 전달 로직 필요
-            reduce { copy(detailMemeUiModel = meme.toDetailMemeUiModel()) }
-        }
-    }
-
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailUiState {
         return DetailUiState.INITIAL_STATE
     }
 
     override suspend fun handleIntent(intent: DetailIntent) {
         TODO("Not yet implemented")
+    }
+
+    private fun getMeme() {
+        viewModelScope.launch {
+            val meme = getMemeUseCase("668a44950289555e368174a6") //Todo memeId navigate할때 전달 로직 필요
+            reduce { copy(detailMemeUiModel = meme.toDetailMemeUiModel()) }
+        }
     }
 }

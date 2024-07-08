@@ -70,7 +70,11 @@ internal fun DetailContent(
 }
 
 @Composable
-internal fun DetailTexts(name: String, sourceDescription: String, hashTags: List<String>) {
+internal fun DetailTexts(
+    name: String,
+    sourceDescription: String,
+    hashTags: List<String>,
+) {
     Spacer(modifier = Modifier.height(25.dp))
     Text(
         text = name,

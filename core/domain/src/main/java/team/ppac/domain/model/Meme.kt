@@ -1,5 +1,7 @@
 package team.ppac.domain.model
 
+import kotlinx.collections.immutable.ImmutableList
+
 data class Meme(
     val id: String,
     val image: String,
@@ -10,5 +12,5 @@ data class Meme(
     val reaction: Int,
     val createdAt: String,
     val updateAt: String,
-    val keywords: List<String>
+    val keywords: ImmutableList<String>,
 )

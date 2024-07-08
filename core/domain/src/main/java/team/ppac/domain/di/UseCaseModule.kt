@@ -25,5 +25,5 @@ internal abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindGetMEmeUseCase(impl: GetMemeUseCaseImpl): GetMemeUseCase
+    abstract fun bindGetMemeUseCase(impl: GetMemeUseCaseImpl): GetMemeUseCase
 }

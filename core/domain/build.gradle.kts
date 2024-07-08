@@ -25,5 +25,6 @@ dependencies {
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.hilt.android)
+    implementation(libs.kotlinx.collections.immutable)
     kapt(libs.hilt.compiler)
 }

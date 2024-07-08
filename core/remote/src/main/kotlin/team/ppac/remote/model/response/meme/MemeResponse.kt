@@ -2,6 +2,7 @@ package team.ppac.remote.model.response.meme
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.collections.immutable.ImmutableList
 
 @JsonClass(generateAdapter = true)
 data class MemeResponse(
@@ -24,5 +25,5 @@ data class MemeResponse(
     @field:Json(name = "updatedAt")
     val updatedAt: String,
     @field:Json(name = "keywords")
-    val keywords: List<String>
+    val keywords: ImmutableList<String>
 )
