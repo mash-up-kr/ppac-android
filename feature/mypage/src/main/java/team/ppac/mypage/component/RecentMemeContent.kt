@@ -43,7 +43,10 @@ internal fun RecentMemeContent(
                 FarmemeIcon.SuccessOutlined(Modifier.size(20.dp))
             },
         )
-        RecentMemeList(recentMemes = recentMemes, navigateToDetail = navigateToDetail)
+        RecentMemeList(
+            recentMemes = recentMemes,
+            navigateToDetail = navigateToDetail,
+        )
         Spacer(modifier = Modifier.height(50.dp))
     }
 }
@@ -62,9 +65,7 @@ private fun RecentMemeList(
         items(items = recentMemes) { meme ->
             RecentMemeCard(
                 imageUrl = meme.imageUrl,
-                onClick = {
-                    navigateToDetail()
-                },
+                onClick = navigateToDetail,
             )
         }
     }
@@ -73,19 +74,35 @@ private fun RecentMemeList(
 @Preview(showBackground = true)
 @Composable
 private fun RecentMemeContentPreview() {
+    val sampleId = "1234"
     val sampleUrl = "https://picsum.photos/id/10/2500/1667"
 
     RecentMemeContent(
         recentMemes = persistentListOf<RecentMemeUiModel>().add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            RecentMemeUiModel(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            RecentMemeUiModel(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            RecentMemeUiModel(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            RecentMemeUiModel(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ).add(
-            RecentMemeUiModel(imageUrl = sampleUrl)
+            RecentMemeUiModel(
+                id = sampleId,
+                imageUrl = sampleUrl,
+            )
         ),
         navigateToDetail = {}
     )

@@ -2,6 +2,7 @@ package team.ppac.mypage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -10,66 +11,59 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.persistentListOf
+import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
+import team.ppac.mypage.model.LeveInfo
 import team.ppac.mypage.model.MyPageLevel
-import team.ppac.mypage.model.MyPageUiModel
-import team.ppac.mypage.model.RecentMemeUiModel
+import team.ppac.mypage.mvi.MyPageIntent
 
 @Composable
 internal fun MyPageScreen(
-    modifier: Modifier = Modifier,
+    viewModel: MyPageViewModel = hiltViewModel(),
     navigateToDetail: () -> Unit, // Todo viewModel연결 시 Route에서 sideEffect처리 해야함
 ) {
-    // 임시 데이터
-    val myPageUiModel = MyPageUiModel(
-        userLevel = MyPageLevel.LEVEL2,
-        memeCount = 15
-    )
-
-    val sampleUrl = "https://picsum.photos/id/10/2500/1667"
-
-    val recentMemes = persistentListOf<RecentMemeUiModel>().add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
-    ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
-    ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
-    ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
-    ).add(
-        RecentMemeUiModel(imageUrl = sampleUrl)
-    )
+    val state by viewModel.state.collectAsState()
+    val leveInfo = state.leveInfo
+    val recentMemes = state.recentMemes
+    val savedMemes = state.savedMemes
 
     FarmemeScaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
         scaffoldState = rememberScaffoldState()
     ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
             item {
-                FarmemeActionToolBar(onClickActionIcon = { })
+                FarmemeActionToolBar(
+                    onClickActionIcon = {
+                        viewModel.intent(MyPageIntent.ClickSettingButton)
+                    }
+                )
             }
-            item { MyPageBody(myPageUiModel = myPageUiModel) }
+            item { MyPageBody(leveInfo = leveInfo) }
             item {
                 MyPageProgressBar(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    myPageUiModel = myPageUiModel,
+                    leveInfo = leveInfo,
                 )
             }
             item {
@@ -80,7 +74,7 @@ internal fun MyPageScreen(
                         end = 20.dp,
                         bottom = 40.dp,
                     ),
-                    myPageUiModel = myPageUiModel,
+                    leveInfo = leveInfo,
                 )
             }
             item {
@@ -96,7 +90,7 @@ internal fun MyPageScreen(
 @Composable
 private fun MyPageBody(
     modifier: Modifier = Modifier,
-    myPageUiModel: MyPageUiModel,
+    leveInfo: LeveInfo,
 ) {
     Column(
         modifier = modifier,
@@ -107,7 +101,7 @@ private fun MyPageBody(
         Spacer(modifier = Modifier.height(5.dp))
         Image(
             painter = painterResource(
-                when (myPageUiModel.userLevel) {
+                when (leveInfo.userLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL2 -> R.drawable.img_character_level_2
                     MyPageLevel.LEVEL3 -> R.drawable.img_character_level_3
@@ -118,7 +112,7 @@ private fun MyPageBody(
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
-            text = myPageUiModel.userLevel.title,
+            text = leveInfo.userLevel.title,
             color = FarmemeTheme.textColor.primary,
             style = FarmemeTheme.typography.highlight.normal,
         )

@@ -36,6 +36,11 @@
             android:theme="@style/Theme.PPAC" />
 
         <activity
+            android:name=".setting.SettingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PPAC" />
+
+        <activity
             android:name=".splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.PPAC">

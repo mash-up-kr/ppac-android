@@ -18,13 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.mypage.model.LeveInfo
 import team.ppac.mypage.model.MyPageLevel
-import team.ppac.mypage.model.MyPageUiModel
 
 @Composable
 internal fun MyPageLevelBox(
     modifier: Modifier = Modifier,
-    myPageUiModel: MyPageUiModel,
+    leveInfo: LeveInfo,
 ) {
     Column(
         modifier = modifier
@@ -36,7 +36,7 @@ internal fun MyPageLevelBox(
             )
     ) {
         MyPageLevelTop(
-            myPageUiModel = myPageUiModel,
+            leveInfo = leveInfo,
         )
         Spacer(
             modifier = Modifier
@@ -44,14 +44,14 @@ internal fun MyPageLevelBox(
                 .height(2.dp)
                 .background(FarmemeTheme.borderColor.tertiary)
         )
-        MyPageLevelBottom(myPageUiModel = myPageUiModel)
+        MyPageLevelBottom(leveInfo = leveInfo)
     }
 }
 
 @Composable
 private fun MyPageLevelTop(
     modifier: Modifier = Modifier,
-    myPageUiModel: MyPageUiModel,
+    leveInfo: LeveInfo,
 ) {
     Row(
         modifier = modifier
@@ -65,21 +65,21 @@ private fun MyPageLevelTop(
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        MyPageLevelTitle(myPageUiModel = myPageUiModel)
-        MyPageLevelChip(memeCount = myPageUiModel.memeCount)
+        MyPageLevelTitle(leveInfo = leveInfo)
+        MyPageLevelChip(memeCount = leveInfo.memeCount)
     }
 }
 
 @Composable
 private fun MyPageLevelTitle(
     modifier: Modifier = Modifier,
-    myPageUiModel: MyPageUiModel,
+    leveInfo: LeveInfo,
 ) {
     Column(
         modifier = modifier,
     ) {
         Text(
-            text = when (myPageUiModel.userLevel) {
+            text = when (leveInfo.userLevel) {
                 MyPageLevel.LEVEL4 -> "최종 레벨 달성 조건"
                 else -> "다음 레벨 달성 조건"
             },
@@ -88,7 +88,7 @@ private fun MyPageLevelTitle(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = myPageUiModel.userLevel.stepTitle,
+            text = leveInfo.userLevel.stepTitle,
             color = FarmemeTheme.textColor.primary,
             style = FarmemeTheme.typography.heading.small.semibold,
         )
@@ -98,7 +98,7 @@ private fun MyPageLevelTitle(
 @Composable
 private fun MyPageLevelBottom(
     modifier: Modifier = Modifier,
-    myPageUiModel: MyPageUiModel,
+    leveInfo: LeveInfo,
 ) {
     Box(
         modifier = modifier
@@ -106,7 +106,7 @@ private fun MyPageLevelBottom(
             .background(FarmemeTheme.backgroundColor.white)
             .padding(start = 20.dp, top = 20.dp, end = 20.dp, bottom = 30.dp),
     ) {
-        MyPageLevelStep(myPageUiModel = myPageUiModel)
+        MyPageLevelStep(leveInfo = leveInfo)
     }
 }
 
@@ -114,7 +114,7 @@ private fun MyPageLevelBottom(
 @Composable
 private fun MyPageLevelPreview() {
     MyPageLevelBox(
-        myPageUiModel = MyPageUiModel(
+        leveInfo = LeveInfo(
             userLevel = MyPageLevel.LEVEL3,
             memeCount = 15,
         )

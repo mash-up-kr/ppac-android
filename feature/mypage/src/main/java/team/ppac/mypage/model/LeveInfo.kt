@@ -1,6 +1,6 @@
 package team.ppac.mypage.model
 
-internal data class MyPageUiModel(
+data class LeveInfo(
     val userLevel: MyPageLevel,
     val memeCount: Int,
 )
