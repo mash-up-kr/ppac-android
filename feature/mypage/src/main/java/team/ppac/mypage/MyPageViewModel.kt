@@ -14,15 +14,6 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
-
-    init {
-        viewModelScope.launch {
-            launch {
-
-            }
-        }
-    }
-
     override fun createInitialState(savedStateHandle: SavedStateHandle): MyPageUiState {
         return MyPageUiState.INITIAL_STATE
     }
