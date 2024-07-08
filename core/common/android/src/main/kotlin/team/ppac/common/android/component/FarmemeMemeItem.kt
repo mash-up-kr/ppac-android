@@ -1,7 +1,6 @@
 package team.ppac.common.android.component
 
 import android.graphics.Bitmap
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,7 +40,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     lolCount: Int,
     imageUrl: String,
     onMemeClick: (String) -> Unit,
-    onCopyClick: (Bitmap?) -> Unit,
+    onCopyClick: (Bitmap) -> Unit,
 ) {
     var bitmap = remember<Bitmap?> { null }
 
@@ -72,7 +70,13 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
             FarmemeCircleButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .noRippleClickable(onClick = { onCopyClick(bitmap) })
+                    .noRippleClickable(
+                        onClick = {
+                            bitmap?.let {
+                                onCopyClick(it)
+                            }
+                        }
+                    )
                     .padding(end = 10.dp, bottom = 10.dp),
                 size = 42.dp,
                 backgroundColor = FarmemeTheme.backgroundColor.white,
@@ -119,21 +123,6 @@ fun FarmemeLolCount(
             style = FarmemeTheme.typography.body.small.medium.copy(
                 color = FarmemeTheme.textColor.tertiary
             )
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun FarmemeMemeItemPreview() {
-    Box(modifier = Modifier.background(Color.White)) {
-        FarmemeMemeItem(
-            memeId = "",
-            memeTitle = "우하하",
-            lolCount = 10,
-            imageUrl = "",
-            onMemeClick = {},
-            onCopyClick = {}
         )
     }
 }
