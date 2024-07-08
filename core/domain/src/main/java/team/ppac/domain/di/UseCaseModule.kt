@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
+import team.ppac.domain.usecase.GetRecommendKeywordsUseCaseImpl
 import team.ppac.domain.usecase.CreateUserUseCase
 import team.ppac.domain.usecase.CreateUserUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
@@ -32,4 +34,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGetMemeUseCase(impl: GetMemeUseCaseImpl): GetMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindRecommendKeywordsUseCase(impl: GetRecommendKeywordsUseCaseImpl): GetRecommendKeywordsUseCase
 }
