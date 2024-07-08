@@ -1,10 +1,8 @@
-package team.ppac.remote.api
+package team.ppac.remote.datasource
 
-import retrofit2.http.GET
 import team.ppac.remote.model.response.keyword.RecommendKeywordResponse
 
-internal interface KeywordApi {
+interface KeywordDataSource {
 
-    @GET("api/keyword/recommend")
     suspend fun getRecommendKeywords(): List<RecommendKeywordResponse>
 }
