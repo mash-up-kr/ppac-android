@@ -59,7 +59,7 @@ internal fun DetailContent(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.clip(FarmemeRadius.Radius10.shape),
             )
-            DetailTexts(
+            DetailHashTags(
                 name = uiModel.name,
                 sourceDescription = uiModel.sourceDescription,
                 hashTags = uiModel.hashTags
@@ -70,7 +70,7 @@ internal fun DetailContent(
 }
 
 @Composable
-internal fun DetailTexts(
+internal fun DetailHashTags(
     name: String,
     sourceDescription: String,
     hashTags: List<String>,

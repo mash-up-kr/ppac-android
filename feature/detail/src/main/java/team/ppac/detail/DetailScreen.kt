@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.detail.component.DetailBottomBar
@@ -46,8 +47,8 @@ fun PreviewDetailScreen() {
             detailMemeUiModel = DetailMemeUiModel(
                 imageUrl = "",
                 name = "나는 공부를 찢어",
-                hashTags = listOf("#공부", "#학생", "#시험기간", "#힘듦", "#피곤"),
-                sourceDescription = "출처: 출처에 대한 내용이 들어갑니다."
+                hashTags = persistentListOf("#공부", "#학생", "#시험기간", "#힘듦", "#피곤"),
+                sourceDescription = "출처에 대한 내용이 들어갑니다."
             )
         )
     )

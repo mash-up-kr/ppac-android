@@ -12,6 +12,6 @@ internal class GetMemeUseCaseImpl @Inject constructor(
     private val  memeRepository: MemeRepository
 ): GetMemeUseCase{
     override suspend fun invoke(memeId: String): Meme {
-        return memeRepository.getMemeById(memeId)
+        return memeRepository.getMeme(memeId)
     }
 }

@@ -1,5 +1,6 @@
 package team.ppac.detail.mvi
 
+import kotlinx.collections.immutable.persistentListOf
 import team.ppac.common.android.base.UiState
 import team.ppac.detail.model.DetailMemeUiModel
 
@@ -12,7 +13,7 @@ data class DetailUiState(
             detailMemeUiModel = DetailMemeUiModel(
                 imageUrl = "",
                 name = "",
-                hashTags = emptyList(),
+                hashTags = persistentListOf(),
                 sourceDescription = ""
             )
         )

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MemeRepositoryImpl @Inject constructor(
     private val memeDataSource: MemeDataSource,
 ) : MemeRepository{
-    override suspend fun getMemeById(memeId: String): Meme {
+    override suspend fun getMeme(memeId: String): Meme {
        return memeDataSource.getMemeById(memeId).toMeme()
     }
 }

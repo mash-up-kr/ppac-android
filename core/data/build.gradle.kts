@@ -28,4 +28,5 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
+    implementation(libs.kotlinx.collections.immutable)
 }
