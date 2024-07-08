@@ -17,7 +17,7 @@ fun SearchDetailResultContent(
     modifier: Modifier = Modifier,
     searchResults: ImmutableList<SearchResultUiModel>,
     onMemeClick: (String) -> Unit,
-    onCopyClick: (Bitmap?) -> Unit,
+    onCopyClick: (Bitmap) -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier,
