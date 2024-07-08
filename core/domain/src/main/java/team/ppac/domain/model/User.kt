@@ -4,9 +4,9 @@ data class User(
     val id: String,
     val isDeleted: Boolean,
     val lastSeenMeme: List<String>,
-    val level: Int,
-    val reaction: Int,
-    val save: Int,
-    val share: Int,
-    val watch: Int
+    val levelCount: Int,
+    val reactionCount: Int,
+    val saveCount: Int,
+    val shareCount: Int,
+    val watchCount: Int
 )
