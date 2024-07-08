@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridItemScope
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
-fun FarmemeMemeItem(
+fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     modifier: Modifier = Modifier,
     memeId: String,
     memeTitle: String,
