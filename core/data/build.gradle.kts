@@ -22,10 +22,11 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:remote"))
     implementation(project(":core:local"))
-
+    implementation(project(":core:datastore"))
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.kotlin.coroutines.core)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
+    implementation(libs.kotlinx.collections.immutable)
 }

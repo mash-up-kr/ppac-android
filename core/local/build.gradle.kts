@@ -19,6 +19,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:datastore"))
+    implementation(libs.datastore)
     implementation(libs.hilt.android)
     implementation(libs.room.core)
     implementation(libs.datastore)

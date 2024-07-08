@@ -1,4 +1,4 @@
-package team.ppac.local.di
+package team.ppac.datastore.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -9,10 +9,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import team.ppac.local.datastore.UserDataSerializer
-import team.ppac.local.entity.UserData
+import team.ppac.datastore.datastore.UserDataSerializer
+import team.ppac.datastore.entity.UserData
 import javax.inject.Singleton
-
 
 @Module
 @InstallIn(SingletonComponent::class)

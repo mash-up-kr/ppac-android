@@ -10,10 +10,12 @@ const val MY_PAGE_ROUTE = "my_page"
 
 fun NavController.navigateToMyPage(navOptions: NavOptions) = navigate(MY_PAGE_ROUTE, navOptions)
 
-fun NavGraphBuilder.myPageScreen() {
+fun NavGraphBuilder.myPageScreen(
+    navigateToDetail : ()->Unit,
+) {
     composable(
         route = MY_PAGE_ROUTE
     ) {
-        MyPageRoute()
+        MyPageRoute(navigateToDetail = navigateToDetail)
     }
 }

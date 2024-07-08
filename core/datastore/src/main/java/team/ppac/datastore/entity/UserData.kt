@@ -1,4 +1,4 @@
-package team.ppac.local.entity
+package team.ppac.datastore.entity
 
 import kotlinx.serialization.Serializable
 

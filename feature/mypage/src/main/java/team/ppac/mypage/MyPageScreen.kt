@@ -36,6 +36,7 @@ import team.ppac.mypage.mvi.MyPageIntent
 @Composable
 internal fun MyPageScreen(
     viewModel: MyPageViewModel = hiltViewModel(),
+    navigateToDetail: () -> Unit, // Todo viewModel연결 시 Route에서 sideEffect처리 해야함
 ) {
     val state by viewModel.state.collectAsState()
     val leveInfo = state.leveInfo
@@ -77,7 +78,10 @@ internal fun MyPageScreen(
                 )
             }
             item {
-                RecentMemeContent(recentMemes = recentMemes)
+                RecentMemeContent(
+                    recentMemes = recentMemes,
+                    navigateToDetail = navigateToDetail
+                )
             }
         }
     }
@@ -119,5 +123,5 @@ private fun MyPageBody(
 @Preview
 @Composable
 private fun MyPageScreenPreview() {
-    MyPageScreen()
+    MyPageScreen(navigateToDetail = {})
 }

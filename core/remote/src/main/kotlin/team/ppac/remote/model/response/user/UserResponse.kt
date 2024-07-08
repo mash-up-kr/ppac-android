@@ -5,6 +5,8 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 data class UserResponse(
+    @field:Json(name = "_id")
+    val id: String,
     @field:Json(name = "deviceId")
     val deviceId: String,
     @field:Json(name = "isDeleted")
@@ -14,7 +16,7 @@ data class UserResponse(
     @field:Json(name = "level")
     val level: Int,
     @field:Json(name = "memeRecommendWatchCount")
-    val memeRecommendWatchCount: Int,
+    val memeRecommendWatchCount: Int?,
     @field:Json(name = "reaction")
     val reaction: Int,
     @field:Json(name = "save")

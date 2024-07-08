@@ -28,7 +28,8 @@ android {
 
 dependencies {
     implementation(project(":core:error-handling"))
-
+    implementation(project(":core:datastore"))
+    implementation(libs.datastore)
     implementation(libs.retrofit)
     implementation(platform(libs.okhttp.bom))
     implementation(libs.bundles.okhttp)
@@ -38,6 +39,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
     implementation(libs.kotlin.serialization)
+    implementation(libs.kotlinx.collections.immutable)
 }
 
 fun getLocalProperties(key: String): String {
