@@ -52,9 +52,11 @@ internal fun MyPageScreen(
             contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
             item {
-                FarmemeActionToolBar(onClickActionIcon = {
-                    viewModel.intent(MyPageIntent.ClickSettingButton)
-                })
+                FarmemeActionToolBar(
+                    onClickActionIcon = {
+                        viewModel.intent(MyPageIntent.ClickSettingButton)
+                    }
+                )
             }
             item { MyPageBody(myPageUiModel = myPageUiModel) }
             item {
@@ -74,7 +76,9 @@ internal fun MyPageScreen(
                     myPageUiModel = myPageUiModel,
                 )
             }
-            item { RecentMemeContent(recentMemes = recentMemes) }
+            item {
+                RecentMemeContent(recentMemes = recentMemes)
+            }
         }
     }
 }
