@@ -19,12 +19,12 @@ import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.mypage.model.Meme
+import team.ppac.mypage.model.RecentMemeUiModel
 
 @Composable
 internal fun RecentMemeContent(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<Meme>,
+    recentMemes: ImmutableList<RecentMemeUiModel>,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -50,7 +50,7 @@ internal fun RecentMemeContent(
 @Composable
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
-    recentMemes: List<Meme>,
+    recentMemes: List<RecentMemeUiModel>,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -73,28 +73,28 @@ private fun RecentMemeContentPreview() {
     val sampleUrl = "https://picsum.photos/id/10/2500/1667"
 
     RecentMemeContent(
-        recentMemes = persistentListOf<Meme>().add(
-            Meme(
+        recentMemes = persistentListOf<RecentMemeUiModel>().add(
+            RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
             )
         ).add(
-            Meme(
+            RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
             )
         ).add(
-            Meme(
+            RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
             )
         ).add(
-            Meme(
+            RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
             )
         ).add(
-            Meme(
+            RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
             )

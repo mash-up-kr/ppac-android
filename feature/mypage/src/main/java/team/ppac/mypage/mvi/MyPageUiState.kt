@@ -3,15 +3,15 @@ package team.ppac.mypage.mvi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.common.android.base.UiState
-import team.ppac.mypage.model.Meme
+import team.ppac.mypage.model.RecentMemeUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.model.MyPageUiModel
 
 data class MyPageUiState(
     val isLoading: Boolean,
     val myPageUiModel: MyPageUiModel,
-    val recentMemes: ImmutableList<Meme>,
-    val savedMemes: ImmutableList<Meme>,
+    val recentMemes: ImmutableList<RecentMemeUiModel>,
+    val savedMemes: ImmutableList<RecentMemeUiModel>,
 ) : UiState {
     companion object {
         const val sampleId = "1234"
@@ -23,28 +23,28 @@ data class MyPageUiState(
                 userLevel = MyPageLevel.LEVEL1,
                 memeCount = 0,
             ),
-            recentMemes = persistentListOf<Meme>().add(
-                Meme(
+            recentMemes = persistentListOf<RecentMemeUiModel>().add(
+                RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
                 ),
             ).add(
-                Meme(
+                RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
                 ),
             ).add(
-                Meme(
+                RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
                 ),
             ).add(
-                Meme(
+                RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
                 ),
             ).add(
-                Meme(
+                RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
                 ),
