@@ -10,7 +10,11 @@ class SettingActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FarmemeTheme {
-                SettingScreen()
+                SettingScreen(
+                    onClickBackButton = {
+                        finish()
+                    },
+                )
             }
         }
     }

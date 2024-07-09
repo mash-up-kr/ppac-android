@@ -27,6 +27,7 @@ import team.ppac.setting.component.SettingListItem
 @Composable
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
+    onClickBackButton: () -> Unit,
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
@@ -38,7 +39,7 @@ internal fun SettingScreen(
             item {
                 FarmemeBackToolBar(
                     title = "설정",
-                    onClickBackIcon = { }, // TODO : onClick 적용
+                    onClickBackIcon = onClickBackButton,
                 )
             }
             item {
@@ -101,5 +102,7 @@ private fun SettingBody(
 @Preview
 @Composable
 private fun SettingScreenPreview() {
-    SettingScreen()
+    SettingScreen(
+        onClickBackButton = {},
+    )
 }
