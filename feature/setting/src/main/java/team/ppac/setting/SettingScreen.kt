@@ -63,7 +63,7 @@ internal fun SettingScreen(
             item {
                 SettingListItem(
                     title = "개인정보 처리방침",
-                    onClick = { }, // TODO : onClick 적용
+                    onClick = { }, // TODO(ze-zeh) : onClick 적용
                 )
             }
         }
@@ -98,7 +98,7 @@ private fun SettingBody(
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "v.1.0.0", // TODO : appVersion 적용
+            text = "v.1.0.0", // TODO(ze-zeh) : appVersion 적용
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
