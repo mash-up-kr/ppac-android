@@ -13,22 +13,35 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.setting.component.SettingListItem
+import team.ppac.setting.mvi.SettingIntent
+import team.ppac.setting.mvi.SettingSideEffect
 
 @Composable
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
-    onClickBackButton: () -> Unit,
+    viewModel: SettingViewModel = hiltViewModel(),
+    finishSettingActivity: () -> Unit,
 ) {
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                SettingSideEffect.FinishSettingActivity -> finishSettingActivity()
+            }
+        }
+    }
+
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
         scaffoldState = rememberScaffoldState(),
@@ -39,7 +52,9 @@ internal fun SettingScreen(
             item {
                 FarmemeBackToolBar(
                     title = "설정",
-                    onClickBackIcon = onClickBackButton,
+                    onClickBackIcon = {
+                        viewModel.intent(SettingIntent.ClickBackButton)
+                    },
                 )
             }
             item {
@@ -103,6 +118,6 @@ private fun SettingBody(
 @Composable
 private fun SettingScreenPreview() {
     SettingScreen(
-        onClickBackButton = {},
+        finishSettingActivity = {},
     )
 }
