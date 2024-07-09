@@ -32,11 +32,14 @@ import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.model.LeveInfo
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
+import team.ppac.mypage.mvi.MyPageSideEffect
 
 @Composable
 internal fun MyPageScreen(
+    modifier: Modifier = Modifier,
     viewModel: MyPageViewModel = hiltViewModel(),
-    navigateToDetail: () -> Unit, // Todo viewModel연결 시 Route에서 sideEffect처리 해야함
+    navigateToDetail: () -> Unit,
+    navigateToSetting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val leveInfo = state.leveInfo
@@ -44,7 +47,7 @@ internal fun MyPageScreen(
     val savedMemes = state.savedMemes
 
     FarmemeScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
         scaffoldState = rememberScaffoldState()
     ) {
@@ -123,5 +126,8 @@ private fun MyPageBody(
 @Preview
 @Composable
 private fun MyPageScreenPreview() {
-    MyPageScreen(navigateToDetail = {})
+    MyPageScreen(
+        navigateToDetail = {},
+        navigateToSetting = {},
+    )
 }

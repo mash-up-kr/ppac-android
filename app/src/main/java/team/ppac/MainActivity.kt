@@ -16,6 +16,7 @@ import team.ppac.navigation.FarmemeNavHost
 import team.ppac.navigation.component.FarmemeBottomBar
 import team.ppac.navigation.navigateToTopLevelDestination
 import team.ppac.navigator.DetailNavigator
+import team.ppac.navigator.SettingNavigator
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,6 +24,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var detailNavigator: DetailNavigator
+
+    @Inject
+    lateinit var settingNavigator: SettingNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +52,11 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         onShowSnackBar = { _ -> false },
                         navigateToDetail = {
-                            detailNavigator.navigateFrom(this)
-                        }
+                            detailNavigator.navigateFrom(this@MainActivity)
+                        },
+                        navigateToSetting = {
+                            settingNavigator.navigateFrom(this@MainActivity)
+                        },
                     )
                 }
             }
