@@ -37,6 +37,7 @@ import team.ppac.mypage.mvi.MyPageSideEffect
 
 @Composable
 internal fun MyPageScreen(
+    modifier: Modifier = Modifier,
     viewModel: MyPageViewModel = hiltViewModel(),
     navigateToDetail: () -> Unit,
     navigateToSetting: () -> Unit,
@@ -56,7 +57,7 @@ internal fun MyPageScreen(
     }
 
     FarmemeScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
         scaffoldState = rememberScaffoldState()
     ) {
