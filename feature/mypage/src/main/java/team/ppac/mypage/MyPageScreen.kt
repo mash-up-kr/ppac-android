@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -45,6 +46,15 @@ internal fun MyPageScreen(
     val leveInfo = state.leveInfo
     val recentMemes = state.recentMemes
     val savedMemes = state.savedMemes
+
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                MyPageSideEffect.NavigateToDetail -> navigateToDetail()
+                MyPageSideEffect.NavigateToSetting -> navigateToSetting()
+            }
+        }
+    }
 
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
@@ -83,7 +93,9 @@ internal fun MyPageScreen(
             item {
                 RecentMemeContent(
                     recentMemes = recentMemes,
-                    navigateToDetail = navigateToDetail
+                    onClickMemeItem = {
+                        viewModel.intent(MyPageIntent.ClickMemeItem)
+                    }
                 )
             }
         }

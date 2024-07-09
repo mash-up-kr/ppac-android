@@ -1,9 +1,7 @@
 package team.ppac.mypage
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
@@ -20,11 +18,16 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: MyPageIntent) {
         when (intent) {
+            is MyPageIntent.ClickMemeItem -> navigateToDetail()
             is MyPageIntent.ClickSettingButton -> navigateToSetting()
         }
     }
 
+    private fun navigateToDetail() {
+        postSideEffect(MyPageSideEffect.NavigateToDetail)
+    }
+
     private fun navigateToSetting() {
-        // TODO : Setting 모듈로 Navigate 구현
+        postSideEffect(MyPageSideEffect.NavigateToSetting)
     }
 }
