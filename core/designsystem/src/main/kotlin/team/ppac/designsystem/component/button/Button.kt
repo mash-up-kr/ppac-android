@@ -1,7 +1,6 @@
 package team.ppac.designsystem.component.button
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
 fun FarmemeCircleButton(
@@ -35,7 +35,7 @@ fun FarmemeCircleButton(
             .size(size)
             .clip(FarmemeRadius.Radius40.shape)
             .background(color = backgroundColor)
-            .clickable(onClick = onClick),
+            .noRippleClickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
         icon()
@@ -55,7 +55,7 @@ fun FarmemeWeakButton(
         modifier = modifier
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
-            .clickable(onClick = onClick)
+            .noRippleClickable(onClick = onClick)
             .padding(15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -82,7 +82,7 @@ fun FarmemeFilledButton(
         modifier = modifier
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = backgroundColor)
-            .clickable(onClick = onClick)
+            .noRippleClickable(onClick = onClick)
             .padding(
                 horizontal = 16.dp,
                 vertical = 12.dp,
