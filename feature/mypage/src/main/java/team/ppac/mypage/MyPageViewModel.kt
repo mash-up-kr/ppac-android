@@ -18,7 +18,7 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: MyPageIntent) {
         when (intent) {
-            is MyPageIntent.ClickMemeItem -> navigateToDetail()
+            is MyPageIntent.ClickRecentMemeItem, MyPageIntent.ClickSavedMemeItem -> navigateToDetail()
             is MyPageIntent.ClickSettingButton -> navigateToSetting()
         }
     }

@@ -93,7 +93,7 @@ internal fun MyPageScreen(
                 RecentMemeContent(
                     recentMemes = recentMemes,
                     onClickMemeItem = {
-                        viewModel.intent(MyPageIntent.ClickMemeItem)
+                        viewModel.intent(MyPageIntent.ClickRecentMemeItem)
                     }
                 )
             }
