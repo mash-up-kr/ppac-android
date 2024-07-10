@@ -93,8 +93,8 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
-        Spacer(modifier = Modifier.size(8.dp))
         if (lolCount > 0) {
+            Spacer(modifier = Modifier.size(8.dp))
             FarmemeLolCount(
                 lolCount = lolCount
             )
