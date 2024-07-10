@@ -65,6 +65,7 @@ private fun SavedMemeList(
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
         contentPadding = PaddingValues(horizontal = 20.dp),
+        verticalItemSpacing = 20.dp,
     ) {
         items(items = savedMemes) { meme ->
             FarmemeMemeItem(
