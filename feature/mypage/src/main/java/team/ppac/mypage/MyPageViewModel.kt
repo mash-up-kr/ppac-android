@@ -20,7 +20,6 @@ class MyPageViewModel @Inject constructor(
         when (intent) {
             is MyPageIntent.ClickRecentMemeItem, MyPageIntent.ClickSavedMemeItem -> navigateToDetail()
             is MyPageIntent.ClickSettingButton -> navigateToSetting()
-            is MyPageIntent.ClickSavedMemeCopyButton -> {}
         }
     }
 

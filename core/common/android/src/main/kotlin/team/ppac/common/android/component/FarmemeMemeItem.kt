@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.button.FarmemeCircleButton
@@ -40,9 +41,9 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     lolCount: Int,
     imageUrl: String,
     onMemeClick: (String) -> Unit,
-    onCopyClick: (Bitmap) -> Unit,
 ) {
     var bitmap = remember<Bitmap?> { null }
+    val context = LocalContext.current
 
     Column(
         modifier = modifier.noRippleClickable(onClick = { onMemeClick(memeId) }),
@@ -70,16 +71,14 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
             FarmemeCircleButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .noRippleClickable(
-                        onClick = {
-                            bitmap?.let {
-                                onCopyClick(it)
-                            }
-                        }
-                    )
                     .padding(end = 10.dp, bottom = 10.dp),
                 size = 42.dp,
                 backgroundColor = FarmemeTheme.backgroundColor.white,
+                onClick = {
+                    bitmap?.let {
+                        context.copyImageToClipBoard(it)
+                    }
+                },
                 icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) }
             )
         }

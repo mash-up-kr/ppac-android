@@ -104,9 +104,6 @@ internal fun MyPageScreen(
                     onMemeItemClick = {
                         viewModel.intent(MyPageIntent.ClickSavedMemeItem)
                     },
-                    onCopyButtonClick = {
-                        viewModel.intent(MyPageIntent.ClickSavedMemeCopyButton)
-                    },
                 )
             }
         }

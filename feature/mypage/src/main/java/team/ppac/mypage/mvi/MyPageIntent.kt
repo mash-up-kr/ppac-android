@@ -6,5 +6,4 @@ sealed class MyPageIntent : UiIntent {
     data object ClickSettingButton : MyPageIntent()
     data object ClickRecentMemeItem : MyPageIntent()
     data object ClickSavedMemeItem : MyPageIntent()
-    data object ClickSavedMemeCopyButton : MyPageIntent()
 }

@@ -1,6 +1,5 @@
 package team.ppac.mypage.component
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,7 +28,6 @@ internal fun SavedMemeContent(
     modifier: Modifier = Modifier,
     savedMemes: ImmutableList<RecentMemeUiModel>,
     onMemeItemClick: (String) -> Unit,
-    onCopyButtonClick: (Bitmap) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -43,7 +41,6 @@ internal fun SavedMemeContent(
         SavedMemeList(
             savedMemes = savedMemes,
             onMemeItemClick = onMemeItemClick,
-            onCopyButtonClick = onCopyButtonClick,
         )
         Spacer(modifier = Modifier.height(50.dp))
     }
@@ -54,7 +51,6 @@ private fun SavedMemeList(
     modifier: Modifier = Modifier,
     savedMemes: ImmutableList<RecentMemeUiModel>,
     onMemeItemClick: (String) -> Unit,
-    onCopyButtonClick: (Bitmap) -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier
@@ -75,7 +71,6 @@ private fun SavedMemeList(
                 lolCount = 0,
                 imageUrl = meme.imageUrl,
                 onMemeClick = onMemeItemClick,
-                onCopyClick = onCopyButtonClick,
             )
         }
     }
@@ -87,6 +82,5 @@ internal fun SavedMemeContentPreview() {
     SavedMemeContent(
         savedMemes = MyPageUiState.INITIAL_STATE.savedMemes,
         onMemeItemClick = {},
-        onCopyButtonClick = {},
     )
 }
