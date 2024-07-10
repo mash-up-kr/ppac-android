@@ -30,6 +30,7 @@ import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
+import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LeveInfo
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
@@ -94,7 +95,18 @@ internal fun MyPageScreen(
                     recentMemes = recentMemes,
                     onClickMemeItem = {
                         viewModel.intent(MyPageIntent.ClickRecentMemeItem)
-                    }
+                    },
+                )
+            }
+            item {
+                SavedMemeContent(
+                    savedMemes = savedMemes,
+                    onMemeItemClick = {
+                        viewModel.intent(MyPageIntent.ClickSavedMemeItem)
+                    },
+                    onCopyButtonClick = {
+                        viewModel.intent(MyPageIntent.ClickSavedMemeCopyButton)
+                    },
                 )
             }
         }
