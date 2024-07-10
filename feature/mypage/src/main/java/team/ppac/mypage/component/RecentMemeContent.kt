@@ -76,32 +76,38 @@ private fun RecentMemeList(
 private fun RecentMemeContentPreview() {
     val sampleId = "1234"
     val sampleUrl = "https://picsum.photos/id/10/2500/1667"
+    val sampleTitle = "title"
 
     RecentMemeContent(
         recentMemes = persistentListOf<RecentMemeUiModel>().add(
             RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
+                title = sampleTitle,
             )
         ).add(
             RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
+                title = sampleTitle,
             )
         ).add(
             RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
+                title = sampleTitle,
             )
         ).add(
             RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
+                title = sampleTitle,
             )
         ).add(
             RecentMemeUiModel(
                 id = sampleId,
                 imageUrl = sampleUrl,
+                title = sampleTitle,
             )
         ),
         onClickMemeItem = {}

@@ -16,6 +16,7 @@ data class MyPageUiState(
     companion object {
         const val sampleId = "1234"
         const val sampleUrl = "https://picsum.photos/id/10/2500/1667"
+        val sampleTitle = "title"
 
         val INITIAL_STATE = MyPageUiState(
             isLoading = false,
@@ -27,27 +28,32 @@ data class MyPageUiState(
                 RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
-                ),
+                    title = sampleTitle,
+                )
             ).add(
                 RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
-                ),
+                    title = sampleTitle,
+                )
             ).add(
                 RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
-                ),
+                    title = sampleTitle,
+                )
             ).add(
                 RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
-                ),
+                    title = sampleTitle,
+                )
             ).add(
                 RecentMemeUiModel(
                     id = sampleId,
                     imageUrl = sampleUrl,
-                ),
+                    title = sampleTitle,
+                )
             ),
             savedMemes = persistentListOf(),
         )
