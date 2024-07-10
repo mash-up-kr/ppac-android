@@ -32,12 +32,12 @@ import team.ppac.setting.mvi.SettingSideEffect
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingViewModel = hiltViewModel(),
-    finishSettingActivity: () -> Unit,
+    onClickBackButton: () -> Unit,
 ) {
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                SettingSideEffect.FinishSettingActivity -> finishSettingActivity()
+                SettingSideEffect.OnClickBackButton -> onClickBackButton()
             }
         }
     }
@@ -118,6 +118,6 @@ private fun SettingBody(
 @Composable
 private fun SettingScreenPreview() {
     SettingScreen(
-        finishSettingActivity = {},
+        onClickBackButton = {},
     )
 }

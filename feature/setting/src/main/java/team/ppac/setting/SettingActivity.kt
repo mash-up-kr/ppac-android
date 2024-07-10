@@ -13,7 +13,7 @@ class SettingActivity : ComponentActivity() {
         setContent {
             FarmemeTheme {
                 SettingScreen(
-                    finishSettingActivity = {
+                    onClickBackButton = {
                         finish()
                     },
                 )

@@ -18,11 +18,11 @@ class SettingViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: SettingIntent) {
         when (intent) {
-            is SettingIntent.ClickBackButton -> finishSettingActivity()
+            is SettingIntent.ClickBackButton -> onClickBackButton()
         }
     }
 
-    private fun finishSettingActivity() {
-        postSideEffect(SettingSideEffect.FinishSettingActivity)
+    private fun onClickBackButton() {
+        postSideEffect(SettingSideEffect.OnClickBackButton)
     }
 }
