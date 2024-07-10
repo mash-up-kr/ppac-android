@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,16 +33,27 @@ import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.model.LeveInfo
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
+import team.ppac.mypage.mvi.MyPageSideEffect
 
 @Composable
 internal fun MyPageScreen(
     viewModel: MyPageViewModel = hiltViewModel(),
-    navigateToDetail: () -> Unit, // Todo viewModel연결 시 Route에서 sideEffect처리 해야함
+    navigateToDetail: () -> Unit,
+    navigateToSetting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val leveInfo = state.leveInfo
     val recentMemes = state.recentMemes
     val savedMemes = state.savedMemes
+
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                MyPageSideEffect.NavigateToDetail -> navigateToDetail()
+                MyPageSideEffect.NavigateToSetting -> navigateToSetting()
+            }
+        }
+    }
 
     FarmemeScaffold(
         modifier = Modifier.fillMaxSize(),
@@ -80,7 +92,9 @@ internal fun MyPageScreen(
             item {
                 RecentMemeContent(
                     recentMemes = recentMemes,
-                    navigateToDetail = navigateToDetail
+                    onClickMemeItem = {
+                        viewModel.intent(MyPageIntent.ClickRecentMemeItem)
+                    }
                 )
             }
         }
@@ -123,5 +137,8 @@ private fun MyPageBody(
 @Preview
 @Composable
 private fun MyPageScreenPreview() {
-    MyPageScreen(navigateToDetail = {})
+    MyPageScreen(
+        navigateToDetail = {},
+        navigateToSetting = {},
+    )
 }

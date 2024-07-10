@@ -13,21 +13,35 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.setting.component.SettingListItem
+import team.ppac.setting.mvi.SettingIntent
+import team.ppac.setting.mvi.SettingSideEffect
 
 @Composable
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
+    viewModel: SettingViewModel = hiltViewModel(),
+    navigateToBack: () -> Unit,
 ) {
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                SettingSideEffect.OnClickBackButton -> navigateToBack()
+            }
+        }
+    }
+
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
         scaffoldState = rememberScaffoldState(),
@@ -38,7 +52,9 @@ internal fun SettingScreen(
             item {
                 FarmemeBackToolBar(
                     title = "설정",
-                    onClickBackIcon = { }, // TODO : onClick 적용
+                    onClickBackIcon = {
+                        viewModel.intent(SettingIntent.ClickBackButton)
+                    },
                 )
             }
             item {
@@ -47,7 +63,7 @@ internal fun SettingScreen(
             item {
                 SettingListItem(
                     title = "개인정보 처리방침",
-                    onClick = { }, // TODO : onClick 적용
+                    onClick = { }, // TODO(ze-zeh) : onClick 적용
                 )
             }
         }
@@ -82,7 +98,7 @@ private fun SettingBody(
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "v.1.0.0", // TODO : appVersion 적용
+            text = "v.1.0.0", // TODO(ze-zeh) : appVersion 적용
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
@@ -101,5 +117,7 @@ private fun SettingBody(
 @Preview
 @Composable
 private fun SettingScreenPreview() {
-    SettingScreen()
+    SettingScreen(
+        navigateToBack = {},
+    )
 }

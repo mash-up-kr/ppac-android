@@ -1,9 +1,7 @@
 package team.ppac.navigation
 
-import android.app.Activity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -26,6 +24,7 @@ fun FarmemeNavHost(
     navController: NavHostController,
     onShowSnackBar: suspend (SnackbarMessage) -> Boolean,
     navigateToDetail: () -> Unit,
+    navigateToSetting: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -40,7 +39,8 @@ fun FarmemeNavHost(
             navigateBack = { navController.navigateUp() }
         )
         myPageScreen(
-            navigateToDetail = navigateToDetail
+            navigateToDetail = navigateToDetail,
+            navigateToSetting = navigateToSetting,
         )
     }
 }
