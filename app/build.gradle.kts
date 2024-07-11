@@ -80,6 +80,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
 
     implementation(libs.hilt.android)
+    implementation(files("libs\\AF-Android-SDK.jar"))
     kapt(libs.hilt.compiler)
 
     implementation(libs.timber)
