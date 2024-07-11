@@ -31,6 +31,7 @@ fun SearchDetailResultContent(
                 lolCount = uiModel.lolCount,
                 imageUrl = uiModel.imageUrl,
                 onMemeClick = onMemeClick,
+                onCopyClick = {}, // TODO(JaesungLeee) : 스낵바 띄우기
             )
         }
     }

@@ -41,6 +41,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     lolCount: Int,
     imageUrl: String,
     onMemeClick: (String) -> Unit,
+    onCopyClick: () -> Unit,
 ) {
     var bitmap = remember<Bitmap?> { null }
     val context = LocalContext.current
@@ -76,6 +77,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                 backgroundColor = FarmemeTheme.backgroundColor.white,
                 onClick = {
                     bitmap?.let {
+                        onCopyClick()
                         context.copyImageToClipBoard(it)
                     }
                 },
