@@ -1,6 +1,5 @@
 package team.ppac.search.detail.component
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -17,7 +16,6 @@ fun SearchDetailResultContent(
     modifier: Modifier = Modifier,
     searchResults: ImmutableList<SearchResultUiModel>,
     onMemeClick: (String) -> Unit,
-    onCopyClick: (Bitmap) -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier,
@@ -33,7 +31,7 @@ fun SearchDetailResultContent(
                 lolCount = uiModel.lolCount,
                 imageUrl = uiModel.imageUrl,
                 onMemeClick = onMemeClick,
-                onCopyClick = onCopyClick
+                onCopyClick = {}, // TODO(JaesungLeee) : 스낵바 띄우기
             )
         }
     }

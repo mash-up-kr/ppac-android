@@ -48,7 +48,6 @@ internal fun SearchDetailScreen(
             SearchDetailResultContent(
                 searchResults = uiState.searchResults,
                 onMemeClick = {},
-                onCopyClick = {}
             )
         }
     }

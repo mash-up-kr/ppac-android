@@ -1,7 +1,6 @@
 package team.ppac.designsystem.component.chip
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -15,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
 fun FarmemeSmallChip(
@@ -55,7 +55,7 @@ fun FarmemeMediumChip(
         modifier = modifier
             .clip(FarmemeRadius.Radius20.shape)
             .background(color = FarmemeTheme.backgroundColor.assistive)
-            .clickable(onClick = onClick)
+            .noRippleClickable(onClick = onClick)
             .padding(
                 horizontal = 16.dp,
                 vertical = 9.5.dp,

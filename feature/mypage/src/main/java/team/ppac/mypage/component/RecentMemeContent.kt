@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.model.RecentMemeUiModel
+import team.ppac.mypage.mvi.MyPageUiState
 
 @Composable
 internal fun RecentMemeContent(
@@ -74,36 +74,8 @@ private fun RecentMemeList(
 @Preview(showBackground = true)
 @Composable
 private fun RecentMemeContentPreview() {
-    val sampleId = "1234"
-    val sampleUrl = "https://picsum.photos/id/10/2500/1667"
-
     RecentMemeContent(
-        recentMemes = persistentListOf<RecentMemeUiModel>().add(
-            RecentMemeUiModel(
-                id = sampleId,
-                imageUrl = sampleUrl,
-            )
-        ).add(
-            RecentMemeUiModel(
-                id = sampleId,
-                imageUrl = sampleUrl,
-            )
-        ).add(
-            RecentMemeUiModel(
-                id = sampleId,
-                imageUrl = sampleUrl,
-            )
-        ).add(
-            RecentMemeUiModel(
-                id = sampleId,
-                imageUrl = sampleUrl,
-            )
-        ).add(
-            RecentMemeUiModel(
-                id = sampleId,
-                imageUrl = sampleUrl,
-            )
-        ),
+        recentMemes = MyPageUiState.INITIAL_STATE.recentMemes,
         onClickMemeItem = {}
     )
 }
