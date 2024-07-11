@@ -17,9 +17,9 @@ data class MyPageUiState(
         const val sampleId = "1234"
         const val sampleUrl = "https://picsum.photos/id/10/2500/1667"
         const val sampleTitle = "title"
-        val sampleMemes = mutableListOf<RecentMemeUiModel>().let {
-            for (i in 0..10) {
-                it.add(
+        val sampleMemes = mutableListOf<RecentMemeUiModel>().apply {
+            repeat(11) {
+                this.add(
                     RecentMemeUiModel(
                         id = sampleId,
                         imageUrl = sampleUrl,
@@ -27,8 +27,7 @@ data class MyPageUiState(
                     )
                 )
             }
-            it.toPersistentList()
-        }
+        }.toPersistentList()
 
         val INITIAL_STATE = MyPageUiState(
             isLoading = false,
