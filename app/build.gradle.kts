@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +21,7 @@ android {
         versionName = libs.versions.appVersion.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "DEV_KEY", getLocalProperties("DEV_KEY"))
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -27,6 +31,7 @@ android {
         release {
             isMinifyEnabled = false
             applicationIdSuffix = ".app"
+            buildConfigField("String", "DEV_KEY", getLocalProperties("DEV_KEY"))
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -85,4 +90,11 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     implementation(libs.timber)
+}
+
+fun getLocalProperties(key: String): String {
+    val properties = Properties().apply {
+        load(FileInputStream(rootProject.file("local.properties")))
+    }
+    return properties.getProperty(key)
 }

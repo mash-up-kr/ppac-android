@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.appsflyer.AppsFlyerLib
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -32,6 +33,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        AppsFlyerLib.getInstance().init(BuildConfig.DEV_KEY, null, this)
+        AppsFlyerLib.getInstance().start(this)
         setContent {
             FarmemeTheme {
                 val navController = rememberNavController()
