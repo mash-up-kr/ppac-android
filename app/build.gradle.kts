@@ -15,6 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "team.ppac"
+        applicationIdSuffix = ".app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
