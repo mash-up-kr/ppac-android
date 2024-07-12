@@ -32,14 +32,13 @@ internal object AppsFlyerLibRequester {
                     else -> {
                         // dlStatus == DeepLinkResult.Status.ERROR
                         val dlError = deepLinkResult.error
-                        Timber.tag(TAG)
-                            .d("There was an error getting Deep Link data: " + dlError)
+                        Timber.tag(TAG).d("There was an error getting Deep Link data: $dlError")
                         return
                     }
                 }
-                var deepLinkObj: DeepLink = deepLinkResult.deepLink
+                val deepLinkObj: DeepLink = deepLinkResult.deepLink
                 try {
-                    Timber.tag(TAG).d("The DeepLink data is: " + deepLinkObj)
+                    Timber.tag(TAG).d("The DeepLink data is: $deepLinkObj")
                 } catch (e: Exception) {
                     Timber.tag(TAG).d("DeepLink data came back null")
                     return
@@ -54,9 +53,9 @@ internal object AppsFlyerLibRequester {
 
                 try {
                     val fruitName = deepLinkObj.deepLinkValue
-                    Timber.tag(TAG).d("The DeepLink will route to: " + fruitName)
+                    Timber.tag(TAG).d("The DeepLink will route to: $fruitName")
                 } catch (e: Exception) {
-                    Timber.tag(TAG).d("There's been an error: " + e)
+                    Timber.tag(TAG).d("There's been an error: $e")
                     return
                 }
             }
