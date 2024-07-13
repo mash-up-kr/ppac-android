@@ -2,6 +2,7 @@ package team.ppac.remote.model.response.meme
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import team.ppac.remote.model.response.keyword.KeywordResponse
 
 @JsonClass(generateAdapter = true)
 data class MemeResponse(
@@ -15,7 +16,7 @@ data class MemeResponse(
     val source: String,
     @field:Json(name = "title")
     val title: String,
-    @field:Json(name= "watch")
+    @field:Json(name = "watch")
     val watch: Int,
     @field:Json(name = "reaction")
     val reaction: Int,
@@ -24,5 +25,5 @@ data class MemeResponse(
     @field:Json(name = "updatedAt")
     val updatedAt: String,
     @field:Json(name = "keywords")
-    val keywords: List<String>
+    val keywords: List<KeywordResponse>
 )
