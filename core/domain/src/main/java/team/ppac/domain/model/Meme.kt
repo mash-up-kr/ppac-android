@@ -10,5 +10,5 @@ data class Meme(
     val reaction: Int,
     val createdAt: String,
     val updateAt: String,
-    val keywords: List<String>,
+    val keywords: List<Keyword>,
 )

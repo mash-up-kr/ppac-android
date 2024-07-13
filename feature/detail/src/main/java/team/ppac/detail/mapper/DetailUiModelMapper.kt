@@ -6,6 +6,6 @@ import team.ppac.domain.model.Meme
 
 internal fun Meme.toDetailMemeUiModel(): DetailMemeUiModel = DetailMemeUiModel(
     name = title,
-    hashTags = keywords.toImmutableList(),
+    hashTags = keywords.map { it.name }.toImmutableList(),
     sourceDescription = source,
 )
