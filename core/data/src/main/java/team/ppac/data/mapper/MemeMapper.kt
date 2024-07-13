@@ -1,6 +1,5 @@
 package team.ppac.data.mapper
 
-import kotlinx.collections.immutable.toImmutableList
 import team.ppac.domain.model.Meme
 import team.ppac.remote.model.response.meme.MemeResponse
 
@@ -14,5 +13,5 @@ internal fun MemeResponse.toMeme(): Meme = Meme(
     reaction = reaction,
     createdAt = createdAt,
     updateAt = updatedAt,
-    keywords = keywords.toImmutableList(),
+    keywords = keywords,
 )
