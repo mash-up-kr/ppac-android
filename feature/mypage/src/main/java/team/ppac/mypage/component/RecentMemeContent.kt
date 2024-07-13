@@ -64,7 +64,7 @@ private fun RecentMemeList(
     ) {
         items(items = recentMemes) { meme ->
             RecentMemeCard(
-                imageUrl = meme.image,
+                imageUrl = meme.imageUrl,
                 onClick = onClickMemeItem,
             )
         }

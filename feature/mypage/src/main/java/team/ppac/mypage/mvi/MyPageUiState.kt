@@ -22,7 +22,7 @@ data class MyPageUiState(
                 this.add(
                     Meme(
                         id = sampleId,
-                        image = sampleUrl,
+                        imageUrl = sampleUrl,
                         isTodayMeme = false,
                         source = "",
                         title = sampleTitle,
