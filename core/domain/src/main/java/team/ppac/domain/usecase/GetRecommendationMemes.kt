@@ -1,18 +1,17 @@
 package team.ppac.domain.usecase
 
-import kotlinx.collections.immutable.ImmutableList
 import team.ppac.domain.model.Meme
 import team.ppac.domain.repository.MemeRepository
 import javax.inject.Inject
 
 interface GetThisWeekRecommendMemesUseCase {
-    suspend operator fun invoke(): ImmutableList<Meme>
+    suspend operator fun invoke(): List<Meme>
 }
 
 internal class GetThisWeekRecommendMemesUseCaseImpl @Inject constructor(
     private val memeRepository: MemeRepository,
 ) : GetThisWeekRecommendMemesUseCase {
-    override suspend fun invoke(): ImmutableList<Meme> {
+    override suspend fun invoke(): List<Meme> {
         return memeRepository.getRecommendMemes()
     }
 }

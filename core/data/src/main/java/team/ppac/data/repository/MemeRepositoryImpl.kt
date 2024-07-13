@@ -15,9 +15,8 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.getMemeById(memeId).toMeme()
     }
 
-    override suspend fun getRecommendMemes(): ImmutableList<Meme> {
+    override suspend fun getRecommendMemes(): List<Meme> {
         return memeDataSource.getRecommendMemes()
             .map { it.toMeme() }
-            .toImmutableList()
     }
 }

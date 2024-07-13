@@ -3,8 +3,8 @@ package team.ppac.recommendation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
@@ -49,7 +49,7 @@ class RecommendationViewModel @Inject constructor(
             val thisWeekMemes = thisWeekMemesDeferred.await()
             reduce {
                 copy(
-                    thisWeekMemes = thisWeekMemes,
+                    thisWeekMemes = thisWeekMemes.toImmutableList(),
                 )
             }
         }
