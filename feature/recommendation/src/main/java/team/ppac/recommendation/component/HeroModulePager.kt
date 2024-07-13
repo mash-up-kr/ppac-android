@@ -10,23 +10,36 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
+import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import kotlin.math.absoluteValue
 
 @Composable
 fun HeroModulePager(
-    images: ImmutableList<Meme>,
+    modifier: Modifier = Modifier,
+    memes: ImmutableList<Meme>,
     pagerState: PagerState,
+    onMovePage: (Meme) -> Unit,
 ) {
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }
+            .collect {
+                onMovePage(memes[it])
+            }
+    }
     HorizontalPager(
+        modifier = modifier,
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 60.dp),
         pageSpacing = 12.dp,
@@ -53,8 +66,9 @@ fun HeroModulePager(
         {
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                model = images[page].imageUrl,
+                model = memes[page].imageUrl,
                 contentScale = ContentScale.Crop,
+                placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = "",
             )
         }

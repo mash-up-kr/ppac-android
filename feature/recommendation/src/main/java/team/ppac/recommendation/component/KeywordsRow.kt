@@ -1,0 +1,30 @@
+package team.ppac.recommendation.component
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
+import team.ppac.designsystem.FarmemeTheme
+
+@Composable
+internal fun KeyWordsRow(
+    modifier: Modifier = Modifier,
+    keywords: ImmutableList<String>
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
+    ) {
+        keywords.forEach {
+            Text(
+                text = it,
+                style = FarmemeTheme.typography.body.medium.medium,
+                color = FarmemeTheme.textColor.secondary,
+            )
+        }
+    }
+}
