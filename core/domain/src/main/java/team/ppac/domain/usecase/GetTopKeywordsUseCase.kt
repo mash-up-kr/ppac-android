@@ -1,10 +1,15 @@
 package team.ppac.domain.usecase
 
+import team.ppac.domain.model.Keyword
 import team.ppac.domain.repository.KeywordRepository
 import javax.inject.Inject
 
-class GetTopKeywordsUseCase @Inject constructor(
+interface GetTopKeywordsUseCase {
+    suspend operator fun invoke(): List<Keyword>
+}
+
+class GetTopKeywordsUseCaseImpl @Inject constructor(
     private val repository: KeywordRepository,
-) {
-    suspend operator fun invoke() = repository.getTopKeywords()
+) : GetTopKeywordsUseCase {
+    override suspend operator fun invoke() = repository.getTopKeywords()
 }
