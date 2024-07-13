@@ -11,6 +11,10 @@ import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCaseImpl
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCaseImpl
+import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
+import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCaseImpl
+import team.ppac.domain.usecase.GetTopKeywordsUseCase
+import team.ppac.domain.usecase.GetTopKeywordsUseCaseImpl
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCaseImpl
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
@@ -26,6 +30,10 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindSampleUseCase(impl: SampleUseCaseImpl): SampleUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetLastSeenMemeCountUseCase(impl: GetThisWeekRecommendMemesUseCaseImpl): GetThisWeekRecommendMemesUseCase
 
     @Binds
     @ViewModelScoped
@@ -50,4 +58,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindRecommendKeywordsUseCase(impl: GetRecommendKeywordsUseCaseImpl): GetRecommendKeywordsUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetTopKeywordsUseCase(impl: GetTopKeywordsUseCaseImpl): GetTopKeywordsUseCase
 }

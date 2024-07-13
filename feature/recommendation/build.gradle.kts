@@ -38,5 +38,6 @@ dependencies {
     implementation(libs.kotlin.coroutines.android)
     implementation(libs.timber)
     implementation(libs.hilt.android)
+    implementation(libs.kotlinx.collections.immutable)
     kapt(libs.hilt.compiler)
 }

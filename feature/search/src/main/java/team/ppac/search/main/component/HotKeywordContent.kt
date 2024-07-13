@@ -29,7 +29,7 @@ internal fun HotKeywordContent(
         items(items = keywords) { uiModel ->
             HotKeywordCard(
                 imageUrl = uiModel.imageUrl,
-                description = uiModel.description
+                description = uiModel.keyword
             )
         }
     }
@@ -43,15 +43,15 @@ private fun HotKeywordContentPreview() {
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
         HotKeywordContent(
             keywords = persistentListOf<HotKeywordUiModel>().add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(description = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             )
         )
     }

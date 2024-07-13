@@ -84,7 +84,7 @@ private fun HotKeywordCardPreview(
     ) {
         HotKeywordCard(
             imageUrl = card.imageUrl,
-            description = card.description
+            description = card.keyword
         )
     }
 }
