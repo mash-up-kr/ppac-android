@@ -2,7 +2,9 @@
 
 package team.ppac.recommendation.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
@@ -62,12 +65,20 @@ fun HeroModulePager(
                     clip = true
                     shape = FarmemeRadius.Radius40.shape
                 }
+                .border(
+                    border = BorderStroke(
+                        width = 2.dp,
+                        color = FarmemeTheme.borderColor.primary,
+                    ),
+                    shape = FarmemeRadius.Radius40.shape,
+                )
                 .height(310.dp))
         {
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
                 model = memes[page].imageUrl,
                 contentScale = ContentScale.Crop,
+                error = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = "",
             )

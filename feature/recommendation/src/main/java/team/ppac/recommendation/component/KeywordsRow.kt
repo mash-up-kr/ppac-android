@@ -9,11 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.domain.model.Keyword
 
 @Composable
 internal fun KeyWordsRow(
     modifier: Modifier = Modifier,
-    keywords: ImmutableList<String>
+    keywords: ImmutableList<Keyword>
 ) {
     Row(
         modifier = modifier,
@@ -21,7 +22,7 @@ internal fun KeyWordsRow(
     ) {
         keywords.forEach {
             Text(
-                text = it,
+                text = "#${it.name}",
                 style = FarmemeTheme.typography.body.medium.medium,
                 color = FarmemeTheme.textColor.secondary,
             )

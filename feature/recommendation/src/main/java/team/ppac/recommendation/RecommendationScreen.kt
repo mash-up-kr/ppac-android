@@ -64,6 +64,12 @@ internal fun RecommendationScreen(
             SeenMemeProgressBar(
                 seenMemeCount = state.seenMemeCount
             )
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+            Text(
+                text = "밈 보고 레벨 포인트 받아요!",
+                style = FarmemeTheme.typography.body.medium.medium,
+                color = FarmemeTheme.textColor.secondary,
+            )
             Spacer(modifier = Modifier.padding(top = 36.dp))
             if(state.thisWeekMemes.isNotEmpty()){
                 HeroModulePager(
