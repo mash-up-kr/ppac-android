@@ -5,7 +5,7 @@ import team.ppac.domain.repository.UserRepository
 import javax.inject.Inject
 
 interface GetUserSavedMemesUseCase {
-    suspend fun invoke(): List<Meme>
+    suspend operator fun invoke(): List<Meme>
 }
 
 internal class GetUserSavedMemesUseCaseImpl @Inject constructor(
