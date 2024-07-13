@@ -9,19 +9,23 @@ class HotKeywordCardProvider : PreviewParameterProvider<HotKeywordUiModel> {
     override val values: Sequence<HotKeywordUiModel>
         get() = sequenceOf(
             HotKeywordUiModel(
-                description = "키워드가 길어지면 말줄임",
+                keywordId = "",
+                keyword = "키워드가 길어지면 말줄임",
                 imageUrl = sampleUrl
             ),
             HotKeywordUiModel(
-                description = "출근",
+                keywordId = "",
+                keyword = "출근",
                 imageUrl = sampleUrl
             ),
             HotKeywordUiModel(
-                description = "슬픈",
+                keywordId = "",
+                keyword = "슬픈",
                 imageUrl = sampleUrl
             ),
             HotKeywordUiModel(
-                description = "직장인",
+                keywordId = "",
+                keyword = "직장인",
                 imageUrl = sampleUrl
             ),
         )
