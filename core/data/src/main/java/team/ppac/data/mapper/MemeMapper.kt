@@ -6,7 +6,7 @@ import team.ppac.remote.model.response.meme.MemeResponse
 
 internal fun MemeResponse.toMeme(): Meme = Meme(
     id = id,
-    image = image,
+    imageUrl = image,
     isTodayMeme = isTodayMeme,
     source = source,
     title = title,

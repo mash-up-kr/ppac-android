@@ -11,6 +11,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.navigator.MainNavigator
 import team.ppac.splash.mvi.SplashSideEffect
@@ -25,6 +26,7 @@ class SplashActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             LaunchedEffect(viewModel) {
                 viewModel.sideEffect.collect {

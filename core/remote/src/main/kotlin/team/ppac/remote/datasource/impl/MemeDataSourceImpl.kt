@@ -11,4 +11,8 @@ internal class MemeDataSourceImpl @Inject constructor(
     override suspend fun getMemeById(memeId: String): MemeResponse {
         return memeApi.getMemeById(memeId = memeId)
     }
+
+    override suspend fun getRecommendMemes(): List<MemeResponse> {
+        return memeApi.getRecommendMemes()
+    }
 }
