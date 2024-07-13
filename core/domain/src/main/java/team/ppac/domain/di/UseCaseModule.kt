@@ -9,6 +9,8 @@ import team.ppac.domain.usecase.CreateUserUseCase
 import team.ppac.domain.usecase.CreateUserUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCaseImpl
+import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
+import team.ppac.domain.usecase.GetRecommendKeywordsUseCaseImpl
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCaseImpl
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
@@ -44,4 +46,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGetUserRecentMemesUseCase(impl: GetUserRecentMemesUseCaseImpl): GetUserRecentMemesUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindRecommendKeywordsUseCase(impl: GetRecommendKeywordsUseCaseImpl): GetRecommendKeywordsUseCase
 }
