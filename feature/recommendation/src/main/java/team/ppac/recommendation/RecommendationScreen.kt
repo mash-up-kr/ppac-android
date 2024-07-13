@@ -19,13 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.collections.immutable.toImmutableList
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.recommendation.component.ActionButtons
 import team.ppac.recommendation.component.HeroModulePager
-import team.ppac.recommendation.component.KeyWordsRow
+import team.ppac.recommendation.component.KeywordsRow
 import team.ppac.recommendation.component.SeenMemeProgressBar
 import team.ppac.recommendation.mvi.RecommendationIntent
 
@@ -71,7 +72,7 @@ internal fun RecommendationScreen(
                 color = FarmemeTheme.textColor.secondary,
             )
             Spacer(modifier = Modifier.padding(top = 36.dp))
-            if(state.thisWeekMemes.isNotEmpty()){
+            if (state.thisWeekMemes.isNotEmpty()) {
                 HeroModulePager(
                     memes = state.thisWeekMemes,
                     pagerState = heroModulePagerState,
@@ -80,9 +81,9 @@ internal fun RecommendationScreen(
                     }
                 )
                 Spacer(modifier = Modifier.padding(top = 20.dp))
-                KeyWordsRow(
+                KeywordsRow(
                     modifier = Modifier.fillMaxWidth(),
-                    keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords
+                    keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords.toImmutableList()
                 )
                 Spacer(modifier = Modifier.padding(top = 30.dp))
                 ActionButtons(

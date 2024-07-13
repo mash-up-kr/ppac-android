@@ -12,7 +12,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.domain.model.Keyword
 
 @Composable
-internal fun KeyWordsRow(
+internal fun KeywordsRow(
     modifier: Modifier = Modifier,
     keywords: ImmutableList<Keyword>
 ) {
