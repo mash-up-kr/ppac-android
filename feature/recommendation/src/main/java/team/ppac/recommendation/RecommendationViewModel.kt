@@ -43,13 +43,11 @@ class RecommendationViewModel @Inject constructor(
             val thisWeekMemesDeferred = async { getThisWeekRecommendMemesUseCase() }
             val userDeferred = async { getUserUseCase() }
             val user = userDeferred.await()
-            reduce {
-                copy(seenMemeCount = user.memeRecommendWatchCount ?: 0)
-            }
             val thisWeekMemes = thisWeekMemesDeferred.await()
             reduce {
                 copy(
                     thisWeekMemes = thisWeekMemes.toImmutableList(),
+                    seenMemeCount = user.memeRecommendWatchCount ?: 0
                 )
             }
         }
