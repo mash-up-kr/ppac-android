@@ -43,15 +43,15 @@ private fun HotKeywordContentPreview() {
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
         HotKeywordContent(
             keywords = persistentListOf<HotKeywordUiModel>().add(
-                HotKeywordUiModel(keywordId = "", keyword = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(keywordId = "", keyword = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(keywordId = "", keyword = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(keywordId = "", keyword = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
-                HotKeywordUiModel(keywordId = "", keyword = "Asdf", imageUrl = sampleUrl)
+                HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             )
         )
     }
