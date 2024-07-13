@@ -11,5 +11,5 @@ interface GetTopKeywordsUseCase {
 internal class GetTopKeywordsUseCaseImpl @Inject constructor(
     private val repository: KeywordRepository,
 ) : GetTopKeywordsUseCase {
-    override suspend operator fun invoke() = repository.getTopKeywords()
+    override suspend fun invoke() = repository.getTopKeywords()
 }
