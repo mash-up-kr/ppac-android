@@ -11,5 +11,5 @@ data class RecommendKeywordUiModel(
 
 fun RecommendKeyword.toRecommendKeywordUiModel() = RecommendKeywordUiModel(
     categoryHeader = category,
-    recommendKeywords = keywords.toImmutableList()
+    recommendKeywords = keywords.map { it.name }.toImmutableList()
 )
