@@ -18,13 +18,13 @@ import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.mypage.model.RecentMemeUiModel
+import team.ppac.domain.model.Meme
 import team.ppac.mypage.mvi.MyPageUiState
 
 @Composable
 internal fun RecentMemeContent(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<RecentMemeUiModel>,
+    recentMemes: ImmutableList<Meme>,
     onClickMemeItem: () -> Unit,
 ) {
     Column(
@@ -54,7 +54,7 @@ internal fun RecentMemeContent(
 @Composable
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
-    recentMemes: ImmutableList<RecentMemeUiModel>,
+    recentMemes: ImmutableList<Meme>,
     onClickMemeItem: () -> Unit,
 ) {
     LazyRow(
@@ -64,7 +64,7 @@ private fun RecentMemeList(
     ) {
         items(items = recentMemes) { meme ->
             RecentMemeCard(
-                imageUrl = meme.imageUrl,
+                imageUrl = meme.image,
                 onClick = onClickMemeItem,
             )
         }

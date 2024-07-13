@@ -3,27 +3,34 @@ package team.ppac.mypage.mvi
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import team.ppac.common.android.base.UiState
+import team.ppac.domain.model.Meme
 import team.ppac.mypage.model.LeveInfo
 import team.ppac.mypage.model.MyPageLevel
-import team.ppac.mypage.model.RecentMemeUiModel
 
 data class MyPageUiState(
     val isLoading: Boolean,
     val leveInfo: LeveInfo,
-    val recentMemes: ImmutableList<RecentMemeUiModel>,
-    val savedMemes: ImmutableList<RecentMemeUiModel>,
+    val recentMemes: ImmutableList<Meme>,
+    val savedMemes: ImmutableList<Meme>,
 ) : UiState {
     companion object {
         const val sampleId = "1234"
         const val sampleUrl = "https://picsum.photos/id/10/2500/1667"
         const val sampleTitle = "title"
-        val sampleMemes = mutableListOf<RecentMemeUiModel>().apply {
+        val sampleMemes = mutableListOf<Meme>().apply {
             repeat(11) {
                 this.add(
-                    RecentMemeUiModel(
+                    Meme(
                         id = sampleId,
-                        imageUrl = sampleUrl,
+                        image = sampleUrl,
+                        isTodayMeme = false,
+                        source = "",
                         title = sampleTitle,
+                        watch = 0,
+                        reaction = 0,
+                        createdAt = "",
+                        updateAt = "",
+                        keywords = emptyList(),
                     )
                 )
             }
