@@ -43,109 +43,100 @@ import team.ppac.recommendation.component.LinearProgressBar
 internal fun RecommendationScreen(
     viewModel: RecommendationViewModel = hiltViewModel(),
 ) {
+    val state by viewModel.state.collectAsState()
+    val pagerProgress by remember { mutableFloatStateOf(0.5f) }
+    val heroModulePagerState = rememberPagerState {
+        state.thisWeekMemes.size
+    }
     FarmemeScaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
         scaffoldState = rememberScaffoldState()
     ) {
-        val state by viewModel.state.collectAsState()
-        val pagerProgress by remember { mutableFloatStateOf(0.5f) }
-        val heroModulePagerState = rememberPagerState {
-            state.thisWeekMemes.size
-        }
-
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    brush = FarmemeTheme.backgroundColor.brandLemonGradient,
-                )
+                .statusBarsPadding()
+                .padding(top = 36.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .statusBarsPadding()
-                    .padding(top = 36.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+            Image(
+                painterResource(id = R.drawable.logo_farmeme),
+                contentDescription = null,
+            )
+            Spacer(modifier = Modifier.padding(top = 10.dp))
+            Text(
+                text = "이번주 이 밈 어때!",
+                style = FarmemeTheme.typography.heading.large.bold,
+                color = FarmemeTheme.textColor.primary,
+            )
+            Spacer(modifier = Modifier.padding(top = 16.dp))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Image(
-                    painterResource(id = R.drawable.logo_farmeme),
-                    contentDescription = null,
+                FarmemeIcon.CheckRectangle(modifier = Modifier.size(16.dp))
+                LinearProgressBar(
+                    modifier = Modifier.width(124.dp),
+                    progress = pagerProgress
                 )
-                Spacer(modifier = Modifier.padding(top = 10.dp))
                 Text(
-                    text = "이번주 이 밈 어때!",
-                    style = FarmemeTheme.typography.heading.large.bold,
-                    color = FarmemeTheme.textColor.primary,
+                    text = "n개 봤어요",
+                    style = FarmemeTheme.typography.body.small.semibold,
+                    color = FarmemeTheme.textColor.brand,
                 )
-                Spacer(modifier = Modifier.padding(top = 16.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    FarmemeIcon.CheckRectangle(modifier = Modifier.size(16.dp))
-                    LinearProgressBar(
-                        modifier = Modifier.width(124.dp),
-                        progress = pagerProgress
-                    )
+            }
+            Spacer(modifier = Modifier.padding(top = 36.dp))
+            HeroModulePager(
+                images = state.thisWeekMemes,
+                pagerState = heroModulePagerState,
+            )
+            Spacer(modifier = Modifier.padding(top = 20.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
+            ) {
+                listOf("#웃긴", "#놀람", "#동물", "#웃긴", "#놀람", "#동물").forEach {
                     Text(
-                        text = "n개 봤어요",
-                        style = FarmemeTheme.typography.body.small.semibold,
-                        color = FarmemeTheme.textColor.brand,
+                        text = it,
+                        style = FarmemeTheme.typography.body.medium.medium,
+                        color = FarmemeTheme.textColor.secondary,
                     )
                 }
-                Spacer(modifier = Modifier.padding(top = 36.dp))
-                HeroModulePager(
-                    images = state.thisWeekMemes,
-                    pagerState = heroModulePagerState,
-                )
-                Spacer(modifier = Modifier.padding(top = 20.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)
-                ) {
-                    listOf("#웃긴", "#놀람", "#동물", "#웃긴", "#놀람", "#동물").forEach {
-                        Text(
-                            text = it,
-                            style = FarmemeTheme.typography.body.medium.medium,
-                            color = FarmemeTheme.textColor.secondary,
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.padding(top = 30.dp))
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 30.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    FarmemeWeakButton(
-                        modifier = Modifier.weight(1f),
-                        backgroundColor = FarmemeTheme.backgroundColor.white,
-                        text = "",
-                        textColor = Color.Unspecified,
-                        icon = {
-                            Row {
-                                FarmemeIcon.Lol()
-                                FarmemeIcon.SoFunny()
-                            }
+            }
+            Spacer(modifier = Modifier.padding(top = 30.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 30.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                FarmemeWeakButton(
+                    modifier = Modifier.weight(1f),
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    text = "",
+                    textColor = Color.Unspecified,
+                    icon = {
+                        Row {
+                            FarmemeIcon.Lol()
+                            FarmemeIcon.SoFunny()
                         }
-                    )
-                    FarmemeCircleButton(
-                        backgroundColor = FarmemeTheme.backgroundColor.white,
-                        icon = { FarmemeIcon.Stroke() },
-                    )
+                    }
+                )
+                FarmemeCircleButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    icon = { FarmemeIcon.Stroke() },
+                )
 
-                    FarmemeCircleButton(
-                        backgroundColor = FarmemeTheme.backgroundColor.white,
-                        icon = { FarmemeIcon.Share() },
-                    )
+                FarmemeCircleButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    icon = { FarmemeIcon.Share() },
+                )
 
-                    FarmemeCircleButton(
-                        backgroundColor = FarmemeTheme.backgroundColor.white,
-                        icon = { FarmemeIcon.BookmarkLine() },
-                    )
-                }
+                FarmemeCircleButton(
+                    backgroundColor = FarmemeTheme.backgroundColor.white,
+                    icon = { FarmemeIcon.BookmarkLine() },
+                )
             }
         }
     }
