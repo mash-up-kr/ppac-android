@@ -21,6 +21,10 @@ class MyPageViewModel @Inject constructor(
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
+        getMemes()
+    }
+
+    private fun getMemes() {
         viewModelScope.launch {
 //            val savedMemesDeferred = async {
 //                userSavedMemesUseCase()
