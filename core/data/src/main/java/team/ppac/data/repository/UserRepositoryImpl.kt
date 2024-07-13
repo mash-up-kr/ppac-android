@@ -1,8 +1,10 @@
 package team.ppac.data.repository
 
 import kotlinx.coroutines.flow.firstOrNull
+import team.ppac.data.mapper.toMeme
 import team.ppac.data.mapper.toUser
 import team.ppac.datastore.entity.UserData
+import team.ppac.domain.model.Meme
 import team.ppac.domain.model.User
 import team.ppac.domain.repository.UserRepository
 import team.ppac.local.datasource.AppConfig
@@ -30,5 +32,13 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUser(): User {
         return userRemoteDataSource.getUser().toUser()
+    }
+
+    override suspend fun getUserSavedMemes(): List<Meme> {
+        return userRemoteDataSource.getUserSavedMemes().map { it.toMeme() }
+    }
+
+    override suspend fun getUserRecentMemes(): List<Meme> {
+        return userRemoteDataSource.getUserRecentMemes().map { it.toMeme() }
     }
 }

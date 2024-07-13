@@ -20,13 +20,13 @@ import kotlinx.collections.immutable.ImmutableList
 import team.ppac.common.android.component.FarmemeMemeItem
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
-import team.ppac.mypage.model.RecentMemeUiModel
+import team.ppac.domain.model.Meme
 import team.ppac.mypage.mvi.MyPageUiState
 
 @Composable
 internal fun SavedMemeContent(
     modifier: Modifier = Modifier,
-    savedMemes: ImmutableList<RecentMemeUiModel>,
+    savedMemes: ImmutableList<Meme>,
     onMemeItemClick: (String) -> Unit,
 ) {
     Column(
@@ -49,7 +49,7 @@ internal fun SavedMemeContent(
 @Composable
 private fun SavedMemeList(
     modifier: Modifier = Modifier,
-    savedMemes: ImmutableList<RecentMemeUiModel>,
+    savedMemes: ImmutableList<Meme>,
     onMemeItemClick: (String) -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
