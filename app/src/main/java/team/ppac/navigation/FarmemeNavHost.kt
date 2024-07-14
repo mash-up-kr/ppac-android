@@ -23,7 +23,7 @@ fun FarmemeNavHost(
     startDestination: String = RECOMMENDATION_ROUTE,
     navController: NavHostController,
     onShowSnackBar: suspend (SnackbarMessage) -> Boolean,
-    navigateToDetail: () -> Unit,
+    navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
 ) {
     NavHost(

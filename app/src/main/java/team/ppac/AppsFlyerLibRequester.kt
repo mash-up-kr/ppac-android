@@ -54,7 +54,7 @@ internal object AppsFlyerLibRequester {
 
                 try {
                     memeId = deepLinkObj.deepLinkValue
-                    Timber.tag(TAG).d("The DeepLink will route to: " + memeId)
+                    Timber.tag(TAG).d("The DeepLink will route to: $memeId")
 
                 } catch (e: Exception) {
                     Timber.tag(TAG).d("There's been an error: $e")
