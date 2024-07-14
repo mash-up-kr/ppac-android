@@ -10,6 +10,7 @@ import timber.log.Timber
 internal object AppsFlyerLibRequester {
 
     const val TAG = "AppsFlyerLibRequester"
+    var memeId: String? = null
 
     fun initSdk(context: Context) {
         AppsFlyerLib.getInstance().init(BuildConfig.DEV_KEY, null, context)
@@ -52,8 +53,9 @@ internal object AppsFlyerLibRequester {
                 }
 
                 try {
-                    val fruitName = deepLinkObj.deepLinkValue
-                    Timber.tag(TAG).d("The DeepLink will route to: $fruitName")
+                    memeId = deepLinkObj.deepLinkValue
+                    Timber.tag(TAG).d("The DeepLink will route to: " + memeId)
+
                 } catch (e: Exception) {
                     Timber.tag(TAG).d("There's been an error: $e")
                     return

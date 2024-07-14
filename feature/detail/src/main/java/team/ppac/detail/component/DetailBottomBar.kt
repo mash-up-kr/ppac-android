@@ -22,7 +22,7 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
-internal fun DetailBottomBar() {
+internal fun DetailBottomBar(memeId: String) {
     val context = LocalContext.current
     TabBar(modifier = Modifier.fillMaxWidth()) {
         Row(
@@ -39,7 +39,7 @@ internal fun DetailBottomBar() {
             }
             DetailBottomButton(
                 title = "공유",
-                onClickButton = { context.shareOneLink() },
+                onClickButton = { context.shareOneLink(memeId) },
             ) {
                 FarmemeIcon.Share(modifier = Modifier.size(20.dp))
             }
@@ -80,5 +80,5 @@ internal fun RowScope.DetailBottomButton(
 @Composable
 @Preview(showBackground = true)
 fun PreviewDetailBottomBar() {
-    DetailBottomBar()
+    DetailBottomBar(memeId = "")
 }
