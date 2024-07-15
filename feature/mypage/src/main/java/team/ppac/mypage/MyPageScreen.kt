@@ -14,7 +14,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -73,7 +72,6 @@ internal fun MyPageScreen(
             .fillMaxSize()
             .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
-        scaffoldState = rememberScaffoldState(),
     ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,

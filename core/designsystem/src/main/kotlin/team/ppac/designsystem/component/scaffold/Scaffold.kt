@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +20,6 @@ import team.ppac.designsystem.foundation.ContentMargin
 @Composable
 fun FarmemeScaffold(
     modifier: Modifier = Modifier,
-    scaffoldState: ScaffoldState,
     isIncludeHorizontalPadding: Boolean = true,
     backgroundColorType: BackgroundColorType = defaultColorType(),
     topBar: @Composable () -> Unit = {},
@@ -47,7 +44,6 @@ fun FarmemeScaffold(
             backgroundColor = Color.Transparent,
             topBar = topBar,
             bottomBar = bottomBar,
-            scaffoldState = scaffoldState,
         ) { paddingValues ->
             val innerPadding = PaddingValues(
                 top = paddingValues.calculateTopPadding(),
@@ -72,7 +68,6 @@ private fun FarmemeScaffoldPreview() {
             Text(text = "파밈파밈파밈파밈")
         },
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
-        scaffoldState = rememberScaffoldState()
     ) {
         Column(
             modifier = Modifier.padding(it)
