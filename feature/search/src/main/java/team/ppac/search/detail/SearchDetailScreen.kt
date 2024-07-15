@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +25,6 @@ internal fun SearchDetailScreen(
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
-        scaffoldState = rememberScaffoldState(),
         topBar = {
             FarmemeBackToolBar(
                 title = uiState.memeCategory,

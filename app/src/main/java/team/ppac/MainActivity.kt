@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -47,7 +46,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             FarmemeTheme {
                 val navController = rememberNavController()
-                val scaffoldState = rememberScaffoldState()
 
                 FarmemeScaffold(
                     modifier = Modifier.fillMaxSize(),
@@ -59,7 +57,6 @@ class MainActivity : ComponentActivity() {
                     },
                     isIncludeHorizontalPadding = false,
                     backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
-                    scaffoldState = scaffoldState,
                 ) {
                     FarmemeNavHost(
                         modifier = Modifier.fillMaxSize(),
