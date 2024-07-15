@@ -32,6 +32,21 @@ class RecommendationViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: RecommendationIntent) {
         when (intent) {
+            is RecommendationIntent.ClickButton.LoL -> {
+                postSideEffect(RecommendationSideEffect.RunRisingEffect)
+                reduce {
+                    copy(
+                        thisWeekMemes = thisWeekMemes.map {
+                            if (it == intent.meme) {
+                                it.copy(reaction = it.reaction + 1)
+                            } else {
+                                it
+                            }
+                        }.toImmutableList(),
+                    )
+                }
+            }
+
             else -> {
                 println("")
             }
