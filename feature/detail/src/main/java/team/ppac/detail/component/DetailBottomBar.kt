@@ -1,5 +1,6 @@
 package team.ppac.detail.component
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -45,6 +46,9 @@ internal fun DetailBottomBar(memeId: String) {
     var farmemeButtonChecked by remember { mutableStateOf(false) }
     val farmemeButtonColor = if (farmemeButtonChecked) selectedColor else originalColor
 
+    val animatedCopyButtonColor by animateColorAsState(targetValue = copyButtonColor)
+    val animatedFarmemeButtonColor by animateColorAsState(targetValue = farmemeButtonColor)
+
     TabBar(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -54,7 +58,7 @@ internal fun DetailBottomBar(memeId: String) {
         ) {
             DetailBottomButton(
                 title = "복사",
-                color = copyButtonColor,
+                textColor = animatedCopyButtonColor,
                 onClickButton = {
                     copyButtonColor = selectedColor
                     coroutineScope.launch {
@@ -64,7 +68,8 @@ internal fun DetailBottomBar(memeId: String) {
                 },
             ) {
                 FarmemeIcon.Copy(
-                    modifier = Modifier.size(20.dp), tint = copyButtonColor
+                    modifier = Modifier.size(20.dp),
+                    tint = animatedCopyButtonColor,
                 )
             }
             DetailBottomButton(
@@ -75,14 +80,14 @@ internal fun DetailBottomBar(memeId: String) {
             }
             DetailBottomButton(
                 title = "파밈",
-                color = farmemeButtonColor,
+                textColor = animatedFarmemeButtonColor,
                 onClickButton = {
                     farmemeButtonChecked = !farmemeButtonChecked
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
                     modifier = Modifier.size(20.dp),
-                    tint = farmemeButtonColor,
+                    tint = animatedFarmemeButtonColor,
                 )
             }
         }
@@ -92,7 +97,7 @@ internal fun DetailBottomBar(memeId: String) {
 @Composable
 internal fun RowScope.DetailBottomButton(
     title: String,
-    color: Color = FarmemeTheme.textColor.primary,
+    textColor: Color = FarmemeTheme.textColor.primary,
     onClickButton: () -> Unit,
     icon: @Composable () -> Unit,
 ) {
@@ -114,7 +119,7 @@ internal fun RowScope.DetailBottomButton(
         Text(
             text = title,
             style = FarmemeTheme.typography.body.xLarge.semibold,
-            color = color,
+            color = textColor,
         )
     }
 }
