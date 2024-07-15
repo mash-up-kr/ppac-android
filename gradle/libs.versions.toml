@@ -24,6 +24,8 @@ dagger-hilt-navigation-compose = "1.2.0"
 compose-bom = "2024.04.01"
 room = "2.6.1"
 datastore = "1.1.0"
+androidx-paging = "3.3.0"
+androidx-paging-compose = "3.3.0"
 
 # material + google
 material = "1.11.0"
@@ -124,6 +126,11 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 
 # firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+
+#paging
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
+paging-common = { module = "androidx.paging:paging-common", version.ref = "androidx-paging" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
