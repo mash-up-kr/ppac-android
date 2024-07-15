@@ -25,7 +25,6 @@ class DetailViewModel @Inject constructor(
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailUiState {
         val memeId = savedStateHandle["memeId"] ?: ""
-        Timber.tag(TAG).d("memeId = $memeId")
         return DetailUiState.INITIAL_STATE.copy(memeId = memeId)
     }
 

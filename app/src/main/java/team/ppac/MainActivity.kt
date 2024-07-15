@@ -29,19 +29,19 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var settingNavigator: SettingNavigator
 
-    val navigateToDetail: (String) -> Unit = { memeId ->
-        detailNavigator.navigateFrom(
-            activity = this@MainActivity,
-            intentBuilder = {
-                putExtra("memeId", memeId)
-            },
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         val memeId = AppsFlyerLibRequester.memeId
+
+        val navigateToDetail: (String) -> Unit = { memeId ->
+            detailNavigator.navigateFrom(
+                activity = this@MainActivity,
+                intentBuilder = {
+                    putExtra("memeId", memeId)
+                },
+            )
+        }
 
         if (memeId != null) { navigateToDetail(memeId) }
         setContent {

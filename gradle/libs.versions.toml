@@ -24,6 +24,7 @@ dagger-hilt-navigation-compose = "1.2.0"
 compose-bom = "2024.04.01"
 room = "2.6.1"
 datastore = "1.1.0"
+appsflyer = "6.12.1"
 
 # material + google
 material = "1.11.0"
@@ -124,6 +125,9 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 
 # firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+
+# appsflyer
+af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -31,8 +31,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            applicationIdSuffix = ".app"
-            buildConfigField("String", "DEV_KEY", getLocalProperties("DEV_KEY"))
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -87,7 +85,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
 
     implementation(libs.hilt.android)
-    implementation(files("libs\\AF-Android-SDK.jar"))
+    implementation(libs.af.android.sdk)
     kapt(libs.hilt.compiler)
 
     implementation(libs.timber)
