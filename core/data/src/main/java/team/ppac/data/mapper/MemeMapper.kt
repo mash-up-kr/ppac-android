@@ -14,7 +14,7 @@ internal fun MemeResponse.toMeme(): Meme = Meme(
     reaction = reaction,
     createdAt = createdAt,
     updateAt = updatedAt,
-    keywords = keywords.map {
+    keywords = keywords?.map {
         it.toKeyword()
-    }.toImmutableList(),
+    }?.toImmutableList() ?: emptyList(),
 )

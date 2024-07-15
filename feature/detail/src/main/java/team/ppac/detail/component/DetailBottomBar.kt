@@ -12,15 +12,18 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
-internal fun DetailBottomBar() {
+internal fun DetailBottomBar(memeId: String) {
+    val context = LocalContext.current
     TabBar(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -36,7 +39,7 @@ internal fun DetailBottomBar() {
             }
             DetailBottomButton(
                 title = "공유",
-                onClickButton = {},
+                onClickButton = { context.shareOneLink(memeId) },
             ) {
                 FarmemeIcon.Share(modifier = Modifier.size(20.dp))
             }
@@ -77,5 +80,5 @@ internal fun RowScope.DetailBottomButton(
 @Composable
 @Preview(showBackground = true)
 fun PreviewDetailBottomBar() {
-    DetailBottomBar()
+    DetailBottomBar(memeId = "")
 }

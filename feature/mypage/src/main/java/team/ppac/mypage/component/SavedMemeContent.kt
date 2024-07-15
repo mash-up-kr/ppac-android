@@ -70,7 +70,7 @@ private fun SavedMemeList(
                 memeTitle = meme.title,
                 lolCount = 0,
                 imageUrl = meme.imageUrl,
-                onMemeClick = onMemeItemClick,
+                onMemeClick = { onMemeItemClick(meme.id) },
                 onCopyClick = {}, // TODO(ze-zeh) : 스낵바 띄우기
             )
         }

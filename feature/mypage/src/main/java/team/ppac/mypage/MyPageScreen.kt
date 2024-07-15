@@ -39,7 +39,7 @@ import team.ppac.mypage.mvi.MyPageSideEffect
 @Composable
 internal fun MyPageScreen(
     viewModel: MyPageViewModel = hiltViewModel(),
-    navigateToDetail: () -> Unit,
+    navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
@@ -50,8 +50,8 @@ internal fun MyPageScreen(
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                MyPageSideEffect.NavigateToDetail -> navigateToDetail()
-                MyPageSideEffect.NavigateToSetting -> navigateToSetting()
+                is MyPageSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.memeId)
+                is MyPageSideEffect.NavigateToSetting -> navigateToSetting()
             }
         }
     }
@@ -93,16 +93,16 @@ internal fun MyPageScreen(
             item {
                 RecentMemeContent(
                     recentMemes = recentMemes,
-                    onClickMemeItem = {
-                        viewModel.intent(MyPageIntent.ClickRecentMemeItem)
+                    onClickMemeItem = { memeId ->
+                        viewModel.intent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
                     },
                 )
             }
             item {
                 SavedMemeContent(
                     savedMemes = savedMemes,
-                    onMemeItemClick = {
-                        viewModel.intent(MyPageIntent.ClickSavedMemeItem)
+                    onMemeItemClick = { memeId ->
+                        viewModel.intent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
                     },
                 )
             }

@@ -32,6 +32,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        val memeId = AppsFlyerLibRequester.memeId
+
+        val navigateToDetail: (String) -> Unit = { memeId ->
+            detailNavigator.navigateFrom(
+                activity = this@MainActivity,
+                intentBuilder = {
+                    putExtra("memeId", memeId)
+                },
+            )
+        }
+
+        if (memeId != null) { navigateToDetail(memeId) }
         setContent {
             FarmemeTheme {
                 val navController = rememberNavController()
@@ -53,9 +65,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         navController = navController,
                         onShowSnackBar = { _ -> false },
-                        navigateToDetail = {
-                            detailNavigator.navigateFrom(this@MainActivity)
-                        },
+                        navigateToDetail = { navigateToDetail(it) },
                         navigateToSetting = {
                             settingNavigator.navigateFrom(this@MainActivity)
                         },
