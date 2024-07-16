@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -45,7 +46,7 @@ internal fun MyPageScreen(
     val state by viewModel.state.collectAsState()
     val leveInfo = state.leveInfo
     val recentMemes = state.recentMemes
-    val savedMemes = state.savedMemes
+    val savedMemes = state.savedMemes.collectAsLazyPagingItems()
 
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
