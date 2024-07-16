@@ -11,13 +11,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import team.ppac.common.android.component.FarmemeMemeItem
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.domain.model.Meme
@@ -38,10 +40,14 @@ internal fun SavedMemeContent(
                 FarmemeIcon.BookmarkLine(Modifier.size(20.dp))
             },
         )
-        SavedMemeList(
-            savedMemes = savedMemes,
-            onMemeItemClick = onMemeItemClick,
-        )
+        if (savedMemes.size > 0) {
+            SavedMemeList(
+                savedMemes = savedMemes,
+                onMemeItemClick = onMemeItemClick,
+            )
+        } else {
+            SavedMemeEmpty()
+        }
         Spacer(modifier = Modifier.height(50.dp))
     }
 }
@@ -74,6 +80,24 @@ private fun SavedMemeList(
                 onCopyClick = {}, // TODO(ze-zeh) : 스낵바 띄우기
             )
         }
+    }
+}
+
+@Composable
+private fun SavedMemeEmpty(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.height(50.dp))
+        Text(
+            text = "저장한 밈이 없어요",
+            style = FarmemeTheme.typography.body.large.medium,
+            color = FarmemeTheme.textColor.assistive,
+        )
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 
