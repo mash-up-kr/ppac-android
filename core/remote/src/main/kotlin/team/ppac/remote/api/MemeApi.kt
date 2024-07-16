@@ -1,6 +1,7 @@
 package team.ppac.remote.api
 
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import team.ppac.remote.model.response.meme.MemeResponse
@@ -14,4 +15,8 @@ internal interface MemeApi {
         @Query("size")
         size: Int = 5,
     ): List<MemeResponse>
+
+    @POST("/api/meme/{memeId}/save")
+    suspend fun saveMeme(@Path("memeId") memeId:String): Boolean
+
 }

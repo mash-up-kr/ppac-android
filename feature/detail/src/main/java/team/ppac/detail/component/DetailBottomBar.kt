@@ -21,9 +21,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -35,7 +35,11 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-internal fun DetailBottomBar(memeId: String) {
+internal fun DetailBottomBar(
+    memeId: String,
+    copyBitmap: () -> Unit,
+    onClickFarmemeButton: (String) -> Unit,
+) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
@@ -65,6 +69,7 @@ internal fun DetailBottomBar(memeId: String) {
                         delay(2000)
                         copyButtonColor = originalColor
                     }
+                    copyBitmap()
                 },
             ) {
                 FarmemeIcon.Copy(
@@ -83,6 +88,7 @@ internal fun DetailBottomBar(memeId: String) {
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
                     farmemeButtonChecked = !farmemeButtonChecked
+                    onClickFarmemeButton(memeId)
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
@@ -127,5 +133,9 @@ internal fun RowScope.DetailBottomButton(
 @Composable
 @Preview(showBackground = true)
 fun PreviewDetailBottomBar() {
-    DetailBottomBar(memeId = "")
+    DetailBottomBar(
+        memeId = "",
+        copyBitmap = {},
+        onClickFarmemeButton = {},
+    )
 }
