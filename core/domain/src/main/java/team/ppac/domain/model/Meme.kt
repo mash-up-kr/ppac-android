@@ -11,4 +11,5 @@ data class Meme(
     val createdAt: String,
     val updateAt: String,
     val keywords: List<Keyword>,
+    val isSaved: Boolean,
 )

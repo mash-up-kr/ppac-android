@@ -37,8 +37,9 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 @Composable
 internal fun DetailBottomBar(
     memeId: String,
+    isSaved: Boolean,
     copyBitmap: () -> Unit,
-    onClickFarmemeButton: (String) -> Unit,
+    onClickFarmemeButton: (String, Boolean) -> Unit,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -47,8 +48,8 @@ internal fun DetailBottomBar(
     val selectedColor = FarmemeTheme.textColor.brand
 
     var copyButtonColor by remember { mutableStateOf(originalColor) }
-    var farmemeButtonChecked by remember { mutableStateOf(false) }
-    val farmemeButtonColor = if (farmemeButtonChecked) selectedColor else originalColor
+
+    val farmemeButtonColor = if (isSaved) selectedColor else originalColor
 
     val animatedCopyButtonColor by animateColorAsState(targetValue = copyButtonColor)
     val animatedFarmemeButtonColor by animateColorAsState(targetValue = farmemeButtonColor)
@@ -87,8 +88,7 @@ internal fun DetailBottomBar(
                 title = "파밈",
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
-                    farmemeButtonChecked = !farmemeButtonChecked
-                    onClickFarmemeButton(memeId)
+                    onClickFarmemeButton(memeId, isSaved)
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
@@ -135,7 +135,8 @@ internal fun RowScope.DetailBottomButton(
 fun PreviewDetailBottomBar() {
     DetailBottomBar(
         memeId = "",
+        isSaved = false,
         copyBitmap = {},
-        onClickFarmemeButton = {},
+        onClickFarmemeButton = { _, _ -> },
     )
 }

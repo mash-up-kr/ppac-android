@@ -1,5 +1,6 @@
 package team.ppac.remote.api
 
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -18,5 +19,8 @@ internal interface MemeApi {
 
     @POST("/api/meme/{memeId}/save")
     suspend fun saveMeme(@Path("memeId") memeId:String): Boolean
+
+    @DELETE("/api/meme/{memeId}/save")
+    suspend fun deleteSavedMeme(@Path("memeId") memeId:String): Boolean
 
 }

@@ -31,6 +31,7 @@ data class MyPageUiState(
                         createdAt = "",
                         updateAt = "",
                         keywords = emptyList(),
+                        isSaved = false,
                     )
                 )
             }

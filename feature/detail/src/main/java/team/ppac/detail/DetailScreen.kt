@@ -25,7 +25,7 @@ import team.ppac.detail.mvi.DetailUiState
 internal fun DetailScreen(
     modifier: Modifier = Modifier,
     uiState: DetailUiState,
-    onClickFarmemeButton: (String) -> Unit,
+    onClickFarmemeButton: (String, Boolean) -> Unit,
 ) {
 
     var context = LocalContext.current
@@ -53,6 +53,7 @@ internal fun DetailScreen(
         bottomBar = {
             DetailBottomBar(
                 memeId = uiState.memeId,
+                isSaved = uiState.detailMemeUiModel.isSavedMeme,
                 copyBitmap = copyBitmap,
                 onClickFarmemeButton = onClickFarmemeButton,
             )
@@ -78,9 +79,10 @@ fun PreviewDetailScreen() {
                 imageUrl = "",
                 name = "나는 공부를 찢어",
                 hashTags = persistentListOf("#공부", "#학생", "#시험기간", "#힘듦", "#피곤"),
-                sourceDescription = "출처에 대한 내용이 들어갑니다."
+                sourceDescription = "출처에 대한 내용이 들어갑니다.",
+                isSavedMeme = false
             ),
         ),
-        onClickFarmemeButton = {}
+        onClickFarmemeButton = { _, _ -> },
     )
 }

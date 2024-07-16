@@ -27,8 +27,13 @@ internal fun DetailRoute(
     DetailScreen(
         modifier = modifier,
         uiState = uiState,
-        onClickFarmemeButton = { memeId ->
-            viewModel.intent(DetailIntent.ClickFarmemeButton(memeId = memeId))
+        onClickFarmemeButton = { memeId, isSavedMeme ->
+            viewModel.intent(
+                DetailIntent.ClickFarmemeButton(
+                    memeId = memeId,
+                    isSavedMeme = isSavedMeme
+                )
+            )
         }
     )
 }

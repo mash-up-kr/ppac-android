@@ -5,5 +5,6 @@ import team.ppac.common.android.base.UiIntent
 sealed class DetailIntent : UiIntent {
     data class ClickFarmemeButton(
         val memeId: String,
+        val isSavedMeme: Boolean,
     ) : DetailIntent()
 }

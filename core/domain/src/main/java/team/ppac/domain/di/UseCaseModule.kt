@@ -7,6 +7,8 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import team.ppac.domain.usecase.CreateUserUseCase
 import team.ppac.domain.usecase.CreateUserUseCaseImpl
+import team.ppac.domain.usecase.DeleteSavedMemeUseCase
+import team.ppac.domain.usecase.DeleteSavedMemeUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCaseImpl
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
@@ -68,4 +70,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindSaveMemeUseCase(impl: SaveMemeUseCaseImpl): SaveMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindDeleteSavedMemeUseCase(impl: DeleteSavedMemeUseCaseImpl): DeleteSavedMemeUseCase
 }

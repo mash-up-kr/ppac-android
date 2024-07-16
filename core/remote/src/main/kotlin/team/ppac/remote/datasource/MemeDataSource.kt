@@ -6,4 +6,5 @@ interface MemeDataSource {
     suspend fun getMemeById(memeId: String): MemeResponse
     suspend fun getRecommendMemes(): List<MemeResponse>
     suspend fun saveMeme(memeId: String): Boolean
+    suspend fun deleteSavedMeme(memeId: String): Boolean
 }
