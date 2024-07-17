@@ -1,6 +1,8 @@
 package team.ppac.recommendation.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -69,7 +71,11 @@ internal fun ActionButtons(
                         FarmemeIcon.SoFunny()
                     }
                 }
-                AnimatedVisibility(visible = meme.reaction > 0) {
+                AnimatedVisibility(
+                    visible = meme.reaction > 0,
+                    enter = fadeIn(),
+                    exit = fadeOut(),
+                ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(

@@ -35,15 +35,7 @@ class RecommendationViewModel @Inject constructor(
             is RecommendationIntent.ClickButton.LoL -> {
                 postSideEffect(RecommendationSideEffect.RunRisingEffect)
                 reduce {
-                    copy(
-                        thisWeekMemes = thisWeekMemes.map {
-                            if (it == intent.meme) {
-                                it.copy(reaction = it.reaction + 1)
-                            } else {
-                                it
-                            }
-                        }.toImmutableList(),
-                    )
+                    incrementReactionCount(intent.meme)
                 }
             }
 
