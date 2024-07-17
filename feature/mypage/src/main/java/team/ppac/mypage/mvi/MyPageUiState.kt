@@ -4,12 +4,12 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import team.ppac.common.android.base.UiState
 import team.ppac.domain.model.Meme
-import team.ppac.mypage.model.LeveInfo
+import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 
 data class MyPageUiState(
     val isLoading: Boolean,
-    val leveInfo: LeveInfo,
+    val levelUiModel: LevelUiModel,
     val recentMemes: ImmutableList<Meme>,
     val savedMemes: ImmutableList<Meme>,
 ) : UiState {
@@ -38,8 +38,8 @@ data class MyPageUiState(
 
         val INITIAL_STATE = MyPageUiState(
             isLoading = false,
-            leveInfo = LeveInfo(
-                userLevel = MyPageLevel.LEVEL1,
+            levelUiModel = LevelUiModel(
+                level = MyPageLevel.LEVEL1,
                 memeCount = 0,
             ),
             recentMemes = sampleMemes,

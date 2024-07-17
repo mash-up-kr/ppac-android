@@ -31,7 +31,7 @@ import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
-import team.ppac.mypage.model.LeveInfo
+import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
@@ -43,7 +43,7 @@ internal fun MyPageScreen(
     navigateToSetting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
-    val leveInfo = state.leveInfo
+    val levelUiModel = state.levelUiModel
     val recentMemes = state.recentMemes
     val savedMemes = state.savedMemes
 
@@ -72,11 +72,11 @@ internal fun MyPageScreen(
                     }
                 )
             }
-            item { MyPageBody(leveInfo = leveInfo) }
+            item { MyPageBody(levelUiModel = levelUiModel) }
             item {
                 MyPageProgressBar(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    leveInfo = leveInfo,
+                    levelUiModel = levelUiModel,
                 )
             }
             item {
@@ -87,7 +87,7 @@ internal fun MyPageScreen(
                         end = 20.dp,
                         bottom = 40.dp,
                     ),
-                    leveInfo = leveInfo,
+                    levelUiModel = levelUiModel,
                 )
             }
             item {
@@ -113,7 +113,7 @@ internal fun MyPageScreen(
 @Composable
 private fun MyPageBody(
     modifier: Modifier = Modifier,
-    leveInfo: LeveInfo,
+    levelUiModel: LevelUiModel,
 ) {
     Column(
         modifier = modifier,
@@ -124,7 +124,7 @@ private fun MyPageBody(
         Spacer(modifier = Modifier.height(5.dp))
         Image(
             painter = painterResource(
-                when (leveInfo.userLevel) {
+                when (levelUiModel.level) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL2 -> R.drawable.img_character_level_2
                     MyPageLevel.LEVEL3 -> R.drawable.img_character_level_3
@@ -135,7 +135,7 @@ private fun MyPageBody(
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
-            text = leveInfo.userLevel.title,
+            text = levelUiModel.level.title,
             color = FarmemeTheme.textColor.primary,
             style = FarmemeTheme.typography.highlight.normal,
         )

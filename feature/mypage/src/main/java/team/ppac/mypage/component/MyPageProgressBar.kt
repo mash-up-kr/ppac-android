@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.mypage.model.LeveInfo
+import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 
 @Composable
 internal fun MyPageProgressBar(
     modifier: Modifier = Modifier,
-    leveInfo: LeveInfo,
+    levelUiModel: LevelUiModel,
 ) {
     BoxWithConstraints(
         modifier = modifier,
@@ -36,7 +36,7 @@ internal fun MyPageProgressBar(
         MyPageProgressBarBackground()
         MyPageProgressBarActive(
             maxWidth = maxWidth,
-            leveInfo = leveInfo,
+            levelUiModel = levelUiModel,
         )
     }
 }
@@ -45,13 +45,13 @@ internal fun MyPageProgressBar(
 private fun MyPageProgressBarActive(
     modifier: Modifier = Modifier,
     maxWidth: Dp,
-    leveInfo: LeveInfo,
+    levelUiModel: LevelUiModel,
 ) {
     val minWidth = 96.dp
 
     Row(
         modifier = modifier
-            .width(minWidth + (maxWidth - minWidth) * 0.05f * leveInfo.memeCount)
+            .width(minWidth + (maxWidth - minWidth) * 0.05f * levelUiModel.memeCount)
             .height(44.dp)
             .border(
                 width = 2.dp,
@@ -69,7 +69,7 @@ private fun MyPageProgressBarActive(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
     ) {
-        when (leveInfo.userLevel) {
+        when (levelUiModel.level) {
             MyPageLevel.LEVEL1 -> FarmemeIcon.Level1(modifier = Modifier.size(24.dp))
             MyPageLevel.LEVEL2 -> FarmemeIcon.Level2(modifier = Modifier.size(24.dp))
             MyPageLevel.LEVEL3 -> FarmemeIcon.Level3(modifier = Modifier.size(24.dp))
@@ -77,7 +77,7 @@ private fun MyPageProgressBarActive(
         }
         Spacer(Modifier.width(4.dp))
         Text(
-            text = "LV. ${leveInfo.userLevel.level}",
+            text = "LV. ${levelUiModel.level.level}",
             style = FarmemeTheme.typography.body.xLarge.semibold,
             color = FarmemeTheme.textColor.inverse,
         )
@@ -108,8 +108,8 @@ private fun MyPageProgressBarBackground(
 @Composable
 private fun MyPageProgressBarPreview() {
     MyPageProgressBar(
-        leveInfo = LeveInfo(
-            userLevel = MyPageLevel.LEVEL3,
+        levelUiModel = LevelUiModel(
+            level = MyPageLevel.LEVEL3,
             memeCount = 15,
         )
     )
