@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 internal fun MyPageRoute(
-    navigateToDetail: () -> Unit,
+    navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
 ) {
     MyPageScreen(

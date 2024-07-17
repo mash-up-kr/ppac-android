@@ -52,13 +52,20 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: MyPageIntent) {
         when (intent) {
-            is MyPageIntent.ClickRecentMemeItem, MyPageIntent.ClickSavedMemeItem -> navigateToDetail()
+            is MyPageIntent.ClickRecentMemeItem -> {
+                navigateToDetail(intent.memeId)
+            }
+
+            is MyPageIntent.ClickSavedMemeItem -> {
+                navigateToDetail(intent.memeId)
+            }
+
             is MyPageIntent.ClickSettingButton -> navigateToSetting()
         }
     }
 
-    private fun navigateToDetail() {
-        postSideEffect(MyPageSideEffect.NavigateToDetail)
+    private fun navigateToDetail(memeId: String) {
+        postSideEffect(MyPageSideEffect.NavigateToDetail(memeId = memeId))
     }
 
     private fun navigateToSetting() {

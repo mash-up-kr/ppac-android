@@ -28,7 +28,7 @@ internal fun DetailScreen(
                 onClickBackIcon = {}
             )
         },
-        bottomBar = { DetailBottomBar() },
+        bottomBar = { DetailBottomBar(uiState.memeId) },
     ) { innerPadding ->
         DetailContent(
             modifier = Modifier
@@ -44,6 +44,7 @@ internal fun DetailScreen(
 fun PreviewDetailScreen() {
     DetailScreen(
         uiState = DetailUiState(
+            memeId = "",
             detailMemeUiModel = DetailMemeUiModel(
                 imageUrl = "",
                 name = "나는 공부를 찢어",

@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -12,12 +15,14 @@ android {
 
     defaultConfig {
         applicationId = "team.ppac"
+        applicationIdSuffix = ".app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.appVersion.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "DEV_KEY", getLocalProperties("DEV_KEY"))
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -80,7 +85,15 @@ dependencies {
     implementation(platform(libs.firebase.bom))
 
     implementation(libs.hilt.android)
+    implementation(libs.af.android.sdk)
     kapt(libs.hilt.compiler)
 
     implementation(libs.timber)
+}
+
+fun getLocalProperties(key: String): String {
+    val properties = Properties().apply {
+        load(FileInputStream(rootProject.file("local.properties")))
+    }
+    return properties.getProperty(key)
 }

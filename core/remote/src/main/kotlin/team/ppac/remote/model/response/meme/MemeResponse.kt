@@ -25,5 +25,5 @@ data class MemeResponse(
     @field:Json(name = "updatedAt")
     val updatedAt: String,
     @field:Json(name = "keywords")
-    val keywords: List<KeywordResponse>
+    val keywords: List<KeywordResponse>?,
 )

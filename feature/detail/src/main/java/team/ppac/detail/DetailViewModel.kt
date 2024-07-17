@@ -10,6 +10,7 @@ import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.mvi.DetailUiState
 import team.ppac.domain.usecase.GetMemeUseCase
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,21 +20,26 @@ class DetailViewModel @Inject constructor(
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     init {
-        getMeme()
+        getMeme(currentState.memeId)
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailUiState {
-        return DetailUiState.INITIAL_STATE
+        val memeId = savedStateHandle["memeId"] ?: ""
+        return DetailUiState.INITIAL_STATE.copy(memeId = memeId)
     }
 
     override suspend fun handleIntent(intent: DetailIntent) {
         TODO("Not yet implemented")
     }
 
-    private fun getMeme() {
+    private fun getMeme(memeId: String) {
         viewModelScope.launch {
-            val meme = getMemeUseCase("668a44950289555e368174a6") //Todo memeId navigate할때 전달 로직 필요
+            val meme = getMemeUseCase(memeId)
             reduce { copy(detailMemeUiModel = meme.toDetailMemeUiModel()) }
         }
+    }
+
+    companion object {
+        const val TAG = "DetailViewModel"
     }
 }
