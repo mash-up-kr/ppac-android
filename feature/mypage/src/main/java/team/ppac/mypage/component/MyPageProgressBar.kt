@@ -1,5 +1,8 @@
 package team.ppac.mypage.component
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -14,8 +17,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -47,11 +56,26 @@ private fun MyPageProgressBarActive(
     maxWidth: Dp,
     levelUiModel: LevelUiModel,
 ) {
-    val minWidth = 96.dp
+    val minWidth = 96f.dp
+    val progressWidth = minWidth + (maxWidth - minWidth) * 0.05f * levelUiModel.memeCount
+    val animDuration = 1_500
+    var progress by remember { mutableStateOf(minWidth) }
+    val progressAnimation by animateDpAsState(
+        targetValue = progress,
+        animationSpec = tween(
+            durationMillis = animDuration,
+            easing = FastOutSlowInEasing
+        ),
+        label = "",
+    )
+
+    LaunchedEffect(LocalLifecycleOwner.current) {
+        progress = progressWidth
+    }
 
     Row(
         modifier = modifier
-            .width(minWidth + (maxWidth - minWidth) * 0.05f * levelUiModel.memeCount)
+            .width(progressAnimation)
             .height(44.dp)
             .border(
                 width = 2.dp,
