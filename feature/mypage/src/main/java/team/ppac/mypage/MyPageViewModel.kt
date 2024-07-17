@@ -17,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val userSavedMemesUseCase: GetUserSavedMemesUseCase,
-    private val userRecentMemesUseCase: GetUserRecentMemesUseCase,
+    private val getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
+    private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
@@ -28,10 +28,10 @@ class MyPageViewModel @Inject constructor(
     private fun getMemes() {
         viewModelScope.launch {
             val savedMemesDeferred = async {
-                userSavedMemesUseCase()
+                getUserSavedMemesUseCase()
             }
             val recentMemesDeferred = async {
-                userRecentMemesUseCase()
+                getUserRecentMemesUseCase()
             }
 
             val savedMemes = savedMemesDeferred.await()
