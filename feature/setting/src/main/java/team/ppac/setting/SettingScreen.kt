@@ -1,5 +1,8 @@
 package team.ppac.setting
 
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,6 +78,8 @@ internal fun SettingScreen(
 private fun SettingBody(
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -98,7 +104,7 @@ private fun SettingBody(
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "v.1.0.0", // TODO(ze-zeh) : appVersion 적용
+            text = "v.${getVersionName(context)}",
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
@@ -120,4 +126,16 @@ private fun SettingScreenPreview() {
     SettingScreen(
         navigateToBack = {},
     )
+}
+
+private fun getVersionName(context: Context): String {
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        context.applicationContext.packageManager.getPackageInfo(
+            context.packageName, PackageManager.PackageInfoFlags.of(0L)
+        ).versionName
+    } else {
+        context.applicationContext.packageManager.getPackageInfo(
+            context.packageName, 0
+        ).versionName
+    }
 }
