@@ -29,4 +29,5 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.timber)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.paging.runtime)
 }

@@ -25,6 +25,8 @@ compose-bom = "2024.04.01"
 room = "2.6.1"
 datastore = "1.1.0"
 appsflyer = "6.12.1"
+androidx-paging = "3.3.0"
+androidx-paging-compose = "3.3.0"
 
 # material + google
 material = "1.11.0"
@@ -128,6 +130,11 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 
 # appsflyer
 af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
+
+#paging
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
+paging-common = { module = "androidx.paging:paging-common", version.ref = "androidx-paging" }
+paging-compose = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging-compose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
