@@ -48,7 +48,7 @@ private fun MyPageLevelStepProgress(
             .padding(horizontal = 20.5.dp),
         contentAlignment = Alignment.Center,
     ) {
-        MyPageDottedLines(level = levelUiModel.level.level)
+        MyPageDottedLines(level = levelUiModel.myPageLevel.levelCount)
         MyPageStepIcons(levelUiModel = levelUiModel)
     }
 }
@@ -67,18 +67,18 @@ private fun MyPageDottedLines(
             modifier = Modifier
                 .weight(1.0f)
                 .padding(start = 12.dp),
-            enabled = level > MyPageLevel.LEVEL1.level,
+            enabled = level > MyPageLevel.LEVEL1.levelCount,
         )
         MyPageDottedLine(
             modifier = Modifier
                 .weight(1.0f),
-            enabled = level > MyPageLevel.LEVEL2.level,
+            enabled = level > MyPageLevel.LEVEL2.levelCount,
         )
         MyPageDottedLine(
             modifier = Modifier
                 .weight(1.0f)
                 .padding(end = 12.dp),
-            enabled = level > MyPageLevel.LEVEL3.level,
+            enabled = level > MyPageLevel.LEVEL3.levelCount,
         )
     }
 }
@@ -112,13 +112,13 @@ private fun MyPageStepIcons(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        for (idx in MyPageLevel.LEVEL1.level..MyPageLevel.entries.size) {
+        for (idx in MyPageLevel.LEVEL1.levelCount..MyPageLevel.entries.size) {
             when {
-                (idx < levelUiModel.level.level)
-                        || (levelUiModel.level.level == MyPageLevel.LEVEL4.level && levelUiModel.memeCount == MAX_MEME_COUNT)
+                (idx < levelUiModel.myPageLevel.levelCount)
+                        || (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount == MAX_MEME_COUNT)
                 -> FarmemeIcon.LevelCheck()
 
-                idx == levelUiModel.level.level
+                idx == levelUiModel.myPageLevel.levelCount
                 -> FarmemeIcon.LevelCurrent()
 
                 else
@@ -139,19 +139,19 @@ private fun MyPageStepChips(
     ) {
         FarmemeSmallChip(
             text = "밈 보기",
-            enabled = (levelUiModel.level.level >= MyPageLevel.LEVEL2.level),
+            enabled = (levelUiModel.myPageLevel.levelCount >= MyPageLevel.LEVEL2.levelCount),
         )
         FarmemeSmallChip(
             text = "ㅋ 남기기",
-            enabled = (levelUiModel.level.level >= MyPageLevel.LEVEL3.level),
+            enabled = (levelUiModel.myPageLevel.levelCount >= MyPageLevel.LEVEL3.levelCount),
         )
         FarmemeSmallChip(
             text = "밈 공유",
-            enabled = (levelUiModel.level.level >= MyPageLevel.LEVEL4.level),
+            enabled = (levelUiModel.myPageLevel.levelCount >= MyPageLevel.LEVEL4.levelCount),
         )
         FarmemeSmallChip(
             text = "밈 저장",
-            enabled = (levelUiModel.level.level >= MyPageLevel.LEVEL4.level)
+            enabled = (levelUiModel.myPageLevel.levelCount >= MyPageLevel.LEVEL4.levelCount)
                     && (levelUiModel.memeCount == MAX_MEME_COUNT),
         )
     }
@@ -162,7 +162,7 @@ private fun MyPageStepChips(
 private fun MyPageLevelStepPreview() {
     MyPageLevelStep(
         levelUiModel = LevelUiModel(
-            level = MyPageLevel.LEVEL3,
+            myPageLevel = MyPageLevel.LEVEL3,
             memeCount = 15,
         )
     )

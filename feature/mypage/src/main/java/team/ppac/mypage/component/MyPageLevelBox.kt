@@ -79,7 +79,7 @@ private fun MyPageLevelTitle(
         modifier = modifier,
     ) {
         Text(
-            text = when (levelUiModel.level) {
+            text = when (levelUiModel.myPageLevel) {
                 MyPageLevel.LEVEL4 -> "최종 레벨 달성 조건"
                 else -> "다음 레벨 달성 조건"
             },
@@ -88,7 +88,7 @@ private fun MyPageLevelTitle(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = levelUiModel.level.stepTitle,
+            text = levelUiModel.myPageLevel.stepTitle,
             color = FarmemeTheme.textColor.primary,
             style = FarmemeTheme.typography.heading.small.semibold,
         )
@@ -115,7 +115,7 @@ private fun MyPageLevelBottom(
 private fun MyPageLevelPreview() {
     MyPageLevelBox(
         levelUiModel = LevelUiModel(
-            level = MyPageLevel.LEVEL3,
+            myPageLevel = MyPageLevel.LEVEL3,
             memeCount = 15,
         )
     )

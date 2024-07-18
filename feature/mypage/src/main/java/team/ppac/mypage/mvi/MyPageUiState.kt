@@ -39,7 +39,7 @@ data class MyPageUiState(
         val INITIAL_STATE = MyPageUiState(
             isLoading = false,
             levelUiModel = LevelUiModel(
-                level = MyPageLevel.LEVEL1,
+                myPageLevel = MyPageLevel.LEVEL1,
                 memeCount = 0,
             ),
             recentMemes = sampleMemes,

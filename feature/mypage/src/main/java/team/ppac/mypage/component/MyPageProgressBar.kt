@@ -92,7 +92,7 @@ private fun MyPageProgressBarActive(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
     ) {
-        when (levelUiModel.level) {
+        when (levelUiModel.myPageLevel) {
             MyPageLevel.LEVEL1 -> FarmemeIcon.Level1(modifier = Modifier.size(24.dp))
             MyPageLevel.LEVEL2 -> FarmemeIcon.Level2(modifier = Modifier.size(24.dp))
             MyPageLevel.LEVEL3 -> FarmemeIcon.Level3(modifier = Modifier.size(24.dp))
@@ -100,7 +100,7 @@ private fun MyPageProgressBarActive(
         }
         Spacer(Modifier.width(4.dp))
         Text(
-            text = "LV. ${levelUiModel.level.level}",
+            text = "LV. ${levelUiModel.myPageLevel.levelCount}",
             style = FarmemeTheme.typography.body.xLarge.semibold,
             color = FarmemeTheme.textColor.inverse,
         )
@@ -132,7 +132,7 @@ private fun MyPageProgressBarBackground(
 private fun MyPageProgressBarPreview() {
     MyPageProgressBar(
         levelUiModel = LevelUiModel(
-            level = MyPageLevel.LEVEL3,
+            myPageLevel = MyPageLevel.LEVEL3,
             memeCount = 15,
         )
     )

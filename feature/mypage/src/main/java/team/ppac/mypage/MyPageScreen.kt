@@ -117,7 +117,7 @@ private fun MyPageBody(
         Spacer(modifier = Modifier.height(5.dp))
         Image(
             painter = painterResource(
-                when (levelUiModel.level) {
+                when (levelUiModel.myPageLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
                     MyPageLevel.LEVEL2 -> R.drawable.img_character_level_2
                     MyPageLevel.LEVEL3 -> R.drawable.img_character_level_3
@@ -128,7 +128,7 @@ private fun MyPageBody(
         )
         Spacer(modifier = Modifier.height(30.dp))
         Text(
-            text = levelUiModel.level.title,
+            text = levelUiModel.myPageLevel.title,
             color = FarmemeTheme.textColor.primary,
             style = FarmemeTheme.typography.highlight.normal,
         )
