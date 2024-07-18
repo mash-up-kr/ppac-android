@@ -26,4 +26,6 @@ data class MemeResponse(
     val updatedAt: String,
     @field:Json(name = "keywords")
     val keywords: List<KeywordResponse>?,
+    @field:Json(name = "isSaved")
+    val isSaved: Boolean,
 )

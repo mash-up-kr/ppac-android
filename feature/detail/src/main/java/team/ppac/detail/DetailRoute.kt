@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import team.ppac.detail.mvi.DetailIntent
 
 @Composable
 internal fun DetailRoute(
@@ -25,6 +26,14 @@ internal fun DetailRoute(
 
     DetailScreen(
         modifier = modifier,
-        uiState = uiState
+        uiState = uiState,
+        onClickFarmemeButton = { memeId, isSavedMeme ->
+            viewModel.intent(
+                DetailIntent.ClickFarmemeButton(
+                    memeId = memeId,
+                    isSavedMeme = isSavedMeme
+                )
+            )
+        }
     )
 }

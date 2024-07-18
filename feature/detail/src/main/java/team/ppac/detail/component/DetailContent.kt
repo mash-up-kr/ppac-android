@@ -1,5 +1,6 @@
 package team.ppac.detail.component
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
@@ -34,8 +36,10 @@ import team.ppac.detail.mvi.DetailUiState
 @Composable
 internal fun DetailContent(
     modifier: Modifier,
-    uiModel: DetailMemeUiModel
+    uiModel: DetailMemeUiModel,
+    saveBitmap: (Bitmap) -> Unit,
 ) {
+
     Box(
         modifier = modifier
             .border(
@@ -58,6 +62,7 @@ internal fun DetailContent(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.clip(FarmemeRadius.Radius10.shape),
+                onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
             )
             DetailHashTags(
                 name = uiModel.name,
@@ -129,6 +134,7 @@ fun DetailFunnyButton() {
 fun PreviewDetailContent() {
     DetailContent(
         modifier = Modifier,
-        uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel
+        uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel,
+        saveBitmap = {},
     )
 }
