@@ -27,14 +27,10 @@ class MyPageViewModel @Inject constructor(
 
     private fun getMemes() {
         viewModelScope.launch {
-            val savedMemesDeferred = async {
-                getUserSavedMemesUseCase()
-            }
             val recentMemesDeferred = async {
                 getUserRecentMemesUseCase()
             }
-
-            val savedMemes = savedMemesDeferred.await()
+            val savedMemes = getUserSavedMemesUseCase()
             val recentMemes = recentMemesDeferred.await()
 
             reduce {

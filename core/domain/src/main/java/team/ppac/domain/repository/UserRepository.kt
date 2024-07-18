@@ -8,6 +8,6 @@ import team.ppac.domain.model.User
 interface UserRepository {
     suspend fun createUser(): Boolean
     suspend fun getUser(): User
-    suspend fun getUserSavedMemes(): Flow<PagingData<Meme>>
+    fun getUserSavedMemes(): Flow<PagingData<Meme>>
     suspend fun getUserRecentMemes(): List<Meme>
 }

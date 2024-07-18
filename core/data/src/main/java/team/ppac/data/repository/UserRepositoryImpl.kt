@@ -39,7 +39,7 @@ internal class UserRepositoryImpl @Inject constructor(
         return userRemoteDataSource.getUser().toUser()
     }
 
-    override suspend fun getUserSavedMemes(): Flow<PagingData<Meme>> {
+    override fun getUserSavedMemes(): Flow<PagingData<Meme>> {
         return Pager(
             config = PagingConfig(
                 pageSize = SAVED_MEME_PAGING_PAGE,
