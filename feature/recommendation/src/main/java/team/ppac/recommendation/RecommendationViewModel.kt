@@ -32,6 +32,13 @@ class RecommendationViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: RecommendationIntent) {
         when (intent) {
+            is RecommendationIntent.ClickButton.LoL -> {
+                postSideEffect(RecommendationSideEffect.RunRisingEffect)
+                reduce {
+                    incrementReactionCount(intent.meme)
+                }
+            }
+
             else -> {
                 println("")
             }

@@ -18,6 +18,10 @@ internal val SdSamliphopangcheOutline = FontFamily(
     Font(R.font.sd_samliphopangche_outline)
 )
 
+internal val SdSamliphopangcheBasic = FontFamily(
+    Font(R.font.sd_samliphopangche_basic)
+)
+
 internal val LocalFarmemeTypography = staticCompositionLocalOf { FarmemeTypography() }
 
 class FarmemeTypography {
@@ -74,6 +78,7 @@ class Body {
 
 class Highlight {
     val normal = sdSamliphopangcheOutline(size = 24)
+    val basic = sdSamliphopangcheBasic(size = 22, lineHeight = 26)
 }
 
 class TextStyleSet(
@@ -117,4 +122,13 @@ private fun sdSamliphopangcheOutline(
 ) = TextStyle(
     fontFamily = SdSamliphopangcheOutline,
     fontSize = size.sp,
+)
+
+private fun sdSamliphopangcheBasic(
+    size: Int,
+    lineHeight: Int
+) = TextStyle(
+    fontFamily = SdSamliphopangcheBasic,
+    fontSize = size.sp,
+    lineHeight = lineHeight.sp,
 )
