@@ -18,9 +18,9 @@ internal interface MemeApi {
     ): List<MemeResponse>
 
     @POST("/api/meme/{memeId}/save")
-    suspend fun saveMeme(@Path("memeId") memeId:String): Boolean
+    suspend fun saveMeme(@Path("memeId") memeId: String): Boolean
 
     @DELETE("/api/meme/{memeId}/save")
-    suspend fun deleteSavedMeme(@Path("memeId") memeId:String): Boolean
+    suspend fun deleteSavedMeme(@Path("memeId") memeId: String): Boolean
 
 }

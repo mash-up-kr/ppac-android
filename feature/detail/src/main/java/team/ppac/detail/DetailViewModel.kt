@@ -35,7 +35,6 @@ class DetailViewModel @Inject constructor(
     override suspend fun handleIntent(intent: DetailIntent) {
         when (intent) {
             is DetailIntent.ClickFarmemeButton -> {
-                Timber.tag(TAG).d("onCLickFrarmeme: isSavedMeme = ${intent.isSavedMeme}")
                 if (intent.isSavedMeme) {
                     deleteSavedMeme(intent.memeId)
                 } else {
@@ -54,9 +53,8 @@ class DetailViewModel @Inject constructor(
 
     private fun saveMeme(memeId: String) {
         viewModelScope.launch {
-            val result = saveMemeUseCase(memeId)
-            Timber.tag(TAG).d("saveMeme: result= ${result}")
-            if (result) {
+            val isSaveSuccess  = saveMemeUseCase(memeId)
+            if (isSaveSuccess) {
                 reduce {
                     copy(
                         detailMemeUiModel = currentState
@@ -70,9 +68,8 @@ class DetailViewModel @Inject constructor(
 
     private fun deleteSavedMeme(memeId: String) {
         viewModelScope.launch {
-            val result = deleteSavedMemeUseCase(memeId)
-            Timber.tag(TAG).d("deleteSavedMeme: result= $result")
-            if (result) {
+            val isSaveSuccess  = deleteSavedMemeUseCase(memeId)
+            if (isSaveSuccess) {
                 reduce {
                     copy(
                         detailMemeUiModel = currentState
