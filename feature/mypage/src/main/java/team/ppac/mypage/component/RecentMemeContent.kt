@@ -1,6 +1,5 @@
 package team.ppac.mypage.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
-import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.domain.model.Meme
@@ -30,12 +28,6 @@ internal fun RecentMemeContent(
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(10.dp)
-                .background(FarmemeTheme.skeletonColor.primary),
-        )
         Spacer(modifier = Modifier.height(20.dp))
         FarmemeListHeader(
             title = "최근 본 밈",

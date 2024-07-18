@@ -1,10 +1,12 @@
 package team.ppac.mypage
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -66,28 +68,17 @@ internal fun MyPageScreen(
             contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
             item {
-                FarmemeActionToolBar(
-                    onClickActionIcon = {
-                        viewModel.intent(MyPageIntent.ClickSettingButton)
-                    }
-                )
-            }
-            item { MyPageBody(levelUiModel = levelUiModel) }
-            item {
-                MyPageProgressBar(
-                    modifier = Modifier.padding(horizontal = 20.dp),
+                MyPageBody(
                     levelUiModel = levelUiModel,
+                    onClickToolBarActionIcon = { viewModel.intent(MyPageIntent.ClickSettingButton) },
                 )
             }
             item {
-                MyPageLevelBox(
-                    modifier = Modifier.padding(
-                        start = 20.dp,
-                        top = 16.dp,
-                        end = 20.dp,
-                        bottom = 40.dp,
-                    ),
-                    levelUiModel = levelUiModel,
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
+                        .background(FarmemeTheme.skeletonColor.primary),
                 )
             }
             item {
@@ -114,11 +105,13 @@ internal fun MyPageScreen(
 private fun MyPageBody(
     modifier: Modifier = Modifier,
     levelUiModel: LevelUiModel,
+    onClickToolBarActionIcon: () -> Unit,
 ) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        FarmemeActionToolBar(onClickActionIcon = onClickToolBarActionIcon)
         Spacer(modifier = Modifier.height(8.dp))
         MyPageSpeechBubble()
         Spacer(modifier = Modifier.height(5.dp))
@@ -140,6 +133,16 @@ private fun MyPageBody(
             style = FarmemeTheme.typography.highlight.normal,
         )
         Spacer(modifier = Modifier.height(30.dp))
+        MyPageProgressBar(
+            modifier = Modifier.padding(horizontal = 20.dp),
+            levelUiModel = levelUiModel,
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        MyPageLevelBox(
+            modifier = Modifier.padding(horizontal = 20.dp),
+            levelUiModel = levelUiModel,
+        )
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
