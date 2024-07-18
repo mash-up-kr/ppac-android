@@ -42,7 +42,10 @@ data class FarmemeBackgroundColor(
     val white: Color = White,
 ) {
     val brandLemonGradient: Brush = Brush.linearGradient(listOf(brandAssistive, brandSubAssistive))
-    val brandWhiteGradient: Brush = Brush.linearGradient(listOf(brandAssistive, White))
+    val brandWhiteGradient: Brush = Brush.verticalGradient(
+        0.0f to brandAssistive,
+        0.65f to White,
+    )
 }
 
 data class FarmemeSkeletonColor(

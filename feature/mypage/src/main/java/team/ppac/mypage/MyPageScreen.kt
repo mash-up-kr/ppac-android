@@ -60,7 +60,7 @@ internal fun MyPageScreen(
 
     FarmemeScaffold(
         modifier = Modifier.fillMaxSize(),
-        backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandWhiteGradient),
+        backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
         scaffoldState = rememberScaffoldState()
     ) {
         LazyColumn(
@@ -108,7 +108,7 @@ private fun MyPageBody(
     onClickToolBarActionIcon: () -> Unit,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.background(FarmemeTheme.backgroundColor.brandWhiteGradient),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         FarmemeActionToolBar(onClickActionIcon = onClickToolBarActionIcon)
