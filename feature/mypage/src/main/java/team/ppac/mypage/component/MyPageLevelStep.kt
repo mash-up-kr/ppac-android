@@ -112,10 +112,9 @@ private fun MyPageStepIcons(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        for (idx in MyPageLevel.LEVEL1.levelCount..MyPageLevel.entries.size) {
+        (MyPageLevel.LEVEL1.levelCount..MyPageLevel.LEVEL4.levelCount).map { idx ->
             when {
-                (idx < levelUiModel.myPageLevel.levelCount)
-                        || (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount == MAX_MEME_COUNT)
+                idx.isCompletedStep(levelUiModel = levelUiModel)
                 -> FarmemeIcon.LevelCheck()
 
                 idx == levelUiModel.myPageLevel.levelCount
@@ -127,6 +126,10 @@ private fun MyPageStepIcons(
         }
     }
 }
+
+private fun Int.isCompletedStep(levelUiModel: LevelUiModel) =
+    ((this < levelUiModel.myPageLevel.levelCount)
+            || (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount == MAX_MEME_COUNT))
 
 @Composable
 private fun MyPageStepChips(
