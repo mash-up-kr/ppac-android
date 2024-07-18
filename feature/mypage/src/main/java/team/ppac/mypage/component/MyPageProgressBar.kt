@@ -57,20 +57,19 @@ private fun MyPageProgressBarActive(
     levelUiModel: LevelUiModel,
 ) {
     val minWidth = 96f.dp
-    val progressWidth = minWidth + (maxWidth - minWidth) * 0.05f * levelUiModel.memeCount
-    val animDuration = 1_500
+    val currentWidth = minWidth + (maxWidth - minWidth) * levelUiModel.memeCount * 0.05f
+
     var progress by remember { mutableStateOf(minWidth) }
     val progressAnimation by animateDpAsState(
         targetValue = progress,
         animationSpec = tween(
-            durationMillis = animDuration,
+            durationMillis = 1_500,
             easing = FastOutSlowInEasing
         ),
-        label = "",
     )
 
     LaunchedEffect(LocalLifecycleOwner.current) {
-        progress = progressWidth
+        progress = currentWidth
     }
 
     Row(
