@@ -112,12 +112,12 @@ private fun MyPageStepIcons(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        (MyPageLevel.LEVEL1.levelCount..MyPageLevel.LEVEL4.levelCount).map { idx ->
+        (MyPageLevel.LEVEL1.levelCount..MyPageLevel.LEVEL4.levelCount).map { step ->
             when {
-                idx.isCompletedStep(levelUiModel = levelUiModel)
+                step.isCompletedStep(levelUiModel = levelUiModel)
                 -> FarmemeIcon.LevelCheck()
 
-                idx == levelUiModel.myPageLevel.levelCount
+                step == levelUiModel.myPageLevel.levelCount
                 -> FarmemeIcon.LevelCurrent()
 
                 else
@@ -127,6 +127,7 @@ private fun MyPageStepIcons(
     }
 }
 
+// Step이 Complete 되는 조건 : Step이 Level보다 낮을 때 or Level이 4이고 memeCount가 Max일 때
 private fun Int.isCompletedStep(levelUiModel: LevelUiModel) =
     ((this < levelUiModel.myPageLevel.levelCount)
             || (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount == MAX_MEME_COUNT))
