@@ -2,4 +2,6 @@ package team.ppac.recommendation.mvi
 
 import team.ppac.common.android.base.UiSideEffect
 
-sealed class RecommendationSideEffect : UiSideEffect
+sealed interface RecommendationSideEffect : UiSideEffect {
+    data object RunRisingEffect : RecommendationSideEffect
+}

@@ -40,4 +40,6 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
 }

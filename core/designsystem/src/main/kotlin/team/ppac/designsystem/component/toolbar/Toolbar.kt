@@ -54,9 +54,9 @@ internal fun FarmemeToolbar(
 ) {
     Row(
         modifier = modifier
+            .statusBarsPadding()
             .fillMaxWidth()
-            .height(50.dp)
-            .statusBarsPadding(),
+            .height(50.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(

@@ -39,5 +39,7 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.paging.runtime)
+    implementation(libs.paging.compose)
     kapt(libs.hilt.compiler)
 }

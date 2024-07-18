@@ -16,7 +16,8 @@ data class DetailUiState(
                 imageUrl = "",
                 name = "",
                 hashTags = persistentListOf(),
-                sourceDescription = ""
+                sourceDescription = "",
+                isSavedMeme = false,
             )
         )
     }

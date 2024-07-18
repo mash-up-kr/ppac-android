@@ -39,5 +39,6 @@ dependencies {
     implementation(libs.timber)
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.compose.lottie)
     kapt(libs.hilt.compiler)
 }

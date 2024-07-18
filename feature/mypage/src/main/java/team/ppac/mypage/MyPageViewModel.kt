@@ -8,6 +8,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
+import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.mypage.mapper.toLevelUiModel
 import team.ppac.mypage.mvi.MyPageIntent
@@ -19,8 +20,8 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getUserUseCase: GetUserUseCase,
-//    private val userSavedMemesUseCase: GetUserSavedMemesUseCase,
-    private val userRecentMemesUseCase: GetUserRecentMemesUseCase,
+    private val getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
+    private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
@@ -32,21 +33,18 @@ class MyPageViewModel @Inject constructor(
             val userDeferred = async {
                 getUserUseCase()
             }
-//            val savedMemesDeferred = async {
-//                userSavedMemesUseCase()
-//            }
             val recentMemesDeferred = async {
-                userRecentMemesUseCase()
+                getUserRecentMemesUseCase()
             }
 
             val user = userDeferred.await()
-//            val savedMemes = savedMemesDeferred.await()
+            val savedMemes = getUserSavedMemesUseCase()
             val recentMemes = recentMemesDeferred.await()
 
             reduce {
                 copy(
                     levelUiModel = user.toLevelUiModel(),
-//                    savedMemes = savedMemes.toImmutableList(),
+                    savedMemes = savedMemes,
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }
