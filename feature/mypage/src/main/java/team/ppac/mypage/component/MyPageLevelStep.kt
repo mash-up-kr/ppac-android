@@ -112,7 +112,7 @@ private fun MyPageStepIcons(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        for (idx in 1..4) {
+        for (idx in MyPageLevel.LEVEL1.level..MyPageLevel.entries.size) {
             when {
                 (idx < levelUiModel.level.level)
                         || (levelUiModel.level.level == MyPageLevel.LEVEL4.level && levelUiModel.memeCount == MAX_MEME_COUNT)
