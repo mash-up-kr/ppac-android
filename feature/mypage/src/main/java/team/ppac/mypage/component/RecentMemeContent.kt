@@ -1,6 +1,5 @@
 package team.ppac.mypage.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,12 +31,6 @@ internal fun RecentMemeContent(
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(10.dp)
-                .background(FarmemeTheme.skeletonColor.primary),
-        )
         Spacer(modifier = Modifier.height(20.dp))
         FarmemeListHeader(
             title = "최근 본 밈",
