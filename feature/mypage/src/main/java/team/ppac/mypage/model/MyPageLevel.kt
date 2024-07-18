@@ -24,5 +24,13 @@ enum class MyPageLevel(
         levelCount = 4,
         title = "LV.4 독보적인 밈천재",
         stepTitle = "밈 20번 저장하기",
-    ),
+    );
+
+    companion object {
+        fun valueOf(level: Int): MyPageLevel {
+            return entries.firstOrNull {
+                it.levelCount == level
+            } ?: LEVEL1
+        }
+    }
 }

@@ -7,18 +7,12 @@ import team.ppac.mypage.model.MyPageLevel
 const val DEFAULT_MEME_COUNT = 0
 
 internal fun User.toLevelUiModel(): LevelUiModel = LevelUiModel(
-    myPageLevel = when (levelCount) {
-        1 -> MyPageLevel.LEVEL1
-        2 -> MyPageLevel.LEVEL2
-        3 -> MyPageLevel.LEVEL3
-        4 -> MyPageLevel.LEVEL4
-        else -> MyPageLevel.LEVEL1
-    },
+    myPageLevel = MyPageLevel.valueOf(level = levelCount),
     memeCount = when (levelCount) {
-        1 -> watchCount
-        2 -> reactionCount
-        3 -> shareCount
-        4 -> saveCount
+        MyPageLevel.LEVEL1.levelCount -> watchCount
+        MyPageLevel.LEVEL2.levelCount -> reactionCount
+        MyPageLevel.LEVEL3.levelCount -> shareCount
+        MyPageLevel.LEVEL4.levelCount -> saveCount
         else -> DEFAULT_MEME_COUNT
     },
 )
