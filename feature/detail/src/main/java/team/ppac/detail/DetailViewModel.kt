@@ -40,6 +40,11 @@ class DetailViewModel @Inject constructor(
                     saveMeme()
                 }
             }
+
+            is DetailIntent.ClickFunnyButton -> {
+                incrementReactionCount()
+                postSideEffect(DetailSideEffect.RunRisingEffect)
+            }
         }
     }
 
@@ -56,8 +61,7 @@ class DetailViewModel @Inject constructor(
             if (isSaveSuccess) {
                 reduce {
                     copy(
-                        detailMemeUiModel = currentState
-                            .detailMemeUiModel
+                        detailMemeUiModel = detailMemeUiModel
                             .copy(isSavedMeme = true)
                     )
                 }
@@ -71,12 +75,21 @@ class DetailViewModel @Inject constructor(
             if (isSaveSuccess) {
                 reduce {
                     copy(
-                        detailMemeUiModel = currentState
-                            .detailMemeUiModel
+                        detailMemeUiModel = detailMemeUiModel
                             .copy(isSavedMeme = false)
                     )
                 }
             }
+        }
+    }
+
+    private fun incrementReactionCount() {
+        reduce {
+            copy(
+                detailMemeUiModel = detailMemeUiModel.copy(
+                    reactionCount = detailMemeUiModel.reactionCount + 1
+                )
+            )
         }
     }
 

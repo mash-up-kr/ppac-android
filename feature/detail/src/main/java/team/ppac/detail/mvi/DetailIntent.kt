@@ -6,4 +6,6 @@ sealed class DetailIntent : UiIntent {
     data class ClickFarmemeButton(
         val isSavedMeme: Boolean,
     ) : DetailIntent()
+
+    data object ClickFunnyButton : DetailIntent()
 }

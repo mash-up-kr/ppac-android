@@ -1,9 +1,11 @@
 package team.ppac.detail.component
 
 import android.graphics.Bitmap
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,13 +13,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,6 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieAnimatable
+import com.airbnb.lottie.compose.rememberLottieComposition
+import kotlinx.coroutines.launch
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
@@ -38,8 +51,9 @@ internal fun DetailContent(
     modifier: Modifier,
     uiModel: DetailMemeUiModel,
     saveBitmap: (Bitmap) -> Unit,
+    onClickFunnyButton: () -> Unit,
+    onReactionButtonPositioned: (Offset) -> Unit,
 ) {
-
     Box(
         modifier = modifier
             .border(
@@ -69,7 +83,11 @@ internal fun DetailContent(
                 sourceDescription = uiModel.sourceDescription,
                 hashTags = uiModel.hashTags
             )
-            DetailFunnyButton()
+            DetailFunnyButton(
+                reactionCount = uiModel.reactionCount,
+                onClickFunnyButton = onClickFunnyButton,
+                onReactionButtonPositioned = onReactionButtonPositioned
+            )
         }
     }
 }
@@ -112,8 +130,15 @@ internal fun DetailTags(hashTags: List<String>) {
 }
 
 @Composable
-fun DetailFunnyButton() {
-    Row(
+fun DetailFunnyButton(
+    reactionCount: Int,
+    onClickFunnyButton: () -> Unit,
+    onReactionButtonPositioned: (Offset) -> Unit,
+) {
+    val lottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lol_move_effect))
+    val coroutineScope = rememberCoroutineScope()
+    val lottieAnimatable = rememberLottieAnimatable()
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(46.dp)
@@ -121,14 +146,49 @@ fun DetailFunnyButton() {
             .background(color = FarmemeTheme.skeletonColor.primary)
             .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
-                onClick = {}
-            ),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
+                onClick = {
+                    coroutineScope.launch {
+                        lottieAnimatable.animate(composition = lottieComposition)
+                    }
+                    onClickFunnyButton()
+                }
+            )
+            .onGloballyPositioned {
+                val bound = it.boundsInWindow()
+                onReactionButtonPositioned(bound.topLeft)
+            },
+        contentAlignment = Alignment.Center
     ) {
-        FarmemeIcon.KK()
-        Spacer(modifier = Modifier.width(6.dp))
-        FarmemeIcon.Funny()
+        if (reactionCount == 0) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                FarmemeIcon.KK()
+                Spacer(modifier = Modifier.width(6.dp))
+                FarmemeIcon.Funny()
+            }
+        }
+
+        AnimatedVisibility(
+            visible = reactionCount > 0,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                LottieAnimation(
+                    modifier = Modifier.size(
+                        height = 22.dp,
+                        width = 44.dp,
+                    ),
+                    composition = lottieComposition,
+                    progress = { lottieAnimatable.progress },
+                )
+                Spacer(modifier = Modifier.width(6.dp))
+                Text(
+                    text = "+$reactionCount",
+                    style = FarmemeTheme.typography.highlight.basic,
+                    color = FarmemeTheme.textColor.brand
+                )
+            }
+        }
     }
 }
 
@@ -139,5 +199,7 @@ fun PreviewDetailContent() {
         modifier = Modifier,
         uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel,
         saveBitmap = {},
+        onClickFunnyButton = {},
+        onReactionButtonPositioned = { _ -> },
     )
 }

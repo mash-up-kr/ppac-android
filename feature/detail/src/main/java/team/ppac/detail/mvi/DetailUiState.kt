@@ -18,6 +18,7 @@ data class DetailUiState(
                 hashTags = persistentListOf(),
                 sourceDescription = "",
                 isSavedMeme = false,
+                reactionCount = 0,
             )
         )
     }
