@@ -68,7 +68,11 @@ private fun SavedMemeList(
         userScrollEnabled = false,
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp),
+        contentPadding = PaddingValues(
+            start = 20.dp,
+            end = 20.dp,
+            bottom = 50.dp,
+        ),
         verticalItemSpacing = 20.dp,
     ) {
         items(count = savedMemes.itemCount) { index ->
