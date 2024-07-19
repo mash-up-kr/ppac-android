@@ -24,6 +24,10 @@ internal class MemeDataSourceImpl @Inject constructor(
         return memeApi.deleteSavedMeme(memeId)
     }
 
+    override suspend fun getSearchMemes(keyword: String, page: Int, size: Int): List<MemeResponse> {
+        return memeApi.getSearchMemes(keyword, page, size).memeList
+    }
+
     override suspend fun reactMeme(memeId: String): Boolean {
         return memeApi.reactMeme(memeId)
     }
