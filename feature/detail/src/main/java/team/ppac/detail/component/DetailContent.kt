@@ -29,7 +29,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.designsystem.util.extension.noRippleClickable
+import team.ppac.designsystem.util.extension.rippleClickable
 import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailUiState
 
@@ -119,7 +119,10 @@ fun DetailFunnyButton() {
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = FarmemeTheme.skeletonColor.primary)
-            .noRippleClickable(onClick = {}),
+            .rippleClickable(
+                rippleColor = FarmemeTheme.skeletonColor.secondary,
+                onClick = {}
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {

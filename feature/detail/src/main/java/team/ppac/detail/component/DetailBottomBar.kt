@@ -33,6 +33,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.rippleClickable
 
 @Composable
 internal fun DetailBottomBar(
@@ -111,11 +112,9 @@ internal fun RowScope.DetailBottomButton(
         modifier = Modifier
             .weight(1f)
             .clip(shape = FarmemeRadius.Radius10.shape)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(color = FarmemeTheme.skeletonColor.primary),
-                onClick = { onClickButton() },
-            )
+            .rippleClickable(
+                rippleColor = FarmemeTheme.skeletonColor.secondary,
+                onClick = onClickButton)
             .padding(vertical = 15.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
