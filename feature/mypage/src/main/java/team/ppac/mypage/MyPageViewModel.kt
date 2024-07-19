@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
@@ -66,6 +67,8 @@ class MyPageViewModel @Inject constructor(
             }
 
             is MyPageIntent.ClickSettingButton -> navigateToSetting()
+
+            is MyPageIntent.RefreshData -> refreshData()
         }
     }
 
@@ -75,5 +78,20 @@ class MyPageViewModel @Inject constructor(
 
     private fun navigateToSetting() {
         postSideEffect(MyPageSideEffect.NavigateToSetting)
+    }
+
+    private fun refreshData() {
+        viewModelScope.launch {
+            updateLoading(true)
+            initialAction()
+            delay(1_000L)
+            updateLoading(false)
+        }
+    }
+
+    private fun updateLoading(isLoading: Boolean) {
+        reduce {
+            copy(isLoading = isLoading)
+        }
     }
 }

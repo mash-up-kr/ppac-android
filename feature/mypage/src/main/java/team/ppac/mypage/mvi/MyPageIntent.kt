@@ -7,4 +7,5 @@ sealed class MyPageIntent : UiIntent {
     data class ClickRecentMemeItem(val memeId: String) : MyPageIntent()
 
     data class ClickSavedMemeItem(val memeId: String) : MyPageIntent()
+    data object RefreshData : MyPageIntent()
 }
