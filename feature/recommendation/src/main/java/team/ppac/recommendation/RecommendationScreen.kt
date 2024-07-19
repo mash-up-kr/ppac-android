@@ -134,6 +134,7 @@ internal fun RecommendationScreen(
                 )
             }
         }
+
         LottieAnimation(
             modifier = Modifier
                 .size(200.dp)

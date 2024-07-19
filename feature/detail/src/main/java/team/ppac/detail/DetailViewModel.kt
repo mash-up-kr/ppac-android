@@ -12,7 +12,6 @@ import team.ppac.detail.mvi.DetailUiState
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,6 +40,11 @@ class DetailViewModel @Inject constructor(
                     saveMeme(intent.memeId)
                 }
             }
+
+            is DetailIntent.ClickFunnyButton -> {
+                incrementReactionCount()
+                postSideEffect(DetailSideEffect.RunRisingEffect)
+            }
         }
     }
 
@@ -53,12 +57,11 @@ class DetailViewModel @Inject constructor(
 
     private fun saveMeme(memeId: String) {
         viewModelScope.launch {
-            val isSaveSuccess  = saveMemeUseCase(memeId)
+            val isSaveSuccess = saveMemeUseCase(memeId)
             if (isSaveSuccess) {
                 reduce {
                     copy(
-                        detailMemeUiModel = currentState
-                            .detailMemeUiModel
+                        detailMemeUiModel = detailMemeUiModel
                             .copy(isSavedMeme = true)
                     )
                 }
@@ -68,16 +71,25 @@ class DetailViewModel @Inject constructor(
 
     private fun deleteSavedMeme(memeId: String) {
         viewModelScope.launch {
-            val isSaveSuccess  = deleteSavedMemeUseCase(memeId)
+            val isSaveSuccess = deleteSavedMemeUseCase(memeId)
             if (isSaveSuccess) {
                 reduce {
                     copy(
-                        detailMemeUiModel = currentState
-                            .detailMemeUiModel
+                        detailMemeUiModel = detailMemeUiModel
                             .copy(isSavedMeme = false)
                     )
                 }
             }
+        }
+    }
+
+    private fun incrementReactionCount() {
+        reduce {
+            copy(
+                detailMemeUiModel = detailMemeUiModel.copy(
+                    reactionCount = detailMemeUiModel.reactionCount + 1
+                )
+            )
         }
     }
 
