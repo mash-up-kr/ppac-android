@@ -17,12 +17,14 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastFilterNotNull
 import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastMap
 import androidx.compose.ui.util.fastMapTo
 import kotlinx.coroutines.delay
+import team.ppac.designsystem.component.snackbar.FarmemeSnackbar
 
 @Composable
 fun FarmemeSnackbarHost(
@@ -54,6 +56,7 @@ private fun FadeInFadeOutWithScale(
     content: @Composable (SnackbarData) -> Unit,
 ) {
     val state = remember { FadeInFadeOutState<SnackbarData?>() }
+
     if (current != state.current) {
         state.current = current
         val keys = state.items.fastMap { it.key }.toMutableList()
@@ -73,9 +76,10 @@ private fun FadeInFadeOutWithScale(
             }
         }
     }
+
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.TopCenter
+        contentAlignment = Alignment.BottomCenter
     ) {
         state.scope = currentRecomposeScope
         state.items.fastForEach { (item, opacity) ->
@@ -100,3 +104,14 @@ private data class FadeInFadeOutAnimationItem<T>(
 )
 
 private typealias FadeInFadeOutTransition = @Composable (content: @Composable () -> Unit) -> Unit
+
+@Preview
+@Composable
+private fun FarmemeSnackbarHostPreview() {
+    FarmemeSnackbarHost(
+        snackbarHostState = remember { SnackbarHostState() },
+        snackbar = {
+            FarmemeSnackbar(message = "asdfasdf")
+        }
+    )
+}

@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         val memeId = AppsFlyerLibRequester.memeId
 
         val navigateToDetail: (String) -> Unit = { memeId ->
@@ -51,23 +51,8 @@ class MainActivity : ComponentActivity() {
         }
 
         if (memeId != null) { navigateToDetail(memeId) }
+
         setContent {
-
-            val onShowSnackbar: @Composable (message: String) -> Unit = { message ->
-                val snackBarHostState = remember { SnackbarHostState() }
-                val snackBarScope = rememberCoroutineScope()
-
-                LaunchedEffect(key1 = message) {
-                    snackBarScope.launch {
-                        snackBarHostState.showSnackbar(message)
-                    }
-                }
-
-                FarmemeSnackbarHost(snackbarHostState = snackBarHostState) {
-                    FarmemeSnackbar(message = message)
-                }
-            }
-
             FarmemeTheme {
                 val navController = rememberNavController()
 

@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import team.ppac.common.android.base.BaseComposable
 import team.ppac.search.main.component.OpenServiceDialog
 import team.ppac.search.main.mvi.SearchIntent
 import team.ppac.search.main.mvi.SearchSideEffect
@@ -16,27 +17,28 @@ internal fun SearchRoute(
     viewModel: SearchViewModel = hiltViewModel(),
     navigateToSearchDetail: (String) -> Unit,
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.category)
+    BaseComposable(viewModel = viewModel) { uiState ->
+        LaunchedEffect(key1 = viewModel) {
+            viewModel.sideEffect.collect { sideEffect ->
+                when (sideEffect) {
+                    is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.category)
+                }
             }
         }
-    }
 
-    if (uiState.showServiceOpenDialog) {
-        OpenServiceDialog(
-            onConfirmClick = { viewModel.intent(SearchIntent.ClickServiceOpenDialogConfirm) },
-            onDismiss = { viewModel.intent(SearchIntent.ClickServiceOpenDialogDismiss) }
+        if (uiState.showServiceOpenDialog) {
+            OpenServiceDialog(
+                onConfirmClick = { viewModel.intent(SearchIntent.ClickServiceOpenDialogConfirm) },
+                onDismiss = { viewModel.intent(SearchIntent.ClickServiceOpenDialogDismiss) }
+            )
+        }
+
+        SearchScreen(
+            modifier = modifier,
+            uiState = uiState,
+            onSearchBarClick = { viewModel.showSnackbar("안녕하세요") },
+//            onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
+            onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) }
         )
     }
-
-    SearchScreen(
-        modifier = modifier,
-        uiState = uiState,
-        onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
-        onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) }
-    )
 }
