@@ -28,6 +28,7 @@ import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
@@ -98,19 +99,23 @@ internal fun DetailHashTags(
     sourceDescription: String,
     hashTags: List<String>,
 ) {
+
     Spacer(modifier = Modifier.height(25.dp))
     Text(
-        text = name,
+        text = name.truncateDisplayedName(16),
         color = FarmemeTheme.textColor.primary,
         style = FarmemeTheme.typography.heading.large.semibold,
+        overflow = TextOverflow.Ellipsis
     )
     Spacer(modifier = Modifier.height(5.dp))
-    DetailTags(hashTags = hashTags)
+    DetailTags(hashTags = hashTags.truncateDisplayedTags(6))
     Spacer(modifier = Modifier.height(11.dp))
     Text(
-        text = "출처: $sourceDescription",
+        text = "출처: $sourceDescription".truncateDisplayedName(32),
         color = FarmemeTheme.textColor.assistive,
         style = FarmemeTheme.typography.body.xSmall.medium,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
     Spacer(modifier = Modifier.height(20.dp))
 }
@@ -120,7 +125,7 @@ internal fun DetailTags(hashTags: List<String>) {
     Row {
         hashTags.forEach { hashTag ->
             Text(
-                text = hashTag,
+                text = "#$hashTag",
                 color = FarmemeTheme.textColor.tertiary,
                 style = FarmemeTheme.typography.body.large.medium,
             )
@@ -189,6 +194,22 @@ fun DetailFunnyButton(
                 )
             }
         }
+    }
+}
+
+private fun String.truncateDisplayedName(maxLength: Int): String {
+    return if (this.length > maxLength) {
+        this.substring(0, maxLength - 1)
+    } else {
+        this
+    }
+}
+
+private fun List<String>.truncateDisplayedTags(maxSize: Int): List<String> {
+    return if (this.size > maxSize) {
+        this.subList(0, maxSize)
+    } else {
+        this
     }
 }
 
