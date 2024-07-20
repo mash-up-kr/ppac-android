@@ -23,6 +23,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -67,17 +70,9 @@ internal fun DetailContent(
             modifier = Modifier.padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            AsyncImage(
-                model = ImageRequest
-                    .Builder(LocalContext.current)
-                    .data(uiModel.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                placeholder = painterResource(R.drawable.detail_sample),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.clip(FarmemeRadius.Radius10.shape),
-                onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
+            DetailImage(
+                imageUrl = uiModel.imageUrl,
+                saveBitmap = saveBitmap,
             )
             DetailHashTags(
                 name = uiModel.name,
@@ -90,6 +85,41 @@ internal fun DetailContent(
                 onReactionButtonPositioned = onReactionButtonPositioned
             )
         }
+    }
+}
+
+@Composable
+private fun DetailImage(
+    imageUrl: String,
+    saveBitmap: (Bitmap) -> Unit
+) {
+    Box {
+        AsyncImage(
+            model = ImageRequest
+                .Builder(LocalContext.current)
+                .data(imageUrl)
+                .crossfade(true)
+                .build(),
+            placeholder = painterResource(R.drawable.detail_sample),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .clip(FarmemeRadius.Radius10.shape),
+            onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
+        )
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .graphicsLayer(alpha = 0.80f)
+                .clip(FarmemeRadius.Radius10.shape)
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),
+                        startY = 320f,
+                        endY = 1000f
+                    )
+                )
+        )
     }
 }
 
