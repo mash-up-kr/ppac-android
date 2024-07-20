@@ -11,6 +11,7 @@ import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.mvi.DetailUiState
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
+import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
 import javax.inject.Inject
 
@@ -20,6 +21,7 @@ class DetailViewModel @Inject constructor(
     private val getMemeUseCase: GetMemeUseCase,
     private val saveMemeUseCase: SaveMemeUseCase,
     private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
+    private val reactMemeUseCase: ReactMemeUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     init {
@@ -88,12 +90,15 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun incrementReactionCount() {
-        reduce {
-            copy(
-                detailMemeUiModel = detailMemeUiModel.copy(
-                    reactionCount = detailMemeUiModel.reactionCount + 1
+        viewModelScope.launch {
+            reactMemeUseCase(currentState.memeId)
+            reduce {
+                copy(
+                    detailMemeUiModel = detailMemeUiModel.copy(
+                        reactionCount = detailMemeUiModel.reactionCount + 1
+                    )
                 )
-            )
+            }
         }
     }
 

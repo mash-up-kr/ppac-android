@@ -23,6 +23,8 @@ import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCaseImpl
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.GetUserUseCaseImpl
+import team.ppac.domain.usecase.ReactMemeUseCase
+import team.ppac.domain.usecase.ReactMemeUseCaseImpl
 import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.domain.usecase.SampleUseCaseImpl
 import team.ppac.domain.usecase.SaveMemeUseCase
@@ -74,4 +76,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindDeleteSavedMemeUseCase(impl: DeleteSavedMemeUseCaseImpl): DeleteSavedMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindReactMemeUseCae(impl: ReactMemeUseCaseImpl): ReactMemeUseCase
 }
