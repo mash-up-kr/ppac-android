@@ -1,4 +1,4 @@
-package team.ppac.common.android.component
+package team.ppac.mypage.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun FarmemePullRefreshIndicator(
+fun MyPagePullRefreshIndicator(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
     pullRefreshState: PullRefreshState,

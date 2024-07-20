@@ -26,7 +26,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import team.ppac.common.android.component.FarmemePullRefreshIndicator
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -35,6 +34,7 @@ import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
+import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
@@ -110,7 +110,7 @@ internal fun MyPageScreen(
                 )
             }
         }
-        FarmemePullRefreshIndicator(
+        MyPagePullRefreshIndicator(
             isLoading = state.isLoading,
             pullRefreshState = pullRefreshState,
         )
