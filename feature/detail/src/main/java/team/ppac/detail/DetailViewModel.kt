@@ -45,6 +45,10 @@ class DetailViewModel @Inject constructor(
                 incrementReactionCount()
                 postSideEffect(DetailSideEffect.RunRisingEffect)
             }
+
+            DetailIntent.ClickBackButton -> {
+                postSideEffect(DetailSideEffect.NavigateToBackEffect)
+            }
         }
     }
 

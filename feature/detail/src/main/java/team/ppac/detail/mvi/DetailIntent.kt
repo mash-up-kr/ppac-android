@@ -8,4 +8,6 @@ sealed class DetailIntent : UiIntent {
     ) : DetailIntent()
 
     data object ClickFunnyButton : DetailIntent()
+
+    data object ClickBackButton : DetailIntent()
 }
