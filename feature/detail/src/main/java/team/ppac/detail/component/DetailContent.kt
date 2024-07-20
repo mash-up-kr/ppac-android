@@ -52,7 +52,7 @@ import team.ppac.detail.mvi.DetailUiState
 
 @Composable
 internal fun DetailContent(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     uiModel: DetailMemeUiModel,
     saveBitmap: (Bitmap) -> Unit,
     onClickFunnyButton: () -> Unit,
@@ -84,6 +84,7 @@ internal fun DetailContent(
                 onClickFunnyButton = onClickFunnyButton,
                 onReactionButtonPositioned = onReactionButtonPositioned
             )
+            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
@@ -104,7 +105,9 @@ private fun DetailImage(
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .clip(FarmemeRadius.Radius10.shape),
+                .clip(FarmemeRadius.Radius10.shape)
+                .width(330.dp)
+                .height(352.dp),
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
         )
         Box(
