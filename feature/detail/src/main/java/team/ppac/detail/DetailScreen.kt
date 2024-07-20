@@ -31,6 +31,7 @@ internal fun DetailScreen(
     onClickFarmemeButton: (String, Boolean) -> Unit,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPosition: (Offset) -> Unit,
+    onClickBackButton: () -> Unit,
 ) {
 
     var context = LocalContext.current
@@ -52,7 +53,7 @@ internal fun DetailScreen(
         topBar = {
             FarmemeBackToolBar(
                 title = "밈 자세히 보기",
-                onClickBackIcon = {}
+                onClickBackIcon = onClickBackButton,
             )
         },
         bottomBar = {
@@ -97,6 +98,7 @@ fun PreviewDetailScreen() {
         ),
         onClickFarmemeButton = { _, _ -> },
         onClickFunnyButton = {},
-        onReactionButtonPosition = { _ -> }
+        onReactionButtonPosition = { _ -> },
+        onClickBackButton = {},
     )
 }

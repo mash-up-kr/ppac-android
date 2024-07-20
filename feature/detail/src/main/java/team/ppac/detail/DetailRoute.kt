@@ -27,7 +27,8 @@ import kotlin.math.roundToInt
 @Composable
 internal fun DetailRoute(
     modifier: Modifier = Modifier,
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
+    navigateToBack: () -> Unit,
 ) {
 
     val uiState by viewModel.state.collectAsStateWithLifecycle()
@@ -47,6 +48,10 @@ internal fun DetailRoute(
                             speed = 1.5f
                         )
                     }
+                }
+
+                is DetailSideEffect.NavigateToBackEffect -> {
+                    navigateToBack()
                 }
             }
         }
@@ -68,7 +73,11 @@ internal fun DetailRoute(
         },
         onReactionButtonPosition = {
             lottiePosition = it
+        },
+        onClickBackButton = {
+            viewModel.intent(DetailIntent.ClickBackButton)
         }
+
     )
     LottieAnimation(
         modifier = Modifier
