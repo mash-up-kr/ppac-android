@@ -26,4 +26,8 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.deleteSavedMeme(memeId)
     }
 
+    override suspend fun reactMeme(memeId: String): Boolean {
+        return memeDataSource.reactMeme(memeId)
+    }
+
 }
