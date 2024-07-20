@@ -25,7 +25,7 @@ import team.ppac.detail.mvi.DetailUiState
 internal fun DetailScreen(
     modifier: Modifier = Modifier,
     uiState: DetailUiState,
-    onClickFarmemeButton: (String, Boolean) -> Unit,
+    onClickFarmemeButton: (Boolean) -> Unit,
 ) {
 
     var context = LocalContext.current
@@ -83,6 +83,6 @@ fun PreviewDetailScreen() {
                 isSavedMeme = false
             ),
         ),
-        onClickFarmemeButton = { _, _ -> },
+        onClickFarmemeButton = {},
     )
 }
