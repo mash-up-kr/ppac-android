@@ -12,6 +12,7 @@ internal fun SearchDetailRoute(
     modifier: Modifier = Modifier,
     viewModel: SearchDetailViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
+    navigateToMemeDetail: (String) -> Unit,
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
@@ -26,6 +27,7 @@ internal fun SearchDetailRoute(
     SearchDetailScreen(
         modifier = modifier,
         uiState = uiState,
-        navigateBack = navigateBack
+        onBackClick = navigateBack,
+        onMemeClick = navigateToMemeDetail,
     )
 }

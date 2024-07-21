@@ -23,7 +23,8 @@ import team.ppac.search.detail.mvi.SearchDetailUiState
 internal fun SearchDetailScreen(
     modifier: Modifier = Modifier,
     uiState: SearchDetailUiState,
-    navigateBack: () -> Unit,
+    onBackClick: () -> Unit,
+    onMemeClick: (String) -> Unit,
 ) {
     val searchResults = uiState.searchResults.collectAsLazyPagingItems()
 
@@ -34,7 +35,7 @@ internal fun SearchDetailScreen(
         topBar = {
             FarmemeBackToolBar(
                 title = uiState.memeCategory,
-                onClickBackIcon = navigateBack
+                onClickBackIcon = onBackClick
             )
         }
     ) { paddingValues ->
@@ -51,7 +52,7 @@ internal fun SearchDetailScreen(
             SearchDetailResultHeader(totalCount = searchResults.itemCount)
             SearchDetailResultContent(
                 searchResults = searchResults,
-                onMemeClick = {},
+                onMemeClick = onMemeClick,
             )
         }
     }
@@ -62,6 +63,7 @@ internal fun SearchDetailScreen(
 private fun SearchDetailScreenPreview() {
     SearchDetailScreen(
         uiState = SearchDetailUiState.INITIAL_STATE,
-        navigateBack = {}
+        onBackClick = {},
+        onMemeClick = {}
     )
 }
