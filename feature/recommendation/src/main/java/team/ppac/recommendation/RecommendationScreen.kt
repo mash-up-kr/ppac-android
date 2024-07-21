@@ -38,7 +38,6 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.launch
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
@@ -70,7 +69,7 @@ internal fun RecommendationScreen(
     val lottieAnimatable = rememberLottieAnimatable()
     var lottiePosition by remember { mutableStateOf(Offset.Zero) }
     val context = LocalContext.current
-    val memeBitmap = remember(state.thisWeekMemes) {
+    val memeBitmap = remember(state.thisWeekMemes.size) {
         state.thisWeekMemes.map<Meme, Bitmap?> { null }.toMutableStateList()
     }
 
@@ -78,12 +77,10 @@ internal fun RecommendationScreen(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 RecommendationSideEffect.RunRisingEffect -> {
-                    launch {
-                        lottieAnimatable.animate(
-                            composition = lottieComposition,
-                            speed = 1.5f
-                        )
-                    }
+                    lottieAnimatable.animate(
+                        composition = lottieComposition,
+                        speed = 1.5f
+                    )
                 }
 
                 is RecommendationSideEffect.CopyClipBoard -> {
