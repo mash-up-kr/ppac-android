@@ -1,13 +1,12 @@
 package team.ppac.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import team.ppac.data.mapper.toMeme
 import team.ppac.data.mapper.toUser
-import team.ppac.data.paging.SavedMemesPagingSource
+import team.ppac.data.paging.ITEMS_PER_PAGE
+import team.ppac.data.paging.createPager
 import team.ppac.datastore.entity.UserData
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.User
@@ -40,29 +39,15 @@ internal class UserRepositoryImpl @Inject constructor(
     }
 
     override fun getUserSavedMemes(): Flow<PagingData<Meme>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = SAVED_MEME_PAGING_PAGE,
-                enablePlaceholders = true,
-            ),
-            pagingSourceFactory = {
-                SavedMemesPagingSource(
-                    getSavedMemes = { page ->
-                        userRemoteDataSource.getUserSavedMemes(
-                            page = page,
-                            size = SAVED_MEME_PAGING_PAGE,
-                        ).memeList.map { it.toMeme() }
-                    },
-                )
-            },
-        ).flow
+        return createPager { page ->
+            userRemoteDataSource.getUserSavedMemes(
+                page = page,
+                size = ITEMS_PER_PAGE,
+            ).memeList.map { it.toMeme() }
+        }.flow
     }
 
     override suspend fun getUserRecentMemes(): List<Meme> {
         return userRemoteDataSource.getUserRecentMemes().map { it.toMeme() }
-    }
-
-    internal companion object {
-        const val SAVED_MEME_PAGING_PAGE = 10
     }
 }
