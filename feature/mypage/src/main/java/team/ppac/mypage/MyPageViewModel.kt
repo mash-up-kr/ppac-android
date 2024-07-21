@@ -83,9 +83,30 @@ class MyPageViewModel @Inject constructor(
     private fun refreshData() {
         viewModelScope.launch {
             updateLoading(true)
-            initialAction()
+            refreshAction()
             delay(1_000L)
             updateLoading(false)
+        }
+    }
+
+    private fun refreshAction() {
+        viewModelScope.launch {
+            val userDeferred = async {
+                getUserUseCase()
+            }
+            val recentMemesDeferred = async {
+                getUserRecentMemesUseCase()
+            }
+
+            val user = userDeferred.await()
+            val recentMemes = recentMemesDeferred.await()
+
+            reduce {
+                copy(
+                    levelUiModel = user.toLevelUiModel(),
+                    recentMemes = recentMemes.toImmutableList(),
+                )
+            }
         }
     }
 
