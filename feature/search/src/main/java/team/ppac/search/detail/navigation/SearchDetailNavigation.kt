@@ -16,6 +16,7 @@ fun NavController.navigateToSearchDetail(
 
 fun NavGraphBuilder.searchDetailScreen(
     navigateBack: () -> Unit,
+    navigateToMemeDetail: (String) -> Unit,
 ) {
     composable(
         route = "$SEARCH_DETAIL_ROUTE/{memeCategory}",
@@ -26,7 +27,8 @@ fun NavGraphBuilder.searchDetailScreen(
         )
     ) {
         SearchDetailRoute(
-            navigateBack = navigateBack
+            navigateBack = navigateBack,
+            navigateToMemeDetail = navigateToMemeDetail,
         )
     }
 }

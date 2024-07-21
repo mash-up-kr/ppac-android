@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +26,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.designsystem.R
 import team.ppac.designsystem.component.button.FarmemeCircleButton
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
@@ -62,7 +60,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                     .data(imageUrl)
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
+//                placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 onSuccess = {
