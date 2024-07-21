@@ -7,4 +7,6 @@ data class DetailMemeUiModel(
     val name: String,
     val hashTags: ImmutableList<String>,
     val sourceDescription: String,
+    val isSavedMeme: Boolean,
+    val reactionCount: Int,
 )

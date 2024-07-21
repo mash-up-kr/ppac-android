@@ -17,4 +17,5 @@ internal fun MemeResponse.toMeme(): Meme = Meme(
     keywords = keywords?.map {
         it.toKeyword()
     }?.toImmutableList() ?: emptyList(),
+    isSaved = isSaved,
 )

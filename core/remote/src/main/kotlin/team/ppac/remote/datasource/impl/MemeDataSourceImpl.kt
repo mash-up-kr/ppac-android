@@ -15,4 +15,16 @@ internal class MemeDataSourceImpl @Inject constructor(
     override suspend fun getRecommendMemes(): List<MemeResponse> {
         return memeApi.getRecommendMemes()
     }
+
+    override suspend fun saveMeme(memeId: String): Boolean {
+        return memeApi.saveMeme(memeId)
+    }
+
+    override suspend fun deleteSavedMeme(memeId: String): Boolean {
+        return memeApi.deleteSavedMeme(memeId)
+    }
+
+    override suspend fun reactMeme(memeId: String): Boolean {
+        return memeApi.reactMeme(memeId)
+    }
 }

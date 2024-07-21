@@ -8,6 +8,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
+import team.ppac.domain.usecase.GetUserSavedMemesUseCase
+import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.mypage.mapper.toLevelUiModel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
 import team.ppac.mypage.mvi.MyPageUiState
@@ -16,29 +19,32 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-//    private val userSavedMemesUseCase: GetUserSavedMemesUseCase,
-    private val userRecentMemesUseCase: GetUserRecentMemesUseCase,
+    private val getUserUseCase: GetUserUseCase,
+    private val getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
+    private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
-        getMemes()
+        initialAction()
     }
 
-    private fun getMemes() {
+    private fun initialAction() {
         viewModelScope.launch {
-//            val savedMemesDeferred = async {
-//                userSavedMemesUseCase()
-//            }
+            val userDeferred = async {
+                getUserUseCase()
+            }
             val recentMemesDeferred = async {
-                userRecentMemesUseCase()
+                getUserRecentMemesUseCase()
             }
 
-//            val savedMemes = savedMemesDeferred.await()
+            val user = userDeferred.await()
+            val savedMemes = getUserSavedMemesUseCase()
             val recentMemes = recentMemesDeferred.await()
 
             reduce {
                 copy(
-//                    savedMemes = savedMemes.toImmutableList(),
+                    levelUiModel = user.toLevelUiModel(),
+                    savedMemes = savedMemes,
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }

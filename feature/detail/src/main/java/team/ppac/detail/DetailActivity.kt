@@ -14,7 +14,7 @@ class DetailActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FarmemeTheme {
-                DetailRoute()
+                DetailRoute(navigateToBack = { finish() })
             }
         }
     }

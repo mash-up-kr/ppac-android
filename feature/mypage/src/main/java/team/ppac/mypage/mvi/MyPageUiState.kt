@@ -1,17 +1,20 @@
 package team.ppac.mypage.mvi
 
+import androidx.paging.PagingData
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.UiState
 import team.ppac.domain.model.Meme
-import team.ppac.mypage.model.LeveInfo
+import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 
 data class MyPageUiState(
     val isLoading: Boolean,
-    val leveInfo: LeveInfo,
+    val levelUiModel: LevelUiModel,
     val recentMemes: ImmutableList<Meme>,
-    val savedMemes: ImmutableList<Meme>,
+    val savedMemes: Flow<PagingData<Meme>>,
 ) : UiState {
     companion object {
         const val sampleId = "1234"
@@ -31,6 +34,7 @@ data class MyPageUiState(
                         createdAt = "",
                         updateAt = "",
                         keywords = emptyList(),
+                        isSaved = false,
                     )
                 )
             }
@@ -38,12 +42,12 @@ data class MyPageUiState(
 
         val INITIAL_STATE = MyPageUiState(
             isLoading = false,
-            leveInfo = LeveInfo(
-                userLevel = MyPageLevel.LEVEL1,
+            levelUiModel = LevelUiModel(
+                myPageLevel = MyPageLevel.LEVEL1,
                 memeCount = 0,
             ),
             recentMemes = sampleMemes,
-            savedMemes = sampleMemes,
+            savedMemes = flowOf(PagingData.empty()),
         )
     }
 }

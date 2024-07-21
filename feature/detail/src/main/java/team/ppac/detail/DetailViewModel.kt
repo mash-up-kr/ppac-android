@@ -9,14 +9,19 @@ import team.ppac.detail.mapper.toDetailMemeUiModel
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.mvi.DetailUiState
+import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
-import timber.log.Timber
+import team.ppac.domain.usecase.ReactMemeUseCase
+import team.ppac.domain.usecase.SaveMemeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getMemeUseCase: GetMemeUseCase,
+    private val saveMemeUseCase: SaveMemeUseCase,
+    private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
+    private val reactMemeUseCase: ReactMemeUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     init {
@@ -29,13 +34,71 @@ class DetailViewModel @Inject constructor(
     }
 
     override suspend fun handleIntent(intent: DetailIntent) {
-        TODO("Not yet implemented")
+        when (intent) {
+            is DetailIntent.ClickFarmemeButton -> {
+                if (intent.isSavedMeme) {
+                    deleteSavedMeme(intent.memeId)
+                } else {
+                    saveMeme(intent.memeId)
+                }
+            }
+
+            is DetailIntent.ClickFunnyButton -> {
+                incrementReactionCount()
+                postSideEffect(DetailSideEffect.RunRisingEffect)
+            }
+
+            DetailIntent.ClickBackButton -> {
+                postSideEffect(DetailSideEffect.NavigateToBackEffect)
+            }
+        }
     }
 
     private fun getMeme(memeId: String) {
         viewModelScope.launch {
             val meme = getMemeUseCase(memeId)
             reduce { copy(detailMemeUiModel = meme.toDetailMemeUiModel()) }
+        }
+    }
+
+    private fun saveMeme(memeId: String) {
+        viewModelScope.launch {
+            val isSaveSuccess = saveMemeUseCase(memeId)
+            if (isSaveSuccess) {
+                reduce {
+                    copy(
+                        detailMemeUiModel = detailMemeUiModel
+                            .copy(isSavedMeme = true)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun deleteSavedMeme(memeId: String) {
+        viewModelScope.launch {
+            val isSaveSuccess = deleteSavedMemeUseCase(memeId)
+            if (isSaveSuccess) {
+                reduce {
+                    copy(
+                        detailMemeUiModel = detailMemeUiModel
+                            .copy(isSavedMeme = false)
+                    )
+                }
+            }
+        }
+    }
+
+    private fun incrementReactionCount() {
+        viewModelScope.launch {
+            reactMemeUseCase(currentState.memeId)
+            reduce {
+                copy(
+                    detailMemeUiModel = detailMemeUiModel.copy(
+                        reactionCount = detailMemeUiModel.reactionCount + 1
+                    )
+                )
+            }
         }
     }
 
