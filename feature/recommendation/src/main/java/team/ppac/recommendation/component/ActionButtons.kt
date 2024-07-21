@@ -126,7 +126,13 @@ internal fun ActionButtons(
 
         FarmemeCircleButton(
             backgroundColor = FarmemeTheme.backgroundColor.white,
-            icon = { FarmemeIcon.BookmarkLine() },
+            icon = {
+                if (meme.isSaved) {
+                    FarmemeIcon.BookmarkFilled()
+                } else {
+                    FarmemeIcon.BookmarkLine()
+                }
+            },
             onClick = {
                 onClickIntent(RecommendationIntent.ClickButton.BookMark(meme))
             }

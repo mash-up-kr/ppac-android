@@ -12,15 +12,13 @@ data class RecommendationState(
     val thisWeekMemes: ImmutableList<Meme> = persistentListOf(),
 ) : UiState {
 
-    fun changeReactionCount(
+    fun updateReaction(
         meme: Meme,
-        transform: (Int) -> Int
+        transform: (Meme) -> Meme
     ) = copy(
         thisWeekMemes = thisWeekMemes.map { changeMeme ->
             if (changeMeme.id == meme.id) {
-                changeMeme.copy(
-                    reaction = transform(changeMeme.reaction)
-                )
+                transform(changeMeme)
             } else {
                 changeMeme
             }

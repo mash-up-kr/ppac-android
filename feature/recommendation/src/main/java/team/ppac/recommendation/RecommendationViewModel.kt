@@ -8,9 +8,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
+import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import team.ppac.recommendation.mvi.RecommendationState
@@ -22,6 +24,8 @@ class RecommendationViewModel @Inject constructor(
     private val getThisWeekRecommendMemesUseCase: GetThisWeekRecommendMemesUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val reactMemeUseCase: ReactMemeUseCase,
+    private val saveMemeUseCase: SaveMemeUseCase,
+    private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase
 ) : BaseViewModel<RecommendationState, RecommendationSideEffect, RecommendationIntent>(
     savedStateHandle
 ) {
@@ -38,13 +42,15 @@ class RecommendationViewModel @Inject constructor(
             is RecommendationIntent.ClickButton.LoL -> {
                 postSideEffect(RecommendationSideEffect.RunRisingEffect)
                 reduce {
-                    changeReactionCount(intent.meme) { it + 1 }
+                    updateReaction(intent.meme) {
+                        it.copy(reaction = it.reaction + 1)
+                    }
                 }
                 runCatching {
                     reactMemeUseCase(intent.meme.id)
                 }.onFailure {
                     reduce {
-                        changeReactionCount(intent.meme) { it - 1 }
+                        updateReaction(intent.meme) { it.copy(reaction = it.reaction - 1) }
                     }
                 }
             }
@@ -58,7 +64,20 @@ class RecommendationViewModel @Inject constructor(
             }
 
             is RecommendationIntent.ClickButton.BookMark -> {
-
+                reduce {
+                    updateReaction(intent.meme) { it.copy(isSaved = it.isSaved.not()) }
+                }
+                runCatching {
+                    if (intent.meme.isSaved) {
+                        deleteSavedMemeUseCase(intent.meme.id)
+                    } else {
+                        saveMemeUseCase(intent.meme.id)
+                    }
+                }.onFailure {
+                    reduce {
+                        updateReaction(intent.meme) { it.copy(isSaved = it.isSaved.not()) }
+                    }
+                }
             }
 
             is RecommendationIntent.MovePage -> {
