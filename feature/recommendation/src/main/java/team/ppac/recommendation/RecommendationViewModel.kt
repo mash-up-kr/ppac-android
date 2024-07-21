@@ -8,11 +8,13 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
+import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import team.ppac.recommendation.mvi.RecommendationState
@@ -25,7 +27,8 @@ class RecommendationViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val reactMemeUseCase: ReactMemeUseCase,
     private val saveMemeUseCase: SaveMemeUseCase,
-    private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase
+    private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
+    private val watchMemeUseCase: WatchMemeUseCase,
 ) : BaseViewModel<RecommendationState, RecommendationSideEffect, RecommendationIntent>(
     savedStateHandle
 ) {
@@ -81,7 +84,17 @@ class RecommendationViewModel @Inject constructor(
             }
 
             is RecommendationIntent.MovePage -> {
-
+                if(intent.currentPage > currentState.currentPage){
+                    reduce {
+                        copy(
+                            currentPage = intent.currentPage,
+                            seenMemeCount = currentState.seenMemeCount + 1
+                        )
+                    }
+                }
+                runCatching {
+                    watchMemeUseCase(intent.meme.id, MemeWatchType.RECOMMEND)
+                } // 에러 무시
             }
         }
     }
@@ -95,7 +108,8 @@ class RecommendationViewModel @Inject constructor(
             reduce {
                 copy(
                     thisWeekMemes = thisWeekMemes.toImmutableList(),
-                    seenMemeCount = user.memeRecommendWatchCount ?: 0
+                    seenMemeCount = user.memeRecommendWatchCount ?: 0,
+                    currentPage = user.memeRecommendWatchCount ?: 0,
                 )
             }
         }

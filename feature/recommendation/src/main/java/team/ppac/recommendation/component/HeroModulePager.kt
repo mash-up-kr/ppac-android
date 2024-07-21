@@ -37,13 +37,13 @@ fun HeroModulePager(
     modifier: Modifier = Modifier,
     memes: ImmutableList<Meme>,
     pagerState: PagerState,
-    onMovePage: (Meme) -> Unit,
+    onMovePage: (page: Int, Meme) -> Unit,
     onLoadMeme: (page: Int, bitmap: Bitmap) -> Unit,
 ) {
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }
             .collect {
-                onMovePage(memes[it])
+                onMovePage(it, memes[it])
             }
     }
     HorizontalPager(
@@ -88,7 +88,6 @@ fun HeroModulePager(
                 placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = "",
                 onSuccess = {
-                    println(">> 성공? $it")
                     onLoadMeme(page, it.result.drawable.toBitmap())
                 }
             )

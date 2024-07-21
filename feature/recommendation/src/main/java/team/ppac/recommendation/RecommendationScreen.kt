@@ -140,8 +140,8 @@ internal fun RecommendationScreen(
                 HeroModulePager(
                     memes = state.thisWeekMemes,
                     pagerState = heroModulePagerState,
-                    onMovePage = { meme ->
-                        viewModel.intent(RecommendationIntent.MovePage(meme))
+                    onMovePage = { page, meme ->
+                        viewModel.intent(RecommendationIntent.MovePage(meme, page))
                     },
                     onLoadMeme = { index, bitmap ->
                         memeBitmap[index] = bitmap

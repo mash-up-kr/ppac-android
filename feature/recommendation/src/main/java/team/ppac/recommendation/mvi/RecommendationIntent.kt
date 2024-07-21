@@ -4,7 +4,10 @@ import team.ppac.common.android.base.UiIntent
 import team.ppac.domain.model.Meme
 
 sealed interface RecommendationIntent : UiIntent {
-    data class MovePage(val meme: Meme) : RecommendationIntent
+    data class MovePage(
+        val meme: Meme,
+        val currentPage: Int,
+    ) : RecommendationIntent
 
     sealed interface ClickButton : RecommendationIntent {
         data class LoL(val meme: Meme) : ClickButton

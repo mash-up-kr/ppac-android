@@ -8,4 +8,8 @@ interface MemeDataSource {
     suspend fun saveMeme(memeId: String): Boolean
     suspend fun deleteSavedMeme(memeId: String): Boolean
     suspend fun reactMeme(memeId: String): Boolean
+    suspend fun watchMeme(
+        memeId: String,
+        type: String,
+    ): Boolean
 }
