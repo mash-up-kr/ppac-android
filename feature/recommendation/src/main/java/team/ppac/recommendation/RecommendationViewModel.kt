@@ -88,7 +88,6 @@ class RecommendationViewModel @Inject constructor(
 
     private fun initialAction() {
         viewModelScope.launch {
-            delay(5000L)
             val thisWeekMemesDeferred = async { getThisWeekRecommendMemesUseCase() }
             val userDeferred = async { getUserUseCase() }
             val user = userDeferred.await()
