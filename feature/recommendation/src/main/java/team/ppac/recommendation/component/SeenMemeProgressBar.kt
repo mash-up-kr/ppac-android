@@ -1,6 +1,8 @@
 package team.ppac.recommendation.component
 
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -32,7 +34,11 @@ internal fun SeenMemeProgressBar(
 ) {
     val seenMemeProgress by animateFloatAsState(
         targetValue = (seenMemeCount / 6f),
-        label = "seenMemeProgress"
+        label = "seenMemeProgress",
+        animationSpec = tween(
+            durationMillis = 1_500,
+            easing = FastOutSlowInEasing
+        ),
     )
     Row(
         modifier = modifier,
@@ -71,12 +77,14 @@ private fun LinearProgressBar(
             color = backgroundColor,
             strokeWidth = strokeSize,
         )
-        drawLinearIndicator(
-            startFraction = 0f,
-            endFraction = progress,
-            color = progressColor,
-            strokeWidth = strokeSize,
-        )
+        if(progress != 0f){
+            drawLinearIndicator(
+                startFraction = 0f,
+                endFraction = progress,
+                color = progressColor,
+                strokeWidth = strokeSize,
+            )
+        }
     }
 }
 
