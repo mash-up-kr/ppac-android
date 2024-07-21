@@ -8,7 +8,7 @@ sealed interface RecommendationIntent : UiIntent {
 
     sealed interface ClickButton : RecommendationIntent {
         data class LoL(val meme: Meme) : ClickButton
-        data class Copy(val meme: Meme) : ClickButton
+        data class Copy(val memeIndex: Int) : ClickButton
         data class Share(val meme: Meme) : ClickButton
         data class BookMark(val meme: Meme) : ClickButton
     }

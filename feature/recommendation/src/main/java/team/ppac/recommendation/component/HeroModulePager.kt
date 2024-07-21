@@ -2,6 +2,7 @@
 
 package team.ppac.recommendation.component
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
@@ -20,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.FarmemeTheme
@@ -28,12 +30,15 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import kotlin.math.absoluteValue
 
+
+//비트맵 가져오는 방법 생각하기
 @Composable
 fun HeroModulePager(
     modifier: Modifier = Modifier,
     memes: ImmutableList<Meme>,
     pagerState: PagerState,
     onMovePage: (Meme) -> Unit,
+    onLoadMeme: (page: Int, bitmap: Bitmap) -> Unit,
 ) {
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }
@@ -46,6 +51,7 @@ fun HeroModulePager(
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 60.dp),
         pageSpacing = 12.dp,
+        beyondBoundsPageCount = 3,
     ) { page ->
         Box(
             modifier = Modifier
@@ -81,6 +87,10 @@ fun HeroModulePager(
                 error = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = "",
+                onSuccess = {
+                    println(">> 성공? $it")
+                    onLoadMeme(page, it.result.drawable.toBitmap())
+                }
             )
         }
     }

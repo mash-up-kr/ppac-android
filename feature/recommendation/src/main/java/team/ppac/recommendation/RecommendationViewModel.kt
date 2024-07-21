@@ -39,6 +39,10 @@ class RecommendationViewModel @Inject constructor(
                 }
             }
 
+            is RecommendationIntent.ClickButton.Copy -> {
+                postSideEffect(RecommendationSideEffect.CopyClipBoard(intent.memeIndex))
+            }
+
             else -> {
                 println("")
             }
