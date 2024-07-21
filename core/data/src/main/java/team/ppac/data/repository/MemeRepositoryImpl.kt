@@ -1,11 +1,10 @@
 package team.ppac.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import team.ppac.data.mapper.toMeme
-import team.ppac.data.paging.SavedMemesPagingSource
+import team.ppac.data.paging.ITEMS_PER_PAGE
+import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.repository.MemeRepository
@@ -33,23 +32,13 @@ class MemeRepositoryImpl @Inject constructor(
     }
 
     override fun getSearchMemes(keyword: String): Flow<PagingData<Meme>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = UserRepositoryImpl.SAVED_MEME_PAGING_PAGE,
-                enablePlaceholders = true,
-            ),
-            pagingSourceFactory = {
-                SavedMemesPagingSource(
-                    getSavedMemes = { page ->
-                        memeDataSource.getSearchMemes(
-                            keyword = keyword,
-                            page = page,
-                            size = UserRepositoryImpl.SAVED_MEME_PAGING_PAGE,
-                        ).map { it.toMeme() }
-                    },
-                )
-            },
-        ).flow
+        return createPager { page ->
+            memeDataSource.getSearchMemes(
+                keyword = keyword,
+                page = page,
+                size = ITEMS_PER_PAGE,
+            ).map { it.toMeme() }
+        }.flow
     }
     override suspend fun reactMeme(memeId: String): Boolean {
         return memeDataSource.reactMeme(memeId)

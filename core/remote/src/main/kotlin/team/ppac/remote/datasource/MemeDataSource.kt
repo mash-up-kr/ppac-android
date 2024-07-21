@@ -10,7 +10,7 @@ interface MemeDataSource {
     suspend fun getSearchMemes(
         keyword: String,
         page: Int,
-        size: Int
+        size: Int,
     ): List<MemeResponse>
     suspend fun reactMeme(memeId: String): Boolean
     suspend fun watchMeme(
