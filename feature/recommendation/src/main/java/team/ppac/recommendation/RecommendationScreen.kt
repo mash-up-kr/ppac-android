@@ -37,6 +37,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import team.ppac.common.android.util.copyImageToClipBoard
+import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -86,6 +87,10 @@ internal fun RecommendationScreen(
                     memeBitmap[sideEffect.memesIndex]?.let {
                         context.copyImageToClipBoard(bitmap = it)
                     }
+                }
+
+                is RecommendationSideEffect.ShareLink -> {
+                    context.shareOneLink(sideEffect.memeId)
                 }
             }
         }

@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import team.ppac.recommendation.mvi.RecommendationState
@@ -19,6 +21,7 @@ class RecommendationViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getThisWeekRecommendMemesUseCase: GetThisWeekRecommendMemesUseCase,
     private val getUserUseCase: GetUserUseCase,
+    private val reactMemeUseCase: ReactMemeUseCase,
 ) : BaseViewModel<RecommendationState, RecommendationSideEffect, RecommendationIntent>(
     savedStateHandle
 ) {
@@ -35,7 +38,14 @@ class RecommendationViewModel @Inject constructor(
             is RecommendationIntent.ClickButton.LoL -> {
                 postSideEffect(RecommendationSideEffect.RunRisingEffect)
                 reduce {
-                    incrementReactionCount(intent.meme)
+                    changeReactionCount(intent.meme) { it + 1 }
+                }
+                runCatching {
+                    reactMemeUseCase(intent.meme.id)
+                }.onFailure {
+                    reduce {
+                        changeReactionCount(intent.meme) { it - 1 }
+                    }
                 }
             }
 
@@ -43,14 +53,23 @@ class RecommendationViewModel @Inject constructor(
                 postSideEffect(RecommendationSideEffect.CopyClipBoard(intent.memeIndex))
             }
 
-            else -> {
-                println("")
+            is RecommendationIntent.ClickButton.Share -> {
+                postSideEffect(RecommendationSideEffect.ShareLink(intent.meme.id))
+            }
+
+            is RecommendationIntent.ClickButton.BookMark -> {
+
+            }
+
+            is RecommendationIntent.MovePage -> {
+
             }
         }
     }
 
     private fun initialAction() {
         viewModelScope.launch {
+            delay(5000L)
             val thisWeekMemesDeferred = async { getThisWeekRecommendMemesUseCase() }
             val userDeferred = async { getUserUseCase() }
             val user = userDeferred.await()

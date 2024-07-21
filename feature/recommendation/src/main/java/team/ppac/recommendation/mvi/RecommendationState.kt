@@ -12,15 +12,21 @@ data class RecommendationState(
     val thisWeekMemes: ImmutableList<Meme> = persistentListOf(),
 ) : UiState {
 
-    fun incrementReactionCount(meme: Meme) =  copy(
-        thisWeekMemes = thisWeekMemes.map {
-            if (it == meme) {
-                it.copy(reaction = it.reaction + 1)
+    fun changeReactionCount(
+        meme: Meme,
+        transform: (Int) -> Int
+    ) = copy(
+        thisWeekMemes = thisWeekMemes.map { changeMeme ->
+            if (changeMeme.id == meme.id) {
+                changeMeme.copy(
+                    reaction = transform(changeMeme.reaction)
+                )
             } else {
-                it
+                changeMeme
             }
         }.toImmutableList(),
     )
+
     companion object {
         val INITIAL_STATE
             get() = RecommendationState()
