@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -23,7 +22,6 @@ import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.search.main.model.HotKeywordUiModel
 import team.ppac.search.main.preview.HotKeywordCardProvider
@@ -31,8 +29,7 @@ import team.ppac.search.main.preview.HotKeywordCardProvider
 @Composable
 internal fun HotKeywordCard(
     modifier: Modifier = Modifier,
-    imageUrl: String,
-    description: String,
+    hotKeywordUiModel: HotKeywordUiModel,
 ) {
     Box(
         modifier = modifier
@@ -45,10 +42,13 @@ internal fun HotKeywordCard(
             ),
         contentAlignment = Alignment.Center
     ) {
-        KeywordImage(imageUrl)
+        KeywordImage(
+            modifier = Modifier,
+            imageUrl = hotKeywordUiModel.imageUrl
+        )
         Text(
             modifier = Modifier.padding(horizontal = 16.dp),
-            text = description,
+            text = hotKeywordUiModel.keyword,
             style = FarmemeTheme.typography.body.large.semibold.copy(
                 color = FarmemeTheme.textColor.inverse
             ),
@@ -59,19 +59,30 @@ internal fun HotKeywordCard(
 }
 
 @Composable
-private fun KeywordImage(imageUrl: String) {
-    AsyncImage(
-        modifier = Modifier.fillMaxSize(),
-        model = ImageRequest.Builder(LocalContext.current)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .data(imageUrl)
-//                .crossfade(true)
-            .build(),
-        placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
-        contentDescription = null,
-        contentScale = ContentScale.Crop
-    )
+private fun KeywordImage(
+    modifier: Modifier = Modifier,
+    imageUrl: String,
+) {
+    Box(modifier = modifier) {
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = ImageRequest.Builder(LocalContext.current)
+                .diskCachePolicy(CachePolicy.ENABLED)
+                .memoryCachePolicy(CachePolicy.ENABLED)
+                .data(imageUrl)
+                .crossfade(true)
+                .build(),
+            contentDescription = null,
+            contentScale = ContentScale.Crop
+        )
+
+        Box(
+            modifier = Modifier
+                .matchParentSize()
+                .clip(FarmemeRadius.Radius12.shape)
+                .background(color = FarmemeTheme.backgroundColor.dimmer)
+        )
+    }
 }
 
 @Preview
@@ -83,8 +94,7 @@ private fun HotKeywordCardPreview(
         modifier = Modifier.background(Color.White)
     ) {
         HotKeywordCard(
-            imageUrl = card.imageUrl,
-            description = card.keyword
+            hotKeywordUiModel = HotKeywordUiModel(id = "", keyword = "", imageUrl = ""),
         )
     }
 }

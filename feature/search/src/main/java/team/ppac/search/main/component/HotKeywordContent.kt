@@ -26,10 +26,12 @@ internal fun HotKeywordContent(
         contentPadding = PaddingValues(horizontal = 20.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        items(items = keywords) { uiModel ->
+        items(
+            items = keywords,
+            key = { it.id },
+        ) { uiModel ->
             HotKeywordCard(
-                imageUrl = uiModel.imageUrl,
-                description = uiModel.keyword
+                hotKeywordUiModel = uiModel,
             )
         }
     }
