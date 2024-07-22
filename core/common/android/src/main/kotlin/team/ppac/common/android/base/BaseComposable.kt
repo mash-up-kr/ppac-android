@@ -13,10 +13,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import team.ppac.common.android.FarmemeSnackbarHost
 import team.ppac.designsystem.component.snackbar.FarmemeSnackbar
-import timber.log.Timber
 
 @Composable
-fun <S: UiState, SE: UiSideEffect, I: UiIntent> BaseComposable(
+fun <S : UiState, SE : UiSideEffect, I : UiIntent> BaseComposable(
     viewModel: BaseViewModel<S, SE, I>,
     content: @Composable (S) -> Unit,
 ) = viewModel.apply {
@@ -24,22 +23,20 @@ fun <S: UiState, SE: UiSideEffect, I: UiIntent> BaseComposable(
 
     val snackBarScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
-
     var snackbarMessage by remember { mutableStateOf("") }
-
-    FarmemeSnackbarHost(snackbarHostState = snackBarHostState) {
-        FarmemeSnackbar(message = snackbarMessage)
-    }
 
     LaunchedEffect(key1 = viewModel) {
         snackbarEffect.collectLatest { message ->
+            snackbarMessage = message
             snackBarScope.launch {
-                snackbarMessage = message
-                Timber.e("SnackbarMessage: $snackbarMessage")
                 snackBarHostState.showSnackbar(snackbarMessage)
             }
         }
     }
 
     content(state)
+
+    FarmemeSnackbarHost(snackbarHostState = snackBarHostState) {
+        FarmemeSnackbar(message = snackbarMessage)
+    }
 }
