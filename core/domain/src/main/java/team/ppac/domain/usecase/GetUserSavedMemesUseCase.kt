@@ -7,13 +7,13 @@ import team.ppac.domain.repository.UserRepository
 import javax.inject.Inject
 
 interface GetUserSavedMemesUseCase {
-    suspend operator fun invoke(): Flow<PagingData<Meme>>
+    operator fun invoke(): Flow<PagingData<Meme>>
 }
 
 internal class GetUserSavedMemesUseCaseImpl @Inject constructor(
     private val userRepository: UserRepository,
 ) : GetUserSavedMemesUseCase {
-    override suspend fun invoke(): Flow<PagingData<Meme>> {
+    override fun invoke(): Flow<PagingData<Meme>> {
         return userRepository.getUserSavedMemes()
     }
 }
