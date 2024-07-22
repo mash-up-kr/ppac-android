@@ -18,6 +18,7 @@ import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastFilterNotNull
@@ -58,6 +59,7 @@ private fun SlideInSlideOutWithScale(
     content: @Composable (SnackbarData) -> Unit,
 ) {
     val state = remember { SlideInSlideOutState<SnackbarData?>() }
+    val systemBarHeightPx = with(LocalDensity.current) { systemBarHeight.roundToPx() }
 
     if (current != state.current) {
         state.current = current
@@ -77,7 +79,7 @@ private fun SlideInSlideOutWithScale(
                         )
                     ),
                     exit = slideOutVertically(
-                        targetOffsetY = { fullHeight -> -fullHeight },
+                        targetOffsetY = { fullHeight -> -fullHeight - systemBarHeightPx },
                         animationSpec = tween(
                             durationMillis = 200,
                         )
