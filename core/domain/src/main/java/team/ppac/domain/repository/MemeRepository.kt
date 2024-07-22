@@ -7,4 +7,5 @@ interface MemeRepository {
     suspend fun getRecommendMemes(): List<Meme>
     suspend fun saveMeme(memeId: String): Boolean
     suspend fun deleteSavedMeme(memeId: String): Boolean
+    suspend fun reactMeme(memeId: String): Boolean
 }

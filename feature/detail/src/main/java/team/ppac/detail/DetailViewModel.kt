@@ -11,6 +11,7 @@ import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.mvi.DetailUiState
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
+import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
 import javax.inject.Inject
 
@@ -20,6 +21,7 @@ class DetailViewModel @Inject constructor(
     private val getMemeUseCase: GetMemeUseCase,
     private val saveMemeUseCase: SaveMemeUseCase,
     private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
+    private val reactMemeUseCase: ReactMemeUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     init {
@@ -40,6 +42,15 @@ class DetailViewModel @Inject constructor(
                     saveMeme()
                 }
             }
+
+            is DetailIntent.ClickFunnyButton -> {
+                incrementReactionCount()
+                postSideEffect(DetailSideEffect.RunRisingEffect)
+            }
+
+            is DetailIntent.ClickBackButton -> {
+                postSideEffect(DetailSideEffect.NavigateToBackEffect)
+            }
         }
     }
 
@@ -56,8 +67,7 @@ class DetailViewModel @Inject constructor(
             if (isSaveSuccess) {
                 reduce {
                     copy(
-                        detailMemeUiModel = currentState
-                            .detailMemeUiModel
+                        detailMemeUiModel = detailMemeUiModel
                             .copy(isSavedMeme = true)
                     )
                 }
@@ -71,12 +81,31 @@ class DetailViewModel @Inject constructor(
             if (isSaveSuccess) {
                 reduce {
                     copy(
-                        detailMemeUiModel = currentState
-                            .detailMemeUiModel
+                        detailMemeUiModel = detailMemeUiModel
                             .copy(isSavedMeme = false)
                     )
                 }
             }
+        }
+    }
+
+    private fun incrementReactionCount() {
+        viewModelScope.launch {
+            reduce {
+                copy(
+                    detailMemeUiModel = detailMemeUiModel.copy(
+                        reactionCount = detailMemeUiModel.reactionCount + 1
+                    )
+                )
+            }
+
+            reduce {
+                copy(
+                    detailMemeUiModel = detailMemeUiModel.copy(
+                        reactionCount = detailMemeUiModel.reactionCount - 1
+                    )
+                )
+            }.takeIf { !reactMemeUseCase(currentState.memeId) }
         }
     }
 
