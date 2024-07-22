@@ -31,6 +31,7 @@ class MyPageViewModel @Inject constructor(
 
     private fun initialAction() {
         viewModelScope.launch {
+            updateLoading(true)
             val userDeferred = async {
                 getUserUseCase()
             }
@@ -49,6 +50,7 @@ class MyPageViewModel @Inject constructor(
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }
+            updateLoading(false)
         }
     }
 
