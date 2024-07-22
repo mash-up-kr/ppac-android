@@ -40,7 +40,7 @@ internal fun DetailBottomBar(
     memeId: String,
     isSaved: Boolean,
     copyBitmap: () -> Unit,
-    onClickFarmemeButton: (String, Boolean) -> Unit,
+    onClickFarmemeButton: (Boolean) -> Unit,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -89,7 +89,7 @@ internal fun DetailBottomBar(
                 title = "파밈",
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
-                    onClickFarmemeButton(memeId, isSaved)
+                    onClickFarmemeButton(isSaved)
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
@@ -136,6 +136,6 @@ fun PreviewDetailBottomBar() {
         memeId = "",
         isSaved = false,
         copyBitmap = {},
-        onClickFarmemeButton = { _, _ -> },
+        onClickFarmemeButton = {},
     )
 }

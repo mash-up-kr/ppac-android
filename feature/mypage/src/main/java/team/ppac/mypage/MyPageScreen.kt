@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +34,7 @@ import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
+import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
@@ -39,6 +43,7 @@ import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MyPageScreen(
     viewModel: MyPageViewModel = hiltViewModel(),
@@ -49,6 +54,10 @@ internal fun MyPageScreen(
     val levelUiModel = state.levelUiModel
     val recentMemes = state.recentMemes
     val savedMemes = state.savedMemes.collectAsLazyPagingItems()
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = state.isLoading,
+        onRefresh = { viewModel.intent(MyPageIntent.RefreshData) },
+    )
 
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -60,9 +69,11 @@ internal fun MyPageScreen(
     }
 
     FarmemeScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
-        scaffoldState = rememberScaffoldState()
+        scaffoldState = rememberScaffoldState(),
     ) {
         LazyColumn(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,6 +110,10 @@ internal fun MyPageScreen(
                 )
             }
         }
+        MyPagePullRefreshIndicator(
+            isLoading = state.isLoading,
+            pullRefreshState = pullRefreshState,
+        )
     }
 }
 

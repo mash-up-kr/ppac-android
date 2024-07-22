@@ -28,7 +28,7 @@ import team.ppac.detail.mvi.DetailUiState
 internal fun DetailScreen(
     modifier: Modifier = Modifier,
     uiState: DetailUiState,
-    onClickFarmemeButton: (String, Boolean) -> Unit,
+    onClickFarmemeButton: (Boolean) -> Unit,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPosition: (Offset) -> Unit,
     onClickBackButton: () -> Unit,
@@ -96,7 +96,7 @@ fun PreviewDetailScreen() {
                 reactionCount = 0,
             ),
         ),
-        onClickFarmemeButton = { _, _ -> },
+        onClickFarmemeButton = {},
         onClickFunnyButton = {},
         onReactionButtonPosition = { _ -> },
         onClickBackButton = {},

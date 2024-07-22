@@ -42,6 +42,9 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
+import kotlinx.collections.immutable.ImmutableList
+import team.ppac.common.kotlin.extension.truncateDisplayedString
+import team.ppac.common.kotlin.extension.truncateDisplayedList
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
@@ -130,21 +133,21 @@ private fun DetailImage(
 internal fun DetailHashTags(
     name: String,
     sourceDescription: String,
-    hashTags: List<String>,
+    hashTags: ImmutableList<String>,
 ) {
 
     Spacer(modifier = Modifier.height(25.dp))
     Text(
-        text = name.truncateDisplayedName(16),
+        text = name.truncateDisplayedString(16),
         color = FarmemeTheme.textColor.primary,
         style = FarmemeTheme.typography.heading.large.semibold,
         overflow = TextOverflow.Ellipsis
     )
     Spacer(modifier = Modifier.height(5.dp))
-    DetailTags(hashTags = hashTags.truncateDisplayedTags(6))
+    DetailTags(hashTags = hashTags.truncateDisplayedList(6))
     Spacer(modifier = Modifier.height(11.dp))
     Text(
-        text = "출처: $sourceDescription".truncateDisplayedName(32),
+        text = "출처: $sourceDescription".truncateDisplayedString(32),
         color = FarmemeTheme.textColor.assistive,
         style = FarmemeTheme.typography.body.xSmall.medium,
         maxLines = 1,
@@ -227,22 +230,6 @@ fun DetailFunnyButton(
                 )
             }
         }
-    }
-}
-
-private fun String.truncateDisplayedName(maxLength: Int): String {
-    return if (this.length > maxLength) {
-        this.substring(0, maxLength - 1)
-    } else {
-        this
-    }
-}
-
-private fun List<String>.truncateDisplayedTags(maxSize: Int): List<String> {
-    return if (this.size > maxSize) {
-        this.subList(0, maxSize)
-    } else {
-        this
     }
 }
 
