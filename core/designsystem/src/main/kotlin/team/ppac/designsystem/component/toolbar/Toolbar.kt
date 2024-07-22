@@ -3,14 +3,17 @@
 package team.ppac.designsystem.component.toolbar
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -57,46 +60,45 @@ internal fun FarmemeToolbar(
     navigationIcon: (@Composable () -> Unit)? = null,
     actionIcon: (@Composable () -> Unit)? = null,
 ) {
-    Row(
-        modifier = modifier
-            .padding(
-                top = with(LocalDensity.current) {
-                    WindowInsets.statusBarsIgnoringVisibility
-                        .getTop(this)
-                        .toDp()
-                }
+    Column(modifier = modifier) {
+        Row(
+            modifier = Modifier
+                .padding(
+                    top = with(LocalDensity.current) {
+                        WindowInsets.statusBarsIgnoringVisibility
+                            .getTop(this)
+                            .toDp()
+                    }
+                )
+                .fillMaxWidth()
+                .height(50.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier.size(20.dp)
+            ) {
+                navigationIcon?.invoke()
+            }
+            Spacer(modifier = Modifier.size(12.dp))
+            Text(
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Center,
+                text = title,
+                color = FarmemeTheme.textColor.primary,
+                style = FarmemeTheme.typography.body.xLarge.semibold,
             )
-            .fillMaxWidth()
-            .height(50.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(start = 20.dp)
-                .padding(vertical = 15.dp)
-                .size(20.dp)
-        ) {
-            if (navigationIcon != null) {
-                navigationIcon()
+            Spacer(modifier = Modifier.size(12.dp))
+            Box(
+                modifier = Modifier.size(20.dp)
+            ) {
+                actionIcon?.invoke()
             }
         }
-        Text(
-            modifier = Modifier.weight(1f),
-            textAlign = TextAlign.Center,
-            text = title,
-            color = FarmemeTheme.textColor.primary,
-            style = FarmemeTheme.typography.body.xLarge.semibold,
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = FarmemeTheme.backgroundColor.assistive,
+            thickness = 1.dp,
         )
-        Box(
-            modifier = Modifier
-                .padding(end = 20.dp)
-                .padding(vertical = 15.dp)
-                .size(20.dp)
-        ) {
-            if (actionIcon != null) {
-                actionIcon()
-            }
-        }
     }
 }
 
