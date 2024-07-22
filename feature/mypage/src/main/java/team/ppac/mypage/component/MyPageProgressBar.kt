@@ -17,14 +17,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -58,19 +53,13 @@ private fun MyPageProgressBarActive(
 ) {
     val minWidth = 96f.dp
     val currentWidth = minWidth + (maxWidth - minWidth) * levelUiModel.memeCount * 0.05f
-
-    var progress by remember { mutableStateOf(minWidth) }
     val progressAnimation by animateDpAsState(
-        targetValue = progress,
+        targetValue = currentWidth,
         animationSpec = tween(
             durationMillis = 1_500,
             easing = FastOutSlowInEasing
         ),
     )
-
-    LaunchedEffect(LocalLifecycleOwner.current) {
-        progress = currentWidth
-    }
 
     Row(
         modifier = modifier
