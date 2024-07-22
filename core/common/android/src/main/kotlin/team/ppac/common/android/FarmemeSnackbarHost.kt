@@ -2,7 +2,6 @@ package team.ppac.common.android
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
@@ -26,6 +25,7 @@ import androidx.compose.ui.util.fastForEach
 import androidx.compose.ui.util.fastMap
 import androidx.compose.ui.util.fastMapTo
 import kotlinx.coroutines.delay
+import team.ppac.common.android.util.systemBarHeight
 import team.ppac.designsystem.component.snackbar.FarmemeSnackbar
 
 @Composable
@@ -46,7 +46,7 @@ fun FarmemeSnackbarHost(
         current = snackbarHostState.currentSnackbarData,
         modifier = modifier
             .fillMaxSize()
-            .padding(top = 10.dp),
+            .padding(top = 10.dp + systemBarHeight),
         content = snackbar
     )
 }

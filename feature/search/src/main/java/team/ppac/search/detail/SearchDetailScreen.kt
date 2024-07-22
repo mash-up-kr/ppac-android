@@ -11,9 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
-import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
-import team.ppac.designsystem.component.tabbar.FarmemeNavigationBar
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.search.detail.component.SearchDetailResultContent
