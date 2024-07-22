@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType

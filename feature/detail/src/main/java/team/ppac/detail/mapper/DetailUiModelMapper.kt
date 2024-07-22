@@ -10,5 +10,5 @@ internal fun Meme.toDetailMemeUiModel(): DetailMemeUiModel = DetailMemeUiModel(
     hashTags = keywords.map { it.name }.toImmutableList(),
     sourceDescription = source,
     isSavedMeme = isSaved,
-    reactionCount = reaction,
+    reactionCount = reactionCount,
 )
