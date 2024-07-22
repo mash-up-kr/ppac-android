@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridItemScope
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,7 +44,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     onMemeClick: (String) -> Unit,
     onCopyClick: () -> Unit,
 ) {
-    var bitmap = remember<Bitmap?> { null }
+    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
 
     Column(
@@ -66,7 +67,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 onSuccess = {
-                    bitmap = it.result.drawable.toBitmap()
+                    bitmap.value = it.result.drawable.toBitmap()
                 }
             )
             FarmemeCircleButton(
@@ -76,7 +77,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                 size = 42.dp,
                 backgroundColor = FarmemeTheme.backgroundColor.white,
                 onClick = {
-                    bitmap?.let {
+                    bitmap.value?.let {
                         onCopyClick()
                         context.copyImageToClipBoard(it)
                     }
