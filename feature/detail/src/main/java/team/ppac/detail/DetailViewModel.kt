@@ -12,7 +12,6 @@ import team.ppac.detail.mvi.DetailUiState
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,9 +35,9 @@ class DetailViewModel @Inject constructor(
         when (intent) {
             is DetailIntent.ClickFarmemeButton -> {
                 if (intent.isSavedMeme) {
-                    deleteSavedMeme(intent.memeId)
+                    deleteSavedMeme()
                 } else {
-                    saveMeme(intent.memeId)
+                    saveMeme()
                 }
             }
         }
@@ -51,9 +50,9 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun saveMeme(memeId: String) {
+    private fun saveMeme() {
         viewModelScope.launch {
-            val isSaveSuccess  = saveMemeUseCase(memeId)
+            val isSaveSuccess = saveMemeUseCase(currentState.memeId)
             if (isSaveSuccess) {
                 reduce {
                     copy(
@@ -66,9 +65,9 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun deleteSavedMeme(memeId: String) {
+    private fun deleteSavedMeme() {
         viewModelScope.launch {
-            val isSaveSuccess  = deleteSavedMemeUseCase(memeId)
+            val isSaveSuccess = deleteSavedMemeUseCase(currentState.memeId)
             if (isSaveSuccess) {
                 reduce {
                     copy(
