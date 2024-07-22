@@ -2,6 +2,7 @@ package team.ppac.data.repository
 
 import team.ppac.data.mapper.toMeme
 import team.ppac.domain.model.Meme
+import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.repository.MemeRepository
 import team.ppac.remote.datasource.MemeDataSource
 import javax.inject.Inject
@@ -28,6 +29,10 @@ class MemeRepositoryImpl @Inject constructor(
 
     override suspend fun reactMeme(memeId: String): Boolean {
         return memeDataSource.reactMeme(memeId)
+    }
+
+    override suspend fun watchMeme(memeId: String, watchType: MemeWatchType): Boolean {
+        return memeDataSource.watchMeme(memeId, watchType.name.lowercase())
     }
 
 }

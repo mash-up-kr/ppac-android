@@ -1,15 +1,18 @@
 package team.ppac.recommendation
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -20,9 +23,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -32,11 +38,13 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.launch
+import team.ppac.common.android.util.copyImageToClipBoard
+import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.domain.model.Meme
 import team.ppac.recommendation.component.ActionButtons
 import team.ppac.recommendation.component.HeroModulePager
 import team.ppac.recommendation.component.KeywordsRow
@@ -45,7 +53,8 @@ import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import kotlin.math.roundToInt
 
-@OptIn(ExperimentalFoundationApi::class)
+
+@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 internal fun RecommendationScreen(
     viewModel: RecommendationViewModel = hiltViewModel(),
@@ -59,17 +68,29 @@ internal fun RecommendationScreen(
     )
     val lottieAnimatable = rememberLottieAnimatable()
     var lottiePosition by remember { mutableStateOf(Offset.Zero) }
+    val context = LocalContext.current
+    val memeBitmap = remember(state.thisWeekMemes.size) {
+        state.thisWeekMemes.map<Meme, Bitmap?> { null }.toMutableStateList()
+    }
 
-    LaunchedEffect(viewModel) {
-        viewModel.sideEffect.collect {
-            when (it) {
+    LaunchedEffect(viewModel, memeBitmap) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
                 RecommendationSideEffect.RunRisingEffect -> {
-                    launch {
-                        lottieAnimatable.animate(
-                            composition = lottieComposition,
-                            speed = 1.5f
-                        )
+                    lottieAnimatable.animate(
+                        composition = lottieComposition,
+                        speed = 1.5f
+                    )
+                }
+
+                is RecommendationSideEffect.CopyClipBoard -> {
+                    memeBitmap[sideEffect.memesIndex]?.let {
+                        context.copyImageToClipBoard(bitmap = it)
                     }
+                }
+
+                is RecommendationSideEffect.ShareLink -> {
+                    context.shareOneLink(sideEffect.memeId)
                 }
             }
         }
@@ -83,7 +104,11 @@ internal fun RecommendationScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .statusBarsPadding()
+                .padding(top = with(LocalDensity.current) {
+                    WindowInsets.statusBarsIgnoringVisibility
+                        .getTop(this)
+                        .toDp()
+                })
                 .padding(top = 36.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -112,8 +137,11 @@ internal fun RecommendationScreen(
                 HeroModulePager(
                     memes = state.thisWeekMemes,
                     pagerState = heroModulePagerState,
-                    onMovePage = {
-                        viewModel.intent(RecommendationIntent.MovePage(it))
+                    onMovePage = { page, meme ->
+                        viewModel.intent(RecommendationIntent.MovePage(meme, page))
+                    },
+                    onLoadMeme = { index, bitmap ->
+                        memeBitmap[index] = bitmap
                     }
                 )
                 Spacer(modifier = Modifier.padding(top = 20.dp))
@@ -128,6 +156,7 @@ internal fun RecommendationScreen(
                         .padding(horizontal = 30.dp),
                     meme = state.thisWeekMemes[heroModulePagerState.currentPage],
                     onClickIntent = viewModel::intent,
+                    page = heroModulePagerState.currentPage,
                     onReactionButtonPositioned = {
                         lottiePosition = it
                     }

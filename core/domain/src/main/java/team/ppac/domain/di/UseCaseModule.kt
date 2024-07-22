@@ -29,6 +29,8 @@ import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.domain.usecase.SampleUseCaseImpl
 import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCaseImpl
+import team.ppac.domain.usecase.WatchMemeUseCase
+import team.ppac.domain.usecase.WatchMemeUseCaseImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -80,4 +82,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindReactMemeUseCae(impl: ReactMemeUseCaseImpl): ReactMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindWatchMemeUseCae(impl: WatchMemeUseCaseImpl): WatchMemeUseCase
 }

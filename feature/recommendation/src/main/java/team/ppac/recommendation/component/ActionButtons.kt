@@ -36,6 +36,7 @@ import team.ppac.recommendation.mvi.RecommendationIntent
 internal fun ActionButtons(
     modifier: Modifier = Modifier,
     meme: Meme,
+    page: Int,
     onClickIntent: (RecommendationIntent.ClickButton) -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
 ) {
@@ -111,7 +112,7 @@ internal fun ActionButtons(
             backgroundColor = FarmemeTheme.backgroundColor.white,
             icon = { FarmemeIcon.Stroke() },
             onClick = {
-                onClickIntent(RecommendationIntent.ClickButton.Copy(meme))
+                onClickIntent(RecommendationIntent.ClickButton.Copy(page))
             }
         )
 
@@ -125,7 +126,13 @@ internal fun ActionButtons(
 
         FarmemeCircleButton(
             backgroundColor = FarmemeTheme.backgroundColor.white,
-            icon = { FarmemeIcon.BookmarkLine() },
+            icon = {
+                if (meme.isSaved) {
+                    FarmemeIcon.BookmarkFilled()
+                } else {
+                    FarmemeIcon.BookmarkLine()
+                }
+            },
             onClick = {
                 onClickIntent(RecommendationIntent.ClickButton.BookMark(meme))
             }

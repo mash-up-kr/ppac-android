@@ -2,8 +2,10 @@
 
 package team.ppac.recommendation.component
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,11 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.FarmemeTheme
@@ -28,17 +33,20 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import kotlin.math.absoluteValue
 
+
+//비트맵 가져오는 방법 생각하기
 @Composable
 fun HeroModulePager(
     modifier: Modifier = Modifier,
     memes: ImmutableList<Meme>,
     pagerState: PagerState,
-    onMovePage: (Meme) -> Unit,
+    onMovePage: (page: Int, Meme) -> Unit,
+    onLoadMeme: (page: Int, bitmap: Bitmap) -> Unit,
 ) {
     LaunchedEffect(pagerState) {
         snapshotFlow { pagerState.currentPage }
             .collect {
-                onMovePage(memes[it])
+                onMovePage(it, memes[it])
             }
     }
     HorizontalPager(
@@ -46,12 +54,14 @@ fun HeroModulePager(
         state = pagerState,
         contentPadding = PaddingValues(horizontal = 60.dp),
         pageSpacing = 12.dp,
+        beyondBoundsPageCount = 3,
     ) { page ->
+        val pageOffset =
+            ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction)
+        val dimmed = FarmemeTheme.backgroundColor.dimmer
         Box(
             modifier = Modifier
                 .graphicsLayer {
-                    val pageOffset =
-                        ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction)
                     alpha = lerp(
                         start = 1f,
                         stop = 0.6f,
@@ -59,11 +69,44 @@ fun HeroModulePager(
                     )
                     scaleY = lerp(
                         start = 1f,
-                        stop = 0.8f,
+                        stop = 0.9f,
                         fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
                     )
                     clip = true
                     shape = FarmemeRadius.Radius40.shape
+                    renderEffect = if (pageOffset != 0f) {
+                        BlurEffect(
+                            lerp(
+                                start = 1f,
+                                stop = 27f, // 270 / 10
+                                fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                            ), lerp(
+                                start = 1f,
+                                stop = 31f, // 310 / 10
+                                fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                            )
+                        )
+                    } else {
+                        null
+                    }
+                }
+                .run {
+                    if (pageOffset != 0f) {
+                        drawWithContent {
+                            drawContent()
+                            drawRect(
+                                dimmed.copy(
+                                    alpha = lerp(
+                                        start = 0f,
+                                        stop = 0.6f,
+                                        fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                                    )
+                                )
+                            )
+                        }
+                    } else {
+                        this
+                    }
                 }
                 .border(
                     border = BorderStroke(
@@ -75,12 +118,17 @@ fun HeroModulePager(
                 .height(310.dp))
         {
             AsyncImage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(FarmemeTheme.backgroundColor.black),
                 model = memes[page].imageUrl,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
                 error = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = "",
+                onSuccess = {
+                    onLoadMeme(page, it.result.drawable.toBitmap())
+                }
             )
         }
     }

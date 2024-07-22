@@ -41,8 +41,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
+import kotlinx.collections.immutable.ImmutableList
 import team.ppac.common.kotlin.extension.truncateDisplayedString
 import team.ppac.common.kotlin.extension.truncateDisplayedList
 import team.ppac.designsystem.FarmemeTheme

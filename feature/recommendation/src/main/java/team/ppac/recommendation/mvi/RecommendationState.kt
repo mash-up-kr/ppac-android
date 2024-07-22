@@ -8,19 +8,24 @@ import team.ppac.domain.model.Meme
 
 data class RecommendationState(
     val isLoading: Boolean = true,
+    val currentPage: Int = 0,
     val seenMemeCount: Int = 0,
     val thisWeekMemes: ImmutableList<Meme> = persistentListOf(),
 ) : UiState {
 
-    fun incrementReactionCount(meme: Meme) =  copy(
-        thisWeekMemes = thisWeekMemes.map {
-            if (it == meme) {
-                it.copy(reaction = it.reaction + 1)
+    fun updateReaction(
+        meme: Meme,
+        transform: (Meme) -> Meme
+    ) = copy(
+        thisWeekMemes = thisWeekMemes.map { changeMeme ->
+            if (changeMeme.id == meme.id) {
+                transform(changeMeme)
             } else {
-                it
+                changeMeme
             }
         }.toImmutableList(),
     )
+
     companion object {
         val INITIAL_STATE
             get() = RecommendationState()

@@ -26,4 +26,9 @@ internal interface MemeApi {
     @POST("/api/meme/{memeId}/reaction")
     suspend fun reactMeme(@Path("memeId") memeId: String): Boolean
 
+    @POST("/api/meme/{memeId}/watch/{type}")
+    suspend fun watchMeme(
+        @Path("memeId") memeId: String,
+        @Path("type") type: String
+    ): Boolean
 }
