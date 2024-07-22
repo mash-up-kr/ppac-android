@@ -6,12 +6,15 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
+import team.ppac.designsystem.component.tabbar.FarmemeNavigationBar
+import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.search.detail.component.SearchDetailResultContent
 import team.ppac.search.detail.component.SearchDetailResultHeader
@@ -24,7 +27,9 @@ internal fun SearchDetailScreen(
     navigateBack: () -> Unit,
 ) {
     FarmemeScaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .systemBarsPadding(),
         topBar = {
             FarmemeBackToolBar(
                 title = uiState.memeCategory,
@@ -36,7 +41,7 @@ internal fun SearchDetailScreen(
             top = paddingValues.calculateTopPadding(),
             start = paddingValues.calculateStartPadding(LayoutDirection.Ltr),
             end = paddingValues.calculateEndPadding(LayoutDirection.Ltr),
-            bottom = paddingValues.calculateBottomPadding() + 64.dp
+            bottom = paddingValues.calculateBottomPadding() + TabBarHeight
         )
 
         Column(
