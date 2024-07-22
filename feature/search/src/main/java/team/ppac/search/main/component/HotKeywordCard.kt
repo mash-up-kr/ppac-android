@@ -23,6 +23,7 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.search.main.model.HotKeywordUiModel
 import team.ppac.search.main.preview.HotKeywordCardProvider
 
@@ -30,10 +31,12 @@ import team.ppac.search.main.preview.HotKeywordCardProvider
 internal fun HotKeywordCard(
     modifier: Modifier = Modifier,
     hotKeywordUiModel: HotKeywordUiModel,
+    onMemeClick: (String) -> Unit,
 ) {
     Box(
         modifier = modifier
             .size(90.dp)
+            .noRippleClickable(onClick = { onMemeClick(hotKeywordUiModel.keyword) })
             .clip(FarmemeRadius.Radius12.shape)
             .border(
                 width = 2.dp,
@@ -95,6 +98,7 @@ private fun HotKeywordCardPreview(
     ) {
         HotKeywordCard(
             hotKeywordUiModel = HotKeywordUiModel(id = "", keyword = "", imageUrl = ""),
+            onMemeClick = {}
         )
     }
 }

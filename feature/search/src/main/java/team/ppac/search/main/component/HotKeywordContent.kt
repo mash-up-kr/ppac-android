@@ -19,7 +19,8 @@ import team.ppac.search.main.model.HotKeywordUiModel
 @Composable
 internal fun HotKeywordContent(
     modifier: Modifier = Modifier,
-    keywords: ImmutableList<HotKeywordUiModel>
+    keywords: ImmutableList<HotKeywordUiModel>,
+    onHotKeywordMemeClick: (String) -> Unit,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -32,6 +33,7 @@ internal fun HotKeywordContent(
         ) { uiModel ->
             HotKeywordCard(
                 hotKeywordUiModel = uiModel,
+                onMemeClick = onHotKeywordMemeClick
             )
         }
     }
@@ -54,7 +56,8 @@ private fun HotKeywordContentPreview() {
                 HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
             ).add(
                 HotKeywordUiModel(id = "", keyword = "Asdf", imageUrl = sampleUrl)
-            )
+            ),
+            onHotKeywordMemeClick = {}
         )
     }
 }
