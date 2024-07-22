@@ -3,6 +3,8 @@ package team.ppac.common.android
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,7 +42,7 @@ fun FarmemeSnackbarHost(
             currentSnackbarData.dismiss()
         }
     }
-    FadeInFadeOutWithScale(
+    SlideInSlideOutWithScale(
         current = snackbarHostState.currentSnackbarData,
         modifier = modifier
             .fillMaxSize()
@@ -50,12 +52,12 @@ fun FarmemeSnackbarHost(
 }
 
 @Composable
-private fun FadeInFadeOutWithScale(
+private fun SlideInSlideOutWithScale(
     current: SnackbarData?,
     modifier: Modifier = Modifier,
     content: @Composable (SnackbarData) -> Unit,
 ) {
-    val state = remember { FadeInFadeOutState<SnackbarData?>() }
+    val state = remember { SlideInSlideOutState<SnackbarData?>() }
 
     if (current != state.current) {
         state.current = current
@@ -65,11 +67,21 @@ private fun FadeInFadeOutWithScale(
         }
         state.items.clear()
         keys.fastFilterNotNull().fastMapTo(state.items) { key ->
-            FadeInFadeOutAnimationItem(key) { children ->
+            SlideInSlideOutAnimationItem(key) { children ->
                 AnimatedVisibility(
                     visible = key == current,
-                    //                    enter = fadeIn(animationSpec = tween(durationMillis = 1500, easing = LinearEasing)),
-                    exit = fadeOut(animationSpec = tween(500))
+                    enter = slideInVertically(
+                        initialOffsetY = { fullHeight -> fullHeight },
+                        animationSpec = tween(
+                            durationMillis = 200,
+                        )
+                    ),
+                    exit = slideOutVertically(
+                        targetOffsetY = { fullHeight -> -fullHeight },
+                        animationSpec = tween(
+                            durationMillis = 200,
+                        )
+                    ),
                 ) {
                     children()
                 }
@@ -79,7 +91,7 @@ private fun FadeInFadeOutWithScale(
 
     Box(
         modifier = modifier,
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = Alignment.TopCenter
     ) {
         state.scope = currentRecomposeScope
         state.items.fastForEach { (item, opacity) ->
@@ -92,18 +104,18 @@ private fun FadeInFadeOutWithScale(
     }
 }
 
-private class FadeInFadeOutState<T> {
+private class SlideInSlideOutState<T> {
     var current: Any? = Any()
-    var items = mutableListOf<FadeInFadeOutAnimationItem<T>>()
+    var items = mutableListOf<SlideInSlideOutAnimationItem<T>>()
     var scope: RecomposeScope? = null
 }
 
-private data class FadeInFadeOutAnimationItem<T>(
+private data class SlideInSlideOutAnimationItem<T>(
     val key: T,
-    val transition: FadeInFadeOutTransition
+    val transition: SlideInSlideOutTransition
 )
 
-private typealias FadeInFadeOutTransition = @Composable (content: @Composable () -> Unit) -> Unit
+private typealias SlideInSlideOutTransition = @Composable (content: @Composable () -> Unit) -> Unit
 
 @Preview
 @Composable
