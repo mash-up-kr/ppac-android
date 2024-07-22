@@ -2,10 +2,8 @@ package team.ppac.search.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.search.main.component.OpenServiceDialog
 import team.ppac.search.main.mvi.SearchIntent
@@ -21,7 +19,7 @@ internal fun SearchRoute(
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
-                    is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.category)
+                    is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.argument)
                 }
             }
         }
@@ -38,7 +36,8 @@ internal fun SearchRoute(
             uiState = uiState,
             onSearchBarClick = { viewModel.showSnackbar("안녕하세요") },
 //            onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
-            onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) }
+            onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) },
+            onHotKeywordMemeClick = { viewModel.intent(SearchIntent.ClickKeywordCard(keyword = it)) }
         )
     }
 }

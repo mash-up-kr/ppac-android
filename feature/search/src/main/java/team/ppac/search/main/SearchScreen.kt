@@ -28,6 +28,7 @@ internal fun SearchScreen(
     uiState: SearchUiState,
     onSearchBarClick: () -> Unit,
     onCategoryClick: (String) -> Unit,
+    onHotKeywordMemeClick: (String) -> Unit,
 ) {
     FarmemeScaffold(
         modifier = modifier
@@ -51,7 +52,11 @@ internal fun SearchScreen(
                 )
             }
             item {
-                HotKeywordContent(keywords = uiState.hotKeywords)
+                HotKeywordContent(
+                    modifier = Modifier,
+                    keywords = uiState.hotKeywords,
+                    onHotKeywordMemeClick = onHotKeywordMemeClick
+                )
             }
             item { Spacer(modifier = Modifier.size(40.dp)) }
             item {
@@ -77,6 +82,7 @@ private fun MyPageScreenPreview() {
     SearchScreen(
         uiState = SearchUiState.INITIAL_STATE,
         onSearchBarClick = {},
-        onCategoryClick = {}
+        onCategoryClick = {},
+        onHotKeywordMemeClick = {}
     )
 }

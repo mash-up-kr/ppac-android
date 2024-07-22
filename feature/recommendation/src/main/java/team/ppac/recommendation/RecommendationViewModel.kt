@@ -46,14 +46,14 @@ class RecommendationViewModel @Inject constructor(
                 postSideEffect(RecommendationSideEffect.RunRisingEffect)
                 reduce {
                     updateReaction(intent.meme) {
-                        it.copy(reaction = it.reaction + 1)
+                        it.copy(reactionCount = it.reactionCount + 1)
                     }
                 }
                 runCatching {
                     reactMemeUseCase(intent.meme.id)
                 }.onFailure {
                     reduce {
-                        updateReaction(intent.meme) { it.copy(reaction = it.reaction - 1) }
+                        updateReaction(intent.meme) { it.copy(reactionCount = it.reactionCount - 1) }
                     }
                 }
             }
