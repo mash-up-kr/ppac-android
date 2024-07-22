@@ -48,7 +48,7 @@ class DetailViewModel @Inject constructor(
                 postSideEffect(DetailSideEffect.RunRisingEffect)
             }
 
-            DetailIntent.ClickBackButton -> {
+            is DetailIntent.ClickBackButton -> {
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
             }
         }
@@ -91,7 +91,6 @@ class DetailViewModel @Inject constructor(
 
     private fun incrementReactionCount() {
         viewModelScope.launch {
-            reactMemeUseCase(currentState.memeId)
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
@@ -99,6 +98,14 @@ class DetailViewModel @Inject constructor(
                     )
                 )
             }
+
+            reduce {
+                copy(
+                    detailMemeUiModel = detailMemeUiModel.copy(
+                        reactionCount = detailMemeUiModel.reactionCount - 1
+                    )
+                )
+            }.takeIf { !reactMemeUseCase(currentState.memeId) }
         }
     }
 
