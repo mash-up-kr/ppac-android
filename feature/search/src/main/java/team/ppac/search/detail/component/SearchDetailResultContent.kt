@@ -3,9 +3,11 @@ package team.ppac.search.detail.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import team.ppac.common.android.component.FarmemeMemeItem
@@ -27,17 +29,29 @@ fun SearchDetailResultContent(
             count = searchResults.itemCount,
             key = searchResults.itemKey(SearchResultUiModel::memeId)
         ) { index ->
-            val seachResult = searchResults[index] ?: throw Exception()
+            val searchResult = searchResults[index] ?: throw Exception()
 
-            FarmemeMemeItem(
-                modifier = Modifier,
-                memeId = seachResult.memeId,
-                memeTitle = seachResult.memeTitle,
-                lolCount = seachResult.lolCount,
-                imageUrl = seachResult.imageUrl,
-                onMemeClick = onMemeClick,
-                onCopyClick = {}, // TODO(JaesungLeee) : 스낵바 띄우기
-            )
+            with(searchResult) {
+                FarmemeMemeItem(
+                    modifier = Modifier,
+                    memeId = memeId,
+                    memeTitle = memeTitle,
+                    lolCount = lolCount,
+                    imageUrl = imageUrl,
+                    onMemeClick = onMemeClick,
+                    onCopyClick = {}, // TODO(JaesungLeee) : 스낵바 띄우기
+                )
+            }
+        }
+
+        searchResults.apply {
+            when {
+                loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached -> {
+                    item(span = StaggeredGridItemSpan.FullLine) {
+                        SearchDetailResultFooter()
+                    }
+                }
+            }
         }
     }
 }
