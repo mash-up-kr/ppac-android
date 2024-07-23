@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -74,9 +73,7 @@ fun OpenServiceDialog(
 @Preview
 @Composable
 private fun OpenServiceDialogPreview() {
-    FarmemeScaffold(
-        scaffoldState = rememberScaffoldState()
-    ) {
+    FarmemeScaffold {
         OpenServiceDialog(
             onConfirmClick = {},
             onDismiss = {},

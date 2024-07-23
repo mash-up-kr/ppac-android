@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,11 +28,13 @@ internal fun SearchScreen(
     uiState: SearchUiState,
     onSearchBarClick: () -> Unit,
     onCategoryClick: (String) -> Unit,
+    onHotKeywordMemeClick: (String) -> Unit,
 ) {
     FarmemeScaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .systemBarsPadding(),
         isIncludeHorizontalPadding = false,
-        scaffoldState = rememberScaffoldState()
     ) {
         LazyColumn(
             contentPadding = PaddingValues(bottom = TabBarHeight),
@@ -50,7 +52,11 @@ internal fun SearchScreen(
                 )
             }
             item {
-                HotKeywordContent(keywords = uiState.hotKeywords)
+                HotKeywordContent(
+                    modifier = Modifier,
+                    keywords = uiState.hotKeywords,
+                    onHotKeywordMemeClick = onHotKeywordMemeClick
+                )
             }
             item { Spacer(modifier = Modifier.size(40.dp)) }
             item {
@@ -76,6 +82,7 @@ private fun MyPageScreenPreview() {
     SearchScreen(
         uiState = SearchUiState.INITIAL_STATE,
         onSearchBarClick = {},
-        onCategoryClick = {}
+        onCategoryClick = {},
+        onHotKeywordMemeClick = {}
     )
 }

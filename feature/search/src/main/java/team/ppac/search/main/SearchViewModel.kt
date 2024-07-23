@@ -41,11 +41,11 @@ class SearchViewModel @Inject constructor(
             }
 
             is SearchIntent.ClickKeywordCard -> {
-                postSideEffect(SearchSideEffect.NavigateToSearchDetail(category = ""))
+                postSideEffect(SearchSideEffect.NavigateToSearchDetail(argument = intent.keyword))
             }
 
             is SearchIntent.ClickMemeCategory -> {
-                postSideEffect(SearchSideEffect.NavigateToSearchDetail(category = intent.category))
+                postSideEffect(SearchSideEffect.NavigateToSearchDetail(argument = intent.category))
             }
 
             is SearchIntent.ClickServiceOpenDialogConfirm -> {

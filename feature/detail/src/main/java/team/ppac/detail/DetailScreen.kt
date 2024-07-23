@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,7 +48,6 @@ internal fun DetailScreen(
 
     FarmemeScaffold(
         modifier = modifier,
-        scaffoldState = rememberScaffoldState(),
         topBar = {
             FarmemeBackToolBar(
                 title = "밈 자세히 보기",

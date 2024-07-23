@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
@@ -46,14 +45,14 @@ class RecommendationViewModel @Inject constructor(
                 postSideEffect(RecommendationSideEffect.RunRisingEffect)
                 reduce {
                     updateReaction(intent.meme) {
-                        it.copy(reaction = it.reaction + 1)
+                        it.copy(reactionCount = it.reactionCount + 1)
                     }
                 }
                 runCatching {
                     reactMemeUseCase(intent.meme.id)
                 }.onFailure {
                     reduce {
-                        updateReaction(intent.meme) { it.copy(reaction = it.reaction - 1) }
+                        updateReaction(intent.meme) { it.copy(reactionCount = it.reactionCount - 1) }
                     }
                 }
             }

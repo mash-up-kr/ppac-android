@@ -13,6 +13,8 @@ import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCaseImpl
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCaseImpl
+import team.ppac.domain.usecase.GetSearchMemeUseCase
+import team.ppac.domain.usecase.GetSearchMemeUseCaseImpl
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCaseImpl
 import team.ppac.domain.usecase.GetTopKeywordsUseCase
@@ -78,6 +80,10 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindDeleteSavedMemeUseCase(impl: DeleteSavedMemeUseCaseImpl): DeleteSavedMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetSearchMemeUseCase(impl: GetSearchMemeUseCaseImpl): GetSearchMemeUseCase
 
     @Binds
     @ViewModelScoped
