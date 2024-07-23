@@ -22,22 +22,22 @@ fun <S : UiState, SE : UiSideEffect, I : UiIntent> BaseComposable(
 ) = viewModel.apply {
     val state: S = state.collectAsStateWithLifecycle().value
 
-    val snackBarScope = rememberCoroutineScope()
-    val snackBarHostState = remember { SnackbarHostState() }
+    val snackbarScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
     var snackbarData by remember { mutableStateOf(SnackbarData("", null)) }
 
     LaunchedEffect(key1 = viewModel) {
         snackbarEffect.collectLatest { snackbar ->
             snackbarData = snackbar
-            snackBarScope.launch {
-                snackBarHostState.showSnackbar(snackbar.message)
+            snackbarScope.launch {
+                snackbarHostState.showSnackbar(snackbar.message)
             }
         }
     }
 
     content(state)
 
-    FarmemeSnackbarHost(snackbarHostState = snackBarHostState) {
+    FarmemeSnackbarHost(snackbarHostState = snackbarHostState) {
         FarmemeSnackbar(
             message = snackbarData.message,
             leadingIcon = snackbarData.icon
