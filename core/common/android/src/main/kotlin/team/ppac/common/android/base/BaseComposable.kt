@@ -19,15 +19,15 @@ import team.ppac.designsystem.component.snackbar.FarmemeSnackbar
 fun <S : UiState, SE : UiSideEffect, I : UiIntent> BaseComposable(
     viewModel: BaseViewModel<S, SE, I>,
     content: @Composable (S) -> Unit,
-) = viewModel.apply {
-    val state: S = state.collectAsStateWithLifecycle().value
+) {
+    val state: S = viewModel.state.collectAsStateWithLifecycle().value
 
     val snackbarScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     var snackbarData by remember { mutableStateOf(SnackbarData("", null)) }
 
     LaunchedEffect(key1 = viewModel) {
-        snackbarEffect.collectLatest { snackbar ->
+        viewModel.snackbarEffect.collectLatest { snackbar ->
             snackbarData = snackbar
             snackbarScope.launch {
                 snackbarHostState.showSnackbar(snackbar.message)
