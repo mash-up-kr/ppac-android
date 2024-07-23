@@ -41,5 +41,6 @@ dependencies {
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.paging.runtime)
     implementation(libs.paging.compose)
+    implementation(libs.compose.lottie)
     kapt(libs.hilt.compiler)
 }
