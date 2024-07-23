@@ -8,6 +8,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.search.detail.mvi.SearchDetailIntent
+import team.ppac.search.detail.mvi.SearchDetailSideEffect
 
 @Composable
 internal fun SearchDetailRoute(
@@ -20,7 +22,8 @@ internal fun SearchDetailRoute(
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
-                    else -> {}
+                    is SearchDetailSideEffect.NavigateToMemeDetail ->
+                        navigateToMemeDetail(sideEffect.memeId)
                 }
             }
         }
@@ -29,7 +32,7 @@ internal fun SearchDetailRoute(
             modifier = modifier,
             uiState = uiState,
             onBackClick = navigateBack,
-            onMemeClick = navigateToMemeDetail,
+            onMemeClick = { viewModel.intent(SearchDetailIntent.ClickMeme(it)) },
             onCopyClick = {
                 viewModel.showSnackbar(
                     message = "이미지를 클립보드에 복사했어요",
