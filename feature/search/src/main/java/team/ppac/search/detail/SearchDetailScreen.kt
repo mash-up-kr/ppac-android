@@ -25,13 +25,13 @@ internal fun SearchDetailScreen(
     uiState: SearchDetailUiState,
     onBackClick: () -> Unit,
     onMemeClick: (String) -> Unit,
+    onCopyClick: () -> Unit,
 ) {
     val searchResults = uiState.searchResults.collectAsLazyPagingItems()
 
     FarmemeScaffold(
         modifier = modifier
-            .fillMaxSize()
-            .systemBarsPadding(),
+            .fillMaxSize(),
         topBar = {
             FarmemeBackToolBar(
                 title = uiState.memeCategory,
@@ -53,6 +53,7 @@ internal fun SearchDetailScreen(
             SearchDetailResultContent(
                 searchResults = searchResults,
                 onMemeClick = onMemeClick,
+                onCopyClick = onCopyClick
             )
         }
     }
@@ -64,6 +65,7 @@ private fun SearchDetailScreenPreview() {
     SearchDetailScreen(
         uiState = SearchDetailUiState.INITIAL_STATE,
         onBackClick = {},
-        onMemeClick = {}
+        onMemeClick = {},
+        onCopyClick = {}
     )
 }
