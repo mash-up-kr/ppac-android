@@ -12,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import team.ppac.common.android.FarmemeSnackbarHost
+import team.ppac.common.android.SnackbarData
 import team.ppac.designsystem.component.snackbar.FarmemeSnackbar
 
 @Composable
@@ -23,13 +24,13 @@ fun <S : UiState, SE : UiSideEffect, I : UiIntent> BaseComposable(
 
     val snackBarScope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
-    var snackbarMessage by remember { mutableStateOf("") }
+    var snackbarData by remember { mutableStateOf(SnackbarData("", null)) }
 
     LaunchedEffect(key1 = viewModel) {
-        snackbarEffect.collectLatest { message ->
-            snackbarMessage = message
+        snackbarEffect.collectLatest { snackbar ->
+            snackbarData = snackbar
             snackBarScope.launch {
-                snackBarHostState.showSnackbar(snackbarMessage)
+                snackBarHostState.showSnackbar(snackbar.message)
             }
         }
     }
@@ -37,6 +38,9 @@ fun <S : UiState, SE : UiSideEffect, I : UiIntent> BaseComposable(
     content(state)
 
     FarmemeSnackbarHost(snackbarHostState = snackBarHostState) {
-        FarmemeSnackbar(message = snackbarMessage)
+        FarmemeSnackbar(
+            message = snackbarData.message,
+            leadingIcon = snackbarData.icon
+        )
     }
 }

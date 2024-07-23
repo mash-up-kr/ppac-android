@@ -6,7 +6,6 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
-import team.ppac.common.kotlin.model.SnackbarMessage
 import team.ppac.mypage.navigation.myPageScreen
 import team.ppac.mypage.navigation.navigateToMyPage
 import team.ppac.recommendation.navigation.RECOMMENDATION_ROUTE
@@ -22,7 +21,6 @@ fun FarmemeNavHost(
     modifier: Modifier = Modifier,
     startDestination: String = RECOMMENDATION_ROUTE,
     navController: NavHostController,
-    onShowSnackBar: suspend (SnackbarMessage) -> Boolean,
     navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
 ) {
