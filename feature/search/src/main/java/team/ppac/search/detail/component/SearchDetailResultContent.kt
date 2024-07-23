@@ -30,7 +30,7 @@ fun SearchDetailResultContent(
             count = searchResults.itemCount,
             key = searchResults.itemKey(SearchResultUiModel::memeId)
         ) { index ->
-            val searchResult = searchResults[index] ?: throw Exception()
+            val searchResult = searchResults[index] ?: return@items
 
             with(searchResult) {
                 FarmemeMemeItem(
