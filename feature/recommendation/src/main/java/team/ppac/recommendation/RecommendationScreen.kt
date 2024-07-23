@@ -37,6 +37,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.collections.immutable.toImmutableList
+import kotlinx.coroutines.launch
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
@@ -76,10 +77,12 @@ internal fun RecommendationScreen(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 RecommendationSideEffect.RunRisingEffect -> {
-                    lottieAnimatable.animate(
-                        composition = lottieComposition,
-                        speed = 1.5f
-                    )
+                    launch {
+                        lottieAnimatable.animate(
+                            composition = lottieComposition,
+                            speed = 1.5f
+                        )
+                    }
                 }
 
                 is RecommendationSideEffect.CopyClipBoard -> {
