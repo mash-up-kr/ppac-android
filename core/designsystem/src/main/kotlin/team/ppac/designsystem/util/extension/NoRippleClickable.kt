@@ -26,7 +26,7 @@ fun Modifier.noRippleClickable(
 }
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
-fun Modifier.rippleClickable(
+fun Modifier.singleClickable(
     rippleColor: Color,
     enabled: Boolean = true,
     debounceMillis: Long = 300L,
