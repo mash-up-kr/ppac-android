@@ -1,6 +1,7 @@
 package team.ppac.common.android.component
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -57,15 +58,19 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .heightIn(min = 100.dp, max = 207.dp)
-                    .fillMaxWidth(),
+                    .heightIn(
+                        min = FARMEME_MEME_ITEM_MIN_HEIGHT.dp,
+                        max = FARMEME_MEME_ITEM_MAX_HEIGHT.dp,
+                    )
+                    .fillMaxWidth()
+                    .background(FarmemeTheme.backgroundColor.black),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageUrl)
                     .crossfade(true)
                     .build(),
                 placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 onSuccess = {
                     bitmap.value = it.result.drawable.toBitmap()
                 }
@@ -134,3 +139,6 @@ fun FarmemeLolCount(
 private fun FarmemeLolCountPreview() {
     FarmemeLolCount(lolCount = 10)
 }
+
+const val FARMEME_MEME_ITEM_MIN_HEIGHT = 80
+const val FARMEME_MEME_ITEM_MAX_HEIGHT = 300
