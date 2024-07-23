@@ -24,12 +24,12 @@ internal fun MyPageLevelChip(
             .padding(horizontal = 10.dp, vertical = 5.dp),
     ) {
         Text(
-            text = "$memeCount",
+            text = "${minOf(memeCount, MAX_MEME_COUNT)}",
             color = FarmemeTheme.textColor.brand,
             style = FarmemeTheme.typography.body.large.semibold,
         )
         Text(
-            text = "/20",
+            text = "/$MAX_MEME_COUNT",
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.large.semibold,
         )

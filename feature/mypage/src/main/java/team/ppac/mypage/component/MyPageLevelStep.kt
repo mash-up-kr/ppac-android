@@ -172,4 +172,4 @@ private fun MyPageLevelStepPreview() {
     )
 }
 
-private const val MAX_MEME_COUNT = 20
+const val MAX_MEME_COUNT = 20
