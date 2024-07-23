@@ -1,5 +1,6 @@
 package team.ppac.common.android.base
 
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import team.ppac.common.android.SnackbarData
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -31,7 +33,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
     private val _sideEffect: MutableSharedFlow<SE> = MutableSharedFlow()
     val sideEffect = _sideEffect.asSharedFlow()
 
-    private val _snackbarEffect = MutableSharedFlow<String>()
+    private val _snackbarEffect = MutableSharedFlow<SnackbarData>()
     val snackbarEffect = _snackbarEffect.asSharedFlow()
 
     // Get current state
@@ -42,8 +44,8 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
         handleClientException(throwable)
     }
 
-    fun showSnackbar(message: String) = launch {
-        _snackbarEffect.emit(message)
+    fun showSnackbar(message: String, icon: @Composable (() -> Unit)? = null) = launch {
+        _snackbarEffect.emit(SnackbarData(message, icon))
     }
 
     fun intent(intent: I) {
