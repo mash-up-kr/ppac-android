@@ -2,6 +2,7 @@ package team.ppac.mypage
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
@@ -40,7 +41,7 @@ class MyPageViewModel @Inject constructor(
             }
 
             val user = userDeferred.await()
-            val savedMemes = getUserSavedMemesUseCase()
+            val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
             val recentMemes = recentMemesDeferred.await()
 
             reduce {
