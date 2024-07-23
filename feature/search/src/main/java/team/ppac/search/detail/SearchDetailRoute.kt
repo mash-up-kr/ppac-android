@@ -1,11 +1,13 @@
 package team.ppac.search.detail
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import team.ppac.common.android.base.BaseComposable
+import team.ppac.designsystem.foundation.FarmemeIcon
 
 @Composable
 internal fun SearchDetailRoute(
@@ -14,15 +16,14 @@ internal fun SearchDetailRoute(
     navigateBack: () -> Unit,
     navigateToMemeDetail: (String) -> Unit,
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                else -> {}
+    BaseComposable(viewModel = viewModel) { uiState ->
+        LaunchedEffect(key1 = viewModel) {
+            viewModel.sideEffect.collect { sideEffect ->
+                when (sideEffect) {
+                    else -> {}
+                }
             }
         }
-    }
 
         SearchDetailScreen(
             modifier = modifier,

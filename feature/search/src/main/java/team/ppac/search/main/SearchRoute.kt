@@ -34,8 +34,7 @@ internal fun SearchRoute(
         SearchScreen(
             modifier = modifier,
             uiState = uiState,
-            onSearchBarClick = { viewModel.showSnackbar("안녕하세요") },
-//            onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
+            onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
             onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) },
             onHotKeywordMemeClick = { viewModel.intent(SearchIntent.ClickKeywordCard(keyword = it)) }
         )

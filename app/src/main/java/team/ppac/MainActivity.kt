@@ -42,7 +42,9 @@ class MainActivity : ComponentActivity() {
             )
         }
 
-        if (memeId != null) { navigateToDetail(memeId) }
+        if (memeId != null) {
+            navigateToDetail(memeId)
+        }
 
         setContent {
             FarmemeTheme {
@@ -62,7 +64,6 @@ class MainActivity : ComponentActivity() {
                     FarmemeNavHost(
                         modifier = Modifier.fillMaxSize(),
                         navController = navController,
-                        onShowSnackBar = { _ -> false },
                         navigateToDetail = { navigateToDetail(it) },
                         navigateToSetting = {
                             settingNavigator.navigateFrom(this@MainActivity)
