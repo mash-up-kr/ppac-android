@@ -86,7 +86,7 @@ internal fun RecommendationScreen(
                 }
 
                 is RecommendationSideEffect.CopyClipBoard -> {
-                    memeBitmap[sideEffect.memesIndex]?.let {
+                    memeBitmap[sideEffect.memeIndex]?.let {
                         context.copyImageToClipBoard(bitmap = it)
                     }
                 }
