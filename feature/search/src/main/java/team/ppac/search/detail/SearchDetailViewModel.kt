@@ -7,7 +7,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.GetSearchMemeUseCase
+import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.search.detail.model.toSearchResultUiModel
 import team.ppac.search.detail.mvi.SearchDetailIntent
 import team.ppac.search.detail.mvi.SearchDetailSideEffect
@@ -18,6 +20,7 @@ import javax.inject.Inject
 class SearchDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getSearchMemeUseCase: GetSearchMemeUseCase,
+    private val watchMemeUseCase: WatchMemeUseCase,
 ) : BaseViewModel<SearchDetailUiState, SearchDetailSideEffect, SearchDetailIntent>(savedStateHandle) {
 
     init {
@@ -30,7 +33,20 @@ class SearchDetailViewModel @Inject constructor(
     }
 
     override suspend fun handleIntent(intent: SearchDetailIntent) {
-
+        when (intent) {
+            is SearchDetailIntent.ClickMeme -> {
+                runCatching {
+                    watchMemeUseCase(
+                        memeId = intent.memeId,
+                        watchType = MemeWatchType.SEARCH
+                    )
+                }.onSuccess {
+                    postSideEffect(SearchDetailSideEffect.NavigateToMemeDetail(memeId = intent.memeId))
+                }.onFailure {
+                    // 에러 처리
+                }
+            }
+        }
     }
 
     private fun getSearchResults(memeCategory: String) {
