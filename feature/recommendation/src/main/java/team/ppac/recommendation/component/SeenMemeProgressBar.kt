@@ -33,7 +33,7 @@ internal fun SeenMemeProgressBar(
     seenMemeCount: Int,
 ) {
     val seenMemeProgress by animateFloatAsState(
-        targetValue = (seenMemeCount / 6f),
+        targetValue = (seenMemeCount / 5f),
         label = "seenMemeProgress",
         animationSpec = tween(
             durationMillis = 1_500,

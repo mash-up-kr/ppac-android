@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
@@ -32,7 +34,9 @@ class RecommendationViewModel @Inject constructor(
     savedStateHandle
 ) {
     init {
-        initialAction()
+        viewModelScope.launch {
+            initialAction()
+        }
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): RecommendationState {
@@ -83,7 +87,7 @@ class RecommendationViewModel @Inject constructor(
             }
 
             is RecommendationIntent.MovePage -> {
-                if(intent.currentPage > currentState.currentPage){
+                if (intent.currentPage > currentState.currentPage) {
                     reduce {
                         copy(
                             currentPage = intent.currentPage,
@@ -95,20 +99,29 @@ class RecommendationViewModel @Inject constructor(
                     watchMemeUseCase(intent.meme.id, MemeWatchType.RECOMMEND)
                 } // 에러 무시
             }
+
+            RecommendationIntent.PullRefresh -> {
+                reduce { copy(isRefreshing = true) }
+                initialAction()
+                delay(500L)
+                reduce { copy(isRefreshing = false) }
+            }
         }
     }
 
-    private fun initialAction() {
-        viewModelScope.launch {
+    private suspend fun initialAction() {
+        coroutineScope {
             val thisWeekMemesDeferred = async { getThisWeekRecommendMemesUseCase() }
             val userDeferred = async { getUserUseCase() }
             val user = userDeferred.await()
             val thisWeekMemes = thisWeekMemesDeferred.await()
             reduce {
                 copy(
+                    isLoading = false,
                     thisWeekMemes = thisWeekMemes.toImmutableList(),
-                    seenMemeCount = user.memeRecommendWatchCount ?: 0,
-                    currentPage = user.memeRecommendWatchCount ?: 0,
+                    seenMemeCount = user.memeRecommendWatchCount ?: 1,
+                    currentPage = user.memeRecommendWatchCount ?: 1,
+                    level = user.levelCount,
                 )
             }
         }
