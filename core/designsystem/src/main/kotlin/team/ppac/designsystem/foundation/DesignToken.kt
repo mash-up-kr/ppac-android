@@ -35,6 +35,7 @@ data class FarmemeBackgroundColor(
     val primary: Color = Gray90,
     val assistive: Color = Gray10,
     val dimmer: Color = BlackAlpha40,
+    val dimmer2: Color = BlackAlpha80,
     val brand: Color = Orange100,
     val brandSub: Color = Lemon100,
     val brandAssistive: Color = Orange10,

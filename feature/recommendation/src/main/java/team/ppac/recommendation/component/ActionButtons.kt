@@ -60,7 +60,7 @@ internal fun ActionButtons(
             text = "",
             textColor = Color.Unspecified,
             icon = {
-                if (meme.reaction == 0) {
+                if (meme.reactionCount == 0) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(
@@ -73,7 +73,7 @@ internal fun ActionButtons(
                     }
                 }
                 AnimatedVisibility(
-                    visible = meme.reaction > 0,
+                    visible = meme.reactionCount > 0,
                     enter = fadeIn(),
                     exit = fadeOut(),
                 ) {
@@ -93,7 +93,7 @@ internal fun ActionButtons(
                             progress = { lottieAnimatable.progress },
                         )
                         Text(
-                            text = "+${meme.reaction}",
+                            text = "+${meme.reactionCount}",
                             style = FarmemeTheme.typography.highlight.basic,
                             color = FarmemeTheme.textColor.brand
                         )

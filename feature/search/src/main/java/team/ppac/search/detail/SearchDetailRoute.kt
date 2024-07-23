@@ -1,31 +1,46 @@
 package team.ppac.search.detail
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import team.ppac.common.android.base.BaseComposable
+import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.search.detail.mvi.SearchDetailIntent
+import team.ppac.search.detail.mvi.SearchDetailSideEffect
 
 @Composable
 internal fun SearchDetailRoute(
     modifier: Modifier = Modifier,
     viewModel: SearchDetailViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
+    navigateToMemeDetail: (String) -> Unit,
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                else -> {}
+    BaseComposable(viewModel = viewModel) { uiState ->
+        LaunchedEffect(key1 = viewModel) {
+            viewModel.sideEffect.collect { sideEffect ->
+                when (sideEffect) {
+                    is SearchDetailSideEffect.NavigateToMemeDetail ->
+                        navigateToMemeDetail(sideEffect.memeId)
+                }
             }
         }
-    }
 
-    SearchDetailScreen(
-        modifier = modifier,
-        uiState = uiState,
-        navigateBack = navigateBack
-    )
+        SearchDetailScreen(
+            modifier = modifier,
+            uiState = uiState,
+            onBackClick = navigateBack,
+            onMemeClick = { viewModel.intent(SearchDetailIntent.ClickMeme(it)) },
+            onCopyClick = {
+                viewModel.showSnackbar(
+                    message = "이미지를 클립보드에 복사했어요",
+                    icon = {
+                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
+                    }
+                )
+            }
+        )
+    }
 }

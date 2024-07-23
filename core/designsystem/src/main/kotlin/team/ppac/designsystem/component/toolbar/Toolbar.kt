@@ -59,11 +59,13 @@ internal fun FarmemeToolbar(
 ) {
     Row(
         modifier = modifier
-            .padding(top = with(LocalDensity.current) {
-                WindowInsets.statusBarsIgnoringVisibility
-                    .getTop(this)
-                    .toDp()
-            })
+            .padding(
+                top = with(LocalDensity.current) {
+                    WindowInsets.statusBarsIgnoringVisibility
+                        .getTop(this)
+                        .toDp()
+                }
+            )
             .fillMaxWidth()
             .height(50.dp),
         verticalAlignment = Alignment.CenterVertically

@@ -6,6 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import team.ppac.remote.model.response.meme.MemeResponse
+import team.ppac.remote.model.response.user.SavedMemesResponse
 
 internal interface MemeApi {
     @GET("api/meme/{memeId}")
@@ -23,12 +24,19 @@ internal interface MemeApi {
     @DELETE("/api/meme/{memeId}/save")
     suspend fun deleteSavedMeme(@Path("memeId") memeId: String): Boolean
 
+    @GET("/api/meme/search/{name}")
+    suspend fun getSearchMemes(
+        @Path("name") keyword: String,
+        @Query("page") page: Int,
+        @Query("size") pageSize: Int,
+    ): SavedMemesResponse
+
     @POST("/api/meme/{memeId}/reaction")
     suspend fun reactMeme(@Path("memeId") memeId: String): Boolean
 
     @POST("/api/meme/{memeId}/watch/{type}")
     suspend fun watchMeme(
         @Path("memeId") memeId: String,
-        @Path("type") type: String
+        @Path("type") type: String,
     ): Boolean
 }
