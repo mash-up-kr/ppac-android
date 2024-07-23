@@ -43,7 +43,7 @@ internal fun RecentMemeCard(
 @Composable
 private fun RecentMemeCardPreview() {
     RecentMemeCard(
-        imageUrl = "https://picsum.photos/id/10/2500/1667",
+        imageUrl = "",
         onClick = { },
     )
 }
