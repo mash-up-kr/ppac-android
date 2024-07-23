@@ -2,6 +2,7 @@ package team.ppac.search.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
@@ -54,7 +55,7 @@ class SearchDetailViewModel @Inject constructor(
             val searchResults = getSearchMemeUseCase(memeCategory)
                 .map { pagingData ->
                     pagingData.map { it.toSearchResultUiModel() }
-                }
+                }.cachedIn(viewModelScope)
 
             reduce {
                 copy(
