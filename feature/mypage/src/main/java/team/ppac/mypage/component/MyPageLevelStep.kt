@@ -117,9 +117,6 @@ private fun MyPageStepIcons(
                 step.isCompletedStep(levelUiModel = levelUiModel)
                 -> FarmemeIcon.LevelCheck()
 
-                step == levelUiModel.myPageLevel.levelCount
-                -> FarmemeIcon.LevelCurrent()
-
                 else
                 -> FarmemeIcon.LevelDisabled()
             }
