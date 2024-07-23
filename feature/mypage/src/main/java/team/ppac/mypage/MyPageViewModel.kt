@@ -30,9 +30,30 @@ class MyPageViewModel @Inject constructor(
         initialAction()
     }
 
+    override fun createInitialState(savedStateHandle: SavedStateHandle): MyPageUiState {
+        return MyPageUiState.INITIAL_STATE
+    }
+
+    override suspend fun handleIntent(intent: MyPageIntent) {
+        when (intent) {
+            is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)
+            is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(intent.memeId)
+            is MyPageIntent.ClickSettingButton -> navigateToSetting()
+            is MyPageIntent.RefreshData -> refreshData()
+        }
+    }
+
+    private fun navigateToDetail(memeId: String) {
+        postSideEffect(MyPageSideEffect.NavigateToDetail(memeId = memeId))
+    }
+
+    private fun navigateToSetting() {
+        postSideEffect(MyPageSideEffect.NavigateToSetting)
+    }
+
     private fun initialAction() {
         viewModelScope.launch {
-            updateLoading(true)
+            reduce { copy(isLoading = true) }
             val userDeferred = async {
                 getUserUseCase()
             }
@@ -51,44 +72,16 @@ class MyPageViewModel @Inject constructor(
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }
-            updateLoading(false)
+            reduce { copy(isLoading = false) }
         }
-    }
-
-    override fun createInitialState(savedStateHandle: SavedStateHandle): MyPageUiState {
-        return MyPageUiState.INITIAL_STATE
-    }
-
-    override suspend fun handleIntent(intent: MyPageIntent) {
-        when (intent) {
-            is MyPageIntent.ClickRecentMemeItem -> {
-                navigateToDetail(intent.memeId)
-            }
-
-            is MyPageIntent.ClickSavedMemeItem -> {
-                navigateToDetail(intent.memeId)
-            }
-
-            is MyPageIntent.ClickSettingButton -> navigateToSetting()
-
-            is MyPageIntent.RefreshData -> refreshData()
-        }
-    }
-
-    private fun navigateToDetail(memeId: String) {
-        postSideEffect(MyPageSideEffect.NavigateToDetail(memeId = memeId))
-    }
-
-    private fun navigateToSetting() {
-        postSideEffect(MyPageSideEffect.NavigateToSetting)
     }
 
     private fun refreshData() {
         viewModelScope.launch {
-            updateLoading(true)
+            reduce { copy(isRefreshing = true) }
             refreshAction()
-            delay(1_000L)
-            updateLoading(false)
+            delay(500L)
+            reduce { copy(isRefreshing = false) }
         }
     }
 
@@ -110,12 +103,6 @@ class MyPageViewModel @Inject constructor(
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }
-        }
-    }
-
-    private fun updateLoading(isLoading: Boolean) {
-        reduce {
-            copy(isLoading = isLoading)
         }
     }
 }

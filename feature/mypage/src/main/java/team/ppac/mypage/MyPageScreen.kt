@@ -52,12 +52,9 @@ internal fun MyPageScreen(
     navigateToSetting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
-    val isLoading = state.isLoading
-    val levelUiModel = state.levelUiModel
-    val recentMemes = state.recentMemes
     val savedMemes = state.savedMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = isLoading,
+        refreshing = state.isRefreshing,
         onRefresh = { viewModel.intent(MyPageIntent.RefreshData) },
     )
 
@@ -84,7 +81,7 @@ internal fun MyPageScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MyPageBody(
-                levelUiModel = levelUiModel,
+                levelUiModel = state.levelUiModel,
                 onClickToolBarActionIcon = { viewModel.intent(MyPageIntent.ClickSettingButton) },
             )
             Spacer(
@@ -94,7 +91,7 @@ internal fun MyPageScreen(
                     .background(FarmemeTheme.skeletonColor.primary),
             )
             RecentMemeContent(
-                recentMemes = recentMemes,
+                recentMemes = state.recentMemes,
                 onClickMemeItem = { memeId ->
                     viewModel.intent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
                 },
@@ -107,7 +104,7 @@ internal fun MyPageScreen(
             )
         }
         MyPagePullRefreshIndicator(
-            isLoading = state.isLoading,
+            isRefreshing = state.isRefreshing,
             pullRefreshState = pullRefreshState,
         )
     }
