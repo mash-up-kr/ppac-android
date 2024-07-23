@@ -27,8 +27,8 @@ internal interface MemeApi {
     @GET("/api/meme/search/{name}")
     suspend fun getSearchMemes(
         @Path("name") keyword: String,
-        @Query("page") page: Int = 1,
-        @Query("size") pageSize: Int = 5,
+        @Query("page") page: Int,
+        @Query("size") pageSize: Int,
     ): SavedMemesResponse
 
     @POST("/api/meme/{memeId}/reaction")
@@ -37,6 +37,6 @@ internal interface MemeApi {
     @POST("/api/meme/{memeId}/watch/{type}")
     suspend fun watchMeme(
         @Path("memeId") memeId: String,
-        @Path("type") type: String
+        @Path("type") type: String,
     ): Boolean
 }
