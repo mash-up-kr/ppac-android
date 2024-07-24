@@ -6,5 +6,6 @@ sealed class MyPageIntent : UiIntent {
     data object ClickSettingButton : MyPageIntent()
     data class ClickRecentMemeItem(val memeId: String) : MyPageIntent()
     data class ClickSavedMemeItem(val memeId: String) : MyPageIntent()
+    data object InitView : MyPageIntent()
     data object RefreshData : MyPageIntent()
 }

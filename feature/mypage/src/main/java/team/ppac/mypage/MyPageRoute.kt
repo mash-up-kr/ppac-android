@@ -27,6 +27,10 @@ internal fun MyPageRoute(
             }
         }
 
+        LaunchedEffect(key1 = Unit) {
+            viewModel.intent(MyPageIntent.InitView)
+        }
+
         MyPageScreen(
             uiState = uiState,
             onRefreshData = {

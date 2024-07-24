@@ -27,7 +27,13 @@ class MyPageViewModel @Inject constructor(
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
-        initialAction()
+        val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
+
+        reduce {
+            copy(
+                savedMemes = savedMemes
+            )
+        }
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): MyPageUiState {
@@ -39,7 +45,8 @@ class MyPageViewModel @Inject constructor(
             is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)
             is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(intent.memeId)
             is MyPageIntent.ClickSettingButton -> navigateToSetting()
-            is MyPageIntent.RefreshData -> refreshData()
+            is MyPageIntent.InitView -> initialAction()
+            is MyPageIntent.RefreshData -> refreshAction()
         }
     }
 
@@ -52,40 +59,18 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun initialAction() {
-        viewModelScope.launch {
-            reduce { copy(isLoading = true) }
-            val userDeferred = async {
-                getUserUseCase()
-            }
-            val recentMemesDeferred = async {
-                getUserRecentMemesUseCase()
-            }
-
-            val user = userDeferred.await()
-            val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
-            val recentMemes = recentMemesDeferred.await()
-
-            reduce {
-                copy(
-                    levelUiModel = user.toLevelUiModel(),
-                    savedMemes = savedMemes,
-                    recentMemes = recentMemes.toImmutableList(),
-                )
-            }
-            reduce { copy(isLoading = false) }
-        }
-    }
-
-    private fun refreshData() {
-        viewModelScope.launch {
-            reduce { copy(isRefreshing = true) }
-            refreshAction()
-            delay(500L)
-            reduce { copy(isRefreshing = false) }
-        }
+        reduce { copy(isLoading = true) }
+        getUserData()
+        reduce { copy(isLoading = false) }
     }
 
     private fun refreshAction() {
+        reduce { copy(isRefreshing = true) }
+        getUserData()
+        reduce { copy(isRefreshing = false) }
+    }
+
+    private fun getUserData() {
         viewModelScope.launch {
             val userDeferred = async {
                 getUserUseCase()
@@ -103,6 +88,7 @@ class MyPageViewModel @Inject constructor(
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }
+            delay(500L)
         }
     }
 }
