@@ -10,4 +10,6 @@ interface UserRepository {
     suspend fun getUser(): User
     fun getUserSavedMemes(): Flow<PagingData<Meme>>
     suspend fun getUserRecentMemes(): List<Meme>
+    suspend fun setLevel(level: Int)
+    suspend fun getLevel() : Int
 }
