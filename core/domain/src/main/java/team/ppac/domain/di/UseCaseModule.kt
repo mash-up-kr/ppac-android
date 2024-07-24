@@ -91,11 +91,11 @@ internal abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindReactMemeUseCae(impl: ReactMemeUseCaseImpl): ReactMemeUseCase
+    abstract fun bindReactMemeUseCase(impl: ReactMemeUseCaseImpl): ReactMemeUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindWatchMemeUseCae(impl: WatchMemeUseCaseImpl): WatchMemeUseCase
+    abstract fun bindWatchMemeUseCase(impl: WatchMemeUseCaseImpl): WatchMemeUseCase
 
     @Binds
     @ViewModelScoped
