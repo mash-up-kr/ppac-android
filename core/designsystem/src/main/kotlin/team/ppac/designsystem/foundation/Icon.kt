@@ -80,6 +80,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_success_filled_brand_24),
         contentDescription = null,
+        tint = Color.Unspecified,
     )
 
     @Composable
