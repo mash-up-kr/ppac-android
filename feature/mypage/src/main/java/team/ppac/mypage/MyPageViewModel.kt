@@ -63,9 +63,12 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun initialAction() {
-        reduce { copy(isLoading = true) }
-        getUserData()
-        reduce { copy(isLoading = false) }
+        viewModelScope.launch {
+            reduce { copy(isLoading = true) }
+            getUserData()
+            delay(500L)
+            reduce { copy(isLoading = false) }
+        }
     }
 
     private fun refreshAction() {
