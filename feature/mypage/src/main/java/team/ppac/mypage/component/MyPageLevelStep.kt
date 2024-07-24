@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -119,11 +118,10 @@ private fun MyPageStepIcons(
 ) {
     val lottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.my_page_level_circle_effect))
     val lottieAnimatable = rememberLottieAnimatable()
-    val currentComposition by rememberUpdatedState(lottieComposition)
 
-    LaunchedEffect(currentComposition) {
+    LaunchedEffect(lottieComposition) {
         lottieAnimatable.animate(
-            composition = currentComposition,
+            composition = lottieComposition,
             iterations = LottieConstants.IterateForever,
         )
     }
