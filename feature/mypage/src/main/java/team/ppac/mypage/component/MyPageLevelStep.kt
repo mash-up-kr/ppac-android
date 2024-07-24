@@ -132,19 +132,23 @@ private fun MyPageStepIcons(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         (MyPageLevel.LEVEL1.levelCount..MyPageLevel.LEVEL4.levelCount).map { step ->
-            if (step.isCompletedStep(levelUiModel = levelUiModel)) {
-                FarmemeIcon.LevelCheck()
-            } else {
-                Box(
-                    contentAlignment = Alignment.Center,
-                ) {
-                    if (step == levelUiModel.myPageLevel.levelCount) {
+            when {
+                step.isCompletedStep(levelUiModel) -> {
+                    FarmemeIcon.LevelCheck()
+                }
+
+                step == levelUiModel.myPageLevel.levelCount -> {
+                    Box(contentAlignment = Alignment.Center) {
                         LottieAnimation(
                             modifier = Modifier.size(20.dp),
                             composition = lottieComposition,
                             progress = { lottieAnimatable.progress },
                         )
+                        FarmemeIcon.LevelDisabled()
                     }
+                }
+
+                else -> {
                     FarmemeIcon.LevelDisabled()
                 }
             }
