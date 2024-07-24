@@ -3,13 +3,14 @@ package team.ppac.mypage
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -50,11 +51,9 @@ internal fun MyPageScreen(
     navigateToSetting: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
-    val levelUiModel = state.levelUiModel
-    val recentMemes = state.recentMemes
     val savedMemes = state.savedMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.isLoading,
+        refreshing = state.isRefreshing,
         onRefresh = { viewModel.intent(MyPageIntent.RefreshData) },
     )
 
@@ -73,43 +72,37 @@ internal fun MyPageScreen(
             .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
     ) {
-        LazyColumn(
+        Column(
+            modifier = Modifier
+                .padding(bottom = TabBarHeight)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(bottom = TabBarHeight),
         ) {
-            item {
-                MyPageBody(
-                    levelUiModel = levelUiModel,
-                    onClickToolBarActionIcon = { viewModel.intent(MyPageIntent.ClickSettingButton) },
-                )
-            }
-            item {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(10.dp)
-                        .background(FarmemeTheme.skeletonColor.primary),
-                )
-            }
-            item {
-                RecentMemeContent(
-                    recentMemes = recentMemes,
-                    onClickMemeItem = { memeId ->
-                        viewModel.intent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
-                    },
-                )
-            }
-            item {
-                SavedMemeContent(
-                    savedMemes = savedMemes,
-                    onMemeItemClick = { memeId ->
-                        viewModel.intent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                    },
-                )
-            }
+            MyPageBody(
+                levelUiModel = state.levelUiModel,
+                onClickToolBarActionIcon = { viewModel.intent(MyPageIntent.ClickSettingButton) },
+            )
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(10.dp)
+                    .background(FarmemeTheme.skeletonColor.primary),
+            )
+            RecentMemeContent(
+                recentMemes = state.recentMemes,
+                onClickMemeItem = { memeId ->
+                    viewModel.intent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
+                },
+            )
+            SavedMemeContent(
+                savedMemes = savedMemes,
+                onMemeItemClick = { memeId ->
+                    viewModel.intent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                },
+            )
         }
         MyPagePullRefreshIndicator(
-            isLoading = state.isLoading,
+            isRefreshing = state.isRefreshing,
             pullRefreshState = pullRefreshState,
         )
     }
@@ -126,9 +119,8 @@ private fun MyPageBody(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         FarmemeActionToolBar(onClickActionIcon = onClickToolBarActionIcon)
-        Spacer(modifier = Modifier.height(8.dp))
-        MyPageSpeechBubble()
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(4.dp))
+        MyPageSpeechBubble(modifier = Modifier.offset(y = 4.dp))
         Image(
             painter = painterResource(
                 when (levelUiModel.myPageLevel) {

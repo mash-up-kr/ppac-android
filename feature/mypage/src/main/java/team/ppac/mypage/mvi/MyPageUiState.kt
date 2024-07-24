@@ -2,52 +2,22 @@ package team.ppac.mypage.mvi
 
 import androidx.paging.PagingData
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toPersistentList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.UiState
 import team.ppac.domain.model.Meme
 import team.ppac.mypage.model.LevelUiModel
-import team.ppac.mypage.model.MyPageLevel
 
 data class MyPageUiState(
-    val isLoading: Boolean,
-    val levelUiModel: LevelUiModel,
-    val recentMemes: ImmutableList<Meme>,
-    val savedMemes: Flow<PagingData<Meme>>,
+    val isLoading: Boolean = true,
+    val isRefreshing: Boolean = false,
+    val levelUiModel: LevelUiModel = LevelUiModel(),
+    val recentMemes: ImmutableList<Meme> = persistentListOf(),
+    val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
 ) : UiState {
     companion object {
-        const val sampleId = "1234"
-        const val sampleUrl = "https://picsum.photos/id/10/2500/1667"
-        const val sampleTitle = "title"
-        val sampleMemes = mutableListOf<Meme>().apply {
-            repeat(11) {
-                this.add(
-                    Meme(
-                        id = sampleId,
-                        imageUrl = sampleUrl,
-                        isTodayMeme = false,
-                        source = "",
-                        title = sampleTitle,
-                        watchCount = 0,
-                        reactionCount = 0,
-                        createdAt = "",
-                        updateAt = "",
-                        keywords = emptyList(),
-                        isSaved = false,
-                    )
-                )
-            }
-        }.toPersistentList()
-
-        val INITIAL_STATE = MyPageUiState(
-            isLoading = false,
-            levelUiModel = LevelUiModel(
-                myPageLevel = MyPageLevel.LEVEL1,
-                memeCount = 0,
-            ),
-            recentMemes = sampleMemes,
-            savedMemes = flowOf(PagingData.empty()),
-        )
+        val INITIAL_STATE
+            get() = MyPageUiState()
     }
 }

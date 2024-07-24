@@ -21,6 +21,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.flow.flowOf
+import team.ppac.common.android.component.FARMEME_MEME_ITEM_MAX_HEIGHT
 import team.ppac.common.android.component.FarmemeMemeItem
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
@@ -63,7 +64,7 @@ private fun SavedMemeList(
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(max = (150 * savedMemes.itemCount).dp) // TODO(ze-zeh) : 아이템 최대 높이 조정(변경 필요)
+            .heightIn(max = (FARMEME_MEME_ITEM_MAX_HEIGHT * savedMemes.itemCount / 2).dp)
             .wrapContentHeight(),
         userScrollEnabled = false,
         columns = StaggeredGridCells.Fixed(2),

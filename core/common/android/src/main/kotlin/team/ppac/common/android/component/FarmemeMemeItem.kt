@@ -1,6 +1,7 @@
 package team.ppac.common.android.component
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridItemScope
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +43,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     onMemeClick: (String) -> Unit,
     onCopyClick: () -> Unit,
 ) {
-    var bitmap = remember<Bitmap?> { null }
+    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current
 
     Column(
@@ -54,17 +56,21 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .heightIn(min = 100.dp, max = 207.dp)
-                    .fillMaxWidth(),
+                    .heightIn(
+                        min = FARMEME_MEME_ITEM_MIN_HEIGHT.dp,
+                        max = FARMEME_MEME_ITEM_MAX_HEIGHT.dp,
+                    )
+                    .fillMaxWidth()
+                    .background(FarmemeTheme.backgroundColor.black),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageUrl)
                     .crossfade(true)
                     .build(),
 //                placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillWidth,
                 onSuccess = {
-                    bitmap = it.result.drawable.toBitmap()
+                    bitmap.value = it.result.drawable.toBitmap()
                 }
             )
             FarmemeCircleButton(
@@ -74,7 +80,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                 size = 42.dp,
                 backgroundColor = FarmemeTheme.backgroundColor.white,
                 onClick = {
-                    bitmap?.let {
+                    bitmap.value?.let {
                         onCopyClick()
                         context.copyImageToClipBoard(it)
                     }
@@ -131,3 +137,6 @@ fun FarmemeLolCount(
 private fun FarmemeLolCountPreview() {
     FarmemeLolCount(lolCount = 10)
 }
+
+const val FARMEME_MEME_ITEM_MIN_HEIGHT = 80
+const val FARMEME_MEME_ITEM_MAX_HEIGHT = 300

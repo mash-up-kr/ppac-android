@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun MyPagePullRefreshIndicator(
     modifier: Modifier = Modifier,
-    isLoading: Boolean,
+    isRefreshing: Boolean,
     pullRefreshState: PullRefreshState,
 ) {
     Box(
@@ -21,7 +21,7 @@ fun MyPagePullRefreshIndicator(
         contentAlignment = Alignment.Center,
     ) {
         PullRefreshIndicator(
-            refreshing = isLoading,
+            refreshing = isRefreshing,
             state = pullRefreshState,
         )
     }

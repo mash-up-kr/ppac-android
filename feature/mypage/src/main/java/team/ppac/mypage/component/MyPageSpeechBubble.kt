@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +40,7 @@ internal fun MyPageSpeechBubble(
 private fun MyPageSpeechBubbleMain(
     modifier: Modifier = Modifier,
 ) {
-    val strings = listOf(
+    val randomTexts = listOf(
         "밈 폼 미쳤다",
         "밈 천재가 되",
         "완전 럭키비키잖아~",
@@ -47,9 +50,9 @@ private fun MyPageSpeechBubbleMain(
         "중꺾마!",
         "밈린이 라고할 뻔",
         "렛츠고 밈천재",
-        "밈야호~"
+        "밈야호~",
     )
-    val text = strings.random()
+    val randomText by remember { mutableStateOf(randomTexts.random()) }
 
     Box(
         modifier = modifier
@@ -59,7 +62,7 @@ private fun MyPageSpeechBubbleMain(
         contentAlignment = Alignment.Center,
     ) {
         Text(
-            text = text,
+            text = randomText,
             style = FarmemeTheme.typography.body.xLarge.semibold,
             color = FarmemeTheme.textColor.inverse,
         )
