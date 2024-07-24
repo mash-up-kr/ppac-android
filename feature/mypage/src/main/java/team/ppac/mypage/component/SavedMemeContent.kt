@@ -33,6 +33,7 @@ internal fun SavedMemeContent(
     modifier: Modifier = Modifier,
     savedMemes: LazyPagingItems<Meme>,
     onMemeItemClick: (String) -> Unit,
+    onCopyClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -47,6 +48,7 @@ internal fun SavedMemeContent(
             SavedMemeList(
                 savedMemes = savedMemes,
                 onMemeItemClick = onMemeItemClick,
+                onCopyClick = onCopyClick,
             )
         } else {
             SavedMemeEmpty()
@@ -60,6 +62,7 @@ private fun SavedMemeList(
     modifier: Modifier = Modifier,
     savedMemes: LazyPagingItems<Meme>,
     onMemeItemClick: (String) -> Unit,
+    onCopyClick: () -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier
@@ -86,8 +89,8 @@ private fun SavedMemeList(
                     memeTitle = meme.title,
                     lolCount = 0,
                     imageUrl = meme.imageUrl,
-                    onMemeClick = { onMemeItemClick(meme.id) },
-                    onCopyClick = {}, // TODO(ze-zeh) : 스낵바 띄우기
+                    onMemeClick = onMemeItemClick,
+                    onCopyClick = onCopyClick,
                 )
             }
         }
@@ -118,5 +121,6 @@ internal fun SavedMemeContentPreview() {
     SavedMemeContent(
         savedMemes = flowOf(PagingData.empty<Meme>()).collectAsLazyPagingItems(),
         onMemeItemClick = {},
+        onCopyClick = {},
     )
 }

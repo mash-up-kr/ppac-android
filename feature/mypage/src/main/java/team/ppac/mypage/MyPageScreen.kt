@@ -16,15 +16,11 @@ import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
@@ -40,31 +36,23 @@ import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
-import team.ppac.mypage.mvi.MyPageIntent
-import team.ppac.mypage.mvi.MyPageSideEffect
+import team.ppac.mypage.mvi.MyPageUiState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MyPageScreen(
-    viewModel: MyPageViewModel = hiltViewModel(),
-    navigateToDetail: (String) -> Unit,
-    navigateToSetting: () -> Unit,
+    uiState: MyPageUiState,
+    onRefreshData: () -> Unit,
+    onSettingClick: () -> Unit,
+    onCopyClick: () -> Unit,
+    onRecentMemeClick: (String) -> Unit,
+    onSavedMemeClick: (String) -> Unit,
 ) {
-    val state by viewModel.state.collectAsState()
-    val savedMemes = state.savedMemes.collectAsLazyPagingItems()
+    val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing,
-        onRefresh = { viewModel.intent(MyPageIntent.RefreshData) },
+        refreshing = uiState.isRefreshing,
+        onRefresh = onRefreshData,
     )
-
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                is MyPageSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.memeId)
-                is MyPageSideEffect.NavigateToSetting -> navigateToSetting()
-            }
-        }
-    }
 
     FarmemeScaffold(
         modifier = Modifier
@@ -79,8 +67,8 @@ internal fun MyPageScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             MyPageBody(
-                levelUiModel = state.levelUiModel,
-                onClickToolBarActionIcon = { viewModel.intent(MyPageIntent.ClickSettingButton) },
+                levelUiModel = uiState.levelUiModel,
+                onClickToolBarActionIcon = onSettingClick,
             )
             Spacer(
                 modifier = Modifier
@@ -89,20 +77,17 @@ internal fun MyPageScreen(
                     .background(FarmemeTheme.skeletonColor.primary),
             )
             RecentMemeContent(
-                recentMemes = state.recentMemes,
-                onClickMemeItem = { memeId ->
-                    viewModel.intent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
-                },
+                recentMemes = uiState.recentMemes,
+                onClickMemeItem = onRecentMemeClick,
             )
             SavedMemeContent(
                 savedMemes = savedMemes,
-                onMemeItemClick = { memeId ->
-                    viewModel.intent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                },
+                onMemeItemClick = onSavedMemeClick,
+                onCopyClick = onCopyClick,
             )
         }
         MyPagePullRefreshIndicator(
-            isRefreshing = state.isRefreshing,
+            isRefreshing = uiState.isRefreshing,
             pullRefreshState = pullRefreshState,
         )
     }
@@ -156,7 +141,11 @@ private fun MyPageBody(
 @Composable
 private fun MyPageScreenPreview() {
     MyPageScreen(
-        navigateToDetail = {},
-        navigateToSetting = {},
+        uiState = MyPageUiState.INITIAL_STATE,
+        onRefreshData = {},
+        onSettingClick = {},
+        onCopyClick = {},
+        onRecentMemeClick = {},
+        onSavedMemeClick = {},
     )
 }
