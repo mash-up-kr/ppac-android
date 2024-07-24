@@ -1,8 +1,15 @@
+@file:OptIn(
+    ExperimentalMaterialApi::class,
+    ExperimentalFoundationApi::class,
+    ExperimentalLayoutApi::class
+)
+
 package team.ppac.recommendation
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +21,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -53,8 +66,6 @@ import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import kotlin.math.roundToInt
 
-
-@OptIn(ExperimentalFoundationApi::class, ExperimentalLayoutApi::class)
 @Composable
 internal fun RecommendationScreen(
     viewModel: RecommendationViewModel = hiltViewModel(),
@@ -72,6 +83,12 @@ internal fun RecommendationScreen(
     val memeBitmap = remember(state.thisWeekMemes.size) {
         state.thisWeekMemes.map<Meme, Bitmap?> { null }.toMutableStateList()
     }
+    val pullRefreshState = rememberPullRefreshState(
+        refreshing = state.isRefreshing,
+        onRefresh = {
+            viewModel.intent(RecommendationIntent.PullRefresh)
+        },
+    )
 
     LaunchedEffect(viewModel, memeBitmap) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -99,12 +116,15 @@ internal fun RecommendationScreen(
     }
 
     FarmemeScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(top = with(LocalDensity.current) {
                     WindowInsets.statusBarsIgnoringVisibility
                         .getTop(this)
@@ -129,7 +149,19 @@ internal fun RecommendationScreen(
             )
             Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(
-                text = "밈 보고 레벨 포인트 받아요!",
+                text = when {
+                    state.seenMemeCount == 5 -> {
+                        "완밈! 다음 주 밈도 기대해 주세요"
+                    }
+
+                    state.level >= 2 -> {
+                        "추천 밈 둘러보세요!"
+                    }
+
+                    else -> {
+                        "밈 보고 레벨 포인트 받아요!"
+                    }
+                },
                 style = FarmemeTheme.typography.body.medium.medium,
                 color = FarmemeTheme.textColor.secondary,
             )
@@ -164,7 +196,15 @@ internal fun RecommendationScreen(
                 )
             }
         }
-
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center,
+        ) {
+            PullRefreshIndicator(
+                refreshing = state.isRefreshing,
+                state = pullRefreshState,
+            )
+        }
         LottieAnimation(
             modifier = Modifier
                 .size(200.dp)
