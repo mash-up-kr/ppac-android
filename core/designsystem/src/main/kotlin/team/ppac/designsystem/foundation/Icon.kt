@@ -168,16 +168,6 @@ object FarmemeIcon {
     )
 
     @Composable
-    fun LevelCurrent(
-        modifier: Modifier = Modifier,
-    ) = Icon(
-        modifier = modifier,
-        painter = painterResource(R.drawable.ic_level_current_24),
-        contentDescription = null,
-        tint = Color.Unspecified,
-    )
-
-    @Composable
     fun LevelDisabled(
         modifier: Modifier = Modifier,
     ) = Icon(

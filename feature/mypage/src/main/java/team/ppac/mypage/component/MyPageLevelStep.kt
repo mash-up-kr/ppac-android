@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -17,7 +20,13 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieAnimatable
+import com.airbnb.lottie.compose.rememberLottieComposition
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.R
 import team.ppac.designsystem.component.chip.FarmemeSmallChip
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.model.LevelUiModel
@@ -107,6 +116,16 @@ private fun MyPageStepIcons(
     modifier: Modifier = Modifier,
     levelUiModel: LevelUiModel,
 ) {
+    val lottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.my_page_level_circle_effect))
+    val lottieAnimatable = rememberLottieAnimatable()
+
+    LaunchedEffect(lottieComposition) {
+        lottieAnimatable.animate(
+            composition = lottieComposition,
+            iterations = LottieConstants.IterateForever,
+        )
+    }
+
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -114,14 +133,24 @@ private fun MyPageStepIcons(
     ) {
         (MyPageLevel.LEVEL1.levelCount..MyPageLevel.LEVEL4.levelCount).map { step ->
             when {
-                step.isCompletedStep(levelUiModel = levelUiModel)
-                -> FarmemeIcon.LevelCheck()
+                step.isCompletedStep(levelUiModel) -> {
+                    FarmemeIcon.LevelCheck()
+                }
 
-                step == levelUiModel.myPageLevel.levelCount
-                -> FarmemeIcon.LevelCurrent()
+                step == levelUiModel.myPageLevel.levelCount -> {
+                    Box(contentAlignment = Alignment.Center) {
+                        LottieAnimation(
+                            modifier = Modifier.size(20.dp),
+                            composition = lottieComposition,
+                            progress = { lottieAnimatable.progress },
+                        )
+                        FarmemeIcon.LevelDisabled()
+                    }
+                }
 
-                else
-                -> FarmemeIcon.LevelDisabled()
+                else -> {
+                    FarmemeIcon.LevelDisabled()
+                }
             }
         }
     }
