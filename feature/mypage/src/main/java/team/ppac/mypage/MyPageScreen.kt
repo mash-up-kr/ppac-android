@@ -68,7 +68,7 @@ internal fun MyPageScreen(
         ) {
             MyPageBody(
                 levelUiModel = uiState.levelUiModel,
-                onClickToolBarActionIcon = onSettingClick,
+                onSettingClick = onSettingClick,
             )
             Spacer(
                 modifier = Modifier
@@ -78,11 +78,11 @@ internal fun MyPageScreen(
             )
             RecentMemeContent(
                 recentMemes = uiState.recentMemes,
-                onClickMemeItem = onRecentMemeClick,
+                onMemeClick = onRecentMemeClick,
             )
             SavedMemeContent(
                 savedMemes = savedMemes,
-                onMemeItemClick = onSavedMemeClick,
+                onMemeClick = onSavedMemeClick,
                 onCopyClick = onCopyClick,
             )
         }
@@ -97,13 +97,13 @@ internal fun MyPageScreen(
 private fun MyPageBody(
     modifier: Modifier = Modifier,
     levelUiModel: LevelUiModel,
-    onClickToolBarActionIcon: () -> Unit,
+    onSettingClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.background(FarmemeTheme.backgroundColor.brandWhiteGradient),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        FarmemeActionToolBar(onClickActionIcon = onClickToolBarActionIcon)
+        FarmemeActionToolBar(onClickActionIcon = onSettingClick)
         Spacer(modifier = Modifier.height(4.dp))
         MyPageSpeechBubble(modifier = Modifier.offset(y = 4.dp))
         Image(

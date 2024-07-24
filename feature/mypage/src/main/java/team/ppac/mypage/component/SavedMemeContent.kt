@@ -32,7 +32,7 @@ import team.ppac.domain.model.Meme
 internal fun SavedMemeContent(
     modifier: Modifier = Modifier,
     savedMemes: LazyPagingItems<Meme>,
-    onMemeItemClick: (String) -> Unit,
+    onMemeClick: (String) -> Unit,
     onCopyClick: () -> Unit,
 ) {
     Column(
@@ -47,7 +47,7 @@ internal fun SavedMemeContent(
         if (savedMemes.itemCount > 0) {
             SavedMemeList(
                 savedMemes = savedMemes,
-                onMemeItemClick = onMemeItemClick,
+                onMemeItemClick = onMemeClick,
                 onCopyClick = onCopyClick,
             )
         } else {
@@ -120,7 +120,7 @@ private fun SavedMemeEmpty(
 internal fun SavedMemeContentPreview() {
     SavedMemeContent(
         savedMemes = flowOf(PagingData.empty<Meme>()).collectAsLazyPagingItems(),
-        onMemeItemClick = {},
+        onMemeClick = {},
         onCopyClick = {},
     )
 }
