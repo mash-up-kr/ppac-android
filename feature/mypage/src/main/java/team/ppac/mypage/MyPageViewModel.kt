@@ -69,9 +69,12 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun refreshAction() {
-        reduce { copy(isRefreshing = true) }
-        getUserData()
-        reduce { copy(isRefreshing = false) }
+        viewModelScope.launch {
+            reduce { copy(isRefreshing = true) }
+            getUserData()
+            delay(500L)
+            reduce { copy(isRefreshing = false) }
+        }
     }
 
     private fun getUserData() {
@@ -100,8 +103,6 @@ class MyPageViewModel @Inject constructor(
                 postSideEffect(MyPageSideEffect.ShowLevelUpSnackBar(currentLevel))
                 setLevelUseCase(currentLevel)
             }
-
-            delay(500L)
         }
     }
 }
