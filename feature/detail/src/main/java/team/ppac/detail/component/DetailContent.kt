@@ -49,7 +49,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.designsystem.util.extension.rippleClickable
+import team.ppac.designsystem.util.extension.singleClickable
 import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailUiState
 
@@ -185,7 +185,7 @@ fun DetailFunnyButton(
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = FarmemeTheme.skeletonColor.primary)
-            .rippleClickable(
+            .singleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
                 onClick = {
                     coroutineScope.launch {
