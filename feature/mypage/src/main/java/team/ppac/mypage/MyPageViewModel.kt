@@ -44,9 +44,9 @@ class MyPageViewModel @Inject constructor(
         when (intent) {
             is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)
             is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(intent.memeId)
-            is MyPageIntent.ClickSettingButton -> navigateToSetting()
-            is MyPageIntent.InitView -> initialAction()
-            is MyPageIntent.RefreshData -> refreshAction()
+            MyPageIntent.ClickSettingButton -> navigateToSetting()
+            MyPageIntent.InitView -> initialAction()
+            MyPageIntent.RefreshData -> refreshAction()
         }
     }
 
