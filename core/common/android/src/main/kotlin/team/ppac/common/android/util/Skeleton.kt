@@ -1,4 +1,4 @@
-package team.ppac.designsystem.util.extension
+package team.ppac.common.android.util
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -15,10 +15,11 @@ import team.ppac.designsystem.FarmemeTheme
 
 fun Modifier.shimmerLoadingAnimation(
     isLoading: Boolean = false,
-    widthOfShadowBrush: Int = 500,
-    angleOfAxisY: Float = 270f,
     durationMillis: Int = 1000,
 ): Modifier {
+    val widthOfShadowBrush = 500
+    val angleOfAxisY = 270f
+
     if (isLoading) {
         return composed {
             val color = FarmemeTheme.skeletonColor.primary
