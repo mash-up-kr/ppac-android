@@ -22,7 +22,17 @@ internal fun MyPageRoute(
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
                     is MyPageSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.memeId)
-                    is MyPageSideEffect.NavigateToSetting -> navigateToSetting()
+
+                    MyPageSideEffect.NavigateToSetting -> navigateToSetting()
+
+                    is MyPageSideEffect.ShowLevelUpSnackBar -> {
+                        viewModel.showSnackbar(
+                            message = "LV.${sideEffect.level}로 레벨업했어요!",
+                            icon = {
+                                FarmemeIcon.SuccessFilledBrand(Modifier.size(20.dp))
+                            }
+                        )
+                    }
                 }
             }
         }

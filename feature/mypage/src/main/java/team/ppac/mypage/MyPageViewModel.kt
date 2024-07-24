@@ -9,9 +9,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.domain.usecase.SetLevelUseCase
 import team.ppac.mypage.mapper.toLevelUiModel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
@@ -22,8 +24,10 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getUserUseCase: GetUserUseCase,
-    private val getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
+    getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
     private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
+    private val setLevelUseCase: SetLevelUseCase,
+    private val getLevelUseCase: GetLevelUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
@@ -88,6 +92,15 @@ class MyPageViewModel @Inject constructor(
                     recentMemes = recentMemes.toImmutableList(),
                 )
             }
+
+            val lastLevel = getLevelUseCase()
+            val currentLevel = user.levelCount
+
+            if (lastLevel < currentLevel) {
+                postSideEffect(MyPageSideEffect.ShowLevelUpSnackBar(currentLevel))
+                setLevelUseCase(currentLevel)
+            }
+
             delay(500L)
         }
     }
