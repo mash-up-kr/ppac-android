@@ -9,6 +9,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import team.ppac.designsystem.FarmemeTheme
@@ -57,4 +58,9 @@ fun Modifier.shimmerLoadingAnimation(
     } else {
         return this
     }
+}
+
+fun Modifier.visibility(isVisible: Boolean): Modifier {
+    val alphaValue = if (isVisible) 1f else 0f
+    return this then alpha(alpha = alphaValue)
 }

@@ -41,15 +41,15 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
-import kotlinx.coroutines.launch
 import kotlinx.collections.immutable.ImmutableList
-import team.ppac.common.kotlin.extension.truncateDisplayedString
+import kotlinx.coroutines.launch
 import team.ppac.common.kotlin.extension.truncateDisplayedList
+import team.ppac.common.kotlin.extension.truncateDisplayedString
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.designsystem.util.extension.singleClickable
+import team.ppac.designsystem.util.extension.rippleClickable
 import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailUiState
 
@@ -95,7 +95,7 @@ internal fun DetailContent(
 @Composable
 private fun DetailImage(
     imageUrl: String,
-    saveBitmap: (Bitmap) -> Unit
+    saveBitmap: (Bitmap) -> Unit,
 ) {
     Box {
         AsyncImage(
@@ -185,7 +185,7 @@ fun DetailFunnyButton(
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
             .background(color = FarmemeTheme.skeletonColor.primary)
-            .singleClickable(
+            .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
                 onClick = {
                     coroutineScope.launch {
