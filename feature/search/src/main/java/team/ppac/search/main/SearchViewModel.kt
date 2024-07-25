@@ -34,6 +34,10 @@ class SearchViewModel @Inject constructor(
         return SearchUiState.INITIAL_STATE
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: SearchIntent) {
         when (intent) {
             is SearchIntent.ClickSearch -> {

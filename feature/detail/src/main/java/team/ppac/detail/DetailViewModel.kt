@@ -33,6 +33,10 @@ class DetailViewModel @Inject constructor(
         return DetailUiState.INITIAL_STATE.copy(memeId = memeId)
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: DetailIntent) {
         when (intent) {
             is DetailIntent.ClickFarmemeButton -> {

@@ -38,5 +38,9 @@ class SplashViewModel @Inject constructor(
         return SplashState
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: SplashIntent) {}
 }

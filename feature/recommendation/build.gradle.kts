@@ -40,5 +40,6 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.compose.lottie)
+    implementation(project(":core:error-handling"))
     kapt(libs.hilt.compiler)
 }

@@ -121,104 +121,108 @@ internal fun RecommendationScreen(
             .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.GradientColor(FarmemeTheme.backgroundColor.brandLemonGradient),
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(top = with(LocalDensity.current) {
-                    WindowInsets.statusBarsIgnoringVisibility
-                        .getTop(this)
-                        .toDp()
-                })
-                .padding(top = 36.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Image(
-                painterResource(id = R.drawable.logo_farmeme),
-                contentDescription = null,
-            )
-            Spacer(modifier = Modifier.padding(top = 10.dp))
-            Text(
-                text = "이번주 이 밈 어때!",
-                style = FarmemeTheme.typography.heading.large.bold,
-                color = FarmemeTheme.textColor.primary,
-            )
-            Spacer(modifier = Modifier.padding(top = 16.dp))
-            SeenMemeProgressBar(
-                seenMemeCount = state.seenMemeCount
-            )
-            Spacer(modifier = Modifier.padding(top = 8.dp))
-            Text(
-                text = when {
-                    state.seenMemeCount == 5 -> {
-                        "완밈! 다음 주 밈도 기대해 주세요"
-                    }
+        if (state.isError) {
+            Text("Error")
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(top = with(LocalDensity.current) {
+                        WindowInsets.statusBarsIgnoringVisibility
+                            .getTop(this)
+                            .toDp()
+                    })
+                    .padding(top = 36.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Image(
+                    painterResource(id = R.drawable.logo_farmeme),
+                    contentDescription = null,
+                )
+                Spacer(modifier = Modifier.padding(top = 10.dp))
+                Text(
+                    text = "이번주 이 밈 어때!",
+                    style = FarmemeTheme.typography.heading.large.bold,
+                    color = FarmemeTheme.textColor.primary,
+                )
+                Spacer(modifier = Modifier.padding(top = 16.dp))
+                SeenMemeProgressBar(
+                    seenMemeCount = state.seenMemeCount
+                )
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                Text(
+                    text = when {
+                        state.seenMemeCount == 5 -> {
+                            "완밈! 다음 주 밈도 기대해 주세요"
+                        }
 
-                    state.level >= 2 -> {
-                        "추천 밈 둘러보세요!"
-                    }
+                        state.level >= 2 -> {
+                            "추천 밈 둘러보세요!"
+                        }
 
-                    else -> {
-                        "밈 보고 레벨 포인트 받아요!"
-                    }
-                },
-                style = FarmemeTheme.typography.body.medium.medium,
-                color = FarmemeTheme.textColor.secondary,
-            )
-            Spacer(modifier = Modifier.padding(top = 36.dp))
-            if (state.thisWeekMemes.isNotEmpty()) {
-                HeroModulePager(
-                    memes = state.thisWeekMemes,
-                    pagerState = heroModulePagerState,
-                    onMovePage = { page, meme ->
-                        viewModel.intent(RecommendationIntent.MovePage(meme, page))
+                        else -> {
+                            "밈 보고 레벨 포인트 받아요!"
+                        }
                     },
-                    onLoadMeme = { index, bitmap ->
-                        memeBitmap[index] = bitmap
-                    }
+                    style = FarmemeTheme.typography.body.medium.medium,
+                    color = FarmemeTheme.textColor.secondary,
                 )
-                Spacer(modifier = Modifier.padding(top = 20.dp))
-                KeywordsRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords.toImmutableList()
-                )
-                Spacer(modifier = Modifier.padding(top = 30.dp))
-                ActionButtons(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 30.dp),
-                    meme = state.thisWeekMemes[heroModulePagerState.currentPage],
-                    onClickIntent = viewModel::intent,
-                    page = heroModulePagerState.currentPage,
-                    onReactionButtonPositioned = {
-                        lottiePosition = it
-                    }
+                Spacer(modifier = Modifier.padding(top = 36.dp))
+                if (state.thisWeekMemes.isNotEmpty()) {
+                    HeroModulePager(
+                        memes = state.thisWeekMemes,
+                        pagerState = heroModulePagerState,
+                        onMovePage = { page, meme ->
+                            viewModel.intent(RecommendationIntent.MovePage(meme, page))
+                        },
+                        onLoadMeme = { index, bitmap ->
+                            memeBitmap[index] = bitmap
+                        }
+                    )
+                    Spacer(modifier = Modifier.padding(top = 20.dp))
+                    KeywordsRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords.toImmutableList()
+                    )
+                    Spacer(modifier = Modifier.padding(top = 30.dp))
+                    ActionButtons(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 30.dp),
+                        meme = state.thisWeekMemes[heroModulePagerState.currentPage],
+                        onClickIntent = viewModel::intent,
+                        page = heroModulePagerState.currentPage,
+                        onReactionButtonPositioned = {
+                            lottiePosition = it
+                        }
+                    )
+                }
+            }
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center,
+            ) {
+                PullRefreshIndicator(
+                    refreshing = state.isRefreshing,
+                    state = pullRefreshState,
                 )
             }
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center,
-        ) {
-            PullRefreshIndicator(
-                refreshing = state.isRefreshing,
-                state = pullRefreshState,
+            LottieAnimation(
+                modifier = Modifier
+                    .size(200.dp)
+                    .offset {
+                        with(lottiePosition) {
+                            // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
+                            IntOffset(
+                                x = x.roundToInt() - 30.dp.roundToPx(),
+                                y = y.roundToInt() - 200.dp.roundToPx()
+                            )
+                        }
+                    },
+                composition = lottieComposition,
+                progress = { lottieAnimatable.progress },
             )
         }
-        LottieAnimation(
-            modifier = Modifier
-                .size(200.dp)
-                .offset {
-                    with(lottiePosition) {
-                        // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
-                        IntOffset(
-                            x = x.roundToInt() - 30.dp.roundToPx(),
-                            y = y.roundToInt() - 200.dp.roundToPx()
-                        )
-                    }
-                },
-            composition = lottieComposition,
-            progress = { lottieAnimatable.progress },
-        )
     }
 }

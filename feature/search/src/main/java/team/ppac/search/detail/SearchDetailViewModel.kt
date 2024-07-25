@@ -33,6 +33,10 @@ class SearchDetailViewModel @Inject constructor(
         return SearchDetailUiState.INITIAL_STATE
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: SearchDetailIntent) {
         when (intent) {
             is SearchDetailIntent.ClickMeme -> {

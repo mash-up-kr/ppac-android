@@ -8,6 +8,7 @@ import team.ppac.domain.model.Meme
 
 data class RecommendationState(
     val isLoading: Boolean = true,
+    val isError: Boolean = false,
     val isRefreshing: Boolean = false,
     val currentPage: Int = 0,
     val seenMemeCount: Int = 0,
