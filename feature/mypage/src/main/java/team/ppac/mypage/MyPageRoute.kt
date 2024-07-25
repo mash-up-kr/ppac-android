@@ -43,11 +43,8 @@ internal fun MyPageRoute(
 
         MyPageScreen(
             uiState = uiState,
-            onRefreshData = {
-                viewModel.intent(MyPageIntent.RefreshData)
-            },
-            onSettingClick = {
-                viewModel.intent(MyPageIntent.ClickSettingButton)
+            onIntent = { myPageIntent ->
+                viewModel.intent(myPageIntent)
             },
             onCopyClick = {
                 viewModel.showSnackbar(
@@ -56,12 +53,6 @@ internal fun MyPageRoute(
                         FarmemeIcon.CopyFilled(Modifier.size(20.dp))
                     }
                 )
-            },
-            onRecentMemeClick = { memeId ->
-                viewModel.intent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
-            },
-            onSavedMemeClick = { memeId ->
-                viewModel.intent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
             },
         )
     }

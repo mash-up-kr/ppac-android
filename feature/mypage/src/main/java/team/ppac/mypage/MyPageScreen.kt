@@ -36,22 +36,22 @@ import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
+import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageUiState
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun MyPageScreen(
     uiState: MyPageUiState,
-    onRefreshData: () -> Unit,
-    onSettingClick: () -> Unit,
+    onIntent: (MyPageIntent) -> Unit,
     onCopyClick: () -> Unit,
-    onRecentMemeClick: (String) -> Unit,
-    onSavedMemeClick: (String) -> Unit,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
         refreshing = uiState.isRefreshing,
-        onRefresh = onRefreshData,
+        onRefresh = {
+            onIntent(MyPageIntent.RefreshData)
+        },
     )
 
     FarmemeScaffold(
@@ -68,7 +68,9 @@ internal fun MyPageScreen(
         ) {
             MyPageBody(
                 levelUiModel = uiState.levelUiModel,
-                onSettingClick = onSettingClick,
+                onSettingClick = {
+                    onIntent(MyPageIntent.ClickSettingButton)
+                },
             )
             Spacer(
                 modifier = Modifier
@@ -78,11 +80,15 @@ internal fun MyPageScreen(
             )
             RecentMemeContent(
                 recentMemes = uiState.recentMemes,
-                onMemeClick = onRecentMemeClick,
+                onMemeClick = { memeId ->
+                    onIntent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
+                },
             )
             SavedMemeContent(
                 savedMemes = savedMemes,
-                onMemeClick = onSavedMemeClick,
+                onMemeClick = { memeId ->
+                    onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                },
                 onCopyClick = onCopyClick,
             )
         }
@@ -142,10 +148,7 @@ private fun MyPageBody(
 private fun MyPageScreenPreview() {
     MyPageScreen(
         uiState = MyPageUiState.INITIAL_STATE,
-        onRefreshData = {},
-        onSettingClick = {},
+        onIntent = {},
         onCopyClick = {},
-        onRecentMemeClick = {},
-        onSavedMemeClick = {},
     )
 }
