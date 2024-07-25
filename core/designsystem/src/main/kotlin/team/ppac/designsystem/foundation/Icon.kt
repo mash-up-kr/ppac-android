@@ -108,7 +108,7 @@ object FarmemeIcon {
     @Composable
     fun CopyFilled(
         modifier: Modifier = Modifier,
-        tint: Color = Color.Unspecified
+        tint: Color = Color.Unspecified,
     ) = Icon(
         modifier = modifier,
         painter = painterResource(R.drawable.ic_copy_fill_20),
@@ -356,5 +356,14 @@ object FarmemeIcon {
         painter = painterResource(R.drawable.ic_stroke_24),
         contentDescription = null,
         tint = tint,
+    )
+
+    @Composable
+    fun Caution(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_caution_48),
+        contentDescription = null,
     )
 }
