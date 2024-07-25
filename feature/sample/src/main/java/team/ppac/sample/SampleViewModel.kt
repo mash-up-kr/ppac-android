@@ -21,6 +21,10 @@ class SampleViewModel @Inject constructor(
         return SampleState()
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: SampleIntent) {
         when (intent) {
             is SampleIntent.ClickGetImagesButton -> getImages()

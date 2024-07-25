@@ -17,6 +17,10 @@ class LoginViewModel @Inject constructor(
         return LoginState()
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.ClickLoginButton -> {

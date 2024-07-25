@@ -44,6 +44,10 @@ class MyPageViewModel @Inject constructor(
         return MyPageUiState.INITIAL_STATE
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: MyPageIntent) {
         when (intent) {
             is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)

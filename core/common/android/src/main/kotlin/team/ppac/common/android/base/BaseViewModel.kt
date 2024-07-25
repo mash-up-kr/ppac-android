@@ -73,9 +73,5 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
         }
     }
 
-    private fun handleClientException(throwable: Throwable) {
-        when (throwable) {
-
-        }
-    }
+    abstract fun handleClientException(throwable: Throwable)
 }

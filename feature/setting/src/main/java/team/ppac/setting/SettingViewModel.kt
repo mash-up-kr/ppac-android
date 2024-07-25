@@ -16,6 +16,10 @@ class SettingViewModel @Inject constructor(
         return SettingUiState.INITIAL_STATE
     }
 
+    override fun handleClientException(throwable: Throwable) {
+
+    }
+
     override suspend fun handleIntent(intent: SettingIntent) {
         when (intent) {
             is SettingIntent.ClickBackButton -> onClickBackButton()

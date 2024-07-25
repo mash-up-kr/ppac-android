@@ -1,13 +1,11 @@
 package team.ppac.recommendation
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
@@ -16,6 +14,7 @@ import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationSideEffect
 import team.ppac.recommendation.mvi.RecommendationState
@@ -34,13 +33,21 @@ class RecommendationViewModel @Inject constructor(
     savedStateHandle
 ) {
     init {
-        viewModelScope.launch {
+        launch {
             initialAction()
         }
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): RecommendationState {
         return RecommendationState.INITIAL_STATE
+    }
+
+    override fun handleClientException(throwable: Throwable) {
+        if (throwable is FarmemeNetworkException) {
+            reduce {
+                copy(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: RecommendationIntent) {
