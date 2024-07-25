@@ -29,7 +29,12 @@ internal class UserRepositoryImpl @Inject constructor(
         } else { // 유저 API로 등록 후 로컬에 등록 여부 저장
             val deviceId = appConfig.deviceId
             val userResponse = userRemoteDataSource.postUser(deviceId)
-            userLocalDataSource.setUser(user = UserData(userResponse.deviceId))
+            userLocalDataSource.setUser {
+                UserData(
+                    userId = userResponse.deviceId,
+                    level = userResponse.level,
+                )
+            }
             false
         }
     }
@@ -49,5 +54,15 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUserRecentMemes(): List<Meme> {
         return userRemoteDataSource.getUserRecentMemes().map { it.toMeme() }
+    }
+
+    override suspend fun setLevel(level: Int) {
+        userLocalDataSource.setUser { userData ->
+            userData.copy(level = level)
+        }
+    }
+
+    override suspend fun getLevel(): Int {
+        return userLocalDataSource.userDataFlow.firstOrNull()?.level ?: 1
     }
 }

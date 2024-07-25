@@ -11,7 +11,7 @@ internal class UserDataSourceImpl @Inject constructor(
 ) : UserLocalDataSource {
     override val userDataFlow: Flow<UserData> = userDataStore.data
 
-    override suspend fun setUser(user: UserData) {
-        userDataStore.updateData { user }
+    override suspend fun setUser(transform: (UserData) -> UserData) {
+        userDataStore.updateData(transform)
     }
 }

@@ -9,9 +9,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.domain.usecase.SetLevelUseCase
 import team.ppac.mypage.mapper.toLevelUiModel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
@@ -22,12 +24,20 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getUserUseCase: GetUserUseCase,
-    private val getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
+    getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
     private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
+    private val setLevelUseCase: SetLevelUseCase,
+    private val getLevelUseCase: GetLevelUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
 
     init {
-        initialAction()
+        val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
+
+        reduce {
+            copy(
+                savedMemes = savedMemes
+            )
+        }
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): MyPageUiState {
@@ -38,8 +48,9 @@ class MyPageViewModel @Inject constructor(
         when (intent) {
             is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)
             is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(intent.memeId)
-            is MyPageIntent.ClickSettingButton -> navigateToSetting()
-            is MyPageIntent.RefreshData -> refreshData()
+            MyPageIntent.ClickSettingButton -> navigateToSetting()
+            MyPageIntent.InitView -> initialAction()
+            MyPageIntent.RefreshData -> refreshAction()
         }
     }
 
@@ -54,39 +65,23 @@ class MyPageViewModel @Inject constructor(
     private fun initialAction() {
         viewModelScope.launch {
             reduce { copy(isLoading = true) }
-            val userDeferred = async {
-                getUserUseCase()
-            }
-            val recentMemesDeferred = async {
-                getUserRecentMemesUseCase()
-            }
-
-            val user = userDeferred.await()
-            val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
-            val recentMemes = recentMemesDeferred.await()
-
-            reduce {
-                copy(
-                    levelUiModel = user.toLevelUiModel(),
-                    savedMemes = savedMemes,
-                    recentMemes = recentMemes.toImmutableList(),
-                )
-            }
-            reduce { copy(isLoading = false) }
-        }
-    }
-
-    private fun refreshData() {
-        viewModelScope.launch {
-            reduce { copy(isRefreshing = true) }
-            refreshAction()
+            getUserData()
             delay(500L)
-            reduce { copy(isRefreshing = false) }
+            reduce { copy(isLoading = false) }
         }
     }
 
     private fun refreshAction() {
         viewModelScope.launch {
+            reduce { copy(isRefreshing = true) }
+            getUserData()
+            delay(500L)
+            reduce { copy(isRefreshing = false) }
+        }
+    }
+
+    private fun getUserData() {
+        viewModelScope.launch {
             val userDeferred = async {
                 getUserUseCase()
             }
@@ -102,6 +97,14 @@ class MyPageViewModel @Inject constructor(
                     levelUiModel = user.toLevelUiModel(),
                     recentMemes = recentMemes.toImmutableList(),
                 )
+            }
+
+            val lastLevel = getLevelUseCase()
+            val currentLevel = user.levelCount
+
+            if (lastLevel < currentLevel) {
+                postSideEffect(MyPageSideEffect.ShowLevelUpSnackBar(currentLevel))
+                setLevelUseCase(currentLevel)
             }
         }
     }

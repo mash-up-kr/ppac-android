@@ -26,7 +26,7 @@ import team.ppac.mypage.mvi.MyPageUiState
 internal fun RecentMemeContent(
     modifier: Modifier = Modifier,
     recentMemes: ImmutableList<Meme>,
-    onClickMemeItem: (String) -> Unit,
+    onMemeClick: (String) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -41,7 +41,7 @@ internal fun RecentMemeContent(
         if (recentMemes.isNotEmpty()) {
             RecentMemeList(
                 recentMemes = recentMemes,
-                onClickMemeItem = onClickMemeItem,
+                onMemeClick = onMemeClick,
             )
         } else {
             RecentMemeEmpty()
@@ -54,7 +54,7 @@ internal fun RecentMemeContent(
 private fun RecentMemeList(
     modifier: Modifier = Modifier,
     recentMemes: ImmutableList<Meme>,
-    onClickMemeItem: (String) -> Unit,
+    onMemeClick: (String) -> Unit,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -64,7 +64,7 @@ private fun RecentMemeList(
         items(items = recentMemes) { meme ->
             RecentMemeCard(
                 imageUrl = meme.imageUrl,
-                onClick = { onClickMemeItem(meme.id) },
+                onClick = { onMemeClick(meme.id) },
             )
         }
     }
@@ -92,6 +92,6 @@ private fun RecentMemeEmpty(
 private fun RecentMemeContentPreview() {
     RecentMemeContent(
         recentMemes = MyPageUiState.INITIAL_STATE.recentMemes,
-        onClickMemeItem = {}
+        onMemeClick = {},
     )
 }

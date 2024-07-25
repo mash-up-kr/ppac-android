@@ -74,6 +74,16 @@ object FarmemeIcon {
     )
 
     @Composable
+    fun SuccessFilledBrand(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_success_filled_brand_24),
+        contentDescription = null,
+        tint = Color.Unspecified,
+    )
+
+    @Composable
     fun SuccessOutlined(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
@@ -278,17 +288,6 @@ object FarmemeIcon {
     ) = Icon(
         modifier = modifier,
         painter = painterResource(R.drawable.ic_special_24),
-        contentDescription = null,
-        tint = tint,
-    )
-
-    @Composable
-    fun Success(
-        modifier: Modifier = Modifier,
-        tint: Color = Color.Unspecified,
-    ) = Icon(
-        modifier = modifier,
-        painter = painterResource(R.drawable.ic_success_24),
         contentDescription = null,
         tint = tint,
     )

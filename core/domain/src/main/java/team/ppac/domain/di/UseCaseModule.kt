@@ -9,6 +9,8 @@ import team.ppac.domain.usecase.CreateUserUseCase
 import team.ppac.domain.usecase.CreateUserUseCaseImpl
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.DeleteSavedMemeUseCaseImpl
+import team.ppac.domain.usecase.GetLevelUseCase
+import team.ppac.domain.usecase.GetLevelUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCaseImpl
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
@@ -31,6 +33,8 @@ import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.domain.usecase.SampleUseCaseImpl
 import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCaseImpl
+import team.ppac.domain.usecase.SetLevelUseCase
+import team.ppac.domain.usecase.SetLevelUseCaseImpl
 import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCaseImpl
 
@@ -87,9 +91,17 @@ internal abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindReactMemeUseCae(impl: ReactMemeUseCaseImpl): ReactMemeUseCase
+    abstract fun bindReactMemeUseCase(impl: ReactMemeUseCaseImpl): ReactMemeUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindWatchMemeUseCae(impl: WatchMemeUseCaseImpl): WatchMemeUseCase
+    abstract fun bindWatchMemeUseCase(impl: WatchMemeUseCaseImpl): WatchMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSetLevelUseCase(impl: SetLevelUseCaseImpl): SetLevelUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindGetLevelUseCase(impl: GetLevelUseCaseImpl): GetLevelUseCase
 }
