@@ -107,7 +107,6 @@ private fun DetailImage(
                 .data(imageUrl)
                 .crossfade(true)
                 .build(),
-            placeholder = painterResource(R.drawable.detail_sample),
             contentDescription = null,
             contentScale = ContentScale.Fit,
             modifier = Modifier

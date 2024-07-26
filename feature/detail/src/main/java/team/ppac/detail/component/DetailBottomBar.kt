@@ -38,7 +38,6 @@ internal fun DetailBottomBar(
     isSaved: Boolean,
     onClickBottomButtons: (DetailIntent.ClickButtonButton) -> Unit,
 ) {
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     val originalColor = FarmemeTheme.textColor.primary
