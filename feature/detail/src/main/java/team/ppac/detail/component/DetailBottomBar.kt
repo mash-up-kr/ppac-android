@@ -37,7 +37,6 @@ import team.ppac.detail.mvi.DetailIntent
 internal fun DetailBottomBar(
     memeId: String,
     isSaved: Boolean,
-    copyBitmap: () -> Unit,
     onClickBottomButtons: (DetailIntent.ClickButtonButton) -> Unit,
 ) {
     val context = LocalContext.current
@@ -69,7 +68,6 @@ internal fun DetailBottomBar(
                         delay(2000)
                         copyButtonColor = originalColor
                     }
-                    copyBitmap()
                     onClickBottomButtons(DetailIntent.ClickButtonButton.Copy)
                 },
             ) {
@@ -139,7 +137,6 @@ fun PreviewDetailBottomBar() {
     DetailBottomBar(
         memeId = "",
         isSaved = false,
-        copyBitmap = {},
         onClickBottomButtons = {},
     )
 }

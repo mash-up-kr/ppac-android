@@ -59,6 +59,7 @@ class DetailViewModel @Inject constructor(
                         FarmemeIcon.CopyFilled(Modifier.size(20.dp))
                     }
                 )
+                postSideEffect(DetailSideEffect.CopyClipBoard)
             }
 
             is DetailIntent.ClickButtonButton.Farmeme -> {

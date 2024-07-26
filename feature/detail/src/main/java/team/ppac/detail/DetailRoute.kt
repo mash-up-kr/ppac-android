@@ -1,5 +1,6 @@
 package team.ppac.detail
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -10,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,6 +21,7 @@ import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseComposable
+import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.R
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
@@ -30,11 +33,20 @@ internal fun DetailRoute(
     viewModel: DetailViewModel = hiltViewModel(),
     navigateToBack: () -> Unit,
 ) {
+    val context = LocalContext.current
+
     val lottieComposition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.lol_rising_effect)
     )
+
     val lottieAnimatable = rememberLottieAnimatable()
     var lottiePosition by remember { mutableStateOf(Offset.Zero) }
+
+    var bitmap: Bitmap? by remember { mutableStateOf(null) }
+
+    val saveBitmap: (Bitmap) -> Unit = {
+        bitmap = it
+    }
 
     BaseComposable(viewModel = viewModel) { uiState ->
         LaunchedEffect(key1 = viewModel) {
@@ -52,6 +64,12 @@ internal fun DetailRoute(
                     is DetailSideEffect.NavigateToBackEffect -> {
                         navigateToBack()
                     }
+
+                    DetailSideEffect.CopyClipBoard -> {
+                        bitmap?.let {
+                            context.copyImageToClipBoard(it)
+                        }
+                    }
                 }
             }
         }
@@ -67,7 +85,8 @@ internal fun DetailRoute(
             onClickBackButton = {
                 viewModel.intent(DetailIntent.ClickBackButton)
             },
-            onClickButtonButtons = viewModel::intent
+            onClickButtonButtons = viewModel::intent,
+            saveBitmap = saveBitmap
         )
         LottieAnimation(
             modifier = Modifier
