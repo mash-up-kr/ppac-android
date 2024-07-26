@@ -159,7 +159,7 @@ private fun MyPageStepIcons(
 // Step이 Complete 되는 조건 : Step이 Level보다 낮을 때 or Level이 4이고 memeCount가 Max일 때
 private fun Int.isCompletedStep(levelUiModel: LevelUiModel) =
     ((this < levelUiModel.myPageLevel.levelCount)
-            || (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount == MAX_MEME_COUNT))
+            || (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount >= MAX_MEME_COUNT))
 
 @Composable
 private fun MyPageStepChips(
@@ -185,7 +185,7 @@ private fun MyPageStepChips(
         FarmemeSmallChip(
             text = "밈 저장",
             enabled = (levelUiModel.myPageLevel.levelCount >= MyPageLevel.LEVEL4.levelCount)
-                    && (levelUiModel.memeCount == MAX_MEME_COUNT),
+                    && (levelUiModel.memeCount >= MAX_MEME_COUNT),
         )
     }
 }
