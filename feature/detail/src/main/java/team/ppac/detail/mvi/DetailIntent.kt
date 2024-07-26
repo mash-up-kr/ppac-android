@@ -10,5 +10,6 @@ sealed interface DetailIntent : UiIntent {
     sealed interface ClickButtonButton : DetailIntent {
         data object Copy : ClickButtonButton
         data class Farmeme(val isSavedMeme: Boolean) : ClickButtonButton
+        data class Share(val memeId: String) : ClickButtonButton
     }
 }

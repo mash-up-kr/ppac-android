@@ -62,6 +62,10 @@ class DetailViewModel @Inject constructor(
                 postSideEffect(DetailSideEffect.CopyClipBoard)
             }
 
+            is DetailIntent.ClickButtonButton.Share -> {
+                postSideEffect(DetailSideEffect.ShareLink(intent.memeId))
+            }
+
             is DetailIntent.ClickButtonButton.Farmeme -> {
                 if (intent.isSavedMeme) {
                     deleteSavedMeme()

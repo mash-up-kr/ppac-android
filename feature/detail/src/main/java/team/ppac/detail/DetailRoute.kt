@@ -22,6 +22,7 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.util.copyImageToClipBoard
+import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.R
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
@@ -69,6 +70,10 @@ internal fun DetailRoute(
                         bitmap?.let {
                             context.copyImageToClipBoard(it)
                         }
+                    }
+
+                    is DetailSideEffect.ShareLink -> {
+                        context.shareOneLink(sideEffect.memeId)
                     }
                 }
             }

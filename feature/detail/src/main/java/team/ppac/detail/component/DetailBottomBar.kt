@@ -25,7 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
@@ -78,7 +77,7 @@ internal fun DetailBottomBar(
             }
             DetailBottomButton(
                 title = "공유",
-                onClickButton = { context.shareOneLink(memeId) },
+                onClickButton = { onClickBottomButtons(DetailIntent.ClickButtonButton.Share(memeId)) },
             ) {
                 FarmemeIcon.Share(modifier = Modifier.size(20.dp))
             }
