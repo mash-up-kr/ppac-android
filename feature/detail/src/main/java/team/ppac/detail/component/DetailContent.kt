@@ -106,9 +106,10 @@ private fun DetailImage(
                 .build(),
             placeholder = painterResource(R.drawable.detail_sample),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .clip(FarmemeRadius.Radius10.shape)
+                .background(FarmemeTheme.backgroundColor.black)
                 .width(330.dp)
                 .height(352.dp),
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
