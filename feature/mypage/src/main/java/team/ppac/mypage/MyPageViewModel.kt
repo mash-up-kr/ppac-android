@@ -14,6 +14,7 @@ import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.SetLevelUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.mypage.mapper.toLevelUiModel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
@@ -29,7 +30,6 @@ class MyPageViewModel @Inject constructor(
     private val setLevelUseCase: SetLevelUseCase,
     private val getLevelUseCase: GetLevelUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
-
     init {
         val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
 
@@ -45,7 +45,11 @@ class MyPageViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        if (throwable is FarmemeNetworkException) {
+            reduce {
+                copy(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: MyPageIntent) {
