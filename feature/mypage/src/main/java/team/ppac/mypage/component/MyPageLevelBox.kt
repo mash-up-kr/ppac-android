@@ -66,7 +66,12 @@ private fun MyPageLevelTop(
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         MyPageLevelTitle(levelUiModel = levelUiModel)
-        MyPageLevelChip(memeCount = levelUiModel.memeCount)
+
+        if (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount >= MAX_MEME_COUNT) {
+            MyPageLevelCompletedChip()
+        } else {
+            MyPageLevelChip(memeCount = levelUiModel.memeCount)
+        }
     }
 }
 
