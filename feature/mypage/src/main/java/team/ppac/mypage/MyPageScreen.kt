@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
+import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -60,42 +61,51 @@ internal fun MyPageScreen(
             .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
     ) {
-        Column(
-            modifier = Modifier
-                .padding(bottom = TabBarHeight)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            MyPageBody(
-                levelUiModel = uiState.levelUiModel,
-                onSettingClick = {
-                    onIntent(MyPageIntent.ClickSettingButton)
+        if (uiState.isError) {
+            FarmemeErrorScreen(
+                title = "정보를 불러오지 못 했어요.\n 새로고침 해주세요.",
+                onRetryClick = {
+                    // TODO(ze-zeh) : onRetryClick 구현
                 },
             )
-            Spacer(
+        } else {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(10.dp)
-                    .background(FarmemeTheme.skeletonColor.primary),
-            )
-            RecentMemeContent(
-                recentMemes = uiState.recentMemes,
-                onMemeClick = { memeId ->
-                    onIntent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
-                },
-            )
-            SavedMemeContent(
-                savedMemes = savedMemes,
-                onMemeClick = { memeId ->
-                    onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                },
-                onCopyClick = onCopyClick,
+                    .padding(bottom = TabBarHeight)
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                MyPageBody(
+                    levelUiModel = uiState.levelUiModel,
+                    onSettingClick = {
+                        onIntent(MyPageIntent.ClickSettingButton)
+                    },
+                )
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(10.dp)
+                        .background(FarmemeTheme.skeletonColor.primary),
+                )
+                RecentMemeContent(
+                    recentMemes = uiState.recentMemes,
+                    onMemeClick = { memeId ->
+                        onIntent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
+                    },
+                )
+                SavedMemeContent(
+                    savedMemes = savedMemes,
+                    onMemeClick = { memeId ->
+                        onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                    },
+                    onCopyClick = onCopyClick,
+                )
+            }
+            MyPagePullRefreshIndicator(
+                isRefreshing = uiState.isRefreshing,
+                pullRefreshState = pullRefreshState,
             )
         }
-        MyPagePullRefreshIndicator(
-            isRefreshing = uiState.isRefreshing,
-            pullRefreshState = pullRefreshState,
-        )
     }
 }
 
