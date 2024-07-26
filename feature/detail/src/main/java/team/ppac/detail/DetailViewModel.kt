@@ -1,10 +1,14 @@
 package team.ppac.detail
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.detail.mapper.toDetailMemeUiModel
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
@@ -39,14 +43,6 @@ class DetailViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: DetailIntent) {
         when (intent) {
-            is DetailIntent.ClickFarmemeButton -> {
-                if (intent.isSavedMeme) {
-                    deleteSavedMeme()
-                } else {
-                    saveMeme()
-                }
-            }
-
             is DetailIntent.ClickFunnyButton -> {
                 incrementReactionCount()
                 postSideEffect(DetailSideEffect.RunRisingEffect)
@@ -54,6 +50,30 @@ class DetailViewModel @Inject constructor(
 
             is DetailIntent.ClickBackButton -> {
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
+            }
+
+            DetailIntent.ClickButtonButton.Copy -> {
+                showSnackbar(
+                    message = "이미지를 클립보드에 복사했어요",
+                    icon = {
+                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
+                    }
+                )
+            }
+
+            is DetailIntent.ClickButtonButton.Farmeme -> {
+                if (intent.isSavedMeme) {
+                    deleteSavedMeme()
+                    showSnackbar(message = "파밈을 취소했어요")
+                } else {
+                    saveMeme()
+                    showSnackbar(
+                        message = "파밈 완료!",
+                        icon = {
+                            FarmemeIcon.BookmarkFilled(Modifier.size(20.dp))
+                        }
+                    )
+                }
             }
         }
     }

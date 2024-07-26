@@ -21,16 +21,17 @@ import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.detail.component.DetailBottomBar
 import team.ppac.detail.component.DetailContent
 import team.ppac.detail.model.DetailMemeUiModel
+import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailUiState
 
 @Composable
 internal fun DetailScreen(
     modifier: Modifier = Modifier,
     uiState: DetailUiState,
-    onClickFarmemeButton: (Boolean) -> Unit,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPosition: (Offset) -> Unit,
     onClickBackButton: () -> Unit,
+    onClickButtonButtons: (DetailIntent.ClickButtonButton) -> Unit,
 ) {
 
     var context = LocalContext.current
@@ -59,7 +60,7 @@ internal fun DetailScreen(
                 memeId = uiState.memeId,
                 isSaved = uiState.detailMemeUiModel.isSavedMeme,
                 copyBitmap = copyBitmap,
-                onClickFarmemeButton = onClickFarmemeButton,
+                onClickBottomButtons = onClickButtonButtons,
             )
         },
     ) { innerPadding ->
@@ -94,9 +95,9 @@ fun PreviewDetailScreen() {
                 reactionCount = 0,
             ),
         ),
-        onClickFarmemeButton = {},
         onClickFunnyButton = {},
         onReactionButtonPosition = { _ -> },
         onClickBackButton = {},
+        onClickButtonButtons = {},
     )
 }

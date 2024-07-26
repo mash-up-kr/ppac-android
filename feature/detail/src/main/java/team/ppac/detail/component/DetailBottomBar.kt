@@ -31,13 +31,14 @@ import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.rippleClickable
+import team.ppac.detail.mvi.DetailIntent
 
 @Composable
 internal fun DetailBottomBar(
     memeId: String,
     isSaved: Boolean,
     copyBitmap: () -> Unit,
-    onClickFarmemeButton: (Boolean) -> Unit,
+    onClickBottomButtons: (DetailIntent.ClickButtonButton) -> Unit,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -69,6 +70,7 @@ internal fun DetailBottomBar(
                         copyButtonColor = originalColor
                     }
                     copyBitmap()
+                    onClickBottomButtons(DetailIntent.ClickButtonButton.Copy)
                 },
             ) {
                 FarmemeIcon.Copy(
@@ -86,7 +88,11 @@ internal fun DetailBottomBar(
                 title = "파밈",
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
-                    onClickFarmemeButton(isSaved)
+                    onClickBottomButtons(
+                        DetailIntent.ClickButtonButton.Farmeme(
+                            isSaved
+                        )
+                    )
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
@@ -134,6 +140,6 @@ fun PreviewDetailBottomBar() {
         memeId = "",
         isSaved = false,
         copyBitmap = {},
-        onClickFarmemeButton = {},
+        onClickBottomButtons = {},
     )
 }

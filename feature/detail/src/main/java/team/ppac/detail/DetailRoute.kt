@@ -13,12 +13,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
+import team.ppac.common.android.base.BaseComposable
 import team.ppac.designsystem.R
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
@@ -30,67 +30,59 @@ internal fun DetailRoute(
     viewModel: DetailViewModel = hiltViewModel(),
     navigateToBack: () -> Unit,
 ) {
-
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
     val lottieComposition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.lol_rising_effect)
     )
     val lottieAnimatable = rememberLottieAnimatable()
     var lottiePosition by remember { mutableStateOf(Offset.Zero) }
 
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                is DetailSideEffect.RunRisingEffect -> {
-                    launch {
-                        lottieAnimatable.animate(
-                            composition = lottieComposition,
-                            speed = 1.5f
-                        )
+    BaseComposable(viewModel = viewModel) { uiState ->
+        LaunchedEffect(key1 = viewModel) {
+            viewModel.sideEffect.collect { sideEffect ->
+                when (sideEffect) {
+                    is DetailSideEffect.RunRisingEffect -> {
+                        launch {
+                            lottieAnimatable.animate(
+                                composition = lottieComposition,
+                                speed = 1.5f
+                            )
+                        }
                     }
-                }
 
-                is DetailSideEffect.NavigateToBackEffect -> {
-                    navigateToBack()
+                    is DetailSideEffect.NavigateToBackEffect -> {
+                        navigateToBack()
+                    }
                 }
             }
         }
-    }
-
-    DetailScreen(
-        modifier = modifier,
-        uiState = uiState,
-        onClickFarmemeButton = { isSavedMeme ->
-            viewModel.intent(
-                DetailIntent.ClickFarmemeButton(
-                    isSavedMeme = isSavedMeme
-                )
-            )
-        },
-        onClickFunnyButton = {
-            viewModel.intent(DetailIntent.ClickFunnyButton)
-        },
-        onReactionButtonPosition = {
-            lottiePosition = it
-        },
-        onClickBackButton = {
-            viewModel.intent(DetailIntent.ClickBackButton)
-        }
-
-    )
-    LottieAnimation(
-        modifier = Modifier
-            .size(200.dp)
-            .offset {
-                with(lottiePosition) {
-                    // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
-                    IntOffset(
-                        x = x.roundToInt() + 42.dp.roundToPx(),
-                        y = y.roundToInt() - 192.dp.roundToPx()
-                    )
-                }
+        DetailScreen(
+            modifier = modifier,
+            uiState = uiState,
+            onClickFunnyButton = {
+                viewModel.intent(DetailIntent.ClickFunnyButton)
             },
-        composition = lottieComposition,
-        progress = { lottieAnimatable.progress },
-    )
+            onReactionButtonPosition = {
+                lottiePosition = it
+            },
+            onClickBackButton = {
+                viewModel.intent(DetailIntent.ClickBackButton)
+            },
+            onClickButtonButtons = viewModel::intent
+        )
+        LottieAnimation(
+            modifier = Modifier
+                .size(200.dp)
+                .offset {
+                    with(lottiePosition) {
+                        // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
+                        IntOffset(
+                            x = x.roundToInt() + 42.dp.roundToPx(),
+                            y = y.roundToInt() - 192.dp.roundToPx()
+                        )
+                    }
+                },
+            composition = lottieComposition,
+            progress = { lottieAnimatable.progress },
+        )
+    }
 }
