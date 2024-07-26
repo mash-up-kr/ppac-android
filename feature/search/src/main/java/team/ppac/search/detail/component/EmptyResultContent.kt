@@ -1,7 +1,6 @@
 package team.ppac.search.detail.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,26 +14,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.foundation.FarmemeIcon
 
 @Composable
 fun EmptyResultContent(
     modifier: Modifier = Modifier,
 ) {
-    Column(
+    Box(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        contentAlignment = Alignment.Center
     ) {
-        Spacer(modifier = Modifier.size(160.dp))
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Box(
-                modifier = Modifier
-                    .size(80.dp)
-                    .background(Color.Red)
-            )
+            FarmemeIcon.EmptyResult()
             Spacer(modifier = Modifier.size(20.dp))
             Text(
                 text = "밈이 없어요",
@@ -50,7 +44,6 @@ fun EmptyResultContent(
                 )
             )
         }
-        Spacer(modifier = Modifier.size(160.dp))
     }
 }
 
