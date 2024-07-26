@@ -67,7 +67,7 @@ private fun MyPageLevelTop(
     ) {
         MyPageLevelTitle(levelUiModel = levelUiModel)
 
-        if (levelUiModel.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && levelUiModel.memeCount >= MAX_MEME_COUNT) {
+        if (levelUiModel.isMaxLevel()) {
             MyPageLevelCompletedChip()
         } else {
             MyPageLevelChip(memeCount = levelUiModel.memeCount)
