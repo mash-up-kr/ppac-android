@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +14,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
+import team.ppac.search.detail.component.EmptyResultContent
 import team.ppac.search.detail.component.SearchDetailResultContent
 import team.ppac.search.detail.component.SearchDetailResultHeader
 import team.ppac.search.detail.mvi.SearchDetailUiState
@@ -49,6 +49,9 @@ internal fun SearchDetailScreen(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
+            if (searchResults.itemCount == 0) {
+                EmptyResultContent()
+            }
             SearchDetailResultHeader(totalCount = searchResults.itemCount)
             SearchDetailResultContent(
                 searchResults = searchResults,
