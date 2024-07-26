@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
@@ -66,7 +67,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                     .data(imageUrl)
                     .crossfade(true)
                     .build(),
-//                placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
+                placeholder = ColorPainter(FarmemeTheme.skeletonColor.primary),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 onSuccess = {
