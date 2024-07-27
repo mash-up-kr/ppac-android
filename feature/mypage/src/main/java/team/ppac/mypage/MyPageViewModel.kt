@@ -56,7 +56,14 @@ class MyPageViewModel @Inject constructor(
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
-            is MyPageIntent.ClickRetryButton -> initialAction()
+            is MyPageIntent.ClickRetryButton -> {
+                initialAction()
+                reduce {
+                    copy(
+                        isError = false,
+                    )
+                }
+            }
         }
     }
 
@@ -102,7 +109,6 @@ class MyPageViewModel @Inject constructor(
                 copy(
                     levelUiModel = user.toLevelUiModel(),
                     recentMemes = recentMemes.toImmutableList(),
-                    isError = false,
                 )
             }
 
