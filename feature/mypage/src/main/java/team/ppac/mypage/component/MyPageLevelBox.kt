@@ -66,7 +66,12 @@ private fun MyPageLevelTop(
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         MyPageLevelTitle(levelUiModel = levelUiModel)
-        MyPageLevelChip(memeCount = levelUiModel.memeCount)
+
+        if (levelUiModel.isMaxLevel()) {
+            MyPageLevelCompletedChip()
+        } else {
+            MyPageLevelChip(memeCount = levelUiModel.memeCount)
+        }
     }
 }
 
@@ -80,8 +85,8 @@ private fun MyPageLevelTitle(
     ) {
         Text(
             text = when (levelUiModel.myPageLevel) {
-                MyPageLevel.LEVEL4 -> "최종 레벨 달성 조건"
-                else -> "다음 레벨 달성 조건"
+                MyPageLevel.LEVEL4 -> "최종 레벨 달성 미션"
+                else -> "레벨업하고 싶다면"
             },
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.medium.semibold,
