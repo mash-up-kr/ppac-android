@@ -194,8 +194,3 @@ private fun MyPageLevelStepPreview() {
         )
     )
 }
-
-fun LevelUiModel.isMaxLevel() =
-    (this.myPageLevel.levelCount == MyPageLevel.LEVEL4.levelCount && this.memeCount >= MAX_MEME_COUNT)
-
-const val MAX_MEME_COUNT = 20

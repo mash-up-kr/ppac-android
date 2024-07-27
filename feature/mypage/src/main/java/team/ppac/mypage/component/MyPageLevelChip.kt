@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.mypage.model.LevelUiModel.Companion.MAX_MEME_COUNT
 
 @Composable
 internal fun MyPageLevelChip(
