@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
@@ -71,7 +70,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun initialAction() {
-        viewModelScope.launch {
+        launch {
             reduce { copy(isLoading = true) }
             getUserData()
             delay(500L)
@@ -80,7 +79,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun refreshAction() {
-        viewModelScope.launch {
+        launch {
             reduce { copy(isRefreshing = true) }
             getUserData()
             delay(500L)
@@ -89,7 +88,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun getUserData() {
-        viewModelScope.launch {
+        launch {
             val userDeferred = async {
                 getUserUseCase()
             }
