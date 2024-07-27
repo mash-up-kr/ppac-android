@@ -85,8 +85,8 @@ private fun MyPageLevelTitle(
     ) {
         Text(
             text = when (levelUiModel.myPageLevel) {
-                MyPageLevel.LEVEL4 -> "레벨업하고 싶다면"
-                else -> "최종 레벨 달성 미션"
+                MyPageLevel.LEVEL4 -> "최종 레벨 달성 미션"
+                else -> "레벨업하고 싶다면"
             },
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.medium.semibold,
