@@ -8,4 +8,5 @@ sealed class MyPageIntent : UiIntent {
     data class ClickSavedMemeItem(val memeId: String) : MyPageIntent()
     data object InitView : MyPageIntent()
     data object RefreshData : MyPageIntent()
+    data object ClickRetryButton : MyPageIntent()
 }

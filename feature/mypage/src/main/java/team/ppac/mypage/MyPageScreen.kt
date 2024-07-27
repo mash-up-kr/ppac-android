@@ -69,7 +69,7 @@ internal fun MyPageScreen(
                     .padding(bottom = TabBarHeight),
                 title = "정보를 불러오지 못 했어요.\n 새로고침 해주세요.",
                 onRetryClick = {
-                    // TODO(ze-zeh) : onRetryClick 구현
+                    onIntent(MyPageIntent.ClickRetryButton)
                 },
             )
         } else {
