@@ -1,8 +1,6 @@
 package team.ppac.mypage
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
@@ -30,7 +28,7 @@ class MyPageViewModel @Inject constructor(
     private val getLevelUseCase: GetLevelUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
     init {
-        val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
+        val savedMemes = getUserSavedMemesUseCase()
 
         reduce {
             copy(
