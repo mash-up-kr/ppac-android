@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -55,6 +56,7 @@ import kotlinx.coroutines.launch
 import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.common.android.util.shareOneLink
+import team.ppac.common.android.util.shimmerLoadingAnimation
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
@@ -156,7 +158,8 @@ internal fun RecommendationScreen(
                     )
                     Spacer(modifier = Modifier.padding(top = 16.dp))
                     SeenMemeProgressBar(
-                        seenMemeCount = state.seenMemeCount
+                        seenMemeCount = state.seenMemeCount,
+                        isLoading = state.isLoading,
                     )
                     Spacer(modifier = Modifier.padding(top = 8.dp))
                     Text(
@@ -169,15 +172,16 @@ internal fun RecommendationScreen(
                                 "추천 밈 둘러보세요!"
                             }
 
-                            else -> {
-                                "밈 보고 레벨 포인트 받아요!"
-                            }
-                        },
-                        style = FarmemeTheme.typography.body.medium.medium,
-                        color = FarmemeTheme.textColor.secondary,
-                    )
-                    Spacer(modifier = Modifier.padding(top = 36.dp))
-                    if (state.thisWeekMemes.isNotEmpty()) {
+                        else -> {
+                            "밈 보고 레벨 포인트 받아요!"
+                        }
+                    },
+                    style = FarmemeTheme.typography.body.medium.medium,
+                    color = FarmemeTheme.textColor.secondary,
+                )
+                Spacer(modifier = Modifier.padding(top = 36.dp))
+                when {
+                    state.thisWeekMemes.isNotEmpty() -> {
                         HeroModulePager(
                             memes = state.thisWeekMemes,
                             pagerState = heroModulePagerState,
@@ -206,32 +210,54 @@ internal fun RecommendationScreen(
                             }
                         )
                     }
+
+                    state.isLoading -> {
+                        Box(
+                            modifier = Modifier
+                                .shimmerLoadingAnimation(isLoading = true)
+                                .size(width = 270.dp, height = 310.dp)
+                        )
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Box(
+                            modifier = Modifier
+                                .shimmerLoadingAnimation(isLoading = true)
+                                .size(width = 200.dp, height = 16.dp)
+                        )
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Box(
+                            modifier = Modifier
+                                .shimmerLoadingAnimation(isLoading = true)
+                                .fillMaxWidth()
+                                .height(50.dp)
+                                .padding(horizontal = 30.dp)
+                        )
+                    }
                 }
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    PullRefreshIndicator(
-                        refreshing = state.isRefreshing,
-                        state = pullRefreshState,
-                    )
-                }
-                LottieAnimation(
-                    modifier = Modifier
-                        .size(200.dp)
-                        .offset {
-                            with(lottiePosition) {
-                                // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
-                                IntOffset(
-                                    x = x.roundToInt() - 30.dp.roundToPx(),
-                                    y = y.roundToInt() - 200.dp.roundToPx()
-                                )
-                            }
-                        },
-                    composition = lottieComposition,
-                    progress = { lottieAnimatable.progress },
+            }
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center,
+            ) {
+                PullRefreshIndicator(
+                    refreshing = state.isRefreshing,
+                    state = pullRefreshState,
                 )
             }
+            LottieAnimation(
+                modifier = Modifier
+                    .size(200.dp)
+                    .offset {
+                        with(lottiePosition) {
+                            // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
+                            IntOffset(
+                                x = x.roundToInt() - 30.dp.roundToPx(),
+                                y = y.roundToInt() - 200.dp.roundToPx()
+                            )
+                        }
+                    },
+                composition = lottieComposition,
+                progress = { lottieAnimatable.progress },
+            )
         }
     }
 }
