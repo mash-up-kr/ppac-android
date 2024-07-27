@@ -52,6 +52,7 @@ internal fun MyPageScreen(
         refreshing = uiState.isRefreshing,
         onRefresh = {
             onIntent(MyPageIntent.RefreshData)
+            savedMemes.refresh()
         },
     )
 
