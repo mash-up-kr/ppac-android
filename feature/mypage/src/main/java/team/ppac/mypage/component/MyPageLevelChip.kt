@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -52,13 +53,16 @@ internal fun MyPageLevelCompletedChip(
             .padding(horizontal = 10.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(
-            text = "달성 완료",
-            color = FarmemeTheme.textColor.primary,
-            style = FarmemeTheme.typography.body.large.semibold,
+        FarmemeIcon.Check(
+            modifier = Modifier.size(12.dp),
+            tint = FarmemeTheme.iconColor.tertiary,
         )
         Spacer(modifier = Modifier.width(4.dp))
-        FarmemeIcon.LevelCheck()
+        Text(
+            text = "달성완료",
+            color = FarmemeTheme.textColor.tertiary,
+            style = FarmemeTheme.typography.body.medium.semibold,
+        )
     }
 }
 
