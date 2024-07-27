@@ -17,6 +17,7 @@ import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,7 +39,11 @@ class DetailViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        if (throwable is FarmemeNetworkException) {
+            reduce {
+                copy(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: DetailIntent) {
@@ -80,13 +85,22 @@ class DetailViewModel @Inject constructor(
                     )
                 }
             }
+
+            DetailIntent.CLickRetryButton -> {
+                getMeme(currentState.memeId)
+            }
         }
     }
 
     private fun getMeme(memeId: String) {
-        viewModelScope.launch {
+        launch {
             val meme = getMemeUseCase(memeId)
-            reduce { copy(detailMemeUiModel = meme.toDetailMemeUiModel()) }
+            reduce {
+                copy(
+                    detailMemeUiModel = meme.toDetailMemeUiModel(),
+                    isError = false,
+                )
+            }
         }
     }
 

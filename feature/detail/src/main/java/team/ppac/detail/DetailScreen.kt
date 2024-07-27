@@ -74,6 +74,7 @@ fun PreviewDetailScreen() {
                 isSavedMeme = false,
                 reactionCount = 0,
             ),
+            isError = false,
         ),
         onClickFunnyButton = {},
         onReactionButtonPosition = { _ -> },
