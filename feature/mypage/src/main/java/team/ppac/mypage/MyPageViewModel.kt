@@ -7,13 +7,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.SetLevelUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.mypage.mapper.toLevelUiModel
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
@@ -29,7 +29,6 @@ class MyPageViewModel @Inject constructor(
     private val setLevelUseCase: SetLevelUseCase,
     private val getLevelUseCase: GetLevelUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
-
     init {
         val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
 
@@ -45,7 +44,11 @@ class MyPageViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        if (throwable is FarmemeNetworkException) {
+            reduce {
+                copy(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: MyPageIntent) {
@@ -55,6 +58,14 @@ class MyPageViewModel @Inject constructor(
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
+            is MyPageIntent.ClickRetryButton -> {
+                initialAction()
+                reduce {
+                    copy(
+                        isError = false,
+                    )
+                }
+            }
         }
     }
 
@@ -67,7 +78,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun initialAction() {
-        viewModelScope.launch {
+        launch {
             reduce { copy(isLoading = true) }
             getUserData()
             delay(500L)
@@ -76,7 +87,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun refreshAction() {
-        viewModelScope.launch {
+        launch {
             reduce { copy(isRefreshing = true) }
             getUserData()
             delay(500L)
@@ -85,7 +96,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun getUserData() {
-        viewModelScope.launch {
+        launch {
             val userDeferred = async {
                 getUserUseCase()
             }

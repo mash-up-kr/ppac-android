@@ -12,6 +12,7 @@ import team.ppac.mypage.model.LevelUiModel
 data class MyPageUiState(
     val isLoading: Boolean = true,
     val isRefreshing: Boolean = false,
+    val isError: Boolean = false,
     val levelUiModel: LevelUiModel = LevelUiModel(),
     val recentMemes: ImmutableList<Meme> = persistentListOf(),
     val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
