@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
+import team.ppac.designsystem.component.button.FarmemeFilledButton
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.setting.component.SettingListItem
@@ -106,6 +107,15 @@ private fun SettingBody(
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
+        if (true) { // 앱 업데이트 여부 추가
+            Spacer(modifier = Modifier.height(16.dp))
+            FarmemeFilledButton(
+                backgroundColor = FarmemeTheme.backgroundColor.primary,
+                text = "앱 업데이트하기",
+                textColor = FarmemeTheme.textColor.inverse,
+                onClick = {},
+            )
+        }
         Spacer(modifier = Modifier.height(50.dp))
         Spacer(
             modifier = Modifier
