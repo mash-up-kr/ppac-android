@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -94,11 +93,6 @@ internal fun FarmemeToolbar(
                 actionIcon?.invoke()
             }
         }
-        Divider(
-            modifier = Modifier.fillMaxWidth(),
-            color = FarmemeTheme.backgroundColor.assistive,
-            thickness = 1.dp,
-        )
     }
 }
 
