@@ -49,7 +49,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
     }
 
     fun intent(intent: I) {
-        viewModelScope.launch {
+        launch {
             handleIntent(intent)
         }
     }

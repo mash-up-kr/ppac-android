@@ -80,16 +80,10 @@ class RecommendationViewModel @Inject constructor(
                 reduce {
                     updateReaction(intent.meme) { it.copy(isSaved = it.isSaved.not()) }
                 }
-                runCatching {
-                    if (intent.meme.isSaved) {
-                        deleteSavedMemeUseCase(intent.meme.id)
-                    } else {
-                        saveMemeUseCase(intent.meme.id)
-                    }
-                }.onFailure {
-                    reduce {
-                        updateReaction(intent.meme) { it.copy(isSaved = it.isSaved.not()) }
-                    }
+                if (intent.meme.isSaved) {
+                    deleteSavedMemeUseCase(intent.meme.id)
+                } else {
+                    saveMemeUseCase(intent.meme.id)
                 }
             }
 
@@ -112,6 +106,13 @@ class RecommendationViewModel @Inject constructor(
                 initialAction()
                 delay(500L)
                 reduce { copy(isRefreshing = false) }
+            }
+
+            RecommendationIntent.Init -> {
+                initialAction()
+                reduce {
+                    copy(isError = false)
+                }
             }
         }
     }
