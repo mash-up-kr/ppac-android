@@ -66,7 +66,9 @@ internal fun SettingScreen(
             item {
                 SettingListItem(
                     title = "개인정보 처리방침",
-                    onClick = { }, // TODO(ze-zeh) : onClick 적용
+                    onClick = {
+                        viewModel.intent(SettingIntent.ClickSettingListItem)
+                    },
                 )
             }
         }

@@ -22,7 +22,8 @@ class SettingViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: SettingIntent) {
         when (intent) {
-            is SettingIntent.ClickBackButton -> onClickBackButton()
+            SettingIntent.ClickBackButton -> onClickBackButton()
+            SettingIntent.ClickSettingListItem -> {} // TODO
         }
     }
 
