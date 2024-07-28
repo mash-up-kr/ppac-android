@@ -172,92 +172,93 @@ internal fun RecommendationScreen(
                                 "추천 밈 둘러보세요!"
                             }
 
-                        else -> {
-                            "밈 보고 레벨 포인트 받아요!"
-                        }
-                    },
-                    style = FarmemeTheme.typography.body.medium.medium,
-                    color = FarmemeTheme.textColor.secondary,
-                )
-                Spacer(modifier = Modifier.padding(top = 36.dp))
-                when {
-                    state.thisWeekMemes.isNotEmpty() -> {
-                        HeroModulePager(
-                            memes = state.thisWeekMemes,
-                            pagerState = heroModulePagerState,
-                            onMovePage = { page, meme ->
-                                viewModel.intent(RecommendationIntent.MovePage(meme, page))
-                            },
-                            onLoadMeme = { index, bitmap ->
-                                memeBitmap[index] = bitmap
+                            else -> {
+                                "밈 보고 레벨 포인트 받아요!"
                             }
-                        )
-                        Spacer(modifier = Modifier.padding(top = 20.dp))
-                        KeywordsRow(
-                            modifier = Modifier.fillMaxWidth(),
-                            keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords.toImmutableList()
-                        )
-                        Spacer(modifier = Modifier.padding(top = 30.dp))
-                        ActionButtons(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 30.dp),
-                            meme = state.thisWeekMemes[heroModulePagerState.currentPage],
-                            onClickIntent = viewModel::intent,
-                            page = heroModulePagerState.currentPage,
-                            onReactionButtonPositioned = {
-                                lottiePosition = it
-                            }
-                        )
-                    }
-
-                    state.isLoading -> {
-                        Box(
-                            modifier = Modifier
-                                .shimmerLoadingAnimation(isLoading = true)
-                                .size(width = 270.dp, height = 310.dp)
-                        )
-                        Spacer(modifier = Modifier.height(20.dp))
-                        Box(
-                            modifier = Modifier
-                                .shimmerLoadingAnimation(isLoading = true)
-                                .size(width = 200.dp, height = 16.dp)
-                        )
-                        Spacer(modifier = Modifier.height(30.dp))
-                        Box(
-                            modifier = Modifier
-                                .shimmerLoadingAnimation(isLoading = true)
-                                .fillMaxWidth()
-                                .height(50.dp)
-                                .padding(horizontal = 30.dp)
-                        )
-                    }
-                }
-            }
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center,
-            ) {
-                PullRefreshIndicator(
-                    refreshing = state.isRefreshing,
-                    state = pullRefreshState,
-                )
-            }
-            LottieAnimation(
-                modifier = Modifier
-                    .size(200.dp)
-                    .offset {
-                        with(lottiePosition) {
-                            // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
-                            IntOffset(
-                                x = x.roundToInt() - 30.dp.roundToPx(),
-                                y = y.roundToInt() - 200.dp.roundToPx()
+                        },
+                        style = FarmemeTheme.typography.body.medium.medium,
+                        color = FarmemeTheme.textColor.secondary,
+                    )
+                    Spacer(modifier = Modifier.padding(top = 36.dp))
+                    when {
+                        state.thisWeekMemes.isNotEmpty() -> {
+                            HeroModulePager(
+                                memes = state.thisWeekMemes,
+                                pagerState = heroModulePagerState,
+                                onMovePage = { page, meme ->
+                                    viewModel.intent(RecommendationIntent.MovePage(meme, page))
+                                },
+                                onLoadMeme = { index, bitmap ->
+                                    memeBitmap[index] = bitmap
+                                }
+                            )
+                            Spacer(modifier = Modifier.padding(top = 20.dp))
+                            KeywordsRow(
+                                modifier = Modifier.fillMaxWidth(),
+                                keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords.toImmutableList()
+                            )
+                            Spacer(modifier = Modifier.padding(top = 30.dp))
+                            ActionButtons(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 30.dp),
+                                meme = state.thisWeekMemes[heroModulePagerState.currentPage],
+                                onClickIntent = viewModel::intent,
+                                page = heroModulePagerState.currentPage,
+                                onReactionButtonPositioned = {
+                                    lottiePosition = it
+                                }
                             )
                         }
-                    },
-                composition = lottieComposition,
-                progress = { lottieAnimatable.progress },
-            )
+
+                        state.isLoading -> {
+                            Box(
+                                modifier = Modifier
+                                    .shimmerLoadingAnimation(isLoading = true)
+                                    .size(width = 270.dp, height = 310.dp)
+                            )
+                            Spacer(modifier = Modifier.height(20.dp))
+                            Box(
+                                modifier = Modifier
+                                    .shimmerLoadingAnimation(isLoading = true)
+                                    .size(width = 200.dp, height = 16.dp)
+                            )
+                            Spacer(modifier = Modifier.height(30.dp))
+                            Box(
+                                modifier = Modifier
+                                    .shimmerLoadingAnimation(isLoading = true)
+                                    .fillMaxWidth()
+                                    .height(50.dp)
+                                    .padding(horizontal = 30.dp)
+                            )
+                        }
+                    }
+                }
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    PullRefreshIndicator(
+                        refreshing = state.isRefreshing,
+                        state = pullRefreshState,
+                    )
+                }
+                LottieAnimation(
+                    modifier = Modifier
+                        .size(200.dp)
+                        .offset {
+                            with(lottiePosition) {
+                                // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
+                                IntOffset(
+                                    x = x.roundToInt() - 30.dp.roundToPx(),
+                                    y = y.roundToInt() - 200.dp.roundToPx()
+                                )
+                            }
+                        },
+                    composition = lottieComposition,
+                    progress = { lottieAnimatable.progress },
+                )
+            }
         }
     }
 }
