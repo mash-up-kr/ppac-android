@@ -5,7 +5,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,7 +24,6 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import team.ppac.common.android.util.shimmerLoadingAnimation
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
 
@@ -33,7 +31,6 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 internal fun SeenMemeProgressBar(
     modifier: Modifier = Modifier,
     seenMemeCount: Int,
-    isLoading: Boolean,
 ) {
     val seenMemeProgress by animateFloatAsState(
         targetValue = (seenMemeCount / 5f),
@@ -48,24 +45,16 @@ internal fun SeenMemeProgressBar(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (isLoading) {
-            Box(
-                modifier = Modifier
-                    .shimmerLoadingAnimation(isLoading)
-                    .fillMaxWidth()
-            )
-        } else {
-            FarmemeIcon.CheckRectangle(modifier = Modifier.size(16.dp))
-            LinearProgressBar(
-                modifier = Modifier.width(124.dp),
-                progress = seenMemeProgress
-            )
-            Text(
-                text = "${seenMemeCount}개 봤어요",
-                style = FarmemeTheme.typography.body.small.semibold,
-                color = FarmemeTheme.textColor.brand,
-            )
-        }
+        FarmemeIcon.CheckRectangle(modifier = Modifier.size(16.dp))
+        LinearProgressBar(
+            modifier = Modifier.width(124.dp),
+            progress = seenMemeProgress
+        )
+        Text(
+            text = "${seenMemeCount}개 봤어요",
+            style = FarmemeTheme.typography.body.small.semibold,
+            color = FarmemeTheme.textColor.brand,
+        )
     }
 }
 

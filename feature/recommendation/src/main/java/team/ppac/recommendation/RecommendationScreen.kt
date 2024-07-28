@@ -10,9 +10,11 @@ import android.graphics.Bitmap
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +26,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -40,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -54,13 +58,15 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import team.ppac.common.android.component.error.FarmemeErrorScreen
+import team.ppac.common.android.util.SkeletonViewType
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.common.android.util.shareOneLink
-import team.ppac.common.android.util.shimmerLoadingAnimation
+import team.ppac.common.android.util.showSkeleton
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import team.ppac.recommendation.component.ActionButtons
 import team.ppac.recommendation.component.HeroModulePager
@@ -157,28 +163,43 @@ internal fun RecommendationScreen(
                         color = FarmemeTheme.textColor.primary,
                     )
                     Spacer(modifier = Modifier.padding(top = 16.dp))
-                    SeenMemeProgressBar(
-                        seenMemeCount = state.seenMemeCount,
-                        isLoading = state.isLoading,
-                    )
-                    Spacer(modifier = Modifier.padding(top = 8.dp))
-                    Text(
-                        text = when {
-                            state.seenMemeCount == 5 -> {
-                                "완밈! 다음 주 밈도 기대해 주세요"
-                            }
+                    if (state.isLoading) {
+                        Spacer(modifier = Modifier.padding(top = 20.dp))
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .showSkeleton(
+                                    isLoading = state.isLoading,
+                                    viewType = SkeletonViewType.Home
+                                )
+                                .size(
+                                    width = 200.dp,
+                                    height = 16.dp,
+                                )
+                        )
+                    } else {
+                        SeenMemeProgressBar(
+                            seenMemeCount = state.seenMemeCount,
+                        )
+                        Spacer(modifier = Modifier.padding(top = 8.dp))
+                        Text(
+                            text = when {
+                                state.seenMemeCount == 5 -> {
+                                    "완밈! 다음 주 밈도 기대해 주세요"
+                                }
 
-                            state.level >= 2 -> {
-                                "추천 밈 둘러보세요!"
-                            }
+                                state.level >= 2 -> {
+                                    "추천 밈 둘러보세요!"
+                                }
 
-                            else -> {
-                                "밈 보고 레벨 포인트 받아요!"
-                            }
-                        },
-                        style = FarmemeTheme.typography.body.medium.medium,
-                        color = FarmemeTheme.textColor.secondary,
-                    )
+                                else -> {
+                                    "밈 보고 레벨 포인트 받아요!"
+                                }
+                            },
+                            style = FarmemeTheme.typography.body.medium.medium,
+                            color = FarmemeTheme.textColor.secondary,
+                        )
+                    }
                     Spacer(modifier = Modifier.padding(top = 36.dp))
                     when {
                         state.thisWeekMemes.isNotEmpty() -> {
@@ -212,25 +233,7 @@ internal fun RecommendationScreen(
                         }
 
                         state.isLoading -> {
-                            Box(
-                                modifier = Modifier
-                                    .shimmerLoadingAnimation(isLoading = true)
-                                    .size(width = 270.dp, height = 310.dp)
-                            )
-                            Spacer(modifier = Modifier.height(20.dp))
-                            Box(
-                                modifier = Modifier
-                                    .shimmerLoadingAnimation(isLoading = true)
-                                    .size(width = 200.dp, height = 16.dp)
-                            )
-                            Spacer(modifier = Modifier.height(30.dp))
-                            Box(
-                                modifier = Modifier
-                                    .shimmerLoadingAnimation(isLoading = true)
-                                    .fillMaxWidth()
-                                    .height(50.dp)
-                                    .padding(horizontal = 30.dp)
-                            )
+                            ContentLoadingSkeleton(isLoading = state.isLoading)
                         }
                     }
                 }
@@ -259,6 +262,60 @@ internal fun RecommendationScreen(
                     progress = { lottieAnimatable.progress },
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun ContentLoadingSkeleton(
+    isLoading: Boolean,
+) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(20.dp))
+            .showSkeleton(
+                isLoading = isLoading,
+                viewType = SkeletonViewType.Home
+            )
+            .size(width = 270.dp, height = 310.dp)
+    )
+    Spacer(modifier = Modifier.height(20.dp))
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(4.dp))
+            .showSkeleton(
+                isLoading = isLoading,
+                viewType = SkeletonViewType.Home
+            )
+            .size(width = 200.dp, height = 16.dp)
+    )
+    Spacer(modifier = Modifier.height(30.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 30.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(FarmemeRadius.Radius40.shape)
+                .showSkeleton(
+                    isLoading = isLoading,
+                    viewType = SkeletonViewType.Home
+                )
+                .weight(1f)
+                .height(50.dp)
+        )
+        repeat(3) {
+            Box(
+                modifier = Modifier
+                    .clip(FarmemeRadius.Radius40.shape)
+                    .showSkeleton(
+                        isLoading = isLoading,
+                        viewType = SkeletonViewType.Home
+                    )
+                    .size(50.dp)
+            )
         }
     }
 }
