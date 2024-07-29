@@ -36,7 +36,8 @@ internal fun SearchRoute(
             uiState = uiState,
             onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
             onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) },
-            onHotKeywordMemeClick = { viewModel.intent(SearchIntent.ClickKeywordCard(keyword = it)) }
+            onHotKeywordMemeClick = { viewModel.intent(SearchIntent.ClickKeywordCard(keyword = it)) },
+            onRetryClick = { viewModel.intent(SearchIntent.ClickErrorRetry) }
         )
     }
 }

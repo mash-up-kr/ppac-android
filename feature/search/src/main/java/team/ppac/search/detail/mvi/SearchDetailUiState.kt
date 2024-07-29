@@ -7,12 +7,16 @@ import team.ppac.common.android.base.UiState
 import team.ppac.search.detail.model.SearchResultUiModel
 
 data class SearchDetailUiState(
+    val isLoading: Boolean,
+    val isError: Boolean,
     val memeCategory: String,
     val searchResults: Flow<PagingData<SearchResultUiModel>>,
 ) : UiState {
 
     companion object {
         val INITIAL_STATE = SearchDetailUiState(
+            isLoading = true,
+            isError = false,
             memeCategory = "",
             searchResults = flowOf(PagingData.empty())
         )

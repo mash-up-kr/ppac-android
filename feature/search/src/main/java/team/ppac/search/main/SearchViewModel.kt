@@ -1,15 +1,14 @@
 package team.ppac.search.main
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
 import team.ppac.domain.usecase.GetTopKeywordsUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.search.main.model.HotKeywordUiModel
 import team.ppac.search.main.model.RecommendKeywordUiModel
 import team.ppac.search.main.model.toHotKeywordUiModel
@@ -35,11 +34,20 @@ class SearchViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        when (throwable) {
+            is FarmemeNetworkException -> {
+                updateErrorState(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: SearchIntent) {
         when (intent) {
+            is SearchIntent.ClickErrorRetry -> {
+                getSearchScreenUiContent()
+                updateErrorState(isError = false)
+            }
+
             is SearchIntent.ClickSearch -> {
                 showServiceOpenDialog(true)
             }
@@ -62,20 +70,18 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    private fun getSearchScreenUiContent() {
-        viewModelScope.launch {
-            val topKeywordsDeferredTask = async { getTopKeywordsUseCase() }
-            val recommendKeywordsDeferredTask = async { getRecommendKeywordsUseCase() }
+    private fun getSearchScreenUiContent() = launch {
+        val topKeywordsDeferredTask = async { getTopKeywordsUseCase() }
+        val recommendKeywordsDeferredTask = async { getRecommendKeywordsUseCase() }
 
-            val topKeywords = topKeywordsDeferredTask.await()
-                .map { it.toHotKeywordUiModel() }
-                .toImmutableList()
-            val recommendKeywords = recommendKeywordsDeferredTask.await()
-                .map { it.toRecommendKeywordUiModel() }
-                .toImmutableList()
+        val topKeywords = topKeywordsDeferredTask.await()
+            .map { it.toHotKeywordUiModel() }
+            .toImmutableList()
+        val recommendKeywords = recommendKeywordsDeferredTask.await()
+            .map { it.toRecommendKeywordUiModel() }
+            .toImmutableList()
 
-            updateSearchUiContent(topKeywords, recommendKeywords)
-        }
+        updateSearchUiContent(topKeywords, recommendKeywords)
     }
 
     private fun updateSearchUiContent(
@@ -90,13 +96,13 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    private fun updateMemeCategories(recommendKeywords: ImmutableList<RecommendKeywordUiModel>) {
-        reduce { copy(memeCategories = recommendKeywords) }
-    }
-
     private fun showServiceOpenDialog(showServiceOpenDialog: Boolean) {
         reduce {
             copy(showServiceOpenDialog = showServiceOpenDialog)
         }
+    }
+
+    private fun updateErrorState(isError: Boolean) {
+        reduce { copy(isError = isError) }
     }
 }

@@ -6,11 +6,11 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.GetSearchMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.search.detail.model.toSearchResultUiModel
 import team.ppac.search.detail.mvi.SearchDetailIntent
 import team.ppac.search.detail.mvi.SearchDetailSideEffect
@@ -34,11 +34,20 @@ class SearchDetailViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        when (throwable) {
+            is FarmemeNetworkException -> {
+                updateErrorState(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: SearchDetailIntent) {
         when (intent) {
+            is SearchDetailIntent.ClickErrorRetry -> {
+                getSearchResults("")
+                updateErrorState(isError = false)
+            }
+
             is SearchDetailIntent.ClickMeme -> {
                 runCatching {
                     watchMemeUseCase(
@@ -54,19 +63,21 @@ class SearchDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getSearchResults(memeCategory: String) {
-        viewModelScope.launch {
-            val searchResults = getSearchMemeUseCase(memeCategory)
-                .map { pagingData ->
-                    pagingData.map { it.toSearchResultUiModel() }
-                }.cachedIn(viewModelScope)
+    private fun getSearchResults(memeCategory: String) = launch {
+        val searchResults = getSearchMemeUseCase(memeCategory)
+            .map { pagingData ->
+                pagingData.map { it.toSearchResultUiModel() }
+            }.cachedIn(viewModelScope)
 
-            reduce {
-                copy(
-                    memeCategory = memeCategory,
-                    searchResults = searchResults
-                )
-            }
+        reduce {
+            copy(
+                memeCategory = memeCategory,
+                searchResults = searchResults
+            )
         }
+    }
+
+    private fun updateErrorState(isError: Boolean) {
+        reduce { copy(isError = isError) }
     }
 }
