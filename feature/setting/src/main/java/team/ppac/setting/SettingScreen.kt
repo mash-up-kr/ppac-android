@@ -43,6 +43,7 @@ internal fun SettingScreen(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 SettingSideEffect.OnClickBackButton -> navigateToBack()
+                SettingSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
             }
         }
     }
@@ -68,7 +69,7 @@ internal fun SettingScreen(
                 SettingListItem(
                     title = "개인정보 처리방침",
                     onClick = {
-                        viewModel.intent(SettingIntent.ClickSettingListItem)
+                        viewModel.intent(SettingIntent.ClickPrivacyPolicy)
                     },
                 )
             }

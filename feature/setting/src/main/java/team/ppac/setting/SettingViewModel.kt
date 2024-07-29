@@ -23,7 +23,7 @@ class SettingViewModel @Inject constructor(
     override suspend fun handleIntent(intent: SettingIntent) {
         when (intent) {
             SettingIntent.ClickBackButton -> onClickBackButton()
-            SettingIntent.ClickSettingListItem -> {} // TODO
+            SettingIntent.ClickPrivacyPolicy -> postSideEffect(SettingSideEffect.NavigateToPrivacyPolicy)
         }
     }
 
