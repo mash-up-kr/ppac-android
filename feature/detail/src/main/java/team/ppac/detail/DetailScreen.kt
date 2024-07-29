@@ -25,7 +25,7 @@ internal fun DetailScreen(
     onClickFunnyButton: () -> Unit,
     onReactionButtonPosition: (Offset) -> Unit,
     onClickBackButton: () -> Unit,
-    onClickButtonButtons: (DetailIntent.ClickButtonButton) -> Unit,
+    onClickButtonButtons: (DetailIntent.ClickBottomButton) -> Unit,
     saveBitmap: (bitmap: Bitmap) -> Unit,
 ) {
     FarmemeScaffold(

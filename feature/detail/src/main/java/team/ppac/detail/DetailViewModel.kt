@@ -57,7 +57,7 @@ class DetailViewModel @Inject constructor(
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
             }
 
-            DetailIntent.ClickButtonButton.Copy -> {
+            DetailIntent.ClickBottomButton.Copy -> {
                 showSnackbar(
                     message = "이미지를 클립보드에 복사했어요",
                     icon = {
@@ -67,11 +67,11 @@ class DetailViewModel @Inject constructor(
                 postSideEffect(DetailSideEffect.CopyClipBoard)
             }
 
-            is DetailIntent.ClickButtonButton.Share -> {
+            is DetailIntent.ClickBottomButton.Share -> {
                 postSideEffect(DetailSideEffect.ShareLink(intent.memeId))
             }
 
-            is DetailIntent.ClickButtonButton.Farmeme -> {
+            is DetailIntent.ClickBottomButton.Farmeme -> {
                 if (intent.isSavedMeme) {
                     deleteSavedMeme()
                     showSnackbar(message = "파밈을 취소했어요")

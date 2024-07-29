@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
@@ -36,7 +35,7 @@ import team.ppac.detail.mvi.DetailIntent
 internal fun DetailBottomBar(
     memeId: String,
     isSaved: Boolean,
-    onClickBottomButtons: (DetailIntent.ClickButtonButton) -> Unit,
+    onClickBottomButtons: (DetailIntent.ClickBottomButton) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 
@@ -66,7 +65,7 @@ internal fun DetailBottomBar(
                         delay(2000)
                         copyButtonColor = originalColor
                     }
-                    onClickBottomButtons(DetailIntent.ClickButtonButton.Copy)
+                    onClickBottomButtons(DetailIntent.ClickBottomButton.Copy)
                 },
             ) {
                 FarmemeIcon.Copy(
@@ -76,7 +75,7 @@ internal fun DetailBottomBar(
             }
             DetailBottomButton(
                 title = "공유",
-                onClickButton = { onClickBottomButtons(DetailIntent.ClickButtonButton.Share(memeId)) },
+                onClickButton = { onClickBottomButtons(DetailIntent.ClickBottomButton.Share(memeId)) },
             ) {
                 FarmemeIcon.Share(modifier = Modifier.size(20.dp))
             }
@@ -85,7 +84,7 @@ internal fun DetailBottomBar(
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
                     onClickBottomButtons(
-                        DetailIntent.ClickButtonButton.Farmeme(
+                        DetailIntent.ClickBottomButton.Farmeme(
                             isSaved
                         )
                     )
