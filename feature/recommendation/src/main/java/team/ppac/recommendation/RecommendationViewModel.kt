@@ -1,8 +1,5 @@
 package team.ppac.recommendation
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
@@ -10,7 +7,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import team.ppac.common.android.base.BaseViewModel
-import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
@@ -73,12 +69,6 @@ class RecommendationViewModel @Inject constructor(
             }
 
             is RecommendationIntent.ClickButton.Copy -> {
-                showSnackbar(
-                    message = "이미지를 클립보드에 복사했어요",
-                    icon = {
-                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
-                    }
-                )
                 postSideEffect(RecommendationSideEffect.CopyClipBoard(intent.memeIndex))
             }
 
@@ -92,15 +82,8 @@ class RecommendationViewModel @Inject constructor(
                 }
                 if (intent.meme.isSaved) {
                     deleteSavedMemeUseCase(intent.meme.id)
-                    showSnackbar(message = "파밈을 취소했어요")
                 } else {
                     saveMemeUseCase(intent.meme.id)
-                    showSnackbar(
-                        message = "파밈 완료!",
-                        icon = {
-                            FarmemeIcon.BookmarkFilled(Modifier.size(20.dp))
-                        }
-                    )
                 }
             }
 

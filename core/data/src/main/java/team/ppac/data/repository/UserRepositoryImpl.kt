@@ -3,11 +3,11 @@ package team.ppac.data.repository
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import team.ppac.core.datastore.UserData
 import team.ppac.data.mapper.toMeme
 import team.ppac.data.mapper.toUser
 import team.ppac.data.paging.ITEMS_PER_PAGE
 import team.ppac.data.paging.createPager
-import team.ppac.datastore.entity.UserData
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.User
 import team.ppac.domain.repository.UserRepository
@@ -24,16 +24,16 @@ internal class UserRepositoryImpl @Inject constructor(
     override suspend fun createUser(): Boolean {
         val user = userLocalDataSource.userDataFlow.firstOrNull()
 
-        return if (user != UserData.EMPTY) {
+        return if (user != UserData.getDefaultInstance()) {
             true
         } else { // 유저 API로 등록 후 로컬에 등록 여부 저장
             val deviceId = appConfig.deviceId
             val userResponse = userRemoteDataSource.postUser(deviceId)
             userLocalDataSource.setUser {
-                UserData(
-                    userId = userResponse.deviceId,
-                    level = userResponse.level,
-                )
+                UserData.newBuilder()
+                    .setUserId(userResponse.deviceId)
+                    .setLevel(userResponse.level)
+                    .build()
             }
             false
         }
@@ -58,7 +58,9 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override suspend fun setLevel(level: Int) {
         userLocalDataSource.setUser { userData ->
-            userData.copy(level = level)
+            userData.toBuilder()
+                .setLevel(level)
+                .build()
         }
     }
 

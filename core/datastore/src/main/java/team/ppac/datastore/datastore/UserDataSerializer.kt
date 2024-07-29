@@ -5,30 +5,31 @@ import androidx.datastore.core.Serializer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.json.Json
-import team.ppac.datastore.entity.UserData
+import team.ppac.core.datastore.UserData
 import java.io.InputStream
 import java.io.OutputStream
 
 internal object UserDataSerializer : Serializer<UserData> {
 
-    override val defaultValue: UserData = UserData.EMPTY
+    override val defaultValue: UserData = UserData.getDefaultInstance()
 
     override suspend fun readFrom(input: InputStream): UserData {
-        try {
-            return Json.decodeFromString(
-                UserData.serializer(), input.readBytes().decodeToString()
-            )
-        } catch (e: SerializationException) {
-            throw CorruptionException("Unable to read UserPrefs", e)
+        return withContext(Dispatchers.IO) {
+            try {
+                if (input.available() != 0) {
+                    UserData.parseFrom(input)
+                } else {
+                    defaultValue
+                }
+            } catch (e: SerializationException) {
+                throw CorruptionException("Unable to read UserPrefs", e)
+            }
         }
     }
 
     override suspend fun writeTo(t: UserData, output: OutputStream) {
-        withContext(Dispatchers.IO) {
-            output.write(
-                Json.encodeToString(UserData.serializer(), t).encodeToByteArray()
-            )
+        return withContext(Dispatchers.IO) {
+            t.writeTo(output)
         }
     }
 }
