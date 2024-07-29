@@ -32,7 +32,7 @@ class ErrorInterceptor @Inject constructor(
             }
             return response
         } catch (e: Exception) {
-            Timber.e(e)
+//            Timber.e(e)
             throw e.parseWithNetworkError()
         }
     }

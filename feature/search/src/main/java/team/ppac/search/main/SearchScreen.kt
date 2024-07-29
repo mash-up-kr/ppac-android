@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
@@ -29,6 +31,7 @@ internal fun SearchScreen(
     onSearchBarClick: () -> Unit,
     onCategoryClick: (String) -> Unit,
     onHotKeywordMemeClick: (String) -> Unit,
+    onRetryClick: () -> Unit,
 ) {
     FarmemeScaffold(
         modifier = modifier
@@ -36,41 +39,53 @@ internal fun SearchScreen(
             .systemBarsPadding(),
         isIncludeHorizontalPadding = false,
     ) {
-        LazyColumn(
-            contentPadding = PaddingValues(bottom = TabBarHeight),
-        ) {
-            stickyHeader {
-                FarmemeSearchBar(
-                    modifier = Modifier,
-                    onSearchClick = onSearchBarClick
+        when {
+            uiState.isError -> {
+                FarmemeErrorScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    title = "정보를 불러오지 못 했어요.\n새로고침 해주세요.",
+                    onRetryClick = onRetryClick
                 )
             }
-            item {
-                FarmemeListHeader(
-                    title = "두둥! 요즘 핫한 #키워드",
-                    leadingIcon = { FarmemeIcon.Special(Modifier.size(20.dp)) }
-                )
-            }
-            item {
-                HotKeywordContent(
-                    modifier = Modifier,
-                    keywords = uiState.hotKeywords,
-                    onHotKeywordMemeClick = onHotKeywordMemeClick
-                )
-            }
-            item { Spacer(modifier = Modifier.size(40.dp)) }
-            item {
-                FarmemeListHeader(
-                    title = "무슨 밈 찾아?",
-                    leadingIcon = { FarmemeIcon.Category(Modifier.size(20.dp)) }
-                )
-            }
-            items(items = uiState.memeCategories) { memeCategory ->
-                MemeCategoryContent(
-                    uiModel = memeCategory,
-                    onCategoryClick = onCategoryClick
-                )
-                Spacer(modifier = Modifier.size(20.dp))
+
+            else -> {
+                LazyColumn(
+                    contentPadding = PaddingValues(bottom = TabBarHeight),
+                ) {
+                    stickyHeader {
+                        FarmemeSearchBar(
+                            modifier = Modifier,
+                            onSearchClick = onSearchBarClick
+                        )
+                    }
+                    item {
+                        FarmemeListHeader(
+                            title = "두둥! 요즘 핫한 #키워드",
+                            leadingIcon = { FarmemeIcon.Special(Modifier.size(20.dp)) }
+                        )
+                    }
+                    item {
+                        HotKeywordContent(
+                            modifier = Modifier,
+                            keywords = uiState.hotKeywords,
+                            onHotKeywordMemeClick = onHotKeywordMemeClick
+                        )
+                    }
+                    item { Spacer(modifier = Modifier.size(40.dp)) }
+                    item {
+                        FarmemeListHeader(
+                            title = "무슨 밈 찾아?",
+                            leadingIcon = { FarmemeIcon.Category(Modifier.size(20.dp)) }
+                        )
+                    }
+                    items(items = uiState.memeCategories) { memeCategory ->
+                        MemeCategoryContent(
+                            uiModel = memeCategory,
+                            onCategoryClick = onCategoryClick
+                        )
+                        Spacer(modifier = Modifier.size(20.dp))
+                    }
+                }
             }
         }
     }
@@ -83,6 +98,7 @@ private fun MyPageScreenPreview() {
         uiState = SearchUiState.INITIAL_STATE,
         onSearchBarClick = {},
         onCategoryClick = {},
-        onHotKeywordMemeClick = {}
+        onHotKeywordMemeClick = {},
+        onRetryClick = {}
     )
 }
