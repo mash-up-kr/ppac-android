@@ -28,6 +28,6 @@ class SettingViewModel @Inject constructor(
     }
 
     private fun onClickBackButton() {
-        postSideEffect(SettingSideEffect.OnClickBackButton)
+        postSideEffect(SettingSideEffect.NavigateToBack)
     }
 }

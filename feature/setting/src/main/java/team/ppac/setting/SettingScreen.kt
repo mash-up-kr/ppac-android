@@ -42,7 +42,7 @@ internal fun SettingScreen(
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                SettingSideEffect.OnClickBackButton -> navigateToBack()
+                SettingSideEffect.NavigateToBack -> navigateToBack()
                 SettingSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
             }
         }
