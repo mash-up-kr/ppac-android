@@ -1,5 +1,7 @@
 package team.ppac.setting
 
+import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -9,9 +11,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
+
+const val PRIVACY_POLICY_URL =
+    "https://snow-chestnut-45b.notion.site/03c44635666546718a4540874f824cd7"
 
 @Composable
 internal fun PrivacyPolicyScreen(
@@ -36,11 +42,21 @@ internal fun PrivacyPolicyScreen(
                     .height(1.dp)
                     .background(FarmemeTheme.backgroundColor.assistive),
             )
-            Spacer(
-                // 웹뷰 추가
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(FarmemeTheme.backgroundColor.brand),
+            AndroidView(
+                modifier = Modifier.fillMaxSize(),
+                factory = { context ->
+                    WebView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT
+                        )
+                        settings.javaScriptEnabled = true
+                        settings.domStorageEnabled = true
+                    }
+                },
+                update = { webView ->
+                    webView.loadUrl(PRIVACY_POLICY_URL)
+                },
             )
         }
     }
