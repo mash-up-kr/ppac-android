@@ -1,4 +1,4 @@
-package team.ppac.setting
+package team.ppac.setting.policy
 
 import android.view.ViewGroup
 import android.webkit.WebView

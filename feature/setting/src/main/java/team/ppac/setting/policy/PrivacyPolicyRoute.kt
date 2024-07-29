@@ -1,4 +1,4 @@
-package team.ppac.setting
+package team.ppac.setting.policy
 
 import androidx.compose.runtime.Composable
 
