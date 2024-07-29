@@ -37,6 +37,7 @@ internal fun SettingScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingViewModel = hiltViewModel(),
     navigateToBack: () -> Unit,
+    navigateToPrivacyPolicy: () -> Unit,
 ) {
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
@@ -109,7 +110,7 @@ private fun SettingBody(
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
-        if (true) { // 앱 업데이트 여부 추가
+        if (true) { // TODO(ze-zeh) : 앱 업데이트 여부 확인 로직 추가
             Spacer(modifier = Modifier.height(16.dp))
             FarmemeFilledButton(
                 backgroundColor = FarmemeTheme.backgroundColor.primary,
@@ -135,6 +136,7 @@ private fun SettingBody(
 private fun SettingScreenPreview() {
     SettingScreen(
         navigateToBack = {},
+        navigateToPrivacyPolicy = {},
     )
 }
 
