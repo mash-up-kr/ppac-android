@@ -6,7 +6,8 @@ import team.ppac.detail.model.DetailMemeUiModel
 
 data class DetailUiState(
     val memeId: String,
-    val detailMemeUiModel: DetailMemeUiModel
+    val detailMemeUiModel: DetailMemeUiModel,
+    val isError: Boolean,
 ) : UiState {
 
     companion object {
@@ -19,7 +20,8 @@ data class DetailUiState(
                 sourceDescription = "이곳에는 출처에 대한 내용이 들어갑니다. 이곳에는 출처에 대한 내용이 들어갑니다.",
                 isSavedMeme = false,
                 reactionCount = 0,
-            )
+            ),
+            isError = false,
         )
     }
 }

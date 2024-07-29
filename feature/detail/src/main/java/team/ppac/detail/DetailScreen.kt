@@ -5,47 +5,29 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.collections.immutable.persistentListOf
-import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.detail.component.DetailBottomBar
 import team.ppac.detail.component.DetailContent
 import team.ppac.detail.model.DetailMemeUiModel
+import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailUiState
 
 @Composable
 internal fun DetailScreen(
     modifier: Modifier = Modifier,
     uiState: DetailUiState,
-    onClickFarmemeButton: (Boolean) -> Unit,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPosition: (Offset) -> Unit,
     onClickBackButton: () -> Unit,
+    onClickButtonButtons: (DetailIntent.ClickBottomButton) -> Unit,
+    saveBitmap: (bitmap: Bitmap) -> Unit,
 ) {
-
-    var context = LocalContext.current
-    var bitmap: Bitmap? by remember { mutableStateOf(null) }
-
-    val copyBitmap: () -> Unit = {
-        bitmap?.let {
-            context.copyImageToClipBoard(it)
-        }
-    }
-
-    val saveBitmap: (Bitmap) -> Unit = {
-        bitmap = it
-    }
-
     FarmemeScaffold(
         modifier = modifier,
         topBar = {
@@ -58,8 +40,7 @@ internal fun DetailScreen(
             DetailBottomBar(
                 memeId = uiState.memeId,
                 isSaved = uiState.detailMemeUiModel.isSavedMeme,
-                copyBitmap = copyBitmap,
-                onClickFarmemeButton = onClickFarmemeButton,
+                onClickBottomButtons = onClickButtonButtons,
             )
         },
     ) { innerPadding ->
@@ -93,10 +74,12 @@ fun PreviewDetailScreen() {
                 isSavedMeme = false,
                 reactionCount = 0,
             ),
+            isError = false,
         ),
-        onClickFarmemeButton = {},
         onClickFunnyButton = {},
         onReactionButtonPosition = { _ -> },
         onClickBackButton = {},
+        onClickButtonButtons = {},
+        saveBitmap = {},
     )
 }

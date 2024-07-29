@@ -1,10 +1,14 @@
 package team.ppac.detail
 
+import androidx.compose.foundation.layout.size
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.detail.mapper.toDetailMemeUiModel
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
@@ -13,6 +17,7 @@ import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,19 +39,15 @@ class DetailViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        if (throwable is FarmemeNetworkException) {
+            reduce {
+                copy(isError = true)
+            }
+        }
     }
 
     override suspend fun handleIntent(intent: DetailIntent) {
         when (intent) {
-            is DetailIntent.ClickFarmemeButton -> {
-                if (intent.isSavedMeme) {
-                    deleteSavedMeme()
-                } else {
-                    saveMeme()
-                }
-            }
-
             is DetailIntent.ClickFunnyButton -> {
                 incrementReactionCount()
                 postSideEffect(DetailSideEffect.RunRisingEffect)
@@ -55,13 +56,51 @@ class DetailViewModel @Inject constructor(
             is DetailIntent.ClickBackButton -> {
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
             }
+
+            DetailIntent.ClickBottomButton.Copy -> {
+                showSnackbar(
+                    message = "이미지를 클립보드에 복사했어요",
+                    icon = {
+                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
+                    }
+                )
+                postSideEffect(DetailSideEffect.CopyClipBoard)
+            }
+
+            is DetailIntent.ClickBottomButton.Share -> {
+                postSideEffect(DetailSideEffect.ShareLink(intent.memeId))
+            }
+
+            is DetailIntent.ClickBottomButton.Farmeme -> {
+                if (intent.isSavedMeme) {
+                    deleteSavedMeme()
+                    showSnackbar(message = "파밈을 취소했어요")
+                } else {
+                    saveMeme()
+                    showSnackbar(
+                        message = "파밈 완료!",
+                        icon = {
+                            FarmemeIcon.BookmarkFilled(Modifier.size(20.dp))
+                        }
+                    )
+                }
+            }
+
+            DetailIntent.CLickRetryButton -> {
+                getMeme(currentState.memeId)
+            }
         }
     }
 
     private fun getMeme(memeId: String) {
-        viewModelScope.launch {
+        launch {
             val meme = getMemeUseCase(memeId)
-            reduce { copy(detailMemeUiModel = meme.toDetailMemeUiModel()) }
+            reduce {
+                copy(
+                    detailMemeUiModel = meme.toDetailMemeUiModel(),
+                    isError = false,
+                )
+            }
         }
     }
 

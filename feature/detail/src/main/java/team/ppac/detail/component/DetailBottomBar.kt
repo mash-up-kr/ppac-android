@@ -20,26 +20,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.tabbar.TabBar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.rippleClickable
+import team.ppac.detail.mvi.DetailIntent
 
 @Composable
 internal fun DetailBottomBar(
     memeId: String,
     isSaved: Boolean,
-    copyBitmap: () -> Unit,
-    onClickFarmemeButton: (Boolean) -> Unit,
+    onClickBottomButtons: (DetailIntent.ClickBottomButton) -> Unit,
 ) {
-    val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
     val originalColor = FarmemeTheme.textColor.primary
@@ -68,7 +65,7 @@ internal fun DetailBottomBar(
                         delay(2000)
                         copyButtonColor = originalColor
                     }
-                    copyBitmap()
+                    onClickBottomButtons(DetailIntent.ClickBottomButton.Copy)
                 },
             ) {
                 FarmemeIcon.Copy(
@@ -78,7 +75,7 @@ internal fun DetailBottomBar(
             }
             DetailBottomButton(
                 title = "공유",
-                onClickButton = { context.shareOneLink(memeId) },
+                onClickButton = { onClickBottomButtons(DetailIntent.ClickBottomButton.Share(memeId)) },
             ) {
                 FarmemeIcon.Share(modifier = Modifier.size(20.dp))
             }
@@ -86,7 +83,11 @@ internal fun DetailBottomBar(
                 title = "파밈",
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
-                    onClickFarmemeButton(isSaved)
+                    onClickBottomButtons(
+                        DetailIntent.ClickBottomButton.Farmeme(
+                            isSaved
+                        )
+                    )
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
@@ -133,7 +134,6 @@ fun PreviewDetailBottomBar() {
     DetailBottomBar(
         memeId = "",
         isSaved = false,
-        copyBitmap = {},
-        onClickFarmemeButton = {},
+        onClickBottomButtons = {},
     )
 }
