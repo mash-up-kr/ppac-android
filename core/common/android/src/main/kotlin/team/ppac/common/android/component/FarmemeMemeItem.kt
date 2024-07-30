@@ -61,7 +61,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                         max = FARMEME_MEME_ITEM_MAX_HEIGHT.dp,
                     )
                     .fillMaxWidth()
-                    .background(FarmemeTheme.backgroundColor.black),
+                    .background(FarmemeTheme.skeletonColor.primary),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageUrl)
                     .crossfade(true)
