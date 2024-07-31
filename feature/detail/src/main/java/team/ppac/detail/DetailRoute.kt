@@ -1,6 +1,7 @@
 package team.ppac.detail
 
 import android.graphics.Bitmap
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -80,43 +81,45 @@ internal fun DetailRoute(
                 }
             }
         }
-        if (uiState.isError) {
-            FarmemeErrorScreen(
-                modifier = Modifier.fillMaxSize(),
-                title = "정보를 불러오지 못 했어요.\n새로고침 해주세요.",
-                onRetryClick = { viewModel.intent(DetailIntent.CLickRetryButton) }
-            )
-        } else {
-            DetailScreen(
-                modifier = modifier,
-                uiState = uiState,
-                onClickFunnyButton = {
-                    viewModel.intent(DetailIntent.ClickFunnyButton)
-                },
-                onReactionButtonPosition = {
-                    lottiePosition = it
-                },
-                onClickBackButton = {
-                    viewModel.intent(DetailIntent.ClickBackButton)
-                },
-                onClickButtonButtons = viewModel::intent,
-                saveBitmap = saveBitmap
-            )
-            LottieAnimation(
-                modifier = Modifier
-                    .size(200.dp)
-                    .offset {
-                        with(lottiePosition) {
-                            // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
-                            IntOffset(
-                                x = x.roundToInt() + 42.dp.roundToPx(),
-                                y = y.roundToInt() - 192.dp.roundToPx()
-                            )
-                        }
+        Crossfade(targetState = uiState.isError) { isError ->
+            if (isError) {
+                FarmemeErrorScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    title = "정보를 불러오지 못 했어요.\n새로고침 해주세요.",
+                    onRetryClick = { viewModel.intent(DetailIntent.CLickRetryButton) }
+                )
+            } else {
+                DetailScreen(
+                    modifier = modifier,
+                    uiState = uiState,
+                    onClickFunnyButton = {
+                        viewModel.intent(DetailIntent.ClickFunnyButton)
                     },
-                composition = lottieComposition,
-                progress = { lottieAnimatable.progress },
-            )
+                    onReactionButtonPosition = {
+                        lottiePosition = it
+                    },
+                    onClickBackButton = {
+                        viewModel.intent(DetailIntent.ClickBackButton)
+                    },
+                    onClickButtonButtons = viewModel::intent,
+                    saveBitmap = saveBitmap
+                )
+                LottieAnimation(
+                    modifier = Modifier
+                        .size(200.dp)
+                        .offset {
+                            with(lottiePosition) {
+                                // ㅋㅋ 버튼의 좌상단 기준으로 사이즈 참고하여 Offset 위치 조정
+                                IntOffset(
+                                    x = x.roundToInt() + 42.dp.roundToPx(),
+                                    y = y.roundToInt() - 192.dp.roundToPx()
+                                )
+                            }
+                        },
+                    composition = lottieComposition,
+                    progress = { lottieAnimatable.progress },
+                )
+            }
         }
     }
 }

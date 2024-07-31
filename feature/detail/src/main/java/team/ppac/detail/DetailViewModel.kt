@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.detail.mapper.toDetailMemeUiModel
@@ -31,7 +29,9 @@ class DetailViewModel @Inject constructor(
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     init {
-        getMeme(currentState.memeId)
+        launch {
+            getMeme(currentState.memeId)
+        }
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): DetailUiState {
@@ -95,53 +95,69 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private fun getMeme(memeId: String) {
-        launch {
-            val meme = getMemeUseCase(memeId)
+    private suspend fun getMeme(memeId: String) {
+        val meme = getMemeUseCase(memeId)
+        reduce {
+            copy(
+                detailMemeUiModel = meme.toDetailMemeUiModel(),
+                isError = false,
+            )
+        }
+    }
+
+    private suspend fun saveMeme() {
+        reduce {
+            copy(
+                detailMemeUiModel = detailMemeUiModel
+                    .copy(isSavedMeme = true)
+            )
+        }
+        runCatching {
+            saveMemeUseCase(currentState.memeId)
+        }.onFailure {
             reduce {
                 copy(
-                    detailMemeUiModel = meme.toDetailMemeUiModel(),
-                    isError = false,
+                    detailMemeUiModel = detailMemeUiModel
+                        .copy(isSavedMeme = false)
                 )
             }
         }
     }
 
-    private fun saveMeme() {
-        viewModelScope.launch {
-            val isSaveSuccess = saveMemeUseCase(currentState.memeId)
-            if (isSaveSuccess) {
-                reduce {
-                    copy(
-                        detailMemeUiModel = detailMemeUiModel
-                            .copy(isSavedMeme = true)
-                    )
-                }
+    private suspend fun deleteSavedMeme() {
+        reduce {
+            copy(
+                detailMemeUiModel = detailMemeUiModel
+                    .copy(isSavedMeme = false)
+            )
+        }
+        runCatching {
+            deleteSavedMemeUseCase(currentState.memeId)
+        }.onFailure {
+            reduce {
+                copy(
+                    detailMemeUiModel = detailMemeUiModel
+                        .copy(isSavedMeme = true)
+                )
             }
         }
     }
 
-    private fun deleteSavedMeme() {
-        viewModelScope.launch {
-            val isSaveSuccess = deleteSavedMemeUseCase(currentState.memeId)
-            if (isSaveSuccess) {
-                reduce {
-                    copy(
-                        detailMemeUiModel = detailMemeUiModel
-                            .copy(isSavedMeme = false)
-                    )
-                }
-            }
+    private suspend fun incrementReactionCount() {
+        reduce {
+            copy(
+                detailMemeUiModel = detailMemeUiModel.copy(
+                    reactionCount = detailMemeUiModel.reactionCount + 1
+                )
+            )
         }
-    }
-
-    private fun incrementReactionCount() {
-        viewModelScope.launch {
+        runCatching {
             reactMemeUseCase(currentState.memeId)
+        }.onFailure {
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
-                        reactionCount = detailMemeUiModel.reactionCount + 1
+                        reactionCount = detailMemeUiModel.reactionCount - 1
                     )
                 )
             }
