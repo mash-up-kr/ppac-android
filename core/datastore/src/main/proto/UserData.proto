@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "team.ppac.core.datastore";
+option java_multiple_files = true;
+
+message UserData {
+  string userId = 1;
+  int32 level = 2;
+}

@@ -1,6 +1,5 @@
 package team.ppac.detail
 
-import android.os.Build
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -59,14 +58,12 @@ class DetailViewModel @Inject constructor(
             }
 
             DetailIntent.ClickBottomButton.Copy -> {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-                    showSnackbar(
-                        message = "이미지를 클립보드에 복사했어요",
-                        icon = {
-                            FarmemeIcon.CopyFilled(Modifier.size(20.dp))
-                        }
-                    )
-                }
+                showSnackbar(
+                    message = "이미지를 클립보드에 복사했어요",
+                    icon = {
+                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
+                    }
+                )
                 postSideEffect(DetailSideEffect.CopyClipBoard)
             }
 

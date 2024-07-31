@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
-import team.ppac.datastore.entity.UserData
+import team.ppac.core.datastore.UserData
 import javax.inject.Inject
 
 class HeaderInterceptor @Inject constructor(
@@ -17,7 +17,7 @@ class HeaderInterceptor @Inject constructor(
         val userData = runBlocking {
             userDataStore.data.firstOrNull()
         }
-        if (userData != UserData.EMPTY && userData != null) {
+        if (userData != UserData.getDefaultInstance() && userData != null) {
             builder.addHeader(HEADER_DEVICE_ID_KEY, userData.userId)
         }
         return chain.proceed(builder.build())
