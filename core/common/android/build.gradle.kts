@@ -31,4 +31,5 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.timber)
     implementation(libs.paging.compose)
+    implementation(libs.app.update)
 }
