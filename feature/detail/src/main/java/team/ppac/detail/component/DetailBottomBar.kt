@@ -35,6 +35,7 @@ import team.ppac.detail.mvi.DetailIntent
 internal fun DetailBottomBar(
     memeId: String,
     isSaved: Boolean,
+    isLoading: Boolean,
     onClickBottomButtons: (DetailIntent.ClickBottomButton) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -60,12 +61,14 @@ internal fun DetailBottomBar(
                 title = "복사",
                 textColor = animatedCopyButtonColor,
                 onClickButton = {
-                    copyButtonColor = selectedColor
-                    coroutineScope.launch {
-                        delay(2000)
-                        copyButtonColor = originalColor
+                    if (!isLoading) {
+                        copyButtonColor = selectedColor
+                        coroutineScope.launch {
+                            delay(2000)
+                            copyButtonColor = originalColor
+                        }
+                        onClickBottomButtons(DetailIntent.ClickBottomButton.Copy)
                     }
-                    onClickBottomButtons(DetailIntent.ClickBottomButton.Copy)
                 },
             ) {
                 FarmemeIcon.Copy(
@@ -75,7 +78,15 @@ internal fun DetailBottomBar(
             }
             DetailBottomButton(
                 title = "공유",
-                onClickButton = { onClickBottomButtons(DetailIntent.ClickBottomButton.Share(memeId)) },
+                onClickButton = {
+                    if (!isLoading) {
+                        onClickBottomButtons(
+                            DetailIntent.ClickBottomButton.Share(
+                                memeId
+                            )
+                        )
+                    }
+                },
             ) {
                 FarmemeIcon.Share(modifier = Modifier.size(20.dp))
             }
@@ -83,11 +94,13 @@ internal fun DetailBottomBar(
                 title = "파밈",
                 textColor = animatedFarmemeButtonColor,
                 onClickButton = {
-                    onClickBottomButtons(
-                        DetailIntent.ClickBottomButton.Farmeme(
-                            isSaved
+                    if (!isLoading) {
+                        onClickBottomButtons(
+                            DetailIntent.ClickBottomButton.Farmeme(
+                                isSaved
+                            )
                         )
-                    )
+                    }
                 },
             ) {
                 FarmemeIcon.BookmarkLine(
@@ -135,5 +148,6 @@ fun PreviewDetailBottomBar() {
         memeId = "",
         isSaved = false,
         onClickBottomButtons = {},
+        isLoading = false,
     )
 }

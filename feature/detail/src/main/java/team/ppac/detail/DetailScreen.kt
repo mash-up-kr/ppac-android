@@ -41,6 +41,7 @@ internal fun DetailScreen(
                 memeId = uiState.memeId,
                 isSaved = uiState.detailMemeUiModel.isSavedMeme,
                 onClickBottomButtons = onClickButtonButtons,
+                isLoading = uiState.isLoading,
             )
         },
     ) { innerPadding ->
