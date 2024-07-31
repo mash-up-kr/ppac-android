@@ -52,6 +52,7 @@ internal fun DetailScreen(
         ) {
             DetailContent(
                 uiModel = uiState.detailMemeUiModel,
+                isLoading = uiState.isLoading,
                 saveBitmap = saveBitmap,
                 onClickFunnyButton = onClickFunnyButton,
                 onReactionButtonPositioned = onReactionButtonPosition,
@@ -75,6 +76,7 @@ fun PreviewDetailScreen() {
                 reactionCount = 0,
             ),
             isError = false,
+            isLoading = false,
         ),
         onClickFunnyButton = {},
         onReactionButtonPosition = { _ -> },

@@ -8,6 +8,7 @@ data class DetailUiState(
     val memeId: String,
     val detailMemeUiModel: DetailMemeUiModel,
     val isError: Boolean,
+    val isLoading: Boolean,
 ) : UiState {
 
     companion object {
@@ -15,13 +16,14 @@ data class DetailUiState(
             memeId = "",
             detailMemeUiModel = DetailMemeUiModel(
                 imageUrl = "",
-                name = "나느 공부를 찢어 나는 공부를 찢어 나는 공부를 찢어",
-                hashTags = persistentListOf("공부", "배고파", "졸려", "심심해", "우울", "힘듦", "배고파"),
-                sourceDescription = "이곳에는 출처에 대한 내용이 들어갑니다. 이곳에는 출처에 대한 내용이 들어갑니다.",
+                name = "",
+                hashTags = persistentListOf(),
+                sourceDescription = "",
                 isSavedMeme = false,
-                reactionCount = 0,
+                reactionCount = -1,
             ),
             isError = false,
+            isLoading = false,
         )
     }
 }

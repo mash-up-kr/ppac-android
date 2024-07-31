@@ -30,9 +30,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
@@ -44,6 +44,7 @@ import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
+import team.ppac.common.android.util.showSkeleton
 import team.ppac.common.kotlin.extension.truncateDisplayedList
 import team.ppac.common.kotlin.extension.truncateDisplayedString
 import team.ppac.designsystem.FarmemeTheme
@@ -57,6 +58,7 @@ import team.ppac.detail.mvi.DetailUiState
 @Composable
 internal fun DetailContent(
     modifier: Modifier = Modifier,
+    isLoading: Boolean,
     uiModel: DetailMemeUiModel,
     saveBitmap: (Bitmap) -> Unit,
     onClickFunnyButton: () -> Unit,
@@ -76,14 +78,20 @@ internal fun DetailContent(
         ) {
             DetailImage(
                 imageUrl = uiModel.imageUrl,
+                isLoading = isLoading,
                 saveBitmap = saveBitmap,
             )
             DetailHashTags(
                 name = uiModel.name,
                 sourceDescription = uiModel.sourceDescription,
-                hashTags = uiModel.hashTags
+                hashTags = uiModel.hashTags,
+                isLoading = isLoading
             )
             DetailFunnyButton(
+                modifier = Modifier.mapTextSkeletonModifierIfNeed(
+                    isLoading = isLoading,
+                    height = 46.dp
+                ),
                 reactionCount = uiModel.reactionCount,
                 onClickFunnyButton = onClickFunnyButton,
                 onReactionButtonPositioned = onReactionButtonPositioned
@@ -93,9 +101,34 @@ internal fun DetailContent(
     }
 }
 
+private fun Modifier.mapImageSkeletonModifierIfNeed(
+    isLoading: Boolean,
+    width: Dp,
+    height: Dp
+): Modifier {
+    return if (isLoading) Modifier
+        .clip(FarmemeRadius.Radius10.shape)
+        .width(width)
+        .height(height)
+        .showSkeleton(true)
+    else this
+}
+
+private fun Modifier.mapTextSkeletonModifierIfNeed(
+    isLoading: Boolean,
+    height: Dp
+): Modifier {
+    return if (isLoading) Modifier
+        .fillMaxWidth()
+        .height(height)
+        .showSkeleton(true)
+    else this
+}
+
 @Composable
 private fun DetailImage(
     imageUrl: String,
+    isLoading: Boolean,
     saveBitmap: (Bitmap) -> Unit,
 ) {
     Box {
@@ -113,22 +146,29 @@ private fun DetailImage(
                 .clip(FarmemeRadius.Radius10.shape)
                 .background(FarmemeTheme.backgroundColor.black)
                 .width(330.dp)
-                .height(352.dp),
+                .height(352.dp)
+                .mapImageSkeletonModifierIfNeed(
+                    isLoading = isLoading,
+                    width = 330.dp,
+                    height = 352.dp
+                ),
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
         )
-        Box(
-            modifier = Modifier
-                .matchParentSize()
-                .graphicsLayer(alpha = 0.80f)
-                .clip(FarmemeRadius.Radius10.shape)
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),
-                        startY = 320f,
-                        endY = 1000f
+        if (!isLoading) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .graphicsLayer(alpha = 0.80f)
+                    .clip(FarmemeRadius.Radius10.shape)
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),
+                            startY = 320f,
+                            endY = 1000f
+                        )
                     )
-                )
-        )
+            )
+        }
     }
 }
 
@@ -137,20 +177,25 @@ internal fun DetailHashTags(
     name: String,
     sourceDescription: String,
     hashTags: ImmutableList<String>,
+    isLoading: Boolean,
 ) {
-
     Spacer(modifier = Modifier.height(25.dp))
     Text(
+        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 30.dp),
         text = name.truncateDisplayedString(16),
         color = FarmemeTheme.textColor.primary,
         style = FarmemeTheme.typography.heading.large.semibold,
         overflow = TextOverflow.Ellipsis
     )
     Spacer(modifier = Modifier.height(5.dp))
-    DetailTags(hashTags = hashTags.truncateDisplayedList(6))
+    DetailTags(
+        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
+        hashTags = hashTags.truncateDisplayedList(6),
+    )
     Spacer(modifier = Modifier.height(11.dp))
     Text(
-        text = "출처: $sourceDescription".truncateDisplayedString(32),
+        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 15.dp),
+        text = sourceDescription.truncateDisplayedString(27),
         color = FarmemeTheme.textColor.assistive,
         style = FarmemeTheme.typography.body.xSmall.medium,
         maxLines = 1,
@@ -160,8 +205,11 @@ internal fun DetailHashTags(
 }
 
 @Composable
-internal fun DetailTags(hashTags: List<String>) {
-    Row {
+internal fun DetailTags(
+    modifier: Modifier,
+    hashTags: List<String>,
+) {
+    Row(modifier = modifier) {
         hashTags.forEach { hashTag ->
             Text(
                 text = "#$hashTag",
@@ -175,6 +223,7 @@ internal fun DetailTags(hashTags: List<String>) {
 
 @Composable
 fun DetailFunnyButton(
+    modifier: Modifier = Modifier,
     reactionCount: Int,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
@@ -203,8 +252,11 @@ fun DetailFunnyButton(
             },
         contentAlignment = Alignment.Center
     ) {
-        if (reactionCount == 0) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (reactionCount == 0) {
                 FarmemeIcon.KK()
                 Spacer(modifier = Modifier.width(6.dp))
                 FarmemeIcon.Funny()
@@ -245,5 +297,6 @@ fun PreviewDetailContent() {
         saveBitmap = {},
         onClickFunnyButton = {},
         onReactionButtonPositioned = { _ -> },
+        isLoading = false,
     )
 }
