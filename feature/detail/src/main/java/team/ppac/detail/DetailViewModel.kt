@@ -99,7 +99,6 @@ class DetailViewModel @Inject constructor(
     private suspend fun getMeme(memeId: String) {
         reduce { copy(isLoading = true) }
         val meme = getMemeUseCase(memeId)
-        delay(500L)
         reduce {
             copy(
                 detailMemeUiModel = meme.toDetailMemeUiModel(),
