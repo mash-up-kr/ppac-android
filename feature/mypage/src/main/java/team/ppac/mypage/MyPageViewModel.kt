@@ -56,13 +56,21 @@ class MyPageViewModel @Inject constructor(
             is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)
             is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(intent.memeId)
             MyPageIntent.ClickSettingButton -> navigateToSetting()
-            MyPageIntent.InitView -> initialAction()
-            MyPageIntent.RefreshData -> refreshAction()
             is MyPageIntent.ClickRetryButton -> {
                 initialAction()
                 reduce {
                     copy(
                         isError = false,
+                    )
+                }
+            }
+
+            MyPageIntent.InitView -> initialAction()
+            MyPageIntent.RefreshData -> refreshAction()
+            MyPageIntent.DisposeView -> {
+                reduce {
+                    copy(
+                        isLoading = true,
                     )
                 }
             }
