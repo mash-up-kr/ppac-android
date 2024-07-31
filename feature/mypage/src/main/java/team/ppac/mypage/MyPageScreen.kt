@@ -3,6 +3,7 @@ package team.ppac.mypage
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
@@ -19,17 +21,21 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import team.ppac.common.android.component.error.FarmemeErrorScreen
+import team.ppac.common.android.util.showSkeleton
+import team.ppac.common.android.util.visibility
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
+import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
@@ -63,7 +69,10 @@ internal fun MyPageScreen(
             .pullRefresh(pullRefreshState),
         backgroundColorType = BackgroundColorType.SolidColor(FarmemeTheme.backgroundColor.white),
     ) {
-        Crossfade(targetState = uiState.isError) { isError ->
+        Crossfade(
+            targetState = uiState.isError,
+            label = "",
+        ) { isError ->
             if (isError) {
                 FarmemeErrorScreen(
                     modifier = Modifier
@@ -83,6 +92,7 @@ internal fun MyPageScreen(
                 ) {
                     MyPageBody(
                         levelUiModel = uiState.levelUiModel,
+                        isLoading = uiState.isLoading,
                         onSettingClick = {
                             onIntent(MyPageIntent.ClickSettingButton)
                         },
@@ -98,14 +108,17 @@ internal fun MyPageScreen(
                         onMemeClick = { memeId ->
                             onIntent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
                         },
+                        isLoading = uiState.isLoading,
                     )
-                    SavedMemeContent(
-                        savedMemes = savedMemes,
-                        onMemeClick = { memeId ->
-                            onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                        },
-                        onCopyClick = onCopyClick,
-                    )
+                    if (!uiState.isLoading) {
+                        SavedMemeContent(
+                            savedMemes = savedMemes,
+                            onMemeClick = { memeId ->
+                                onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                            },
+                            onCopyClick = onCopyClick,
+                        )
+                    }
                 }
                 MyPagePullRefreshIndicator(
                     isRefreshing = uiState.isRefreshing,
@@ -120,16 +133,28 @@ internal fun MyPageScreen(
 private fun MyPageBody(
     modifier: Modifier = Modifier,
     levelUiModel: LevelUiModel,
+    isLoading: Boolean,
     onSettingClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.background(FarmemeTheme.backgroundColor.brandWhiteGradient),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        FarmemeActionToolBar(onClickActionIcon = onSettingClick)
+        FarmemeActionToolBar(
+            onClickActionIcon = {
+                if (!isLoading) {
+                    onSettingClick()
+                }
+            }
+        )
         Spacer(modifier = Modifier.height(4.dp))
-        MyPageSpeechBubble(modifier = Modifier.offset(y = 4.dp))
+        MyPageSpeechBubble(
+            modifier = Modifier
+                .visibility(isVisible = !isLoading)
+                .offset(y = 4.dp),
+        )
         Image(
+            modifier = Modifier.visibility(isVisible = !isLoading),
             painter = painterResource(
                 when (levelUiModel.myPageLevel) {
                     MyPageLevel.LEVEL1 -> R.drawable.img_character_level_1
@@ -141,20 +166,31 @@ private fun MyPageBody(
             contentDescription = null,
         )
         Spacer(modifier = Modifier.height(30.dp))
-        Text(
-            text = levelUiModel.myPageLevel.title,
-            color = FarmemeTheme.textColor.primary,
-            style = FarmemeTheme.typography.highlight.normal,
-        )
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .size(width = 160.dp, height = 24.dp)
+                    .clip(shape = FarmemeRadius.Radius4.shape)
+                    .showSkeleton(isLoading = isLoading)
+            )
+        } else {
+            Text(
+                text = levelUiModel.myPageLevel.title,
+                color = FarmemeTheme.textColor.primary,
+                style = FarmemeTheme.typography.highlight.normal,
+            )
+        }
         Spacer(modifier = Modifier.height(30.dp))
         MyPageProgressBar(
             modifier = Modifier.padding(horizontal = 20.dp),
             levelUiModel = levelUiModel,
+            isLoading = isLoading,
         )
         Spacer(modifier = Modifier.height(16.dp))
         MyPageLevelBox(
             modifier = Modifier.padding(horizontal = 20.dp),
             levelUiModel = levelUiModel,
+            isLoading = isLoading,
         )
         Spacer(modifier = Modifier.height(40.dp))
     }

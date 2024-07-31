@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import team.ppac.common.android.util.visibility
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.mypage.model.LevelUiModel
@@ -25,6 +26,7 @@ import team.ppac.mypage.model.MyPageLevel
 internal fun MyPageLevelBox(
     modifier: Modifier = Modifier,
     levelUiModel: LevelUiModel,
+    isLoading: Boolean,
 ) {
     Column(
         modifier = modifier
@@ -37,6 +39,7 @@ internal fun MyPageLevelBox(
     ) {
         MyPageLevelTop(
             levelUiModel = levelUiModel,
+            isLoading = isLoading,
         )
         Spacer(
             modifier = Modifier
@@ -44,7 +47,10 @@ internal fun MyPageLevelBox(
                 .height(2.dp)
                 .background(FarmemeTheme.borderColor.tertiary)
         )
-        MyPageLevelBottom(levelUiModel = levelUiModel)
+        MyPageLevelBottom(
+            modifier = Modifier.visibility(isVisible = !isLoading),
+            levelUiModel = levelUiModel,
+        )
     }
 }
 
@@ -52,6 +58,7 @@ internal fun MyPageLevelBox(
 private fun MyPageLevelTop(
     modifier: Modifier = Modifier,
     levelUiModel: LevelUiModel,
+    isLoading: Boolean,
 ) {
     Row(
         modifier = modifier
@@ -65,12 +72,20 @@ private fun MyPageLevelTop(
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        MyPageLevelTitle(levelUiModel = levelUiModel)
+        MyPageLevelTitle(
+            modifier = Modifier.visibility(isVisible = !isLoading),
+            levelUiModel = levelUiModel,
+        )
 
         if (levelUiModel.isMaxLevel()) {
-            MyPageLevelCompletedChip()
+            MyPageLevelCompletedChip(
+                modifier = Modifier.visibility(isVisible = !isLoading),
+            )
         } else {
-            MyPageLevelChip(memeCount = levelUiModel.memeCount)
+            MyPageLevelChip(
+                modifier = Modifier.visibility(isVisible = !isLoading),
+                memeCount = levelUiModel.memeCount,
+            )
         }
     }
 }
@@ -122,6 +137,7 @@ private fun MyPageLevelPreview() {
         levelUiModel = LevelUiModel(
             myPageLevel = MyPageLevel.LEVEL3,
             memeCount = 15,
-        )
+        ),
+        isLoading = false,
     )
 }
