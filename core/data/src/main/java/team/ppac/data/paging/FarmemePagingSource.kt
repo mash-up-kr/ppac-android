@@ -26,7 +26,6 @@ internal class FarmemePagingSource<T : Any>(
     }
 
     override fun getRefreshKey(state: PagingState<Int, T>): Int {
-        return ((state.anchorPosition ?: 0) - state.config.initialLoadSize / 2)
-            .coerceAtLeast(0)
+        return STARTING_PAGE
     }
 }

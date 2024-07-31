@@ -9,8 +9,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import team.ppac.core.datastore.UserData
 import team.ppac.datastore.datastore.UserDataSerializer
-import team.ppac.datastore.entity.UserData
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +23,7 @@ internal class DataStoreModule {
         return DataStoreFactory.create(
             serializer = UserDataSerializer,
             produceFile = {
-                context.dataStoreFile("user_data.json")
+                context.dataStoreFile("user_data.pb")
             }
         )
     }

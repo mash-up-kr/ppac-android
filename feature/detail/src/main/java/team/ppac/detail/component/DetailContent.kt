@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
+import coil.request.CachePolicy
 import coil.request.ImageRequest
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -101,14 +102,16 @@ private fun DetailImage(
         AsyncImage(
             model = ImageRequest
                 .Builder(LocalContext.current)
+                .diskCachePolicy(CachePolicy.ENABLED)
+                .memoryCachePolicy(CachePolicy.ENABLED)
                 .data(imageUrl)
                 .crossfade(true)
                 .build(),
-            placeholder = painterResource(R.drawable.detail_sample),
             contentDescription = null,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
             modifier = Modifier
                 .clip(FarmemeRadius.Radius10.shape)
+                .background(FarmemeTheme.backgroundColor.black)
                 .width(330.dp)
                 .height(352.dp),
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }

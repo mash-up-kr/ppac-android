@@ -5,12 +5,16 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
@@ -36,6 +40,11 @@ internal fun SearchDetailScreen(
             FarmemeBackToolBar(
                 title = uiState.memeCategory,
                 onClickBackIcon = onBackClick
+            )
+            Divider(
+                modifier = Modifier.fillMaxWidth(),
+                color = FarmemeTheme.backgroundColor.assistive,
+                thickness = 1.dp,
             )
         }
     ) { paddingValues ->

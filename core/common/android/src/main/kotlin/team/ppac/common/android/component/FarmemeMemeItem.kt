@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
@@ -62,12 +61,11 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                         max = FARMEME_MEME_ITEM_MAX_HEIGHT.dp,
                     )
                     .fillMaxWidth()
-                    .background(FarmemeTheme.backgroundColor.black),
+                    .background(FarmemeTheme.skeletonColor.primary),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(imageUrl)
                     .crossfade(true)
                     .build(),
-                placeholder = ColorPainter(FarmemeTheme.skeletonColor.primary),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 onSuccess = {

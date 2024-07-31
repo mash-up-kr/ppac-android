@@ -77,7 +77,7 @@ private fun LinearProgressBar(
             color = backgroundColor,
             strokeWidth = strokeSize,
         )
-        if(progress != 0f){
+        if (progress != 0f) {
             drawLinearIndicator(
                 startFraction = 0f,
                 endFraction = progress,

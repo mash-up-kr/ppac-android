@@ -67,6 +67,7 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:navigator"))
     implementation(project(":core:remote"))
+    implementation(project(":core:local"))
     implementation(project(":core:datastore"))
     implementation(project(":feature:sample"))
     implementation(project(":feature:onboard"))
