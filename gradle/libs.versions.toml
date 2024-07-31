@@ -27,6 +27,7 @@ datastore = "1.1.0"
 appsflyer = "6.12.1"
 androidx-paging = "3.3.0"
 androidx-paging-compose = "3.3.0"
+app-update = "2.1.0"
 
 # material + google
 material = "1.11.0"
@@ -86,6 +87,7 @@ splash-screen = { module = "androidx.core:core-splashscreen", version.ref = "spl
 room-core = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+app-update = { group = "com.google.android.play", name = "app-update-ktx", version.ref = "app-update" }
 
 # compose
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
