@@ -24,6 +24,9 @@ class SettingViewModel @Inject constructor(
         when (intent) {
             SettingIntent.ClickBackButton -> onClickBackButton()
             SettingIntent.ClickPrivacyPolicy -> postSideEffect(SettingSideEffect.NavigateToPrivacyPolicy)
+            is SettingIntent.UpdateButtonVisible -> reduce {
+                copy(updateButtonVisible = intent.isVisible)
+            }
         }
     }
 

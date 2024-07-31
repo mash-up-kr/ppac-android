@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import team.ppac.common.android.util.checkUpdate
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.button.FarmemeFilledButton
@@ -39,6 +42,9 @@ internal fun SettingScreen(
     navigateToBack: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
 ) {
+    val context = LocalContext.current
+    val state by viewModel.state.collectAsState()
+
     LaunchedEffect(key1 = viewModel) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
@@ -46,6 +52,10 @@ internal fun SettingScreen(
                 SettingSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
             }
         }
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.intent(SettingIntent.UpdateButtonVisible(context.checkUpdate()))
     }
 
     FarmemeScaffold(
@@ -63,7 +73,7 @@ internal fun SettingScreen(
                 )
             }
             item {
-                SettingBody()
+                SettingBody(updateVisible = state.updateButtonVisible)
             }
             item {
                 SettingListItem(
@@ -80,9 +90,8 @@ internal fun SettingScreen(
 @Composable
 private fun SettingBody(
     modifier: Modifier = Modifier,
+    updateVisible: Boolean,
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -107,11 +116,11 @@ private fun SettingBody(
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
-            text = "v.${getVersionName(context)}",
+            text = "v.${getVersionName(LocalContext.current)}",
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
-        if (true) { // TODO(ze-zeh) : 앱 업데이트 여부 확인 로직 추가
+        if (updateVisible) {
             Spacer(modifier = Modifier.height(16.dp))
             FarmemeFilledButton(
                 backgroundColor = FarmemeTheme.backgroundColor.primary,
