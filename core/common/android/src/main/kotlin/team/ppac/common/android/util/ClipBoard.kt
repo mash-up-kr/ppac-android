@@ -4,6 +4,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Build
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import timber.log.Timber
 import java.io.File
@@ -34,9 +36,13 @@ fun Context.copyImageToClipBoard(
         )
 
         // 클립보드에 이미지 Uri 복사
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: throw ClassCastException()
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+            ?: throw ClassCastException()
         val clip = ClipData.newUri(contentResolver, "Image", uri)
         clipboard.setPrimaryClip(clip)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+            Toast.makeText(this, "이미지를 클립보드에 복사했어요", Toast.LENGTH_SHORT).show()
+        }
     }.onFailure {
         onFailure(it)
         Timber.e(it)

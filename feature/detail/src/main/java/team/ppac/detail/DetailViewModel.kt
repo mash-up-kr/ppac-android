@@ -58,12 +58,6 @@ class DetailViewModel @Inject constructor(
             }
 
             DetailIntent.ClickBottomButton.Copy -> {
-                showSnackbar(
-                    message = "이미지를 클립보드에 복사했어요",
-                    icon = {
-                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
-                    }
-                )
                 postSideEffect(DetailSideEffect.CopyClipBoard)
             }
 

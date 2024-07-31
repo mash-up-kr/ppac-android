@@ -20,15 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.designsystem.R
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import kotlin.math.absoluteValue
@@ -123,8 +122,8 @@ fun HeroModulePager(
                     .background(FarmemeTheme.backgroundColor.black),
                 model = memes[page].imageUrl,
                 contentScale = ContentScale.Fit,
-                error = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
-                placeholder = painterResource(id = R.drawable.img_sample),  // TODO(JaesungLeee) : API 연결 후 제거 필요
+                error = ColorPainter(FarmemeTheme.skeletonColor.primary),
+                placeholder = ColorPainter(FarmemeTheme.skeletonColor.primary),
                 contentDescription = "",
                 onSuccess = {
                     onLoadMeme(page, it.result.drawable.toBitmap())

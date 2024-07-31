@@ -46,14 +46,7 @@ internal fun MyPageRoute(
             onIntent = { myPageIntent ->
                 viewModel.intent(myPageIntent)
             },
-            onCopyClick = {
-                viewModel.showSnackbar(
-                    message = "이미지를 클립보드에 복사했어요",
-                    icon = {
-                        FarmemeIcon.CopyFilled(Modifier.size(20.dp))
-                    }
-                )
-            },
+            onCopyClick = {},
         )
     }
 }
