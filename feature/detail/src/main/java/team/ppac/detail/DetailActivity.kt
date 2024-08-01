@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
+import team.ppac.common.android.util.noTransitionAnimation
 import team.ppac.designsystem.FarmemeTheme
 
 @AndroidEntryPoint
@@ -17,5 +18,6 @@ class DetailActivity : ComponentActivity() {
                 DetailRoute(navigateToBack = { finish() })
             }
         }
+        noTransitionAnimation()
     }
 }

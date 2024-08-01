@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import team.ppac.common.android.util.noTransitionAnimation
 import team.ppac.designsystem.FarmemeTheme
 
 @AndroidEntryPoint
@@ -22,11 +23,10 @@ class SettingActivity : ComponentActivity() {
                 SettingNavHost(
                     modifier = Modifier.fillMaxSize(),
                     navController = navController,
-                    navigateToBack = {
-                        finish()
-                    },
+                    navigateToBack = { finish() },
                 )
             }
         }
+        noTransitionAnimation()
     }
 }

@@ -1,5 +1,7 @@
 package team.ppac.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -28,6 +30,8 @@ fun FarmemeNavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination,
+        enterTransition = { EnterTransition.None },
+        exitTransition = { ExitTransition.None },
     ) {
         recommendationScreen()
         searchScreen(
