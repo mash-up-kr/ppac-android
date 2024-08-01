@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.detail.mapper.toDetailMemeUiModel
@@ -87,11 +88,13 @@ class DetailViewModel @Inject constructor(
     }
 
     private suspend fun getMeme(memeId: String) {
+        reduce { copy(isLoading = true) }
         val meme = getMemeUseCase(memeId)
         reduce {
             copy(
                 detailMemeUiModel = meme.toDetailMemeUiModel(),
                 isError = false,
+                isLoading = false,
             )
         }
     }
