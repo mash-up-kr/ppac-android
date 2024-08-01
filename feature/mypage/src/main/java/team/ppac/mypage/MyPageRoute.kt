@@ -42,7 +42,7 @@ internal fun MyPageRoute(
             viewModel.intent(MyPageIntent.InitView)
         }
 
-        DisposableEffect(key1 = Unit) {
+        DisposableEffect(key1 = Unit) {// TODO(ze-zeh) : viewModel이 초기화 되지 않아서 기존 상태가 남아있는 문제 임시 해결
             onDispose {
                 viewModel.intent(MyPageIntent.DisposeView)
             }
