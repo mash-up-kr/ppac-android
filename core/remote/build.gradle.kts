@@ -15,8 +15,17 @@ android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        buildConfigField("String", "BASE_URL", getLocalProperties("BASE_URL"))
     }
+
+    buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", getLocalProperties("DEV_BASE_URL"))
+        }
+        release {
+            buildConfigField("String", "BASE_URL", getLocalProperties("RELEASE_BASE_URL"))
+        }
+    }
+
     buildFeatures {
         buildConfig = true
     }
