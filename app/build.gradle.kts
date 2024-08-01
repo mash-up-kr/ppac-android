@@ -33,7 +33,7 @@ android {
         create("release") {
             val keystoreProperties = Properties()
             keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-            storeFile = file("signing/keystore.jks")
+            storeFile = file("signing/farmeme-keystore.jks")
             keyAlias = keystoreProperties.getProperty("keyAlias")
             keyPassword = keystoreProperties.getProperty("keyPassword")
             storePassword = keystoreProperties.getProperty("storePassword")
