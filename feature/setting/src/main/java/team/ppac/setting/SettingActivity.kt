@@ -9,7 +9,6 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.common.android.util.noTransitionAnimation
-import team.ppac.common.android.util.onBackPressed
 import team.ppac.designsystem.FarmemeTheme
 
 @AndroidEntryPoint
@@ -24,17 +23,10 @@ class SettingActivity : ComponentActivity() {
                 SettingNavHost(
                     modifier = Modifier.fillMaxSize(),
                     navController = navController,
-                    navigateToBack = {
-                        finish()
-                        noTransitionAnimation()
-                    },
+                    navigateToBack = { finish() },
                 )
             }
         }
-
-        onBackPressed {
-            finish()
-            noTransitionAnimation()
-        }
+        noTransitionAnimation()
     }
 }

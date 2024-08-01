@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.common.android.util.noTransitionAnimation
-import team.ppac.common.android.util.onBackPressed
 import team.ppac.designsystem.FarmemeTheme
 
 @AndroidEntryPoint
@@ -16,16 +15,9 @@ class DetailActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FarmemeTheme {
-                DetailRoute(navigateToBack = {
-                    finish()
-                    noTransitionAnimation()
-                })
+                DetailRoute(navigateToBack = { finish() })
             }
         }
-
-        onBackPressed {
-            finish()
-            noTransitionAnimation()
-        }
+        noTransitionAnimation()
     }
 }
