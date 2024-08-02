@@ -75,7 +75,7 @@ private fun MyPageProgressBarActive(
     val progressAnimation by animateDpAsState(
         targetValue = progress,
         animationSpec = tween(
-            durationMillis = 1_500,
+            durationMillis = 1_000,
             easing = FastOutSlowInEasing
         ),
     )
