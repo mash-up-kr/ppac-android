@@ -206,4 +206,5 @@ fabric.properties
 /build
 /captures
 .cxx
+/app/signing
 # End of https://www.toptal.com/developers/gitignore/api/android,macos,androidstudio
