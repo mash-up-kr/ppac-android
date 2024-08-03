@@ -3,7 +3,6 @@
 package team.ppac.designsystem.component.toolbar
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -58,40 +57,38 @@ internal fun FarmemeToolbar(
     navigationIcon: (@Composable () -> Unit)? = null,
     actionIcon: (@Composable () -> Unit)? = null,
 ) {
-    Column(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .padding(
-                    horizontal = 20.dp,
-                    vertical = 15.dp
-                )
-                .padding(
-                    top = WindowInsets.statusBars
-                        .asPaddingValues()
-                        .calculateTopPadding()
-                )
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier.size(20.dp)
-            ) {
-                navigationIcon?.invoke()
-            }
-            Spacer(modifier = Modifier.size(12.dp))
-            Text(
-                modifier = Modifier.weight(1f),
-                textAlign = TextAlign.Center,
-                text = title,
-                color = FarmemeTheme.textColor.primary,
-                style = FarmemeTheme.typography.body.xLarge.semibold,
+    Row(
+        modifier = modifier
+            .padding(
+                horizontal = 20.dp,
+                vertical = 15.dp
             )
-            Spacer(modifier = Modifier.size(12.dp))
-            Box(
-                modifier = Modifier.size(20.dp)
-            ) {
-                actionIcon?.invoke()
-            }
+            .padding(
+                top = WindowInsets.statusBars
+                    .asPaddingValues()
+                    .calculateTopPadding()
+            )
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier.size(20.dp)
+        ) {
+            navigationIcon?.invoke()
+        }
+        Spacer(modifier = Modifier.size(12.dp))
+        Text(
+            modifier = Modifier.weight(1f),
+            textAlign = TextAlign.Center,
+            text = title,
+            color = FarmemeTheme.textColor.primary,
+            style = FarmemeTheme.typography.body.xLarge.semibold,
+        )
+        Spacer(modifier = Modifier.size(12.dp))
+        Box(
+            modifier = Modifier.size(20.dp)
+        ) {
+            actionIcon?.invoke()
         }
     }
 }
