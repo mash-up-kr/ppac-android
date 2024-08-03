@@ -29,6 +29,7 @@ import coil.request.ImageRequest
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.button.FarmemeCircleButton
+import team.ppac.designsystem.component.dim.FarmemeImageDim
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
@@ -72,6 +73,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
                     bitmap.value = it.result.drawable.toBitmap()
                 }
             )
+            FarmemeImageDim()
             FarmemeCircleButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
