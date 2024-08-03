@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
+val keystorePropertiesFile = rootProject.file("app/signing/farmeme-keystore.properties")
 android {
     namespace = libs.versions.namespace.get()
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -25,6 +26,17 @@ android {
         buildConfigField("String", "DEV_KEY", getLocalProperties("DEV_KEY"))
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            val keystoreProperties = Properties()
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+            storeFile = file("signing/farmeme-keystore.jks")
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+            storePassword = keystoreProperties.getProperty("storePassword")
         }
     }
 
