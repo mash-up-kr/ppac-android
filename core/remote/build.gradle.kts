@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL", getLocalProperties("RELEASE_BASE_URL"))
+            buildConfigField("String", "BASE_URL", getLocalProperties("DEV_BASE_URL"))
         }
         release {
             buildConfigField("String", "BASE_URL", getLocalProperties("RELEASE_BASE_URL"))
