@@ -9,7 +9,6 @@ import team.ppac.errorhandling.FarmemeException
 import team.ppac.errorhandling.parseWithNetworkError
 import timber.log.Timber
 import javax.inject.Inject
-import team.ppac.remote.model.response.Response as FarmemeResponse
 
 class ErrorInterceptor @Inject constructor(
     private val json: Json,
@@ -23,16 +22,16 @@ class ErrorInterceptor @Inject constructor(
                     .body(JSONObject(responseBody.string())["data"].toString().toResponseBody())
                     .build()
             }
-            responseBody?.let {
-                val errorBody = json.decodeFromString<FarmemeResponse<*>>(it.string())
+            responseBody?.let { body ->
+                val json = JSONObject(body.string())
                 throw FarmemeException(
-                    code = errorBody.code,
-                    message = errorBody.message,
+                    code = json["code"].toString().toInt(),
+                    message = json["message"].toString(),
                 )
             }
             return response
         } catch (e: Exception) {
-//            Timber.e(e)
+            Timber.e("error interceptor $e")
             throw e.parseWithNetworkError()
         }
     }
