@@ -28,6 +28,7 @@ import androidx.core.graphics.drawable.toBitmap
 import coil.compose.AsyncImage
 import kotlinx.collections.immutable.ImmutableList
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.component.dim.FarmemeImageDim
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import kotlin.math.absoluteValue
@@ -129,6 +130,7 @@ fun HeroModulePager(
                     onLoadMeme(page, it.result.drawable.toBitmap())
                 }
             )
+            FarmemeImageDim()
         }
     }
 }

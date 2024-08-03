@@ -75,7 +75,7 @@ private fun MyPageProgressBarActive(
     val progressAnimation by animateDpAsState(
         targetValue = progress,
         animationSpec = tween(
-            durationMillis = 1_500,
+            durationMillis = 1_000,
             easing = FastOutSlowInEasing
         ),
     )
@@ -128,7 +128,7 @@ private fun MyPageProgressBarBackground(
             .fillMaxWidth()
             .height(44.dp)
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = FarmemeTheme.borderColor.tertiary,
                 shape = FarmemeRadius.Radius40.shape,
             )

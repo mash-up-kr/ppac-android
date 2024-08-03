@@ -49,6 +49,7 @@ import team.ppac.common.kotlin.extension.truncateDisplayedList
 import team.ppac.common.kotlin.extension.truncateDisplayedString
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
+import team.ppac.designsystem.component.dim.FarmemeImageDim
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.rippleClickable
@@ -131,7 +132,9 @@ private fun DetailImage(
     isLoading: Boolean,
     saveBitmap: (Bitmap) -> Unit,
 ) {
-    Box {
+    Box(
+        modifier = Modifier.clip(FarmemeRadius.Radius10.shape)
+    ) {
         AsyncImage(
             model = ImageRequest
                 .Builder(LocalContext.current)
@@ -143,7 +146,6 @@ private fun DetailImage(
             contentDescription = null,
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .clip(FarmemeRadius.Radius10.shape)
                 .background(FarmemeTheme.backgroundColor.black)
                 .width(330.dp)
                 .height(352.dp)
@@ -154,12 +156,12 @@ private fun DetailImage(
                 ),
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
         )
+        FarmemeImageDim()
         if (!isLoading) {
             Box(
                 modifier = Modifier
                     .matchParentSize()
                     .graphicsLayer(alpha = 0.80f)
-                    .clip(FarmemeRadius.Radius10.shape)
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),

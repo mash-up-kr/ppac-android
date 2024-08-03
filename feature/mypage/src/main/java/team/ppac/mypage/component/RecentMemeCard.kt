@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import team.ppac.designsystem.component.dim.FarmemeImageDim
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
 
@@ -36,6 +37,7 @@ internal fun RecentMemeCard(
             contentDescription = null,
             contentScale = ContentScale.Crop,
         )
+        FarmemeImageDim()
     }
 }
 
