@@ -7,12 +7,15 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.designsystem.FarmemeTheme
@@ -53,6 +56,7 @@ class SplashActivity : ComponentActivity() {
                     painter = painterResource(id = team.ppac.designsystem.R.drawable.img_splash_logo),
                     contentDescription = null,
                 )
+                Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "내가 찾던 밈을 파밍하다",
                     style = FarmemeTheme.typography.body.large.medium,
