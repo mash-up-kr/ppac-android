@@ -2,6 +2,8 @@ package team.ppac.search.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,18 +35,12 @@ class SearchDetailViewModel @Inject constructor(
         return SearchDetailUiState.INITIAL_STATE
     }
 
-    override fun handleClientException(throwable: Throwable) {
-        when (throwable) {
-            is FarmemeNetworkException -> {
-                updateErrorState(isError = true)
-            }
-        }
-    }
+    override fun handleClientException(throwable: Throwable) {}
 
     override suspend fun handleIntent(intent: SearchDetailIntent) {
         when (intent) {
             is SearchDetailIntent.ClickErrorRetry -> {
-                getSearchResults("")
+                getSearchResults(currentState.memeCategory)
                 updateErrorState(isError = false)
             }
 
@@ -58,6 +54,23 @@ class SearchDetailViewModel @Inject constructor(
                     postSideEffect(SearchDetailSideEffect.NavigateToMemeDetail(memeId = intent.memeId))
                 }.onFailure {
                     // 에러 처리
+                }
+            }
+        }
+    }
+
+    fun handleLoadErrorStates(loadStates: LoadStates) {
+        val errorLoadState = arrayOf(
+            loadStates.prepend,
+            loadStates.append,
+            loadStates.refresh
+        ).filterIsInstance(LoadState.Error::class.java).firstOrNull()
+
+        val exception = errorLoadState?.error
+        if (exception != null) {
+            when (exception) {
+                is FarmemeNetworkException -> {
+                    updateErrorState(isError = true)
                 }
             }
         }
