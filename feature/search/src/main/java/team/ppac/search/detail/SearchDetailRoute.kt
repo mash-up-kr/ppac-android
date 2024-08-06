@@ -28,6 +28,7 @@ internal fun SearchDetailRoute(
         SearchDetailScreen(
             modifier = modifier,
             uiState = uiState,
+            handleLoadStates = viewModel::handleLoadErrorStates,
             onBackClick = navigateBack,
             onMemeClick = { viewModel.intent(SearchDetailIntent.ClickMeme(it)) },
             onCopyClick = {},
