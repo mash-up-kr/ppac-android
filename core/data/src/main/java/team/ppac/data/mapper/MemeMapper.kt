@@ -18,4 +18,5 @@ internal fun MemeResponse.toMeme(): Meme = Meme(
         it.toKeyword()
     }?.toImmutableList() ?: emptyList(),
     isSaved = isSaved,
+    isReaction = isReaction,
 )

@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 
 object FarmemeIcon {
@@ -322,6 +321,17 @@ object FarmemeIcon {
     ) = Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_kk),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun KKHorizon(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_kk_horizon),
         contentDescription = null,
         tint = tint,
     )
