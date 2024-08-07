@@ -51,12 +51,12 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.watchMeme(memeId, watchType.name.lowercase())
     }
 
-    private val _refreshEventFlow = MutableSharedFlow<RefreshSavedMemeEvent>()
+    private val _refreshSavedMemeEventFlow = MutableSharedFlow<RefreshSavedMemeEvent>()
 
     override val refreshSavedMemeEventFlow: Flow<RefreshSavedMemeEvent>
-        get() = _refreshEventFlow
+        get() = _refreshSavedMemeEventFlow
 
     override suspend fun emitRefreshEvent() {
-        _refreshEventFlow.emit(RefreshSavedMemeEvent.Refresh)
+        _refreshSavedMemeEventFlow.emit(RefreshSavedMemeEvent.Refresh)
     }
 }
