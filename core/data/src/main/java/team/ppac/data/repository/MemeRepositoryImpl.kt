@@ -2,12 +2,14 @@ package team.ppac.data.repository
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import team.ppac.data.mapper.toMeme
 import team.ppac.data.paging.ITEMS_PER_PAGE
 import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.repository.MemeRepository
+import team.ppac.domain.repository.RefreshSavedMemeEvent
 import team.ppac.remote.datasource.MemeDataSource
 import javax.inject.Inject
 
@@ -40,6 +42,7 @@ class MemeRepositoryImpl @Inject constructor(
             ).map { it.toMeme() }
         }.flow
     }
+
     override suspend fun reactMeme(memeId: String): Boolean {
         return memeDataSource.reactMeme(memeId)
     }
@@ -48,4 +51,12 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.watchMeme(memeId, watchType.name.lowercase())
     }
 
+    private val _refreshEventFlow = MutableSharedFlow<RefreshSavedMemeEvent>()
+
+    override val refreshSavedMemeEventFlow: Flow<RefreshSavedMemeEvent>
+        get() = _refreshEventFlow
+
+    override suspend fun emitRefreshEvent() {
+        _refreshEventFlow.emit(RefreshSavedMemeEvent.Refresh)
+    }
 }

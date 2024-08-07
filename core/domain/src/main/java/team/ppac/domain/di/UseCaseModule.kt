@@ -9,6 +9,8 @@ import team.ppac.domain.usecase.CreateUserUseCase
 import team.ppac.domain.usecase.CreateUserUseCaseImpl
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.DeleteSavedMemeUseCaseImpl
+import team.ppac.domain.usecase.EmitRefreshEventUseCase
+import team.ppac.domain.usecase.EmitRefreshEventUseCaseImpl
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetLevelUseCaseImpl
 import team.ppac.domain.usecase.GetMemeUseCase
@@ -29,6 +31,8 @@ import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.GetUserUseCaseImpl
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.ReactMemeUseCaseImpl
+import team.ppac.domain.usecase.RefreshEventUseCase
+import team.ppac.domain.usecase.RefreshEventUseCaseImpl
 import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.domain.usecase.SampleUseCaseImpl
 import team.ppac.domain.usecase.SaveMemeUseCase
@@ -104,4 +108,12 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindGetLevelUseCase(impl: GetLevelUseCaseImpl): GetLevelUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindRefreshEventUseCase(impl: RefreshEventUseCaseImpl): RefreshEventUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindEmitRefreshEventUseCase(impl: EmitRefreshEventUseCaseImpl): EmitRefreshEventUseCase
 }
