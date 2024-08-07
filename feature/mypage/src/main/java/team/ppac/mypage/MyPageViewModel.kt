@@ -67,13 +67,6 @@ class MyPageViewModel @Inject constructor(
 
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
-            MyPageIntent.DisposeView -> {
-                reduce {
-                    copy(
-                        isLoading = true,
-                    )
-                }
-            }
         }
     }
 
@@ -87,7 +80,6 @@ class MyPageViewModel @Inject constructor(
 
     private fun initialAction() {
         launch {
-            reduce { copy(isLoading = true) }
             getUserData()
             delay(500L)
             reduce { copy(isLoading = false) }

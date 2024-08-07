@@ -9,5 +9,4 @@ sealed class MyPageIntent : UiIntent {
     data object ClickRetryButton : MyPageIntent()
     data object InitView : MyPageIntent()
     data object RefreshData : MyPageIntent()
-    data object DisposeView : MyPageIntent()
 }
