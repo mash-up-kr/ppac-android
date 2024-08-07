@@ -4,15 +4,19 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
+import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.GetSearchMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
+import team.ppac.search.detail.model.SearchResultUiModel
 import team.ppac.search.detail.model.toSearchResultUiModel
 import team.ppac.search.detail.mvi.SearchDetailIntent
 import team.ppac.search.detail.mvi.SearchDetailSideEffect
@@ -77,17 +81,31 @@ class SearchDetailViewModel @Inject constructor(
     }
 
     private fun getSearchResults(memeCategory: String) = launch {
+        updateLoadingState(true)
+        delay(300L)
         val searchResults = getSearchMemeUseCase(memeCategory)
             .map { pagingData ->
                 pagingData.map { it.toSearchResultUiModel() }
             }.cachedIn(viewModelScope)
 
+        updateLoadingState(false)
+        updateSearchResults(memeCategory, searchResults)
+    }
+
+    private fun updateSearchResults(
+        memeCategory: String,
+        searchResults: Flow<PagingData<SearchResultUiModel>>,
+    ) {
         reduce {
             copy(
                 memeCategory = memeCategory,
                 searchResults = searchResults
             )
         }
+    }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+        reduce { copy(isLoading = isLoading) }
     }
 
     private fun updateErrorState(isError: Boolean) {
