@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
 import team.ppac.domain.usecase.GetTopKeywordsUseCase
@@ -71,6 +72,8 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun getSearchScreenUiContent() = launch {
+        updateLoadingState(true)
+        delay(300L)
         val topKeywordsDeferredTask = async { getTopKeywordsUseCase() }
         val recommendKeywordsDeferredTask = async { getRecommendKeywordsUseCase() }
 
@@ -81,6 +84,7 @@ class SearchViewModel @Inject constructor(
             .map { it.toRecommendKeywordUiModel() }
             .toImmutableList()
 
+        updateLoadingState(false)
         updateSearchUiContent(topKeywords, recommendKeywords)
     }
 
@@ -100,6 +104,10 @@ class SearchViewModel @Inject constructor(
         reduce {
             copy(showServiceOpenDialog = showServiceOpenDialog)
         }
+    }
+
+    private fun updateLoadingState(isLoading: Boolean) {
+        reduce { copy(isLoading = isLoading) }
     }
 
     private fun updateErrorState(isError: Boolean) {
