@@ -16,6 +16,7 @@ data class MyPageUiState(
     val levelUiModel: LevelUiModel = LevelUiModel(),
     val recentMemes: ImmutableList<Meme> = persistentListOf(),
     val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
+    val refreshEvent: Flow<Boolean> = flowOf(false),
 ) : UiState {
     companion object {
         val INITIAL_STATE

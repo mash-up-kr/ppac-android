@@ -7,11 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.repository.RefreshSavedMemeEvent
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.domain.usecase.RefreshEventUseCase
 import team.ppac.domain.usecase.SetLevelUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.mypage.mapper.toLevelUiModel
@@ -28,6 +31,7 @@ class MyPageViewModel @Inject constructor(
     private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
     private val setLevelUseCase: SetLevelUseCase,
     private val getLevelUseCase: GetLevelUseCase,
+    private val refreshEventUseCase: RefreshEventUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
     init {
         val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
@@ -36,6 +40,18 @@ class MyPageViewModel @Inject constructor(
             copy(
                 savedMemes = savedMemes
             )
+        }
+
+        launch {
+            refreshEventUseCase().collect { memeEvent ->
+                when (memeEvent) {
+                    is RefreshSavedMemeEvent.Refresh -> reduce {
+                        copy(
+                            refreshEvent = flowOf(true)
+                        )
+                    }
+                }
+            }
         }
     }
 

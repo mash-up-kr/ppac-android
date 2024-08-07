@@ -19,6 +19,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,6 +63,14 @@ internal fun MyPageScreen(
             savedMemes.refresh()
         },
     )
+
+    LaunchedEffect(key1 = uiState.refreshEvent) {
+        uiState.refreshEvent.collect { refresh ->
+            if (refresh) {
+                savedMemes.refresh()
+            }
+        }
+    }
 
     FarmemeScaffold(
         modifier = Modifier
