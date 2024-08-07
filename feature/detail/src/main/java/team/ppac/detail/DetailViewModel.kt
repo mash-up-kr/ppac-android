@@ -5,7 +5,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.detail.mapper.toDetailMemeUiModel
@@ -13,6 +12,7 @@ import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.mvi.DetailUiState
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
+import team.ppac.domain.usecase.EmitRefreshEventUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
@@ -26,6 +26,7 @@ class DetailViewModel @Inject constructor(
     private val saveMemeUseCase: SaveMemeUseCase,
     private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
     private val reactMemeUseCase: ReactMemeUseCase,
+    private val emitRefreshEventUseCase: EmitRefreshEventUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     init {
@@ -55,7 +56,12 @@ class DetailViewModel @Inject constructor(
             }
 
             is DetailIntent.ClickBackButton -> {
+                emitRefreshEventUseCase()
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
+            }
+
+            DetailIntent.DisposeView -> {
+                emitRefreshEventUseCase()
             }
 
             DetailIntent.ClickBottomButton.Copy -> {

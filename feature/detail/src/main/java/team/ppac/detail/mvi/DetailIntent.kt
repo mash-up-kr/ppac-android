@@ -9,6 +9,8 @@ sealed interface DetailIntent : UiIntent {
 
     data object CLickRetryButton : DetailIntent
 
+    data object DisposeView : DetailIntent
+
     sealed interface ClickBottomButton : DetailIntent {
         data object Copy : ClickBottomButton
         data class Farmeme(val isSavedMeme: Boolean) : ClickBottomButton
