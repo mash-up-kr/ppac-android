@@ -17,6 +17,7 @@ import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.search.detail.component.EmptyResultContent
+import team.ppac.search.detail.component.SearchDetailLoadingContent
 import team.ppac.search.detail.component.SearchDetailResultContent
 import team.ppac.search.detail.component.SearchDetailResultHeader
 import team.ppac.search.detail.mvi.SearchDetailUiState
@@ -61,18 +62,29 @@ internal fun SearchDetailScreen(
                     bottom = paddingValues.calculateBottomPadding() + TabBarHeight
                 )
 
-                Column(
-                    modifier = Modifier.padding(innerPadding)
-                ) {
-                    if (searchResults.itemCount == 0) {
-                        EmptyResultContent()
+                when {
+                    uiState.isLoading -> {
+                        SearchDetailLoadingContent(
+                            modifier = Modifier.fillMaxSize(),
+                            uiState = uiState
+                        )
                     }
-                    SearchDetailResultHeader(totalCount = searchResults.itemCount)
-                    SearchDetailResultContent(
-                        searchResults = searchResults,
-                        onMemeClick = onMemeClick,
-                        onCopyClick = onCopyClick
-                    )
+
+                    else -> {
+                        Column(
+                            modifier = Modifier.padding(innerPadding)
+                        ) {
+                            if (searchResults.itemCount == 0) {
+                                EmptyResultContent()
+                            }
+                            SearchDetailResultHeader(totalCount = searchResults.itemCount)
+                            SearchDetailResultContent(
+                                searchResults = searchResults,
+                                onMemeClick = onMemeClick,
+                                onCopyClick = onCopyClick
+                            )
+                        }
+                    }
                 }
             }
         }
