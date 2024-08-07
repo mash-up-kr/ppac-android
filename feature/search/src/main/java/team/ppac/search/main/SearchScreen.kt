@@ -21,6 +21,7 @@ import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.search.main.component.FarmemeSearchBar
 import team.ppac.search.main.component.HotKeywordContent
 import team.ppac.search.main.component.MemeCategoryContent
+import team.ppac.search.main.component.SearchLoadingContent
 import team.ppac.search.main.mvi.SearchUiState
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -47,6 +48,13 @@ internal fun SearchScreen(
                         .padding(bottom = TabBarHeight),
                     title = "정보를 불러오지 못 했어요.\n새로고침 해주세요.",
                     onRetryClick = onRetryClick
+                )
+            }
+
+            uiState.isLoading -> {
+                SearchLoadingContent(
+                    modifier = Modifier.fillMaxSize(),
+                    uiState = uiState
                 )
             }
 
