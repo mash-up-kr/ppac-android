@@ -9,7 +9,7 @@ import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.repository.MemeRepository
-import team.ppac.domain.repository.RefreshSavedMemeEvent
+import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.remote.datasource.MemeDataSource
 import javax.inject.Inject
 
@@ -51,12 +51,12 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.watchMeme(memeId, watchType.name.lowercase())
     }
 
-    private val _refreshSavedMemeEventFlow = MutableSharedFlow<RefreshSavedMemeEvent>()
+    private val _savedMemeEventFlow = MutableSharedFlow<SavedMemeEvent>()
 
-    override val refreshSavedMemeEventFlow: Flow<RefreshSavedMemeEvent>
-        get() = _refreshSavedMemeEventFlow
+    override val savedMemeEventFlow: Flow<SavedMemeEvent>
+        get() = _savedMemeEventFlow
 
     override suspend fun emitRefreshEvent() {
-        _refreshSavedMemeEventFlow.emit(RefreshSavedMemeEvent.Refresh)
+        _savedMemeEventFlow.emit(SavedMemeEvent.Refresh)
     }
 }

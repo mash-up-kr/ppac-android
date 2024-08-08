@@ -18,9 +18,9 @@ interface MemeRepository {
     ): Boolean
 
     suspend fun emitRefreshEvent()
-    val refreshSavedMemeEventFlow: Flow<RefreshSavedMemeEvent>
+    val savedMemeEventFlow: Flow<SavedMemeEvent>
 }
 
-sealed class RefreshSavedMemeEvent {
-    data object Refresh : RefreshSavedMemeEvent()
+sealed class SavedMemeEvent {
+    data object Refresh : SavedMemeEvent()
 }

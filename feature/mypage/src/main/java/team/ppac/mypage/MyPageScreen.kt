@@ -65,8 +65,8 @@ internal fun MyPageScreen(
     )
 
     LaunchedEffect(key1 = uiState.refreshEvent) {
-        uiState.refreshEvent.collect { refresh ->
-            if (refresh) {
+        uiState.refreshEvent.collect { event ->
+            if (event) {
                 savedMemes.refresh()
             }
         }
