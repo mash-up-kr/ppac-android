@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsIgnoringVisibility
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -66,6 +67,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
+import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.model.Meme
 import team.ppac.recommendation.component.ActionButtons
@@ -134,7 +136,10 @@ internal fun RecommendationScreen(
             Crossfade(targetState = state.isError) { isError ->
                 if (isError) {
                     FarmemeErrorScreen(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .systemBarsPadding()
+                            .padding(bottom = TabBarHeight),
                         title = "밈을 불러오지 못 했어요.\n" + "새로고침 해주세요."
                     ) {
                         viewModel.intent(RecommendationIntent.Init)
