@@ -37,6 +37,7 @@ import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
@@ -64,10 +65,10 @@ internal fun MyPageScreen(
         },
     )
 
-    LaunchedEffect(key1 = uiState.refreshEvent) {
-        uiState.refreshEvent.collect { event ->
-            if (event) {
-                savedMemes.refresh()
+    LaunchedEffect(key1 = uiState.savedMemeEventFlow) {
+        uiState.savedMemeEventFlow.collect { event ->
+            when (event) {
+                SavedMemeEvent.Refresh -> savedMemes.refresh()
             }
         }
     }

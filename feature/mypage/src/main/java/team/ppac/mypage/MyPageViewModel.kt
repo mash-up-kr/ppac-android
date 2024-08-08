@@ -9,7 +9,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.BaseViewModel
-import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
@@ -44,12 +43,10 @@ class MyPageViewModel @Inject constructor(
 
         launch {
             refreshEventUseCase().collect { memeEvent ->
-                when (memeEvent) {
-                    is SavedMemeEvent.Refresh -> reduce {
-                        copy(
-                            refreshEvent = flowOf(true)
-                        )
-                    }
+                reduce {
+                    copy(
+                        savedMemeEventFlow = flowOf(memeEvent)
+                    )
                 }
             }
         }
