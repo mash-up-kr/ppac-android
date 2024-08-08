@@ -149,7 +149,7 @@ internal fun RecommendationScreen(
                                     .getTop(this)
                                     .toDp()
                             })
-                            .padding(top = 36.dp),
+                            .padding(top = 38.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Image(
@@ -158,7 +158,7 @@ internal fun RecommendationScreen(
                         )
                         Spacer(modifier = Modifier.padding(top = 10.dp))
                         Text(
-                            text = "이번주 이 밈 어때!",
+                            text = "이 번주 이 밈 어때!",
                             style = FarmemeTheme.typography.heading.large.bold,
                             color = FarmemeTheme.textColor.primary,
                         )
@@ -200,7 +200,7 @@ internal fun RecommendationScreen(
                                 color = FarmemeTheme.textColor.secondary,
                             )
                         }
-                        Spacer(modifier = Modifier.padding(top = 36.dp))
+                        Spacer(modifier = Modifier.padding(top = 32.dp))
                         when {
                             state.thisWeekMemes.isNotEmpty() -> {
                                 HeroModulePager(
