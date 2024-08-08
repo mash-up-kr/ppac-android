@@ -19,8 +19,8 @@ fun SearchDetailResultFooter(
 ) {
     Text(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 100.dp),
+            .padding(vertical = 100.dp)
+            .fillMaxWidth(),
         text = "카페인 빨리 충전하고\n재밌는 밈 더 찾아둘게요!",
         style = FarmemeTheme.typography.body.large.medium.copy(
             color = FarmemeTheme.textColor.assistive
