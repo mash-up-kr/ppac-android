@@ -215,7 +215,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_my_inactive_24),
         contentDescription = null,
-        tint = Color.Unspecified,
+        tint = FarmemeTheme.iconColor.assistive,
     )
 
     @Composable
@@ -235,7 +235,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_recommend_inactive_24),
         contentDescription = null,
-        tint = Color.Unspecified,
+        tint = FarmemeTheme.iconColor.assistive,
     )
 
     @Composable
@@ -268,7 +268,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_discover_inactive_24),
         contentDescription = null,
-        tint = tint,
+        tint = FarmemeTheme.iconColor.assistive,
     )
 
     @Composable
