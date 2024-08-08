@@ -1,6 +1,7 @@
 package team.ppac.search.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,7 @@ import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.designsystem.util.extension.ColumnSpacerByWeightWithMinHeight
 import team.ppac.search.main.component.FarmemeSearchBar
 import team.ppac.search.main.component.HotKeywordContent
 import team.ppac.search.main.component.MemeCategoryContent
@@ -94,6 +96,14 @@ internal fun SearchScreen(
                             onCategoryClick = onCategoryClick
                         )
                         Spacer(modifier = Modifier.size(20.dp))
+                    }
+                    item {
+                        Column {
+                            ColumnSpacerByWeightWithMinHeight(
+                                weight = 1f,
+                                minHeight = 50.dp
+                            )
+                        }
                     }
                 }
             }
