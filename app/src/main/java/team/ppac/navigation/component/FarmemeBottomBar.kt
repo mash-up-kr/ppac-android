@@ -2,7 +2,9 @@ package team.ppac.navigation.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -13,6 +15,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.FarmemeNavigationBar
 import team.ppac.designsystem.component.tabbar.FarmemeNavigationBarItem
+import team.ppac.designsystem.foundation.NoRippleTheme
 import team.ppac.navigation.FarmemeTopDestination
 import team.ppac.navigation.isTopLevelDestinationInHierarchy
 
@@ -23,25 +26,27 @@ fun FarmemeBottomBar(
     navigateToDestination: (FarmemeTopDestination) -> Unit,
     currentDestination: NavDestination?,
 ) {
-    FarmemeNavigationBar(
-        modifier = modifier.fillMaxWidth(),
-    ) {
-        destinations.forEach { destination ->
-            val isSelected = currentDestination.isTopLevelDestinationInHierarchy(destination)
+    CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+        FarmemeNavigationBar(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            destinations.forEach { destination ->
+                val isSelected = currentDestination.isTopLevelDestinationInHierarchy(destination)
 
-            FarmemeNavigationBarItem(
-                modifier = Modifier,
-                isSelected = isSelected,
-                onClick = { navigateToDestination(destination) },
-                label = {
-                    Text(
-                        text = stringResource(id = destination.textLabelId),
-                        style = FarmemeTheme.typography.body.xSmall.semibold
-                    )
-                },
-                selectedIcon = destination.selectedIcon,
-                unselectedIcon = destination.unselectedIcon
-            )
+                FarmemeNavigationBarItem(
+                    modifier = Modifier,
+                    isSelected = isSelected,
+                    onClick = { navigateToDestination(destination) },
+                    label = {
+                        Text(
+                            text = stringResource(id = destination.textLabelId),
+                            style = FarmemeTheme.typography.body.xSmall.semibold
+                        )
+                    },
+                    selectedIcon = destination.selectedIcon,
+                    unselectedIcon = destination.unselectedIcon
+                )
+            }
         }
     }
 }
