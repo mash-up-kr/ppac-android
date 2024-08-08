@@ -119,6 +119,7 @@ internal fun MyPageScreen(
                             onCopyClick = onCopyClick,
                         )
                     }
+                    Spacer(modifier = Modifier.height(50.dp))
                 }
                 MyPagePullRefreshIndicator(
                     isRefreshing = uiState.isRefreshing,
