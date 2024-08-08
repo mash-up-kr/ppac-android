@@ -98,6 +98,7 @@ private fun MyPageLevelTitle(
     Column(
         modifier = modifier,
     ) {
+        Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = when (levelUiModel.myPageLevel) {
                 MyPageLevel.LEVEL4 -> "최종 레벨 달성 미션"
