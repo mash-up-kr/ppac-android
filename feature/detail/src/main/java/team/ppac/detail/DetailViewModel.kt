@@ -56,7 +56,6 @@ class DetailViewModel @Inject constructor(
             }
 
             is DetailIntent.ClickBackButton -> {
-                emitRefreshEventUseCase()
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
             }
 
