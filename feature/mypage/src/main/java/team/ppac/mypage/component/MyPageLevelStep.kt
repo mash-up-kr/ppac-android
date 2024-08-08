@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -72,23 +73,20 @@ private fun MyPageDottedLines(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        Spacer(modifier = Modifier.width(12.dp))
         MyPageDottedLine(
-            modifier = Modifier
-                .weight(1.0f)
-                .padding(start = 12.dp),
+            modifier = Modifier.weight(1.0f),
             enabled = level > MyPageLevel.LEVEL1.levelCount,
         )
         MyPageDottedLine(
-            modifier = Modifier
-                .weight(1.0f),
+            modifier = Modifier.weight(1.0f),
             enabled = level > MyPageLevel.LEVEL2.levelCount,
         )
         MyPageDottedLine(
-            modifier = Modifier
-                .weight(1.0f)
-                .padding(end = 12.dp),
+            modifier = Modifier.weight(1.0f),
             enabled = level > MyPageLevel.LEVEL3.levelCount,
         )
+        Spacer(modifier = Modifier.width(12.dp))
     }
 }
 
@@ -118,6 +116,7 @@ private fun MyPageStepIcons(
 ) {
     val lottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.my_page_level_circle_effect))
     val lottieAnimatable = rememberLottieAnimatable()
+    val levelCount = levelUiModel.myPageLevel.levelCount
 
     LaunchedEffect(lottieComposition) {
         lottieAnimatable.animate(
@@ -133,11 +132,11 @@ private fun MyPageStepIcons(
     ) {
         (MyPageLevel.LEVEL1.levelCount..MyPageLevel.LEVEL4.levelCount).map { step ->
             when {
-                step < levelUiModel.myPageLevel.levelCount || levelUiModel.isMaxLevel() -> {
+                step < levelCount || levelUiModel.isMaxLevel() -> {
                     FarmemeIcon.LevelCheck()
                 }
 
-                step == levelUiModel.myPageLevel.levelCount -> {
+                step == levelCount -> {
                     Box(contentAlignment = Alignment.Center) {
                         LottieAnimation(
                             modifier = Modifier.size(20.dp),
@@ -148,7 +147,7 @@ private fun MyPageStepIcons(
                     }
                 }
 
-                step > levelUiModel.myPageLevel.levelCount -> {
+                step > levelCount -> {
                     FarmemeIcon.LevelDisabled()
                 }
             }
