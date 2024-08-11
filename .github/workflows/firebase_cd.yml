@@ -21,15 +21,18 @@ jobs:
           echo "${{ secrets.PPAC_LOCAL_PROPERTIES }}" > ./local.properties
 
       - name: Create Google Services
+        env:
+          PPAC_GOOGLE_SERVICES: ${{secrets.PPAC_GOOGLE_SERVICES}}
         run: |
-          echo "${{ secrets.PPAC_GOOGLE_SERVICES }}" > ./app/google-services.json
+          echo "PPAC_GOOGLE_SERVICES" > app/google-services.json.b64
+          base64 -d -i app/google-services.json.b64 > app/google-services.json
 
       - name: Create KeyStore Properties
         run: |
           echo "${{ secrets.PPAC_KEYSTORE_PROPERTIES }}" > ./farmeme-keystore.properties
 
       - name: Build APK
-        run: ./gradlew assembleRelease PstorePassword=${{secrets.PPAC_KEYSTORE_PASSWORD}} PkeyPassword=${{secrets.PPAC_ALIAS_PASSWORD}}
+        run: ./gradlew assembleRelease
 
       - name: Upload Build to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
