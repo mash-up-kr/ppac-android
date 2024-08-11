@@ -83,21 +83,26 @@ class SearchDetailViewModel @Inject constructor(
     private fun getSearchResults(memeCategory: String) = launch {
         updateLoadingState(true)
         delay(300L)
-        val searchResults = getSearchMemeUseCase(memeCategory)
+
+        val paginationResults = getSearchMemeUseCase(memeCategory)
+        val totalMemeCount = paginationResults.totalMemeCount
+        val searchResults = paginationResults.memes
             .map { pagingData ->
                 pagingData.map { it.toSearchResultUiModel() }
             }.cachedIn(viewModelScope)
 
         updateLoadingState(false)
-        updateSearchResults(memeCategory, searchResults)
+        updateSearchResults(totalMemeCount, memeCategory, searchResults)
     }
 
     private fun updateSearchResults(
+        totalMemeCount: Int,
         memeCategory: String,
         searchResults: Flow<PagingData<SearchResultUiModel>>,
     ) {
         reduce {
             copy(
+                totalMemeCount = totalMemeCount,
                 memeCategory = memeCategory,
                 searchResults = searchResults
             )
