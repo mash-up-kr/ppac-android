@@ -197,11 +197,9 @@ internal fun DetailHashTags(
     Spacer(modifier = Modifier.height(11.dp))
     Text(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 15.dp),
-        text = if (sourceDescription.isNotEmpty()) {
-            "출처 : ".plus(sourceDescription.truncateDisplayedString(32))
-        } else {
-            sourceDescription
-        },
+        text = sourceDescription.takeIf { it.isNotEmpty() }
+            ?.let { "출처 : ${it.truncateDisplayedString(32)}" }
+            ?: sourceDescription,
         color = FarmemeTheme.textColor.assistive,
         style = FarmemeTheme.typography.body.xSmall.medium,
         maxLines = 1,
