@@ -16,6 +16,10 @@ jobs:
             distribution: zulu
             java-version: 17
 
+      - name: Create Local Properties
+        run: |
+          echo "${{ secrets.PPAC_LOCAL_PROPERTIES }}" > ./local.properties      
+
       - name: Build APK
         run: ./gradlew assembleRelease PstorePassword=${{secrets.PPAC_KEYSTORE_PASSWORD}} PkeyPassword=${{secrets.PPAC_ALIAS_PASSWORD}}
 
