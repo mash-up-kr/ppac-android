@@ -26,7 +26,7 @@ jobs:
 
       - name: Create KeyStore Properties
         run: |
-          echo "${{ secrets.PPAC_KEYSTORE_PROPERTIES }}" > ./app/signing/farmeme-keystore.properties
+          echo "${{ secrets.PPAC_KEYSTORE_PROPERTIES }}" > ./farmeme-keystore.properties
 
       - name: Build APK
         run: ./gradlew assembleRelease PstorePassword=${{secrets.PPAC_KEYSTORE_PASSWORD}} PkeyPassword=${{secrets.PPAC_ALIAS_PASSWORD}}
