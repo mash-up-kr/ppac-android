@@ -20,12 +20,13 @@ jobs:
         run: |
           echo "${{ secrets.PPAC_LOCAL_PROPERTIES }}" > ./local.properties
 
-      - name: Create Google Services
+      - name: Create file
+        run: cat /home/runner/work/ppac-android/ppac-android/app/google-services.json | base64
+
+      - name: Putting data
         env:
-          PPAC_GOOGLE_SERVICES: ${{secrets.PPAC_GOOGLE_SERVICES}}
-        run: |
-          echo "PPAC_GOOGLE_SERVICES" > app/google-services.json.b64
-          base64 -d -i app/google-services.json.b64 > app/google-services.json
+          DATA: ${{ secrets.PPAC_GOOGLE_SERVICES }}
+        run: echo $DATA > /home/runner/work/ppac-android/ppac-android/app/google-services.json
 
       - name: Create KeyStore Properties
         run: |
