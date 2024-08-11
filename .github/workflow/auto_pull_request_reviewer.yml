@@ -1,0 +1,21 @@
+name: Auto PR Assignee
+on:
+  pull_request:
+    types: [ opened ]
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto PR Author
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.PPAC_ANDROID_TOKEN }}
+          script: |
+            const assignees = context.payload.pull_request.user.login;
+          
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              assignees: [assignees]
+            });
