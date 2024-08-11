@@ -83,15 +83,16 @@ internal fun SearchDetailScreen(
                         Column(
                             modifier = Modifier.padding(innerPadding)
                         ) {
-                            if (searchResults.itemCount == 0) {
+                            if (uiState.totalMemeCount == 0) {
                                 EmptyResultContent()
+                            } else {
+                                SearchDetailResultHeader(totalCount = uiState.totalMemeCount)
+                                SearchDetailResultContent(
+                                    searchResults = searchResults,
+                                    onMemeClick = onMemeClick,
+                                    onCopyClick = onCopyClick
+                                )
                             }
-                            SearchDetailResultHeader(totalCount = searchResults.itemCount)
-                            SearchDetailResultContent(
-                                searchResults = searchResults,
-                                onMemeClick = onMemeClick,
-                                onCopyClick = onCopyClick
-                            )
                         }
                     }
                 }
