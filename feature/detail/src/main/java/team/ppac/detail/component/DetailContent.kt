@@ -71,7 +71,9 @@ internal fun DetailContent(
                 width = 2.dp,
                 color = FarmemeTheme.borderColor.primary,
                 shape = FarmemeRadius.Radius20.shape,
-            ),
+            )
+            .clip(FarmemeRadius.Radius20.shape)
+            .background(FarmemeTheme.backgroundColor.white),
     ) {
         Column(
             modifier = Modifier.padding(10.dp),
