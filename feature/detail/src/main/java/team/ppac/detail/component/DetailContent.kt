@@ -75,29 +75,34 @@ internal fun DetailContent(
     ) {
         Column(
             modifier = Modifier.padding(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             DetailImage(
                 imageUrl = uiModel.imageUrl,
                 isLoading = isLoading,
                 saveBitmap = saveBitmap,
             )
-            DetailHashTags(
-                name = uiModel.name,
-                sourceDescription = uiModel.sourceDescription,
-                hashTags = uiModel.hashTags,
-                isLoading = isLoading
-            )
-            DetailFunnyButton(
-                modifier = Modifier.mapTextSkeletonModifierIfNeed(
-                    isLoading = isLoading,
-                    height = 46.dp
-                ),
-                reactionCount = uiModel.reactionCount,
-                onClickFunnyButton = onClickFunnyButton,
-                onReactionButtonPositioned = onReactionButtonPositioned
-            )
-            Spacer(modifier = Modifier.height(10.dp))
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 10.dp)
+                    .padding(top = 20.dp, bottom = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                DetailHashTags(
+                    name = uiModel.name,
+                    sourceDescription = uiModel.sourceDescription,
+                    hashTags = uiModel.hashTags,
+                    isLoading = isLoading
+                )
+                DetailFunnyButton(
+                    modifier = Modifier.mapTextSkeletonModifierIfNeed(
+                        isLoading = isLoading,
+                        height = 46.dp
+                    ),
+                    reactionCount = uiModel.reactionCount,
+                    onClickFunnyButton = onClickFunnyButton,
+                    onReactionButtonPositioned = onReactionButtonPositioned
+                )
+            }
         }
     }
 }
@@ -181,7 +186,6 @@ internal fun DetailHashTags(
     hashTags: ImmutableList<String>,
     isLoading: Boolean,
 ) {
-    Spacer(modifier = Modifier.height(25.dp))
     Text(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 30.dp),
         text = name.truncateDisplayedString(16),
@@ -234,7 +238,7 @@ fun DetailFunnyButton(
     val coroutineScope = rememberCoroutineScope()
     val lottieAnimatable = rememberLottieAnimatable()
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
