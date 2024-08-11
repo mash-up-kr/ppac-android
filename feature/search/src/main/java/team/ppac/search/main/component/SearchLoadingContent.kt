@@ -39,10 +39,7 @@ internal fun SearchLoadingContent(
                 .height(44.dp)
                 .padding(horizontal = 20.dp)
                 .clip(FarmemeRadius.Radius10.shape)
-                .showSkeleton(
-                    isLoading = uiState.isLoading,
-                    viewType = SkeletonViewType.Basic
-                )
+                .showSkeleton(isLoading = uiState.isLoading)
         )
         Spacer(modifier = Modifier.size(34.dp))
         Box(
@@ -51,10 +48,7 @@ internal fun SearchLoadingContent(
                 .height(20.dp)
                 .padding(horizontal = 20.dp)
                 .clip(FarmemeRadius.Radius4.shape)
-                .showSkeleton(
-                    isLoading = uiState.isLoading,
-                    viewType = SkeletonViewType.Basic
-                )
+                .showSkeleton(isLoading = uiState.isLoading)
         )
         Spacer(modifier = Modifier.size(18.dp))
         Row(
@@ -69,10 +63,7 @@ internal fun SearchLoadingContent(
                         .width(90.dp)
                         .height(90.dp)
                         .clip(FarmemeRadius.Radius12.shape)
-                        .showSkeleton(
-                            isLoading = uiState.isLoading,
-                            viewType = SkeletonViewType.Basic
-                        )
+                        .showSkeleton(isLoading = uiState.isLoading)
                 )
             }
         }
@@ -83,10 +74,7 @@ internal fun SearchLoadingContent(
                 .height(20.dp)
                 .padding(horizontal = 20.dp)
                 .clip(FarmemeRadius.Radius4.shape)
-                .showSkeleton(
-                    isLoading = uiState.isLoading,
-                    viewType = SkeletonViewType.Basic
-                )
+                .showSkeleton(isLoading = uiState.isLoading)
         )
         Spacer(modifier = Modifier.size(22.dp))
         Box(
@@ -95,10 +83,7 @@ internal fun SearchLoadingContent(
                 .height(16.dp)
                 .padding(start = 20.dp)
                 .clip(FarmemeRadius.Radius4.shape)
-                .showSkeleton(
-                    isLoading = uiState.isLoading,
-                    viewType = SkeletonViewType.Basic
-                )
+                .showSkeleton(isLoading = uiState.isLoading)
         )
         Spacer(modifier = Modifier.size(16.dp))
         Row(
@@ -113,10 +98,7 @@ internal fun SearchLoadingContent(
                         .width(60.dp)
                         .height(36.dp)
                         .clip(RoundedCornerShape(18.dp))
-                        .showSkeleton(
-                            isLoading = uiState.isLoading,
-                            viewType = SkeletonViewType.Basic
-                        )
+                        .showSkeleton(isLoading = uiState.isLoading)
                 )
             }
         }
