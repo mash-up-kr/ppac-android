@@ -194,14 +194,14 @@ internal fun DetailHashTags(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
         hashTags = hashTags.truncateDisplayedList(6),
     )
-    sourceDescription.takeIf { it.isNotEmpty() }?.let {
+    if (sourceDescription.isNotEmpty()){
         Spacer(modifier = Modifier.height(11.dp))
         Text(
             modifier = Modifier.mapTextSkeletonModifierIfNeed(
                 isLoading = isLoading,
                 height = 15.dp,
             ),
-            text = "출처 : ${it.truncateDisplayedString(32)}",
+            text = "출처 : ${sourceDescription.truncateDisplayedString(32)}",
             color = FarmemeTheme.textColor.assistive,
             style = FarmemeTheme.typography.body.xSmall.medium,
             maxLines = 1,
