@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val keystorePropertiesFile = rootProject.file("farmeme-keystore.properties")
+val keystorePropertiesFile = File("farmeme-keystore.properties")
 android {
     namespace = libs.versions.namespace.get()
     compileSdk = libs.versions.compileSdk.get().toInt()

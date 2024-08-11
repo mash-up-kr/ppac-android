@@ -33,7 +33,7 @@ jobs:
           echo "${{ secrets.PPAC_KEYSTORE_PROPERTIES }}" > ./farmeme-keystore.properties
 
       - name: Build APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleDebug
 
       - name: Upload Build to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -41,5 +41,5 @@ jobs:
             appId: ${{ secrets.PPAC_FIREBASE_APP_ID }}
             serviceCredentialsFileContent: ${{ secrets.PPAC_FIREBASE_CREDENTIAL }}
             groups: android-tester
-            file: app/build/outputs/apk/release/app-release.apk
+            file: app/build/outputs/apk/debug/app-debug.apk
             # app/build/outputs/apk/standard/stage/release/app-standard-stage-release.apk
