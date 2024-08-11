@@ -103,10 +103,16 @@ internal fun DetailBottomBar(
                     }
                 },
             ) {
-                FarmemeIcon.BookmarkLine(
-                    modifier = Modifier.size(20.dp),
-                    tint = animatedFarmemeButtonColor,
-                )
+                if(isSaved){
+                    FarmemeIcon.BookmarkFilled(
+                        modifier = Modifier.size(20.dp),
+                    )
+                }else{
+                    FarmemeIcon.BookmarkLine(
+                        modifier = Modifier.size(20.dp),
+                        tint = animatedFarmemeButtonColor,
+                    )
+                }
             }
         }
     }
