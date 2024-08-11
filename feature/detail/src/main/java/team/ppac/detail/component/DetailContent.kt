@@ -194,17 +194,20 @@ internal fun DetailHashTags(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
         hashTags = hashTags.truncateDisplayedList(6),
     )
-    Spacer(modifier = Modifier.height(11.dp))
-    Text(
-        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 15.dp),
-        text = sourceDescription.takeIf { it.isNotEmpty() }
-            ?.let { "출처 : ${it.truncateDisplayedString(32)}" }
-            ?: sourceDescription,
-        color = FarmemeTheme.textColor.assistive,
-        style = FarmemeTheme.typography.body.xSmall.medium,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
+    sourceDescription.takeIf { it.isNotEmpty() }?.let {
+        Spacer(modifier = Modifier.height(11.dp))
+        Text(
+            modifier = Modifier.mapTextSkeletonModifierIfNeed(
+                isLoading = isLoading,
+                height = 15.dp,
+            ),
+            text = "출처 : ${it.truncateDisplayedString(32)}",
+            color = FarmemeTheme.textColor.assistive,
+            style = FarmemeTheme.typography.body.xSmall.medium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
     Spacer(modifier = Modifier.height(20.dp))
 }
 
