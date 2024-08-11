@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,12 +50,6 @@ internal fun DetailRoute(
 
     val saveBitmap: (Bitmap) -> Unit = {
         bitmap = it
-    }
-
-    DisposableEffect(key1 = Unit) {
-        onDispose {
-            viewModel.intent(DetailIntent.DisposeView)
-        }
     }
 
     BaseComposable(viewModel = viewModel) { uiState ->

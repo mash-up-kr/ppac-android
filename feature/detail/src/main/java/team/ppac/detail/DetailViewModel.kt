@@ -59,10 +59,6 @@ class DetailViewModel @Inject constructor(
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
             }
 
-            DetailIntent.DisposeView -> {
-                emitRefreshEventUseCase()
-            }
-
             DetailIntent.ClickBottomButton.Copy -> {
                 postSideEffect(DetailSideEffect.CopyClipBoard)
             }
@@ -72,6 +68,8 @@ class DetailViewModel @Inject constructor(
             }
 
             is DetailIntent.ClickBottomButton.Farmeme -> {
+                emitRefreshEventUseCase()
+
                 if (intent.isSavedMeme) {
                     deleteSavedMeme()
                     showSnackbar(message = "파밈을 취소했어요")
