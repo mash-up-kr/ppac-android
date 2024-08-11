@@ -18,7 +18,15 @@ jobs:
 
       - name: Create Local Properties
         run: |
-          echo "${{ secrets.PPAC_LOCAL_PROPERTIES }}" > ./local.properties      
+          echo "${{ secrets.PPAC_LOCAL_PROPERTIES }}" > ./local.properties
+
+      - name: Create Google Services
+        run: |
+          echo "${{ secrets.PPAC_GOOGLE_SERVICES }}" > ./app/google-services.json
+
+      - name: Create KeyStore Properties
+        run: |
+          echo "${{ secrets.PPAC_KEYSTORE_PROPERTIES }}" > ./app/signing/farmeme-keystore.properties
 
       - name: Build APK
         run: ./gradlew assembleRelease PstorePassword=${{secrets.PPAC_KEYSTORE_PASSWORD}} PkeyPassword=${{secrets.PPAC_ALIAS_PASSWORD}}
