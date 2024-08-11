@@ -17,7 +17,7 @@ jobs:
             java-version: 17
 
       - name: Build APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleRelease PstorePassword=${{secrets.PPAC_KEYSTORE_PASSWORD}} PkeyPassword=${{PPAC_ALIAS_PASSWORD}}
 
       - name: Upload Build to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -25,5 +25,5 @@ jobs:
             appId: ${{ secrets.PPAC_FIREBASE_APP_ID }}
             serviceCredentialsFileContent: ${{ secrets.PPAC_FIREBASE_CREDENTIAL }}
             groups: android-tester
-            file: app/build/outputs/apk/debug/app-debug.apk
+            file: app/build/outputs/apk/release/app-release.apk
             # app/build/outputs/apk/standard/stage/release/app-standard-stage-release.apk
