@@ -75,6 +75,7 @@ fun PreviewDetailScreen() {
                 sourceDescription = "출처에 대한 내용이 들어갑니다.",
                 isSavedMeme = false,
                 reactionCount = 0,
+                isReaction = false,
             ),
             isError = false,
             isLoading = false,

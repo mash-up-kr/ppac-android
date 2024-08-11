@@ -99,6 +99,7 @@ internal fun DetailContent(
                         height = 46.dp
                     ),
                     reactionCount = uiModel.reactionCount,
+                    isReaction = uiModel.isReaction,
                     onClickFunnyButton = onClickFunnyButton,
                     onReactionButtonPositioned = onReactionButtonPositioned
                 )
@@ -231,6 +232,7 @@ internal fun DetailTags(
 fun DetailFunnyButton(
     modifier: Modifier = Modifier,
     reactionCount: Int,
+    isReaction: Boolean,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
 ) {
@@ -275,19 +277,32 @@ fun DetailFunnyButton(
             exit = fadeOut(),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                LottieAnimation(
-                    modifier = Modifier.size(
-                        height = 22.dp,
-                        width = 44.dp,
-                    ),
-                    composition = lottieComposition,
-                    progress = { lottieAnimatable.progress },
-                )
+                if (isReaction) {
+                    LottieAnimation(
+                        modifier = Modifier.size(
+                            height = 22.dp,
+                            width = 44.dp,
+                        ),
+                        composition = lottieComposition,
+                        progress = { lottieAnimatable.progress },
+                    )
+                } else {
+                    FarmemeIcon.KKHorizon(
+                        modifier = Modifier.size(
+                            height = 22.dp,
+                            width = 44.dp
+                        )
+                    )
+                }
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = "+$reactionCount",
                     style = FarmemeTheme.typography.highlight.basic,
-                    color = FarmemeTheme.textColor.brand
+                    color = if (isReaction) {
+                        FarmemeTheme.textColor.brand
+                    } else {
+                        FarmemeTheme.textColor.primary
+                    }
                 )
             }
         }
