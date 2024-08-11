@@ -194,7 +194,7 @@ internal fun DetailHashTags(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
         hashTags = hashTags.truncateDisplayedList(6),
     )
-    if (sourceDescription.isNotEmpty()){
+    if (sourceDescription.isNotEmpty()) {
         Spacer(modifier = Modifier.height(11.dp))
         Text(
             modifier = Modifier.mapTextSkeletonModifierIfNeed(
