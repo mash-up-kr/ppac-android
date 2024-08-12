@@ -1,6 +1,7 @@
 package team.ppac.designsystem.component.scaffold
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ fun FarmemeScaffold(
     modifier: Modifier = Modifier,
     isIncludeHorizontalPadding: Boolean = true,
     backgroundColorType: BackgroundColorType = defaultColorType(),
+    backgroundImage: @Composable () -> Unit = {},
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},
     content: @Composable (PaddingValues) -> Unit,
@@ -35,24 +37,29 @@ fun FarmemeScaffold(
             Modifier.background(color = backgroundColorType.color)
         }
     }
+    Box(modifier = Modifier.fillMaxSize()) {
+        backgroundImage()
+        Column(
+            modifier = modifier.then(backgroundModifier),
+        ) {
+            Box {
+                backgroundImage()
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    backgroundColor = Color.Transparent,
+                    topBar = topBar,
+                    bottomBar = bottomBar,
+                ) { paddingValues ->
+                    val innerPadding = PaddingValues(
+                        top = paddingValues.calculateTopPadding(),
+                        start = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
+                        end = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
+                        bottom = paddingValues.calculateBottomPadding()
+                    )
 
-    Column(
-        modifier = modifier.then(backgroundModifier),
-    ) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            backgroundColor = Color.Transparent,
-            topBar = topBar,
-            bottomBar = bottomBar,
-        ) { paddingValues ->
-            val innerPadding = PaddingValues(
-                top = paddingValues.calculateTopPadding(),
-                start = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
-                end = if (isIncludeHorizontalPadding) ContentMargin else 0.dp,
-                bottom = paddingValues.calculateBottomPadding()
-            )
-
-            content(innerPadding)
+                    content(innerPadding)
+                }
+            }
         }
     }
 }

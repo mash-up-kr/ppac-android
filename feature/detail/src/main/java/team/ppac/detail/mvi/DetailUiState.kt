@@ -21,6 +21,7 @@ data class DetailUiState(
                 sourceDescription = "",
                 isSavedMeme = false,
                 reactionCount = -1,
+                isReaction = false,
             ),
             isError = false,
             isLoading = false,

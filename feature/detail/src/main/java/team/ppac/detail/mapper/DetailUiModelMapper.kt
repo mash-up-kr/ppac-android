@@ -11,4 +11,5 @@ internal fun Meme.toDetailMemeUiModel(): DetailMemeUiModel = DetailMemeUiModel(
     sourceDescription = source,
     isSavedMeme = isSaved,
     reactionCount = reactionCount,
+    isReaction = isReaction,
 )
