@@ -134,6 +134,7 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 
 # firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
 
 # appsflyer
 af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
