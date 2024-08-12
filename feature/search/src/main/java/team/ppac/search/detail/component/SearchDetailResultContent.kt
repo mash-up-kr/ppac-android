@@ -18,7 +18,6 @@ fun SearchDetailResultContent(
     modifier: Modifier = Modifier,
     searchResults: LazyPagingItems<SearchResultUiModel>,
     onMemeClick: (String) -> Unit,
-    onCopyClick: () -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier,
@@ -40,7 +39,6 @@ fun SearchDetailResultContent(
                     lolCount = lolCount,
                     imageUrl = imageUrl,
                     onMemeClick = onMemeClick,
-                    onCopyClick = onCopyClick,
                 )
             }
         }

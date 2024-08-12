@@ -30,7 +30,6 @@ internal fun SearchDetailRoute(
             uiState = uiState,
             onBackClick = navigateBack,
             onMemeClick = { viewModel.intent(SearchDetailIntent.ClickMeme(it)) },
-            onCopyClick = {},
             onRetryClick = { viewModel.intent(SearchDetailIntent.ClickErrorRetry) }
         )
     }

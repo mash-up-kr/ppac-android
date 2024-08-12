@@ -56,7 +56,6 @@ import team.ppac.mypage.mvi.MyPageUiState
 internal fun MyPageScreen(
     uiState: MyPageUiState,
     onIntent: (MyPageIntent) -> Unit,
-    onCopyClick: () -> Unit,
     savedMemeEventFlow: Flow<SavedMemeEvent>,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
@@ -129,7 +128,6 @@ internal fun MyPageScreen(
                             onMemeClick = { memeId ->
                                 onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
                             },
-                            onCopyClick = onCopyClick,
                         )
                     }
                 }
@@ -215,7 +213,6 @@ private fun MyPageScreenPreview() {
     MyPageScreen(
         uiState = MyPageUiState.INITIAL_STATE,
         onIntent = {},
-        onCopyClick = {},
         savedMemeEventFlow = flowOf(),
     )
 }

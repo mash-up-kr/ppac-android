@@ -42,7 +42,7 @@ fun LazyStaggeredGridItemScope.FarmemeMemeItem(
     lolCount: Int,
     imageUrl: String,
     onMemeClick: (String) -> Unit,
-    onCopyClick: () -> Unit,
+    onCopyClick: () -> Unit = {},
 ) {
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
     val context = LocalContext.current

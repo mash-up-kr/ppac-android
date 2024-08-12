@@ -27,7 +27,6 @@ internal fun SearchDetailScreen(
     uiState: SearchDetailUiState,
     onBackClick: () -> Unit,
     onMemeClick: (String) -> Unit,
-    onCopyClick: () -> Unit,
     onRetryClick: () -> Unit,
 ) {
     val searchResults = uiState.searchResults.collectAsLazyPagingItems()
@@ -69,7 +68,6 @@ internal fun SearchDetailScreen(
                     SearchDetailResultContent(
                         searchResults = searchResults,
                         onMemeClick = onMemeClick,
-                        onCopyClick = onCopyClick
                     )
                 }
             }
@@ -84,7 +82,6 @@ private fun SearchDetailScreenPreview() {
         uiState = SearchDetailUiState.INITIAL_STATE,
         onBackClick = {},
         onMemeClick = {},
-        onCopyClick = {},
         onRetryClick = {}
     )
 }

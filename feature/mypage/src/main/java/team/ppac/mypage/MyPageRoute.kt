@@ -46,7 +46,6 @@ internal fun MyPageRoute(
             onIntent = { myPageIntent ->
                 viewModel.intent(myPageIntent)
             },
-            onCopyClick = {},
             savedMemeEventFlow = viewModel.savedMemeEventFlow,
         )
     }

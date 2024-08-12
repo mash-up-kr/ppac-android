@@ -33,7 +33,6 @@ internal fun SavedMemeContent(
     modifier: Modifier = Modifier,
     savedMemes: LazyPagingItems<Meme>,
     onMemeClick: (String) -> Unit,
-    onCopyClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -48,7 +47,6 @@ internal fun SavedMemeContent(
             SavedMemeList(
                 savedMemes = savedMemes,
                 onMemeItemClick = onMemeClick,
-                onCopyClick = onCopyClick,
             )
         } else {
             SavedMemeEmpty()
@@ -62,7 +60,6 @@ private fun SavedMemeList(
     modifier: Modifier = Modifier,
     savedMemes: LazyPagingItems<Meme>,
     onMemeItemClick: (String) -> Unit,
-    onCopyClick: () -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier
@@ -90,7 +87,6 @@ private fun SavedMemeList(
                     lolCount = 0,
                     imageUrl = meme.imageUrl,
                     onMemeClick = onMemeItemClick,
-                    onCopyClick = onCopyClick,
                 )
             }
         }
@@ -121,6 +117,5 @@ internal fun SavedMemeContentPreview() {
     SavedMemeContent(
         savedMemes = flowOf(PagingData.empty<Meme>()).collectAsLazyPagingItems(),
         onMemeClick = {},
-        onCopyClick = {},
     )
 }
