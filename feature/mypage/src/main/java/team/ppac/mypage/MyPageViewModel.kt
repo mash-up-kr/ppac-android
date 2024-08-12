@@ -12,6 +12,7 @@ import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
+import team.ppac.domain.usecase.RefreshEventUseCase
 import team.ppac.domain.usecase.SetLevelUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.mypage.mapper.toLevelUiModel
@@ -28,7 +29,10 @@ class MyPageViewModel @Inject constructor(
     private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
     private val setLevelUseCase: SetLevelUseCase,
     private val getLevelUseCase: GetLevelUseCase,
+    refreshEventUseCase: RefreshEventUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
+    val savedMemeEventFlow = refreshEventUseCase()
+
     init {
         val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
 
@@ -67,13 +71,6 @@ class MyPageViewModel @Inject constructor(
 
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
-            MyPageIntent.DisposeView -> {
-                reduce {
-                    copy(
-                        isLoading = true,
-                    )
-                }
-            }
         }
     }
 
@@ -87,7 +84,6 @@ class MyPageViewModel @Inject constructor(
 
     private fun initialAction() {
         launch {
-            reduce { copy(isLoading = true) }
             getUserData()
             delay(500L)
             reduce { copy(isLoading = false) }

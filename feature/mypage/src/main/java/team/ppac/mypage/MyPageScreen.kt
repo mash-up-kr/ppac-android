@@ -20,6 +20,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +28,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.util.showSkeleton
 import team.ppac.common.android.util.visibility
@@ -37,6 +40,7 @@ import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
@@ -53,7 +57,7 @@ import team.ppac.mypage.mvi.MyPageUiState
 internal fun MyPageScreen(
     uiState: MyPageUiState,
     onIntent: (MyPageIntent) -> Unit,
-    onCopyClick: () -> Unit,
+    savedMemeEventFlow: Flow<SavedMemeEvent>,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
@@ -63,6 +67,14 @@ internal fun MyPageScreen(
             savedMemes.refresh()
         },
     )
+
+    LaunchedEffect(key1 = savedMemeEventFlow) {
+        savedMemeEventFlow.collect { event ->
+            when (event) {
+                SavedMemeEvent.Refresh -> savedMemes.refresh()
+            }
+        }
+    }
 
     FarmemeScaffold(
         modifier = Modifier
@@ -118,7 +130,6 @@ internal fun MyPageScreen(
                             onMemeClick = { memeId ->
                                 onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
                             },
-                            onCopyClick = onCopyClick,
                         )
                     }
                     Spacer(modifier = Modifier.height(50.dp))
@@ -205,6 +216,6 @@ private fun MyPageScreenPreview() {
     MyPageScreen(
         uiState = MyPageUiState.INITIAL_STATE,
         onIntent = {},
-        onCopyClick = {},
+        savedMemeEventFlow = flowOf(),
     )
 }

@@ -2,7 +2,6 @@ package team.ppac.mypage
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -42,18 +41,12 @@ internal fun MyPageRoute(
             viewModel.intent(MyPageIntent.InitView)
         }
 
-        DisposableEffect(key1 = Unit) {// TODO(ze-zeh) : viewModel이 초기화 되지 않아서 기존 상태가 남아있는 문제 임시 해결
-            onDispose {
-                viewModel.intent(MyPageIntent.DisposeView)
-            }
-        }
-
         MyPageScreen(
             uiState = uiState,
             onIntent = { myPageIntent ->
                 viewModel.intent(myPageIntent)
             },
-            onCopyClick = {},
+            savedMemeEventFlow = viewModel.savedMemeEventFlow,
         )
     }
 }

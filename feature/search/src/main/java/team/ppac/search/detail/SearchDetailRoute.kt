@@ -31,7 +31,6 @@ internal fun SearchDetailRoute(
             handleLoadStates = viewModel::handleLoadErrorStates,
             onBackClick = navigateBack,
             onMemeClick = { viewModel.intent(SearchDetailIntent.ClickMeme(it)) },
-            onCopyClick = {},
             onRetryClick = { viewModel.intent(SearchDetailIntent.ClickErrorRetry) }
         )
     }
