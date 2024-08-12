@@ -13,8 +13,24 @@ jobs:
       - name: Setup JDK 17
         uses: actions/setup-java@v3
         with:
-            distribution: zulu
-            java-version: 17
+          distribution: zulu
+          java-version: 17
+
+      - name: Create Local Properties
+        run: |
+          echo "${{ secrets.PPAC_LOCAL_PROPERTIES }}" > ./local.properties
+
+      - name: Create file
+        run: cat /home/runner/work/ppac-android/ppac-android/app/google-services.json | base64
+
+      - name: Putting data
+        env:
+          DATA: ${{ secrets.PPAC_GOOGLE_SERVICES }}
+        run: echo $DATA > /home/runner/work/ppac-android/ppac-android/app/google-services.json
+
+      - name: Create KeyStore Properties
+        run: |
+          echo "${{ secrets.PPAC_KEYSTORE_PROPERTIES }}" > ./farmeme-keystore.properties
 
       - name: Build APK
         run: ./gradlew assembleDebug
@@ -22,8 +38,7 @@ jobs:
       - name: Upload Build to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
-            appId: ${{ secrets.PPAC_FIREBASE_APP_ID }}
-            serviceCredentialsFileContent: ${{ secrets.PPAC_FIREBASE_CREDENTIAL }}
-            groups: android-tester
-            file: app/build/outputs/apk/debug/app-debug.apk
-            # app/build/outputs/apk/standard/stage/release/app-standard-stage-release.apk
+          appId: ${{ secrets.PPAC_FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.PPAC_FIREBASE_CREDENTIAL }}
+          groups: android-tester
+          file: app/build/outputs/apk/debug/app-debug.apk

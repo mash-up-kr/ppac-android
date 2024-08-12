@@ -9,7 +9,7 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-val keystorePropertiesFile = rootProject.file("app/signing/farmeme-keystore.properties")
+val keystorePropertiesFile = File("farmeme-keystore.properties")
 android {
     namespace = libs.versions.namespace.get()
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -33,7 +33,7 @@ android {
         create("release") {
             val keystoreProperties = Properties()
             keystoreProperties.load(FileInputStream(keystorePropertiesFile))
-            storeFile = file("signing/farmeme-keystore.jks")
+            storeFile = file("farmeme-keystore.jks")
             keyAlias = keystoreProperties.getProperty("keyAlias")
             keyPassword = keystoreProperties.getProperty("keyPassword")
             storePassword = keystoreProperties.getProperty("storePassword")
@@ -47,6 +47,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
