@@ -144,7 +144,8 @@ class DetailViewModel @Inject constructor(
         reduce {
             copy(
                 detailMemeUiModel = detailMemeUiModel.copy(
-                    reactionCount = detailMemeUiModel.reactionCount + 1
+                    reactionCount = detailMemeUiModel.reactionCount + 1,
+                    isReaction = true,
                 )
             )
         }
@@ -154,7 +155,8 @@ class DetailViewModel @Inject constructor(
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
-                        reactionCount = detailMemeUiModel.reactionCount - 1
+                        reactionCount = detailMemeUiModel.reactionCount - 1,
+                        isReaction = false
                     )
                 )
             }

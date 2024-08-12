@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
@@ -89,6 +90,7 @@ internal fun MyPageScreen(
                 FarmemeErrorScreen(
                     modifier = Modifier
                         .fillMaxSize()
+                        .systemBarsPadding()
                         .padding(bottom = TabBarHeight),
                     title = "정보를 불러오지 못 했어요.\n 새로고침 해주세요.",
                     onRetryClick = {
@@ -130,6 +132,7 @@ internal fun MyPageScreen(
                             },
                         )
                     }
+                    Spacer(modifier = Modifier.height(50.dp))
                 }
                 MyPagePullRefreshIndicator(
                     isRefreshing = uiState.isRefreshing,

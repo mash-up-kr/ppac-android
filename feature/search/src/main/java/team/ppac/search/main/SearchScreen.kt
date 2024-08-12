@@ -1,14 +1,15 @@
 package team.ppac.search.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,9 +19,11 @@ import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.designsystem.util.extension.ColumnSpacerByWeightWithMinHeight
 import team.ppac.search.main.component.FarmemeSearchBar
 import team.ppac.search.main.component.HotKeywordContent
 import team.ppac.search.main.component.MemeCategoryContent
+import team.ppac.search.main.component.SearchLoadingContent
 import team.ppac.search.main.mvi.SearchUiState
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -42,9 +45,18 @@ internal fun SearchScreen(
         when {
             uiState.isError -> {
                 FarmemeErrorScreen(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = TabBarHeight),
                     title = "정보를 불러오지 못 했어요.\n새로고침 해주세요.",
                     onRetryClick = onRetryClick
+                )
+            }
+
+            uiState.isLoading -> {
+                SearchLoadingContent(
+                    modifier = Modifier.fillMaxSize(),
+                    uiState = uiState
                 )
             }
 
@@ -84,6 +96,14 @@ internal fun SearchScreen(
                             onCategoryClick = onCategoryClick
                         )
                         Spacer(modifier = Modifier.size(20.dp))
+                    }
+                    item {
+                        Column {
+                            ColumnSpacerByWeightWithMinHeight(
+                                weight = 1f,
+                                minHeight = 50.dp
+                            )
+                        }
                     }
                 }
             }

@@ -72,7 +72,6 @@ private fun SavedMemeList(
         contentPadding = PaddingValues(
             start = 20.dp,
             end = 20.dp,
-            bottom = 50.dp,
         ),
         verticalItemSpacing = 20.dp,
     ) {

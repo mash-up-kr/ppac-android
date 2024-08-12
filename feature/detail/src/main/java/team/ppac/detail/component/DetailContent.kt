@@ -71,33 +71,41 @@ internal fun DetailContent(
                 width = 2.dp,
                 color = FarmemeTheme.borderColor.primary,
                 shape = FarmemeRadius.Radius20.shape,
-            ),
+            )
+            .clip(FarmemeRadius.Radius20.shape)
+            .background(FarmemeTheme.backgroundColor.white),
     ) {
         Column(
             modifier = Modifier.padding(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             DetailImage(
                 imageUrl = uiModel.imageUrl,
                 isLoading = isLoading,
                 saveBitmap = saveBitmap,
             )
-            DetailHashTags(
-                name = uiModel.name,
-                sourceDescription = uiModel.sourceDescription,
-                hashTags = uiModel.hashTags,
-                isLoading = isLoading
-            )
-            DetailFunnyButton(
-                modifier = Modifier.mapTextSkeletonModifierIfNeed(
-                    isLoading = isLoading,
-                    height = 46.dp
-                ),
-                reactionCount = uiModel.reactionCount,
-                onClickFunnyButton = onClickFunnyButton,
-                onReactionButtonPositioned = onReactionButtonPositioned
-            )
-            Spacer(modifier = Modifier.height(10.dp))
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 10.dp)
+                    .padding(top = 20.dp, bottom = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                DetailHashTags(
+                    name = uiModel.name,
+                    sourceDescription = uiModel.sourceDescription,
+                    hashTags = uiModel.hashTags,
+                    isLoading = isLoading
+                )
+                DetailFunnyButton(
+                    modifier = Modifier.mapTextSkeletonModifierIfNeed(
+                        isLoading = isLoading,
+                        height = 46.dp
+                    ),
+                    reactionCount = uiModel.reactionCount,
+                    isReaction = uiModel.isReaction,
+                    onClickFunnyButton = onClickFunnyButton,
+                    onReactionButtonPositioned = onReactionButtonPositioned
+                )
+            }
         }
     }
 }
@@ -181,7 +189,6 @@ internal fun DetailHashTags(
     hashTags: ImmutableList<String>,
     isLoading: Boolean,
 ) {
-    Spacer(modifier = Modifier.height(25.dp))
     Text(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 30.dp),
         text = name.truncateDisplayedString(16),
@@ -194,15 +201,20 @@ internal fun DetailHashTags(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
         hashTags = hashTags.truncateDisplayedList(6),
     )
-    Spacer(modifier = Modifier.height(11.dp))
-    Text(
-        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 15.dp),
-        text = sourceDescription.truncateDisplayedString(27),
-        color = FarmemeTheme.textColor.assistive,
-        style = FarmemeTheme.typography.body.xSmall.medium,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
+    if (sourceDescription.isNotEmpty()) {
+        Spacer(modifier = Modifier.height(11.dp))
+        Text(
+            modifier = Modifier.mapTextSkeletonModifierIfNeed(
+                isLoading = isLoading,
+                height = 15.dp,
+            ),
+            text = "출처 : ${sourceDescription.truncateDisplayedString(32)}",
+            color = FarmemeTheme.textColor.assistive,
+            style = FarmemeTheme.typography.body.xSmall.medium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
+    }
     Spacer(modifier = Modifier.height(20.dp))
 }
 
@@ -227,6 +239,7 @@ internal fun DetailTags(
 fun DetailFunnyButton(
     modifier: Modifier = Modifier,
     reactionCount: Int,
+    isReaction: Boolean,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
 ) {
@@ -234,7 +247,7 @@ fun DetailFunnyButton(
     val coroutineScope = rememberCoroutineScope()
     val lottieAnimatable = rememberLottieAnimatable()
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
@@ -271,19 +284,32 @@ fun DetailFunnyButton(
             exit = fadeOut(),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                LottieAnimation(
-                    modifier = Modifier.size(
-                        height = 22.dp,
-                        width = 44.dp,
-                    ),
-                    composition = lottieComposition,
-                    progress = { lottieAnimatable.progress },
-                )
+                if (isReaction) {
+                    LottieAnimation(
+                        modifier = Modifier.size(
+                            height = 22.dp,
+                            width = 44.dp,
+                        ),
+                        composition = lottieComposition,
+                        progress = { lottieAnimatable.progress },
+                    )
+                } else {
+                    FarmemeIcon.KKHorizon(
+                        modifier = Modifier.size(
+                            height = 22.dp,
+                            width = 44.dp
+                        )
+                    )
+                }
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = "+$reactionCount",
                     style = FarmemeTheme.typography.highlight.basic,
-                    color = FarmemeTheme.textColor.brand
+                    color = if (isReaction) {
+                        FarmemeTheme.textColor.brand
+                    } else {
+                        FarmemeTheme.textColor.primary
+                    }
                 )
             }
         }

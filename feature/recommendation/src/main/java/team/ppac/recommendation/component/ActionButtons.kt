@@ -84,18 +84,31 @@ internal fun ActionButtons(
                             alignment = Alignment.CenterHorizontally,
                         )
                     ) {
-                        LottieAnimation(
-                            modifier = Modifier.size(
-                                height = 22.dp,
-                                width = 44.dp,
-                            ),
-                            composition = lottieComposition,
-                            progress = { lottieAnimatable.progress },
-                        )
+                        if (meme.isReaction) {
+                            LottieAnimation(
+                                modifier = Modifier.size(
+                                    height = 22.dp,
+                                    width = 44.dp,
+                                ),
+                                composition = lottieComposition,
+                                progress = { lottieAnimatable.progress },
+                            )
+                        } else {
+                            FarmemeIcon.KKHorizon(
+                                modifier = Modifier.size(
+                                    height = 22.dp,
+                                    width = 44.dp
+                                )
+                            )
+                        }
                         Text(
                             text = "+${meme.reactionCount}",
                             style = FarmemeTheme.typography.highlight.basic,
-                            color = FarmemeTheme.textColor.brand
+                            color = if (meme.isReaction) {
+                                FarmemeTheme.textColor.brand
+                            } else {
+                                FarmemeTheme.textColor.primary
+                            }
                         )
                     }
 

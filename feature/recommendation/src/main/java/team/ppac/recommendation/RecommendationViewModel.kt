@@ -60,14 +60,22 @@ class RecommendationViewModel @Inject constructor(
                 postSideEffect(RecommendationSideEffect.RunRisingEffect)
                 reduce {
                     updateReaction(intent.meme) {
-                        it.copy(reactionCount = it.reactionCount + 1)
+                        it.copy(
+                            reactionCount = it.reactionCount + 1,
+                            isReaction = true,
+                        )
                     }
                 }
                 runCatching {
                     reactMemeUseCase(intent.meme.id)
                 }.onFailure {
                     reduce {
-                        updateReaction(intent.meme) { it.copy(reactionCount = it.reactionCount - 1) }
+                        updateReaction(intent.meme) {
+                            it.copy(
+                                reactionCount = it.reactionCount - 1,
+                                isReaction = false
+                            )
+                        }
                     }
                 }
             }
@@ -139,7 +147,7 @@ class RecommendationViewModel @Inject constructor(
                     isLoading = false,
                     thisWeekMemes = thisWeekMemes.toImmutableList(),
                     seenMemeCount = user.memeRecommendWatchCount ?: 1,
-                    currentPage = user.memeRecommendWatchCount ?: 1,
+                    currentPage = user.memeRecommendWatchCount?.minus(1) ?: 0,
                     level = user.levelCount,
                 )
             }

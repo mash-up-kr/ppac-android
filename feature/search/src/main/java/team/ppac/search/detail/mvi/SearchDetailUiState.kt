@@ -9,6 +9,7 @@ import team.ppac.search.detail.model.SearchResultUiModel
 data class SearchDetailUiState(
     val isLoading: Boolean,
     val isError: Boolean,
+    val totalMemeCount: Int,
     val memeCategory: String,
     val searchResults: Flow<PagingData<SearchResultUiModel>>,
 ) : UiState {
@@ -17,6 +18,7 @@ data class SearchDetailUiState(
         val INITIAL_STATE = SearchDetailUiState(
             isLoading = true,
             isError = false,
+            totalMemeCount = 0,
             memeCategory = "",
             searchResults = flowOf(PagingData.empty())
         )

@@ -28,4 +28,6 @@ data class MemeResponse(
     val keywords: List<KeywordResponse>?,
     @field:Json(name = "isSaved")
     val isSaved: Boolean,
+    @field:Json(name = "isReaction")
+    val isReaction: Boolean,
 )

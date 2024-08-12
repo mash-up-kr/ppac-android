@@ -8,6 +8,7 @@ import team.ppac.data.paging.ITEMS_PER_PAGE
 import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
+import team.ppac.domain.model.MemeWithPagination
 import team.ppac.domain.repository.MemeRepository
 import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.remote.datasource.MemeDataSource
@@ -33,14 +34,23 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.deleteSavedMeme(memeId)
     }
 
-    override fun getSearchMemes(keyword: String): Flow<PagingData<Meme>> {
-        return createPager { page ->
-            memeDataSource.getSearchMemes(
-                keyword = keyword,
-                page = page,
-                size = ITEMS_PER_PAGE,
-            ).map { it.toMeme() }
-        }.flow
+    override suspend fun getSearchMemes(keyword: String): MemeWithPagination {
+        val totalMemeCount = memeDataSource.getSearchMemes(
+            keyword = keyword,
+            page = 1,
+            size = ITEMS_PER_PAGE
+        ).pagination.total
+
+        return MemeWithPagination(
+            totalMemeCount = totalMemeCount,
+            memes = createPager { page ->
+                memeDataSource.getSearchMemes(
+                    keyword = keyword,
+                    page = page,
+                    size = ITEMS_PER_PAGE,
+                ).memeList.map { it.toMeme() }
+            }.flow
+        )
     }
 
     override suspend fun reactMeme(memeId: String): Boolean {

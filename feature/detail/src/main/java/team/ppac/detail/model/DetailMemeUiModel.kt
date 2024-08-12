@@ -9,4 +9,5 @@ data class DetailMemeUiModel(
     val sourceDescription: String,
     val isSavedMeme: Boolean,
     val reactionCount: Int,
+    val isReaction: Boolean,
 )

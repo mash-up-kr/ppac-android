@@ -216,7 +216,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_my_inactive_24),
         contentDescription = null,
-        tint = Color.Unspecified,
+        tint = FarmemeTheme.iconColor.assistive,
     )
 
     @Composable
@@ -236,7 +236,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_recommend_inactive_24),
         contentDescription = null,
-        tint = Color.Unspecified,
+        tint = FarmemeTheme.iconColor.assistive,
     )
 
     @Composable
@@ -269,7 +269,7 @@ object FarmemeIcon {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_discover_inactive_24),
         contentDescription = null,
-        tint = tint,
+        tint = FarmemeTheme.iconColor.assistive,
     )
 
     @Composable
@@ -322,6 +322,17 @@ object FarmemeIcon {
     ) = Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_kk),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
+    fun KKHorizon(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_kk_horizon),
         contentDescription = null,
         tint = tint,
     )

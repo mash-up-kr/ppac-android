@@ -58,79 +58,80 @@ fun HeroModulePager(
     ) { page ->
         val pageOffset =
             ((pagerState.currentPage - page) + pagerState.currentPageOffsetFraction)
-        val dimmed = FarmemeTheme.backgroundColor.dimmer
+        val dimmed = FarmemeTheme.backgroundColor.black
         Box(
             modifier = Modifier
                 .graphicsLayer {
-                    alpha = lerp(
-                        start = 1f,
-                        stop = 0.6f,
-                        fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
-                    )
                     scaleY = lerp(
                         start = 1f,
                         stop = 0.9f,
                         fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
                     )
-                    clip = true
-                    shape = FarmemeRadius.Radius40.shape
-                    renderEffect = if (pageOffset != 0f) {
-                        BlurEffect(
-                            lerp(
-                                start = 1f,
-                                stop = 27f, // 270 / 10
-                                fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
-                            ), lerp(
-                                start = 1f,
-                                stop = 31f, // 310 / 10
-                                fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
-                            )
-                        )
-                    } else {
-                        null
-                    }
-                }
-                .run {
-                    if (pageOffset != 0f) {
-                        drawWithContent {
-                            drawContent()
-                            drawRect(
-                                dimmed.copy(
-                                    alpha = lerp(
-                                        start = 0f,
-                                        stop = 0.6f,
-                                        fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
-                                    )
-                                )
-                            )
-                        }
-                    } else {
-                        this
-                    }
                 }
                 .border(
                     border = BorderStroke(
                         width = 2.dp,
                         color = FarmemeTheme.borderColor.primary,
                     ),
-                    shape = FarmemeRadius.Radius40.shape,
+                    shape = FarmemeRadius.Radius20.shape,
                 )
-                .height(310.dp))
-        {
-            AsyncImage(
+        ) {
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(FarmemeTheme.backgroundColor.black),
-                model = memes[page].imageUrl,
-                contentScale = ContentScale.Fit,
-                error = ColorPainter(FarmemeTheme.skeletonColor.primary),
-                placeholder = ColorPainter(FarmemeTheme.skeletonColor.primary),
-                contentDescription = "",
-                onSuccess = {
-                    onLoadMeme(page, it.result.drawable.toBitmap())
-                }
-            )
-            FarmemeImageDim()
+                    .graphicsLayer {
+                        clip = true
+                        shape = FarmemeRadius.Radius20.shape
+                        renderEffect = if (pageOffset != 0f) {
+                            BlurEffect(
+                                lerp(
+                                    start = 1f,
+                                    stop = 270f / 10f, // 270 / 10
+                                    fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                                ), lerp(
+                                    start = 1f,
+                                    stop = 310f / 10f, // 310 / 10
+                                    fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                                )
+                            )
+                        } else {
+                            null
+                        }
+                    }
+                    .run {
+                        if (pageOffset != 0f) {
+                            drawWithContent {
+                                drawContent()
+                                drawRect(
+                                    dimmed.copy(
+                                        alpha = lerp(
+                                            start = 0f,
+                                            stop = 0.4f,
+                                            fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
+                                        )
+                                    )
+                                )
+                            }
+                        } else {
+                            this
+                        }
+                    }
+                    .height(310.dp))
+            {
+                AsyncImage(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(FarmemeTheme.backgroundColor.black),
+                    model = memes[page].imageUrl,
+                    contentScale = ContentScale.Fit,
+                    error = ColorPainter(FarmemeTheme.skeletonColor.primary),
+                    placeholder = ColorPainter(FarmemeTheme.skeletonColor.primary),
+                    contentDescription = "",
+                    onSuccess = {
+                        onLoadMeme(page, it.result.drawable.toBitmap())
+                    }
+                )
+                FarmemeImageDim()
+            }
         }
     }
 }
