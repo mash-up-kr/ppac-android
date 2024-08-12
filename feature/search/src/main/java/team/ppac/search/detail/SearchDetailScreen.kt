@@ -89,16 +89,10 @@ internal fun SearchDetailScreen(
                                 SearchDetailResultContent(
                                     searchResults = searchResults,
                                     onMemeClick = onMemeClick,
-                                    onCopyClick = onCopyClick
                                 )
                             }
                         }
                     }
-                    SearchDetailResultHeader(totalCount = searchResults.itemCount)
-                    SearchDetailResultContent(
-                        searchResults = searchResults,
-                        onMemeClick = onMemeClick,
-                    )
                 }
             }
         }
