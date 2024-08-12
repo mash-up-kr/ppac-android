@@ -9,6 +9,7 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import team.ppac.analytics.AnalyticsHelper
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
@@ -27,6 +28,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var settingNavigator: SettingNavigator
+
+    @Inject
+    lateinit var analyticsHelper: AnalyticsHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

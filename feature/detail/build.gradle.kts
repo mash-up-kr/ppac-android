@@ -31,6 +31,8 @@ dependencies {
     implementation(project(":core:designsystem"))
     implementation(project(":core:navigator"))
     implementation(project(":core:error-handling"))
+    implementation(project(":core:analytics"))
+
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.compose)
     implementation(libs.bundles.lifecycle)
