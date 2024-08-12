@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.UiState
 import team.ppac.domain.model.Meme
-import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.mypage.model.LevelUiModel
 
 data class MyPageUiState(
@@ -17,7 +16,6 @@ data class MyPageUiState(
     val levelUiModel: LevelUiModel = LevelUiModel(),
     val recentMemes: ImmutableList<Meme> = persistentListOf(),
     val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
-    val savedMemeEventFlow: Flow<SavedMemeEvent> = flowOf(),
 ) : UiState {
     companion object {
         val INITIAL_STATE

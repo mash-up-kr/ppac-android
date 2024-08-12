@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
@@ -30,8 +29,10 @@ class MyPageViewModel @Inject constructor(
     private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
     private val setLevelUseCase: SetLevelUseCase,
     private val getLevelUseCase: GetLevelUseCase,
-    private val refreshEventUseCase: RefreshEventUseCase,
+    refreshEventUseCase: RefreshEventUseCase,
 ) : BaseViewModel<MyPageUiState, MyPageSideEffect, MyPageIntent>(savedStateHandle) {
+    val savedMemeEventFlow = refreshEventUseCase()
+
     init {
         val savedMemes = getUserSavedMemesUseCase().cachedIn(viewModelScope)
 
@@ -39,16 +40,6 @@ class MyPageViewModel @Inject constructor(
             copy(
                 savedMemes = savedMemes
             )
-        }
-
-        launch {
-            refreshEventUseCase().collect { memeEvent ->
-                reduce {
-                    copy(
-                        savedMemeEventFlow = flowOf(memeEvent)
-                    )
-                }
-            }
         }
     }
 

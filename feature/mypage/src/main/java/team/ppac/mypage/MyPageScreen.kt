@@ -27,6 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.util.showSkeleton
 import team.ppac.common.android.util.visibility
@@ -55,6 +57,7 @@ internal fun MyPageScreen(
     uiState: MyPageUiState,
     onIntent: (MyPageIntent) -> Unit,
     onCopyClick: () -> Unit,
+    savedMemeEventFlow: Flow<SavedMemeEvent>,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
@@ -65,8 +68,8 @@ internal fun MyPageScreen(
         },
     )
 
-    LaunchedEffect(key1 = uiState.savedMemeEventFlow) {
-        uiState.savedMemeEventFlow.collect { event ->
+    LaunchedEffect(key1 = savedMemeEventFlow) {
+        savedMemeEventFlow.collect { event ->
             when (event) {
                 SavedMemeEvent.Refresh -> savedMemes.refresh()
             }
@@ -213,5 +216,6 @@ private fun MyPageScreenPreview() {
         uiState = MyPageUiState.INITIAL_STATE,
         onIntent = {},
         onCopyClick = {},
+        savedMemeEventFlow = flowOf(),
     )
 }
