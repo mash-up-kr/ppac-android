@@ -84,6 +84,7 @@ dependencies {
     implementation(project(":core:local"))
     implementation(project(":core:datastore"))
     implementation(project(":core:analytics"))
+    implementation(project(":core:crashlytics"))
     implementation(project(":feature:sample"))
     implementation(project(":feature:onboard"))
     implementation(project(":feature:detail"))
