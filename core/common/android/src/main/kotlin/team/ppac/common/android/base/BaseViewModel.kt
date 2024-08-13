@@ -1,9 +1,12 @@
 package team.ppac.common.android.base
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.Firebase
+import com.google.firebase.crashlytics.crashlytics
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -13,6 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import team.ppac.common.android.BuildConfig
 import team.ppac.common.android.SnackbarData
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
@@ -21,6 +25,7 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
+    private val crashlytics by lazy { Firebase.crashlytics }
     private val initialState: S by lazy { createInitialState(savedStateHandle) }
 
     protected abstract fun createInitialState(savedStateHandle: SavedStateHandle): S
@@ -41,6 +46,9 @@ abstract class BaseViewModel<S : UiState, SE : UiSideEffect, I : UiIntent>(
         get() = _state.value
 
     protected val ceh = CoroutineExceptionHandler { _, throwable ->
+        if (!BuildConfig.DEBUG) {
+            crashlytics.recordException(throwable)
+        }
         handleClientException(throwable)
     }
 
