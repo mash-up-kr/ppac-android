@@ -62,6 +62,7 @@ activity-ktx = "1.9.0"
 # firebase
 google-services = "4.4.2"
 firebase-bom = "33.1.1"
+firebase-crashlytics = "2.9.9"
 
 [libraries]
 # java
@@ -134,7 +135,8 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 
 # firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 
 # appsflyer
 af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
@@ -155,6 +157,7 @@ jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebase-crashlytics" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf" }
 
 [bundles]
