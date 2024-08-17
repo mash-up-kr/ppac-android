@@ -338,6 +338,17 @@ object FarmemeIcon {
     )
 
     @Composable
+    fun KKMeme(
+        modifier: Modifier = Modifier,
+        tint: Color = Color.Unspecified,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_kk_memelist),
+        contentDescription = null,
+        tint = tint,
+    )
+
+    @Composable
     fun CheckRectangle(
         modifier: Modifier = Modifier,
         tint: Color = Color.Unspecified,
