@@ -117,12 +117,7 @@ fun FarmemeLolCount(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = "ㅋㅋ",
-            style = FarmemeTheme.typography.highlight.normal.copy(  // TODO(JaesungLeee) : typo style 수정 필요
-                color = FarmemeTheme.textColor.tertiary
-            )
-        )
+        FarmemeIcon.KKMeme()
         Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = "$lolCount",
