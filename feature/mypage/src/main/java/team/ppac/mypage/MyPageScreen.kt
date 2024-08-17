@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -100,6 +101,7 @@ internal fun MyPageScreen(
             } else {
                 Column(
                     modifier = Modifier
+                        .navigationBarsPadding()
                         .padding(bottom = TabBarHeight)
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -132,7 +134,6 @@ internal fun MyPageScreen(
                             },
                         )
                     }
-                    Spacer(modifier = Modifier.height(50.dp))
                 }
                 MyPagePullRefreshIndicator(
                     isRefreshing = uiState.isRefreshing,

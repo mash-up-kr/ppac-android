@@ -64,7 +64,7 @@ private fun SavedMemeList(
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(max = (FARMEME_MEME_ITEM_MAX_HEIGHT * savedMemes.itemCount / 2).dp)
+            .heightIn(max = (FARMEME_MEME_ITEM_MAX_HEIGHT * savedMemes.itemCount).dp)
             .wrapContentHeight(),
         userScrollEnabled = false,
         columns = StaggeredGridCells.Fixed(2),
