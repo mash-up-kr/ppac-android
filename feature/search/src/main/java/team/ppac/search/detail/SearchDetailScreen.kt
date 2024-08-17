@@ -22,7 +22,6 @@ import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.search.detail.component.EmptyResultContent
 import team.ppac.search.detail.component.SearchDetailLoadingContent
 import team.ppac.search.detail.component.SearchDetailResultContent
-import team.ppac.search.detail.component.SearchDetailResultHeader
 import team.ppac.search.detail.mvi.SearchDetailUiState
 
 @Composable
@@ -85,8 +84,8 @@ internal fun SearchDetailScreen(
                             if (uiState.totalMemeCount == 0) {
                                 EmptyResultContent()
                             } else {
-                                SearchDetailResultHeader(totalCount = uiState.totalMemeCount)
                                 SearchDetailResultContent(
+                                    totalItemCount = uiState.totalMemeCount,
                                     searchResults = searchResults,
                                     onMemeClick = onMemeClick,
                                 )

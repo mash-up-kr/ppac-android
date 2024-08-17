@@ -1,6 +1,7 @@
 package team.ppac.search.detail.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
@@ -16,6 +17,7 @@ import team.ppac.search.detail.model.SearchResultUiModel
 @Composable
 fun SearchDetailResultContent(
     modifier: Modifier = Modifier,
+    totalItemCount: Int,
     searchResults: LazyPagingItems<SearchResultUiModel>,
     onMemeClick: (String) -> Unit,
 ) {
@@ -25,6 +27,9 @@ fun SearchDetailResultContent(
         horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
         verticalItemSpacing = 20.dp
     ) {
+        item(span = StaggeredGridItemSpan.FullLine) {
+            SearchDetailResultHeader(totalCount = totalItemCount)
+        }
         items(
             count = searchResults.itemCount,
             key = searchResults.itemKey(SearchResultUiModel::memeId)
@@ -33,7 +38,7 @@ fun SearchDetailResultContent(
 
             with(searchResult) {
                 FarmemeMemeItem(
-                    modifier = Modifier,
+                    modifier = Modifier.offset(y = (-20).dp),
                     memeId = memeId,
                     memeTitle = memeTitle,
                     lolCount = lolCount,
