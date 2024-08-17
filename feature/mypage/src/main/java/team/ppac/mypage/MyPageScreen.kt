@@ -69,7 +69,7 @@ internal fun MyPageScreen(
         },
     )
 
-    LaunchedEffect(key1 = savedMemeEventFlow) {
+    LaunchedEffect(key1 = Unit) {
         savedMemeEventFlow.collect { event ->
             when (event) {
                 SavedMemeEvent.Refresh -> savedMemes.refresh()
