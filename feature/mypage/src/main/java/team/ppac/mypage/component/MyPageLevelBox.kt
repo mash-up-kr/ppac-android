@@ -32,7 +32,7 @@ internal fun MyPageLevelBox(
         modifier = modifier
             .clip(FarmemeRadius.Radius20.shape)
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = FarmemeTheme.borderColor.tertiary,
                 shape = FarmemeRadius.Radius20.shape,
             )
@@ -44,7 +44,7 @@ internal fun MyPageLevelBox(
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(2.dp)
+                .height(1.dp)
                 .background(FarmemeTheme.borderColor.tertiary)
         )
         MyPageLevelBottom(
