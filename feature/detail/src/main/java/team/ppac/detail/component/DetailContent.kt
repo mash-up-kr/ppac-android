@@ -165,20 +165,6 @@ private fun DetailImage(
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
         )
         FarmemeImageDim()
-        if (!isLoading) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .graphicsLayer(alpha = 0.80f)
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),
-                            startY = 320f,
-                            endY = 1000f
-                        )
-                    )
-            )
-        }
     }
 }
 
