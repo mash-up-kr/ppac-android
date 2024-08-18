@@ -22,7 +22,7 @@ class SettingViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: SettingIntent) {
         when (intent) {
-            SettingIntent.ClickBackButton -> onClickBackButton()
+            SettingIntent.ClickBackButton -> onBackButtonClick()
             SettingIntent.ClickPrivacyPolicy -> postSideEffect(SettingSideEffect.NavigateToPrivacyPolicy)
             is SettingIntent.UpdateButtonVisible -> reduce {
                 copy(updateButtonVisible = intent.isVisible)
@@ -30,7 +30,7 @@ class SettingViewModel @Inject constructor(
         }
     }
 
-    private fun onClickBackButton() {
+    private fun onBackButtonClick() {
         postSideEffect(SettingSideEffect.NavigateToBack)
     }
 }

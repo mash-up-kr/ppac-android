@@ -43,7 +43,7 @@ internal fun DetailScreen(
         topBar = {
             FarmemeBackToolBar(
                 title = "밈 자세히 보기",
-                onClickBackIcon = onClickBackButton,
+                onBackIconClick = onClickBackButton,
             )
         },
         backgroundImage = {

@@ -35,14 +35,14 @@ fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
 }
 
 @Composable
-fun FarmemeBackToolBar(title: String, onClickBackIcon: () -> Unit) {
+fun FarmemeBackToolBar(title: String, onBackIconClick: () -> Unit) {
     FarmemeToolbar(
         title = title,
         navigationIcon = {
             FarmemeIcon.Back(
                 modifier = Modifier
                     .size(20.dp)
-                    .noRippleClickable(onClick = onClickBackIcon)
+                    .noRippleClickable(onClick = onBackIconClick)
             )
         }
     )

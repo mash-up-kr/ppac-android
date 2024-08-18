@@ -54,7 +54,7 @@ internal fun SearchDetailScreen(
                     Column {
                         FarmemeBackToolBar(
                             title = uiState.memeCategory,
-                            onClickBackIcon = onBackClick
+                            onBackIconClick = onBackClick
                         )
                         Divider(
                             modifier = Modifier.fillMaxWidth(),
