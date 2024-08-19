@@ -23,9 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -165,20 +162,6 @@ private fun DetailImage(
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
         )
         FarmemeImageDim()
-        if (!isLoading) {
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .graphicsLayer(alpha = 0.80f)
-                    .background(
-                        brush = Brush.verticalGradient(
-                            colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),
-                            startY = 320f,
-                            endY = 1000f
-                        )
-                    )
-            )
-        }
     }
 }
 
@@ -223,16 +206,12 @@ internal fun DetailTags(
     modifier: Modifier,
     hashTags: List<String>,
 ) {
-    Row(modifier = modifier) {
-        hashTags.forEach { hashTag ->
-            Text(
-                text = "#$hashTag",
-                color = FarmemeTheme.textColor.tertiary,
-                style = FarmemeTheme.typography.body.large.medium,
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-        }
-    }
+    Text(
+        modifier = modifier,
+        text = hashTags.joinToString(" ") { "#$it" },
+        color = FarmemeTheme.textColor.tertiary,
+        style = FarmemeTheme.typography.body.large.medium,
+    )
 }
 
 @Composable
