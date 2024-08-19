@@ -67,7 +67,7 @@ internal fun SettingScreen(
             item {
                 FarmemeBackToolBar(
                     title = "설정",
-                    onClickBackIcon = {
+                    onBackIconClick = {
                         viewModel.intent(SettingIntent.ClickBackButton)
                     },
                 )

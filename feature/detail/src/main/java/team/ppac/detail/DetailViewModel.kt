@@ -68,8 +68,6 @@ class DetailViewModel @Inject constructor(
             }
 
             is DetailIntent.ClickBottomButton.Farmeme -> {
-                emitRefreshEventUseCase()
-
                 if (intent.isSavedMeme) {
                     deleteSavedMeme()
                     showSnackbar(message = "파밈을 취소했어요")
@@ -82,6 +80,7 @@ class DetailViewModel @Inject constructor(
                         }
                     )
                 }
+                emitRefreshEventUseCase()
             }
 
             DetailIntent.CLickRetryButton -> {

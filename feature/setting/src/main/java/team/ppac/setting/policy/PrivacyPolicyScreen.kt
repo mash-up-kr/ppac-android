@@ -29,7 +29,7 @@ internal fun PrivacyPolicyScreen(
         topBar = {
             FarmemeBackToolBar(
                 title = "개인정보 처리방침",
-                onClickBackIcon = navigateToBack,
+                onBackIconClick = navigateToBack,
             )
         }
     ) {
