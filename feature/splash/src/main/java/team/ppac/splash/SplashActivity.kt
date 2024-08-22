@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -20,6 +22,7 @@ import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.navigator.MainNavigator
+import team.ppac.splash.mvi.SplashIntent
 import team.ppac.splash.mvi.SplashSideEffect
 import javax.inject.Inject
 
@@ -47,6 +50,7 @@ class SplashActivity : ComponentActivity() {
                 }
             }
 
+            val state by viewModel.state.collectAsState()
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,6 +65,16 @@ class SplashActivity : ComponentActivity() {
                     text = "내가 찾던 밈을 파밍하다",
                     style = FarmemeTheme.typography.body.large.medium,
                     color = FarmemeTheme.textColor.primary,
+                )
+            }
+            if (state.isNetworkError) {
+                NetworkErrorDialog(
+                    onConfirmClick = {
+                        viewModel.intent(SplashIntent.ClickDialogConfirm)
+                    },
+                    onDismiss = {
+                        viewModel.intent(SplashIntent.ClickDialogConfirm)
+                    }
                 )
             }
         }
