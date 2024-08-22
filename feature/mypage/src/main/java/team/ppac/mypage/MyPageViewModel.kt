@@ -99,7 +99,7 @@ class MyPageViewModel @Inject constructor(
         }
     }
 
-    private fun getUserData() {
+    private suspend fun getUserData() {
         launch {
             val userDeferred = async {
                 getUserUseCase()
@@ -125,6 +125,6 @@ class MyPageViewModel @Inject constructor(
                 postSideEffect(MyPageSideEffect.ShowLevelUpSnackBar(currentLevel))
                 setLevelUseCase(currentLevel)
             }
-        }
+        }.join()
     }
 }
