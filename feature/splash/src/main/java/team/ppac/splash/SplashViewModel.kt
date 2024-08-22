@@ -1,13 +1,13 @@
 package team.ppac.splash
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.CreateUserUseCase
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.splash.mvi.SplashIntent
 import team.ppac.splash.mvi.SplashSideEffect
 import team.ppac.splash.mvi.SplashState
@@ -20,7 +20,7 @@ class SplashViewModel @Inject constructor(
 ) : BaseViewModel<SplashState, SplashSideEffect, SplashIntent>(savedStateHandle) {
 
     init {
-        viewModelScope.launch {
+        launch {
             launch {
                 userCreateUseCase()
             }
@@ -35,12 +35,24 @@ class SplashViewModel @Inject constructor(
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): SplashState {
-        return SplashState
+        return SplashState()
     }
 
     override fun handleClientException(throwable: Throwable) {
-
+        if (throwable is FarmemeNetworkException) {
+            reduce {
+                copy(isNetworkError = true)
+            }
+        }
     }
 
-    override suspend fun handleIntent(intent: SplashIntent) {}
+    override suspend fun handleIntent(intent: SplashIntent) {
+        when (intent) {
+            SplashIntent.ClickDialogConfirm -> {
+                reduce {
+                    copy(isNetworkError = false)
+                }
+            }
+        }
+    }
 }
