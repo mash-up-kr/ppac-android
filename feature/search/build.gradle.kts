@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:analytics"))
     implementation(project(":core:error-handling"))
     implementation(project(":core:common:android"))
     implementation(project(":core:common:kotlin"))

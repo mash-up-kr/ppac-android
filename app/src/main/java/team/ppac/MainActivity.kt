@@ -67,6 +67,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     FarmemeNavHost(
                         modifier = Modifier.fillMaxSize(),
+                        analyticsHelper = analyticsHelper,
                         navController = navController,
                         navigateToDetail = { navigateToDetail(it) },
                         navigateToSetting = {
