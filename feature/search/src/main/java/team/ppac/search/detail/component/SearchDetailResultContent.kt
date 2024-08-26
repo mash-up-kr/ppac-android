@@ -20,6 +20,8 @@ fun SearchDetailResultContent(
     totalItemCount: Int,
     searchResults: LazyPagingItems<SearchResultUiModel>,
     onMemeClick: (String) -> Unit,
+    onCopyClick: (String, String) -> Unit,
+    onScrollContent: () -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier,
@@ -44,6 +46,7 @@ fun SearchDetailResultContent(
                     lolCount = lolCount,
                     imageUrl = imageUrl,
                     onMemeClick = onMemeClick,
+                    onCopyClick = { onCopyClick(memeId, memeTitle) },
                 )
             }
         }
@@ -54,6 +57,10 @@ fun SearchDetailResultContent(
                     item(span = StaggeredGridItemSpan.FullLine) {
                         SearchDetailResultFooter()
                     }
+                }
+
+                loadState.append is LoadState.Loading -> {
+                    onScrollContent()
                 }
             }
         }
