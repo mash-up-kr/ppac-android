@@ -21,5 +21,5 @@ dependencies {
     kapt(libs.hilt.compiler)
 
     implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
+    api(libs.firebase.analytics)
 }
