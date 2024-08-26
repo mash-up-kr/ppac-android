@@ -41,6 +41,7 @@ fun FarmemeNavHost(
             navigateToSearchDetail = { navController.navigateToSearchDetail(memeCategory = it) }
         )
         searchDetailScreen(
+            analyticsHelper = analyticsHelper,
             navigateBack = { navController.popBackStack() },
             navigateToMemeDetail = navigateToDetail
         )
