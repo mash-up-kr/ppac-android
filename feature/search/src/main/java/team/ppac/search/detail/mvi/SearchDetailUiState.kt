@@ -10,7 +10,7 @@ data class SearchDetailUiState(
     val isLoading: Boolean,
     val isError: Boolean,
     val totalMemeCount: Int,
-    val memeCategory: String,
+    val keyword: String,
     val searchResults: Flow<PagingData<SearchResultUiModel>>,
 ) : UiState {
 
@@ -19,7 +19,7 @@ data class SearchDetailUiState(
             isLoading = true,
             isError = false,
             totalMemeCount = 0,
-            memeCategory = "",
+            keyword = "",
             searchResults = flowOf(PagingData.empty())
         )
     }

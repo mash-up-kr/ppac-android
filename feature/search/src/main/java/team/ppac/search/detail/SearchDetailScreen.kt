@@ -52,7 +52,7 @@ internal fun SearchDetailScreen(
                 topBar = {
                     Column {
                         FarmemeBackToolBar(
-                            title = uiState.memeCategory,
+                            title = uiState.keyword,
                             onBackIconClick = onBackClick
                         )
                         Divider(

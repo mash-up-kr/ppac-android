@@ -31,8 +31,8 @@ class SearchDetailViewModel @Inject constructor(
 ) : BaseViewModel<SearchDetailUiState, SearchDetailSideEffect, SearchDetailIntent>(savedStateHandle) {
 
     init {
-        val memeCategory = savedStateHandle.get<String>("memeCategory") ?: ""
-        getSearchResults(memeCategory)
+        val keyword = savedStateHandle.get<String>("keyword") ?: ""
+        getSearchResults(keyword)
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): SearchDetailUiState {
@@ -44,7 +44,7 @@ class SearchDetailViewModel @Inject constructor(
     override suspend fun handleIntent(intent: SearchDetailIntent) {
         when (intent) {
             is SearchDetailIntent.ClickErrorRetry -> {
-                getSearchResults(currentState.memeCategory)
+                getSearchResults(currentState.keyword)
                 updateErrorState(isError = false)
             }
 
@@ -80,11 +80,11 @@ class SearchDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getSearchResults(memeCategory: String) = launch {
+    private fun getSearchResults(keyword: String) = launch {
         updateLoadingState(true)
         delay(300L)
 
-        val paginationResults = getSearchMemeUseCase(memeCategory)
+        val paginationResults = getSearchMemeUseCase(keyword)
         val totalMemeCount = paginationResults.totalMemeCount
         val searchResults = paginationResults.memes
             .map { pagingData ->
@@ -92,18 +92,18 @@ class SearchDetailViewModel @Inject constructor(
             }.cachedIn(viewModelScope)
 
         updateLoadingState(false)
-        updateSearchResults(totalMemeCount, memeCategory, searchResults)
+        updateSearchResults(totalMemeCount, keyword, searchResults)
     }
 
     private fun updateSearchResults(
         totalMemeCount: Int,
-        memeCategory: String,
+        keyword: String,
         searchResults: Flow<PagingData<SearchResultUiModel>>,
     ) {
         reduce {
             copy(
                 totalMemeCount = totalMemeCount,
-                memeCategory = memeCategory,
+                keyword = keyword,
                 searchResults = searchResults
             )
         }

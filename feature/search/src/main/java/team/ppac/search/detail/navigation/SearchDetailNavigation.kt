@@ -11,8 +11,8 @@ import team.ppac.search.detail.SearchDetailRoute
 const val SEARCH_DETAIL_ROUTE = "search_detail"
 
 fun NavController.navigateToSearchDetail(
-    memeCategory: String,
-) = navigate("$SEARCH_DETAIL_ROUTE/${memeCategory}")
+    keyword: String,
+) = navigate("$SEARCH_DETAIL_ROUTE/${keyword}")
 
 fun NavGraphBuilder.searchDetailScreen(
     analyticsHelper: AnalyticsHelper,
@@ -20,9 +20,9 @@ fun NavGraphBuilder.searchDetailScreen(
     navigateToMemeDetail: (String) -> Unit,
 ) {
     composable(
-        route = "$SEARCH_DETAIL_ROUTE/{memeCategory}",
+        route = "$SEARCH_DETAIL_ROUTE/{keyword}",
         arguments = listOf(
-            navArgument("memeCategory") {
+            navArgument("keyword") {
                 type = NavType.StringType
             }
         )
