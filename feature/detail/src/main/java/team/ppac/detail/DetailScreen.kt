@@ -37,6 +37,7 @@ internal fun DetailScreen(
     onClickBackButton: () -> Unit,
     onClickButtonButtons: (DetailIntent.ClickBottomButton) -> Unit,
     saveBitmap: (bitmap: Bitmap) -> Unit,
+    onHashTagsClick: () -> Unit,
 ) {
     FarmemeScaffold(
         modifier = modifier,
@@ -99,6 +100,7 @@ internal fun DetailScreen(
                 saveBitmap = saveBitmap,
                 onClickFunnyButton = onClickFunnyButton,
                 onReactionButtonPositioned = onReactionButtonPosition,
+                onHashTagsClick = onHashTagsClick
             )
         }
     }
@@ -127,5 +129,6 @@ fun PreviewDetailScreen() {
         onClickBackButton = {},
         onClickButtonButtons = {},
         saveBitmap = {},
+        onHashTagsClick = {}
     )
 }

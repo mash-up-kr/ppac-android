@@ -49,6 +49,7 @@ import team.ppac.designsystem.R
 import team.ppac.designsystem.component.dim.FarmemeImageDim
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.designsystem.util.extension.rippleClickable
 import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailUiState
@@ -61,6 +62,7 @@ internal fun DetailContent(
     saveBitmap: (Bitmap) -> Unit,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
+    onHashTagsClick: () -> Unit,
 ) {
     Box(
         modifier = modifier
@@ -90,7 +92,8 @@ internal fun DetailContent(
                     name = uiModel.name,
                     sourceDescription = uiModel.sourceDescription,
                     hashTags = uiModel.hashTags,
-                    isLoading = isLoading
+                    isLoading = isLoading,
+                    onHashTagsClick = onHashTagsClick
                 )
                 DetailFunnyButton(
                     modifier = Modifier.mapTextSkeletonModifierIfNeed(
@@ -171,6 +174,7 @@ internal fun DetailHashTags(
     sourceDescription: String,
     hashTags: ImmutableList<String>,
     isLoading: Boolean,
+    onHashTagsClick: () -> Unit,
 ) {
     Text(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 30.dp),
@@ -183,6 +187,7 @@ internal fun DetailHashTags(
     DetailTags(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
         hashTags = hashTags.truncateDisplayedList(6),
+        onHashTagsClick = onHashTagsClick
     )
     if (sourceDescription.isNotEmpty()) {
         Spacer(modifier = Modifier.height(11.dp))
@@ -205,9 +210,10 @@ internal fun DetailHashTags(
 internal fun DetailTags(
     modifier: Modifier,
     hashTags: List<String>,
+    onHashTagsClick: () -> Unit,
 ) {
     Text(
-        modifier = modifier,
+        modifier = modifier.noRippleClickable(onClick = onHashTagsClick),
         text = hashTags.joinToString(" ") { "#$it" },
         color = FarmemeTheme.textColor.tertiary,
         style = FarmemeTheme.typography.body.large.medium,
@@ -305,5 +311,6 @@ fun PreviewDetailContent() {
         onClickFunnyButton = {},
         onReactionButtonPositioned = { _ -> },
         isLoading = false,
+        onHashTagsClick = {}
     )
 }

@@ -17,13 +17,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
+import team.ppac.analytics.AnalyticsHelper
+import team.ppac.analytics.action.MemeDetailAction
+import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.component.error.FarmemeErrorScreen
+import team.ppac.common.android.util.ComposableLifecycle
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.R
@@ -34,6 +39,7 @@ import kotlin.math.roundToInt
 @Composable
 internal fun DetailRoute(
     modifier: Modifier = Modifier,
+    analyticsHelper: AnalyticsHelper,
     viewModel: DetailViewModel = hiltViewModel(),
     navigateToBack: () -> Unit,
 ) {
@@ -52,11 +58,29 @@ internal fun DetailRoute(
         bitmap = it
     }
 
+    ComposableLifecycle { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_START -> {
+                analyticsHelper.logScreen(ScreenType.MEME_DETAIL)
+            }
+
+            else -> {}
+        }
+    }
+
     BaseComposable(viewModel = viewModel) { uiState ->
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
                     is DetailSideEffect.RunRisingEffect -> {
+                        analyticsHelper.logAction(
+                            action = MemeDetailAction.CLICK_REACTION,
+                            screen = ScreenType.MEME_DETAIL,
+                            params = {
+                                param("meme_id", uiState.memeId)
+                                param("meme_title", uiState.detailMemeUiModel.name)
+                            }
+                        )
                         launch {
                             lottieAnimatable.animate(
                                 composition = lottieComposition,
@@ -69,14 +93,59 @@ internal fun DetailRoute(
                         navigateToBack()
                     }
 
-                    DetailSideEffect.CopyClipBoard -> {
+                    is DetailSideEffect.CopyClipBoard -> {
+                        analyticsHelper.logAction(
+                            action = MemeDetailAction.CLICK_COPY,
+                            screen = ScreenType.MEME_DETAIL,
+                            params = {
+                                param("meme_id", uiState.memeId)
+                                param("meme_title", uiState.detailMemeUiModel.name)
+                            }
+                        )
                         bitmap?.let {
                             context.copyImageToClipBoard(it)
                         }
                     }
 
                     is DetailSideEffect.ShareLink -> {
+                        analyticsHelper.logAction(
+                            action = MemeDetailAction.CLICK_SHARE,
+                            screen = ScreenType.MEME_DETAIL,
+                            params = {
+                                param("meme_id", uiState.memeId)
+                                param("meme_title", uiState.detailMemeUiModel.name)
+                            }
+                        )
                         context.shareOneLink(sideEffect.memeId)
+                    }
+
+                    is DetailSideEffect.LogSaveMeme -> {
+                        analyticsHelper.logAction(
+                            action = MemeDetailAction.CLICK_SAVE,
+                            screen = ScreenType.MEME_DETAIL,
+                            params = {
+                                param("meme_id", uiState.memeId)
+                                param("meme_title", uiState.detailMemeUiModel.name)
+                            }
+                        )
+                    }
+
+                    is DetailSideEffect.LogSaveMemeCancel -> {
+                        analyticsHelper.logAction(
+                            action = MemeDetailAction.CLICK_SAVE_CANCEL,
+                            screen = ScreenType.MEME_DETAIL,
+                            params = {
+                                param("meme_id", uiState.memeId)
+                                param("meme_title", uiState.detailMemeUiModel.name)
+                            }
+                        )
+                    }
+
+                    is DetailSideEffect.LogHashTagsClicked -> {
+                        analyticsHelper.logAction(
+                            action = MemeDetailAction.CLICK_TAG,
+                            screen = ScreenType.MEME_DETAIL
+                        )
                     }
                 }
             }
@@ -86,7 +155,7 @@ internal fun DetailRoute(
                 FarmemeErrorScreen(
                     modifier = Modifier.fillMaxSize(),
                     title = "정보를 불러오지 못 했어요.\n새로고침 해주세요.",
-                    onRetryClick = { viewModel.intent(DetailIntent.CLickRetryButton) }
+                    onRetryClick = { viewModel.intent(DetailIntent.ClickRetryButton) }
                 )
             } else {
                 DetailScreen(
@@ -102,7 +171,8 @@ internal fun DetailRoute(
                         viewModel.intent(DetailIntent.ClickBackButton)
                     },
                     onClickButtonButtons = viewModel::intent,
-                    saveBitmap = saveBitmap
+                    saveBitmap = saveBitmap,
+                    onHashTagsClick = { viewModel.intent(DetailIntent.ClickHashtags) }
                 )
                 LottieAnimation(
                     modifier = Modifier

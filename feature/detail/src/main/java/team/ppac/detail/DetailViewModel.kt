@@ -59,7 +59,7 @@ class DetailViewModel @Inject constructor(
                 postSideEffect(DetailSideEffect.NavigateToBackEffect)
             }
 
-            DetailIntent.ClickBottomButton.Copy -> {
+            is DetailIntent.ClickBottomButton.Copy -> {
                 postSideEffect(DetailSideEffect.CopyClipBoard)
             }
 
@@ -70,9 +70,11 @@ class DetailViewModel @Inject constructor(
             is DetailIntent.ClickBottomButton.Farmeme -> {
                 if (intent.isSavedMeme) {
                     deleteSavedMeme()
+                    postSideEffect(DetailSideEffect.LogSaveMemeCancel)
                     showSnackbar(message = "파밈을 취소했어요")
                 } else {
                     saveMeme()
+                    postSideEffect(DetailSideEffect.LogSaveMeme)
                     showSnackbar(
                         message = "파밈 완료!",
                         icon = {
@@ -83,8 +85,12 @@ class DetailViewModel @Inject constructor(
                 emitRefreshEventUseCase()
             }
 
-            DetailIntent.CLickRetryButton -> {
+            is DetailIntent.ClickRetryButton -> {
                 getMeme(currentState.memeId)
+            }
+
+            is DetailIntent.ClickHashtags -> {
+                postSideEffect(DetailSideEffect.LogHashTagsClicked)
             }
         }
     }
