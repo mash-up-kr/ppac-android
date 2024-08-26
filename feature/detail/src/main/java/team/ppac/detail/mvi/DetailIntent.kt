@@ -7,7 +7,9 @@ sealed interface DetailIntent : UiIntent {
 
     data object ClickBackButton : DetailIntent
 
-    data object CLickRetryButton : DetailIntent
+    data object ClickRetryButton : DetailIntent
+
+    data object ClickHashtags : DetailIntent
 
     sealed interface ClickBottomButton : DetailIntent {
         data object Copy : ClickBottomButton

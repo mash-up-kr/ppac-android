@@ -61,6 +61,7 @@ internal fun DetailBottomBar(
                 title = "복사",
                 textColor = animatedCopyButtonColor,
                 onClickButton = {
+
                     if (!isLoading) {
                         copyButtonColor = selectedColor
                         coroutineScope.launch {

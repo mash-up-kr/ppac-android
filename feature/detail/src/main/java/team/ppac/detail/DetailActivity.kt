@@ -21,7 +21,10 @@ class DetailActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FarmemeTheme {
-                DetailRoute(navigateToBack = { finish() })
+                DetailRoute(
+                    analyticsHelper = analyticsHelper,
+                    navigateToBack = { finish() }
+                )
             }
         }
         noTransitionAnimation()
