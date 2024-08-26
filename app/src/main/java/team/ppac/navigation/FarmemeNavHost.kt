@@ -48,6 +48,7 @@ fun FarmemeNavHost(
             navigateToMemeDetail = navigateToDetail
         )
         myPageScreen(
+            analyticsHelper = analyticsHelper,
             navigateToDetail = navigateToDetail,
             navigateToSetting = navigateToSetting,
         )
