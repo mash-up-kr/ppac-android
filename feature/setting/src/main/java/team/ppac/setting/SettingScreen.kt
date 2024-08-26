@@ -15,49 +15,27 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import team.ppac.common.android.util.checkUpdate
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.button.FarmemeFilledButton
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.setting.component.SettingListItem
-import team.ppac.setting.mvi.SettingIntent
-import team.ppac.setting.mvi.SettingSideEffect
+import team.ppac.setting.mvi.SettingUiState
 
 @Composable
 internal fun SettingScreen(
     modifier: Modifier = Modifier,
-    viewModel: SettingViewModel = hiltViewModel(),
+    uiState: SettingUiState,
     navigateToBack: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
 ) {
-    val context = LocalContext.current
-    val state by viewModel.state.collectAsState()
-
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.sideEffect.collect { sideEffect ->
-            when (sideEffect) {
-                SettingSideEffect.NavigateToBack -> navigateToBack()
-                SettingSideEffect.NavigateToPrivacyPolicy -> navigateToPrivacyPolicy()
-            }
-        }
-    }
-
-    LaunchedEffect(key1 = Unit) {
-        viewModel.intent(SettingIntent.UpdateButtonVisible(context.checkUpdate()))
-    }
-
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -67,20 +45,16 @@ internal fun SettingScreen(
             item {
                 FarmemeBackToolBar(
                     title = "설정",
-                    onBackIconClick = {
-                        viewModel.intent(SettingIntent.ClickBackButton)
-                    },
+                    onBackIconClick = navigateToBack
                 )
             }
             item {
-                SettingBody(updateVisible = state.updateButtonVisible)
+                SettingBody(updateVisible = uiState.updateButtonVisible)
             }
             item {
                 SettingListItem(
                     title = "개인정보 처리방침",
-                    onClick = {
-                        viewModel.intent(SettingIntent.ClickPrivacyPolicy)
-                    },
+                    onClick = navigateToPrivacyPolicy,
                 )
             }
         }
@@ -145,6 +119,7 @@ private fun SettingBody(
 @Composable
 private fun SettingScreenPreview() {
     SettingScreen(
+        uiState = SettingUiState.INITIAL_STATE,
         navigateToBack = {},
         navigateToPrivacyPolicy = {},
     )
