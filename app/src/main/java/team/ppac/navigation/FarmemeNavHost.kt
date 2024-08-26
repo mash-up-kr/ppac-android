@@ -40,7 +40,7 @@ fun FarmemeNavHost(
         )
         searchScreen(
             analyticsHelper = analyticsHelper,
-            navigateToSearchDetail = { navController.navigateToSearchDetail(memeCategory = it) }
+            navigateToSearchDetail = { navController.navigateToSearchDetail(it) }
         )
         searchDetailScreen(
             analyticsHelper = analyticsHelper,
