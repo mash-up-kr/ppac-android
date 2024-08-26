@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import team.ppac.analytics.AnalyticsHelper
+import team.ppac.analytics.action.SearchAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.util.ComposableLifecycle
@@ -49,9 +50,34 @@ internal fun SearchRoute(
         SearchScreen(
             modifier = modifier,
             uiState = uiState,
-            onSearchBarClick = { viewModel.intent(SearchIntent.ClickSearch) },
-            onCategoryClick = { viewModel.intent(SearchIntent.ClickMemeCategory(category = it)) },
-            onHotKeywordMemeClick = { viewModel.intent(SearchIntent.ClickKeywordCard(keyword = it)) },
+            onSearchBarClick = {
+                analyticsHelper.reportAction(SearchAction.CLICK_SEARCH_BAR, ScreenType.SEARCH)
+
+                viewModel.intent(SearchIntent.ClickSearch)
+            },
+            onKeywordClick = { category, keyword ->
+                analyticsHelper.reportAction(
+                    action = SearchAction.CLICK_KEYWORD,
+                    screen = ScreenType.SEARCH,
+                    params = {
+                        param("keyword_name", keyword)
+                        param("category", category)
+                    }
+                )
+
+                viewModel.intent(SearchIntent.ClickMemeKeyword(keyword))
+            },
+            onHotKeywordMemeClick = { keyword ->
+                analyticsHelper.reportAction(
+                    action = SearchAction.CLICK_HOT_KEYWORD,
+                    screen = ScreenType.SEARCH,
+                    params = {
+                        param("keyword_name", keyword)
+                    }
+                )
+
+                viewModel.intent(SearchIntent.ClickKeywordCard(keyword))
+            },
             onRetryClick = { viewModel.intent(SearchIntent.ClickErrorRetry) }
         )
     }
