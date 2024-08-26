@@ -61,7 +61,7 @@ internal fun DetailRoute(
     ComposableLifecycle { _, event ->
         when (event) {
             Lifecycle.Event.ON_START -> {
-                analyticsHelper.logScreen(ScreenType.MEME_DETAIL)
+                analyticsHelper.reportScreen(ScreenType.MEME_DETAIL)
             }
 
             else -> {}
@@ -73,7 +73,7 @@ internal fun DetailRoute(
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
                     is DetailSideEffect.RunRisingEffect -> {
-                        analyticsHelper.logAction(
+                        analyticsHelper.reportAction(
                             action = MemeDetailAction.CLICK_REACTION,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
@@ -94,7 +94,7 @@ internal fun DetailRoute(
                     }
 
                     is DetailSideEffect.CopyClipBoard -> {
-                        analyticsHelper.logAction(
+                        analyticsHelper.reportAction(
                             action = MemeDetailAction.CLICK_COPY,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
@@ -108,7 +108,7 @@ internal fun DetailRoute(
                     }
 
                     is DetailSideEffect.ShareLink -> {
-                        analyticsHelper.logAction(
+                        analyticsHelper.reportAction(
                             action = MemeDetailAction.CLICK_SHARE,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
@@ -120,7 +120,7 @@ internal fun DetailRoute(
                     }
 
                     is DetailSideEffect.LogSaveMeme -> {
-                        analyticsHelper.logAction(
+                        analyticsHelper.reportAction(
                             action = MemeDetailAction.CLICK_SAVE,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
@@ -131,7 +131,7 @@ internal fun DetailRoute(
                     }
 
                     is DetailSideEffect.LogSaveMemeCancel -> {
-                        analyticsHelper.logAction(
+                        analyticsHelper.reportAction(
                             action = MemeDetailAction.CLICK_SAVE_CANCEL,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
@@ -142,7 +142,7 @@ internal fun DetailRoute(
                     }
 
                     is DetailSideEffect.LogHashTagsClicked -> {
-                        analyticsHelper.logAction(
+                        analyticsHelper.reportAction(
                             action = MemeDetailAction.CLICK_TAG,
                             screen = ScreenType.MEME_DETAIL
                         )
