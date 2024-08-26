@@ -8,6 +8,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
+import team.ppac.analytics.AnalyticsHelper
 import team.ppac.mypage.navigation.myPageScreen
 import team.ppac.mypage.navigation.navigateToMyPage
 import team.ppac.recommendation.navigation.RECOMMENDATION_ROUTE
@@ -21,6 +22,7 @@ import team.ppac.search.main.navigation.searchScreen
 @Composable
 fun FarmemeNavHost(
     modifier: Modifier = Modifier,
+    analyticsHelper: AnalyticsHelper,
     startDestination: String = RECOMMENDATION_ROUTE,
     navController: NavHostController,
     navigateToDetail: (String) -> Unit,
@@ -35,6 +37,7 @@ fun FarmemeNavHost(
     ) {
         recommendationScreen()
         searchScreen(
+            analyticsHelper = analyticsHelper,
             navigateToSearchDetail = { navController.navigateToSearchDetail(memeCategory = it) }
         )
         searchDetailScreen(
