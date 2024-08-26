@@ -32,7 +32,7 @@ internal fun SearchScreen(
     modifier: Modifier = Modifier,
     uiState: SearchUiState,
     onSearchBarClick: () -> Unit,
-    onCategoryClick: (String) -> Unit,
+    onKeywordClick: (String, String) -> Unit,
     onHotKeywordMemeClick: (String) -> Unit,
     onRetryClick: () -> Unit,
 ) {
@@ -93,7 +93,9 @@ internal fun SearchScreen(
                     items(items = uiState.memeCategories) { memeCategory ->
                         MemeCategoryContent(
                             uiModel = memeCategory,
-                            onCategoryClick = onCategoryClick
+                            onKeywordClick = { keyword ->
+                                onKeywordClick(memeCategory.category, keyword)
+                            }
                         )
                         Spacer(modifier = Modifier.size(20.dp))
                     }
@@ -117,7 +119,7 @@ private fun MyPageScreenPreview() {
     SearchScreen(
         uiState = SearchUiState.INITIAL_STATE,
         onSearchBarClick = {},
-        onCategoryClick = {},
+        onKeywordClick = { _, _ -> },
         onHotKeywordMemeClick = {},
         onRetryClick = {}
     )

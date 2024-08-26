@@ -5,11 +5,11 @@ import kotlinx.collections.immutable.toImmutableList
 import team.ppac.domain.model.RecommendKeyword
 
 data class RecommendKeywordUiModel(
-    val categoryHeader: String,
+    val category: String,
     val recommendKeywords: ImmutableList<String>,
 )
 
 fun RecommendKeyword.toRecommendKeywordUiModel() = RecommendKeywordUiModel(
-    categoryHeader = category,
+    category = category,
     recommendKeywords = keywords.map { it.name }.toImmutableList()
 )

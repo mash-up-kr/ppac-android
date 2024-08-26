@@ -17,16 +17,16 @@ import team.ppac.search.main.model.RecommendKeywordUiModel
 internal fun MemeCategoryContent(
     modifier: Modifier = Modifier,
     uiModel: RecommendKeywordUiModel,
-    onCategoryClick: (String) -> Unit,
+    onKeywordClick: (String) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
-        MemeCategoryHeader(title = uiModel.categoryHeader)
-        MemeCategoryChips(
+        MemeCategoryHeader(title = uiModel.category)
+        MemeKeywordChips(
             modifier = Modifier.padding(horizontal = 20.dp),
-            categories = uiModel.recommendKeywords,
-            onCategoryClick = onCategoryClick
+            keywords = uiModel.recommendKeywords,
+            onKeywordClick = onKeywordClick
         )
     }
 }
@@ -37,7 +37,7 @@ private fun MemeCategoryContentPreview() {
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
         MemeCategoryContent(
             uiModel = RecommendKeywordUiModel(
-                categoryHeader = "감정",
+                category = "감정",
                 recommendKeywords = persistentListOf(
                     "행복",
                     "슬픈",
@@ -50,7 +50,7 @@ private fun MemeCategoryContentPreview() {
                     "무념무상",
                 ),
             ),
-            onCategoryClick = {}
+            onKeywordClick = {}
         )
     }
 }
