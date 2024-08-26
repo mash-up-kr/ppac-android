@@ -11,13 +11,13 @@ internal class AnalyticsHelperImpl @Inject constructor(
     private val analytics: FirebaseAnalytics
 ) : AnalyticsHelper {
 
-    override fun logScreen(screen: ScreenType) {
+    override fun reportScreen(screen: ScreenType) {
         analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_NAME, ScreenType.getTag(screen))
         }
     }
 
-    override fun logAction(
+    override fun reportAction(
         action: ActionType,
         screen: ScreenType,
         params: ParametersBuilder.() -> Unit

@@ -6,8 +6,8 @@ import team.ppac.analytics.type.ScreenType
 
 interface AnalyticsHelper {
 
-    fun logScreen(screen: ScreenType)
-    fun logAction(
+    fun reportScreen(screen: ScreenType)
+    fun reportAction(
         action: ActionType,
         screen: ScreenType,
         params: ParametersBuilder.() -> Unit = {}
