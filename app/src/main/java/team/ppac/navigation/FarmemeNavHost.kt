@@ -35,7 +35,9 @@ fun FarmemeNavHost(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
     ) {
-        recommendationScreen()
+        recommendationScreen(
+            analyticsHelper = analyticsHelper
+        )
         searchScreen(
             analyticsHelper = analyticsHelper,
             navigateToSearchDetail = { navController.navigateToSearchDetail(memeCategory = it) }

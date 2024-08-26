@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:analytics"))
     implementation(project(":core:error-handling"))
     implementation(project(":core:common:android"))
     implementation(project(":core:common:kotlin"))
@@ -41,6 +42,5 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.compose.lottie)
-    implementation(project(":core:error-handling"))
     kapt(libs.hilt.compiler)
 }
