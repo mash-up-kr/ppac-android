@@ -21,7 +21,7 @@ import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
-internal fun MemeCategoryChip(
+internal fun MemeKeywordChip(
     modifier: Modifier = Modifier,
     title: String,
     onClick: () -> Unit,
@@ -47,21 +47,21 @@ internal fun MemeCategoryChip(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-internal fun MemeCategoryChips(
+internal fun MemeKeywordChips(
     modifier: Modifier = Modifier,
-    categories: ImmutableList<String>,
-    onCategoryClick: (String) -> Unit,
+    keywords: ImmutableList<String>,
+    onKeywordClick: (String) -> Unit,
 ) {
     FlowRow(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.Start),
         verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.Top),
     ) {
-        repeat(categories.size) { index ->
-            val category = categories[index]
-            MemeCategoryChip(
-                title = category,
-                onClick = { onCategoryClick(category) }
+        repeat(keywords.size) { index ->
+            val keyword = keywords[index]
+            MemeKeywordChip(
+                title = keyword,
+                onClick = { onKeywordClick(keyword) }
             )
         }
     }
@@ -70,7 +70,7 @@ internal fun MemeCategoryChips(
 @Preview
 @Composable
 private fun MemeCategoryChipPreview() {
-    MemeCategoryChip(
+    MemeKeywordChip(
         title = "현타",
         onClick = {}
     )
@@ -80,8 +80,8 @@ private fun MemeCategoryChipPreview() {
 @Composable
 private fun MemeCategoryRowPreview() {
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
-        MemeCategoryChips(
-            categories = persistentListOf(
+        MemeKeywordChips(
+            keywords = persistentListOf(
                 "행복",
                 "슬픈",
                 "분노",
@@ -92,7 +92,7 @@ private fun MemeCategoryRowPreview() {
                 "당황",
                 "무념무상",
             ),
-            onCategoryClick = {}
+            onKeywordClick = {}
         )
     }
 }
