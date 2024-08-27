@@ -4,12 +4,12 @@ import team.ppac.common.android.base.UiState
 
 data class SettingUiState(
     val isLoading: Boolean,
-    val updateButtonVisible: Boolean,
+    val hasNewAppVersion: Boolean,
 ) : UiState {
     companion object {
         val INITIAL_STATE = SettingUiState(
             isLoading = false,
-            updateButtonVisible = false,
+            hasNewAppVersion = false,
         )
     }
 }
