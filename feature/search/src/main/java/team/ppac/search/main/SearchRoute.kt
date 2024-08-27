@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import team.ppac.analytics.AnalyticsHelper
+import team.ppac.analytics.action.CATEGORY
+import team.ppac.analytics.action.KEYWORD_NAME
 import team.ppac.analytics.action.SearchAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
@@ -60,8 +62,8 @@ internal fun SearchRoute(
                     action = SearchAction.CLICK_KEYWORD,
                     screen = ScreenType.SEARCH,
                     params = {
-                        param("keyword_name", keyword)
-                        param("category", category)
+                        param(KEYWORD_NAME, keyword)
+                        param(CATEGORY, category)
                     }
                 )
 
@@ -72,7 +74,7 @@ internal fun SearchRoute(
                     action = SearchAction.CLICK_HOT_KEYWORD,
                     screen = ScreenType.SEARCH,
                     params = {
-                        param("keyword_name", keyword)
+                        param(KEYWORD_NAME, keyword)
                     }
                 )
 
