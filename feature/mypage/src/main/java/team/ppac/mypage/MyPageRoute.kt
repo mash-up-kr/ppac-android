@@ -8,6 +8,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import team.ppac.analytics.AnalyticsHelper
+import team.ppac.analytics.action.CONTENT_TYPE
+import team.ppac.analytics.action.MEME_ID
+import team.ppac.analytics.action.MEME_TITLE
+import team.ppac.analytics.action.MyPageAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.util.ComposableLifecycle
@@ -36,15 +40,45 @@ internal fun MyPageRoute(
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
-                    is MyPageSideEffect.NavigateToDetail -> navigateToDetail(sideEffect.memeId)
+                    is MyPageSideEffect.NavigateToDetail -> {
+                        analyticsHelper.reportAction(
+                            action = MyPageAction.CLICK_MEME,
+                            screen = ScreenType.MY_PAGE,
+                            params = {
+                                param(CONTENT_TYPE, sideEffect.contentType)
+                            }
+                        )
 
-                    MyPageSideEffect.NavigateToSetting -> navigateToSetting()
+                        navigateToDetail(sideEffect.memeId)
+                    }
+
+                    MyPageSideEffect.NavigateToSetting -> {
+                        analyticsHelper.reportAction(
+                            action = MyPageAction.CLICK_SETTINGS,
+                            screen = ScreenType.MY_PAGE
+                        )
+
+                        navigateToSetting()
+                    }
 
                     is MyPageSideEffect.ShowLevelUpSnackBar -> {
                         viewModel.showSnackbar(
                             message = "LV.${sideEffect.level}로 레벨업했어요!",
                             icon = {
                                 FarmemeIcon.SuccessFilledBrand(Modifier.size(20.dp))
+                            }
+                        )
+                    }
+
+                    is MyPageSideEffect.LogClickCopy -> {
+                        analyticsHelper.reportAction(
+                            action = MyPageAction.CLICK_COPY,
+                            screen = ScreenType.MY_PAGE,
+                            params = {
+                                with (sideEffect.meme) {
+                                    param(MEME_ID, id)
+                                    param(MEME_TITLE, title)
+                                }
                             }
                         )
                     }

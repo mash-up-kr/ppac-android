@@ -57,8 +57,16 @@ class MyPageViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: MyPageIntent) {
         when (intent) {
-            is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(intent.memeId)
-            is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(intent.memeId)
+            is MyPageIntent.ClickRecentMemeItem -> navigateToDetail(
+                contentType = intent.contentType,
+                memeId = intent.memeId
+            )
+
+            is MyPageIntent.ClickSavedMemeItem -> navigateToDetail(
+                contentType = intent.contentType,
+                memeId = intent.memeId
+            )
+
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             is MyPageIntent.ClickRetryButton -> {
                 initialAction()
@@ -71,11 +79,17 @@ class MyPageViewModel @Inject constructor(
 
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
+            is MyPageIntent.ClickCopy -> postSideEffect(MyPageSideEffect.LogClickCopy(intent.meme))
         }
     }
 
-    private fun navigateToDetail(memeId: String) {
-        postSideEffect(MyPageSideEffect.NavigateToDetail(memeId = memeId))
+    private fun navigateToDetail(contentType: String, memeId: String) {
+        postSideEffect(
+            MyPageSideEffect.NavigateToDetail(
+                contentType = contentType,
+                memeId = memeId
+            )
+        )
     }
 
     private fun navigateToSetting() {
