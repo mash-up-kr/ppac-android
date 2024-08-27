@@ -57,7 +57,7 @@ class RecommendationViewModel @Inject constructor(
     override suspend fun handleIntent(intent: RecommendationIntent) {
         when (intent) {
             is RecommendationIntent.ClickButton.LoL -> {
-                postSideEffect(RecommendationSideEffect.RunRisingEffect)
+                postSideEffect(RecommendationSideEffect.RunRisingEffect(intent.meme))
                 reduce {
                     updateReaction(intent.meme) {
                         it.copy(
@@ -81,7 +81,7 @@ class RecommendationViewModel @Inject constructor(
             }
 
             is RecommendationIntent.ClickButton.Copy -> {
-                postSideEffect(RecommendationSideEffect.CopyClipBoard(intent.memeIndex))
+                postSideEffect(RecommendationSideEffect.CopyClipBoard(intent.selectedMemeIndex))
             }
 
             is RecommendationIntent.ClickButton.Share -> {
@@ -94,9 +94,11 @@ class RecommendationViewModel @Inject constructor(
                 }
                 if (intent.meme.isSaved) {
                     deleteSavedMemeUseCase(intent.meme.id)
+                    postSideEffect(RecommendationSideEffect.LogSaveMemeCancel(intent.meme))
                     showSnackbar(message = "파밈을 취소했어요")
                 } else {
                     saveMemeUseCase(intent.meme.id)
+                    postSideEffect(RecommendationSideEffect.LogSaveMeme(intent.meme))
                     showSnackbar(
                         message = "파밈 완료!",
                         icon = {
@@ -104,6 +106,10 @@ class RecommendationViewModel @Inject constructor(
                         }
                     )
                 }
+            }
+
+            is RecommendationIntent.ClickButton.HashTags -> {
+                postSideEffect(RecommendationSideEffect.LogHashTagsClicked)
             }
 
             is RecommendationIntent.MovePage -> {
