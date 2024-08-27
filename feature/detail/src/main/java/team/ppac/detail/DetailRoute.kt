@@ -58,17 +58,25 @@ internal fun DetailRoute(
         bitmap = it
     }
 
-    ComposableLifecycle { _, event ->
-        when (event) {
-            Lifecycle.Event.ON_START -> {
-                analyticsHelper.reportScreen(ScreenType.MEME_DETAIL)
-            }
-
-            else -> {}
-        }
-    }
-
     BaseComposable(viewModel = viewModel) { uiState ->
+        ComposableLifecycle { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_START -> {
+                    analyticsHelper.reportScreen(ScreenType.MEME_DETAIL)
+                    analyticsHelper.reportAction(
+                        action = MemeDetailAction.VIEW_MEME,
+                        screen = ScreenType.MEME_DETAIL,
+                        params = {
+                            param("meme_id", uiState.memeId)
+                            param("meme_title", uiState.detailMemeUiModel.name)
+                        }
+                    )
+                }
+
+                else -> {}
+            }
+        }
+
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
@@ -150,6 +158,7 @@ internal fun DetailRoute(
                 }
             }
         }
+
         Crossfade(targetState = uiState.isError) { isError ->
             if (isError) {
                 FarmemeErrorScreen(
