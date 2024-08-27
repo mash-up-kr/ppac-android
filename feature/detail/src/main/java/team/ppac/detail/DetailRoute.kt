@@ -24,6 +24,8 @@ import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import kotlinx.coroutines.launch
 import team.ppac.analytics.AnalyticsHelper
+import team.ppac.analytics.action.MEME_ID
+import team.ppac.analytics.action.MEME_TITLE
 import team.ppac.analytics.action.MemeDetailAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
@@ -67,8 +69,8 @@ internal fun DetailRoute(
                         action = MemeDetailAction.VIEW_MEME,
                         screen = ScreenType.MEME_DETAIL,
                         params = {
-                            param("meme_id", uiState.memeId)
-                            param("meme_title", uiState.detailMemeUiModel.name)
+                            param(MEME_ID, uiState.memeId)
+                            param(MEME_TITLE, uiState.detailMemeUiModel.name)
                         }
                     )
                 }
@@ -85,8 +87,8 @@ internal fun DetailRoute(
                             action = MemeDetailAction.CLICK_REACTION,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
-                                param("meme_id", uiState.memeId)
-                                param("meme_title", uiState.detailMemeUiModel.name)
+                                param(MEME_ID, uiState.memeId)
+                                param(MEME_TITLE, uiState.detailMemeUiModel.name)
                             }
                         )
                         launch {
@@ -106,8 +108,8 @@ internal fun DetailRoute(
                             action = MemeDetailAction.CLICK_COPY,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
-                                param("meme_id", uiState.memeId)
-                                param("meme_title", uiState.detailMemeUiModel.name)
+                                param(MEME_ID, uiState.memeId)
+                                param(MEME_TITLE, uiState.detailMemeUiModel.name)
                             }
                         )
                         bitmap?.let {
@@ -120,8 +122,8 @@ internal fun DetailRoute(
                             action = MemeDetailAction.CLICK_SHARE,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
-                                param("meme_id", uiState.memeId)
-                                param("meme_title", uiState.detailMemeUiModel.name)
+                                param(MEME_ID, uiState.memeId)
+                                param(MEME_TITLE, uiState.detailMemeUiModel.name)
                             }
                         )
                         context.shareOneLink(sideEffect.memeId)
@@ -132,8 +134,8 @@ internal fun DetailRoute(
                             action = MemeDetailAction.CLICK_SAVE,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
-                                param("meme_id", uiState.memeId)
-                                param("meme_title", uiState.detailMemeUiModel.name)
+                                param(MEME_ID, uiState.memeId)
+                                param(MEME_TITLE, uiState.detailMemeUiModel.name)
                             }
                         )
                     }
@@ -143,8 +145,8 @@ internal fun DetailRoute(
                             action = MemeDetailAction.CLICK_SAVE_CANCEL,
                             screen = ScreenType.MEME_DETAIL,
                             params = {
-                                param("meme_id", uiState.memeId)
-                                param("meme_title", uiState.detailMemeUiModel.name)
+                                param(MEME_ID, uiState.memeId)
+                                param(MEME_TITLE, uiState.detailMemeUiModel.name)
                             }
                         )
                     }

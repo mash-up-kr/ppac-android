@@ -4,6 +4,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ParametersBuilder
 import com.google.firebase.analytics.logEvent
 import team.ppac.analytics.type.ActionType
+import team.ppac.analytics.action.PAGE
 import team.ppac.analytics.type.ScreenType
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ internal class AnalyticsHelperImpl @Inject constructor(
         params: ParametersBuilder.() -> Unit
     ) {
         analytics.logEvent(action.getAction()) {
-            param("page", ScreenType.getTag(screen))
+            param(PAGE, ScreenType.getTag(screen))
             params()
         }
     }

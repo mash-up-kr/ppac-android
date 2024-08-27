@@ -6,6 +6,9 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import team.ppac.analytics.AnalyticsHelper
+import team.ppac.analytics.action.KEYWORD_NAME
+import team.ppac.analytics.action.MEME_ID
+import team.ppac.analytics.action.MEME_TITLE
 import team.ppac.analytics.action.SearchDetailAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
@@ -52,7 +55,7 @@ internal fun SearchDetailRoute(
                     action = SearchDetailAction.CLICK_MEME,
                     screen = ScreenType.SEARCH_DETAIL,
                     params = {
-                        param("keyword_name", uiState.keyword)
+                        param(KEYWORD_NAME, uiState.keyword)
                     }
                 )
 
@@ -64,8 +67,8 @@ internal fun SearchDetailRoute(
                     action = SearchDetailAction.CLICK_COPY,
                     screen = ScreenType.SEARCH_DETAIL,
                     params = {
-                        param("meme_id", memeId)
-                        param("meme_title", memeTitle)
+                        param(MEME_ID, memeId)
+                        param(MEME_TITLE, memeTitle)
                     }
                 )
             },
