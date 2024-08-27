@@ -35,6 +35,7 @@ internal fun SettingScreen(
     uiState: SettingUiState,
     navigateToBack: () -> Unit,
     navigateToPrivacyPolicy: () -> Unit,
+    onAppUpdateClick: () -> Unit,
 ) {
     FarmemeScaffold(
         modifier = modifier.fillMaxSize(),
@@ -49,7 +50,10 @@ internal fun SettingScreen(
                 )
             }
             item {
-                SettingBody(updateVisible = uiState.updateButtonVisible)
+                SettingBody(
+                    hasNewAppVersion = uiState.hasNewAppVersion,
+                    onAppUpdateClick = onAppUpdateClick
+                )
             }
             item {
                 SettingListItem(
@@ -64,7 +68,8 @@ internal fun SettingScreen(
 @Composable
 private fun SettingBody(
     modifier: Modifier = Modifier,
-    updateVisible: Boolean,
+    hasNewAppVersion: Boolean,
+    onAppUpdateClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -94,13 +99,13 @@ private fun SettingBody(
             color = FarmemeTheme.textColor.tertiary,
             style = FarmemeTheme.typography.body.small.medium,
         )
-        if (updateVisible) {
+        if (hasNewAppVersion) {
             Spacer(modifier = Modifier.height(16.dp))
             FarmemeFilledButton(
                 backgroundColor = FarmemeTheme.backgroundColor.primary,
                 text = "앱 업데이트하기",
                 textColor = FarmemeTheme.textColor.inverse,
-                onClick = {},
+                onClick = onAppUpdateClick,
             )
         }
         Spacer(modifier = Modifier.height(50.dp))
@@ -122,6 +127,7 @@ private fun SettingScreenPreview() {
         uiState = SettingUiState.INITIAL_STATE,
         navigateToBack = {},
         navigateToPrivacyPolicy = {},
+        onAppUpdateClick = {}
     )
 }
 
