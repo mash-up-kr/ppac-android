@@ -54,6 +54,7 @@ import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.domain.model.Meme
 import team.ppac.recommendation.component.ActionButtons
 import team.ppac.recommendation.component.HeroModulePager
@@ -173,7 +174,13 @@ internal fun RecommendationScreen(
                             )
                             Spacer(modifier = Modifier.padding(top = 20.dp))
                             KeywordsRow(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .noRippleClickable(
+                                        onClick = {
+                                            onActionButtonsIntentClick(RecommendationIntent.ClickButton.HashTags)
+                                        }
+                                    ),
                                 keywords = state.thisWeekMemes[heroModulePagerState.currentPage].keywords.toImmutableList()
                             )
                             Spacer(modifier = Modifier.padding(top = 30.dp))
