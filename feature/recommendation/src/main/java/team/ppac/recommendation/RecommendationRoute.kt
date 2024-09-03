@@ -158,6 +158,11 @@ internal fun RecommendationRoute(
                     }
                 )
 
+                analyticsHelper.reportAction(
+                    action = RecommendationAction.VIEW_MEME,
+                    screen = ScreenType.RECOMMENDATION
+                )
+
                 viewModel.intent(RecommendationIntent.MovePage(meme, page))
             },
             onLoadMeme = { index, bitmap ->
