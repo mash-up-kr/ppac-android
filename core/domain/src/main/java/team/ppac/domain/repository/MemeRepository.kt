@@ -11,7 +11,10 @@ interface MemeRepository {
     suspend fun getRecommendMemes(): List<Meme>
     suspend fun saveMeme(memeId: String): Boolean
     suspend fun deleteSavedMeme(memeId: String): Boolean
-    suspend fun getSearchMemes(keyword: String): MemeWithPagination
+    suspend fun getSearchMemes(
+        keyword: String,
+        getCurrentPage: (Int) -> Unit
+    ): MemeWithPagination
     suspend fun reactMeme(memeId: String): Boolean
     suspend fun watchMeme(
         memeId: String,

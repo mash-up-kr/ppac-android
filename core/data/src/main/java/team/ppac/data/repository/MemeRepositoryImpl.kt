@@ -1,6 +1,5 @@
 package team.ppac.data.repository
 
-import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import team.ppac.data.mapper.toMeme
@@ -14,7 +13,7 @@ import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.remote.datasource.MemeDataSource
 import javax.inject.Inject
 
-class MemeRepositoryImpl @Inject constructor(
+internal class MemeRepositoryImpl @Inject constructor(
     private val memeDataSource: MemeDataSource,
 ) : MemeRepository {
     override suspend fun getMeme(memeId: String): Meme {
@@ -34,7 +33,10 @@ class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.deleteSavedMeme(memeId)
     }
 
-    override suspend fun getSearchMemes(keyword: String): MemeWithPagination {
+    override suspend fun getSearchMemes(
+        keyword: String,
+        getCurrentPage: (Int) -> Unit,
+    ): MemeWithPagination {
         val totalMemeCount = memeDataSource.getSearchMemes(
             keyword = keyword,
             page = 1,
@@ -43,13 +45,16 @@ class MemeRepositoryImpl @Inject constructor(
 
         return MemeWithPagination(
             totalMemeCount = totalMemeCount,
-            memes = createPager { page ->
-                memeDataSource.getSearchMemes(
-                    keyword = keyword,
-                    page = page,
-                    size = ITEMS_PER_PAGE,
-                ).memeList.map { it.toMeme() }
-            }.flow
+            memes = createPager(
+                executor = { page ->
+                    memeDataSource.getSearchMemes(
+                        keyword = keyword,
+                        page = page,
+                        size = ITEMS_PER_PAGE,
+                    ).memeList.map { it.toMeme() }
+                },
+                getCurrentPage = getCurrentPage
+            ).flow
         )
     }
 
