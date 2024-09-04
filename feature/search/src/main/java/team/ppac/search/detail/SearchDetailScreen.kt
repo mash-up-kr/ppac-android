@@ -33,7 +33,6 @@ internal fun SearchDetailScreen(
     onMemeClick: (String) -> Unit,
     onRetryClick: () -> Unit,
     onCopyClick: (String, String) -> Unit,
-    onScrollContent: () -> Unit,
 ) {
     val searchResults = uiState.searchResults.collectPagingItemsWithHandleState(handleLoadStates)
 
@@ -91,7 +90,6 @@ internal fun SearchDetailScreen(
                                     searchResults = searchResults,
                                     onMemeClick = onMemeClick,
                                     onCopyClick = onCopyClick,
-                                    onScrollContent = onScrollContent,
                                 )
                             }
                         }
@@ -112,6 +110,5 @@ private fun SearchDetailScreenPreview() {
         onMemeClick = {},
         onRetryClick = {},
         onCopyClick = { _, _ -> },
-        onScrollContent = {}
     )
 }

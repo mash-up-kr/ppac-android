@@ -2,13 +2,21 @@ package team.ppac.search.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
+import kotlinx.coroutines.flow.collectLatest
 import team.ppac.analytics.AnalyticsHelper
 import team.ppac.analytics.action.KEYWORD_NAME
 import team.ppac.analytics.action.MEME_ID
 import team.ppac.analytics.action.MEME_TITLE
+import team.ppac.analytics.action.PAGINATION_COUNT
 import team.ppac.analytics.action.SearchDetailAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
@@ -25,6 +33,8 @@ internal fun SearchDetailRoute(
     navigateBack: () -> Unit,
     navigateToMemeDetail: (String) -> Unit,
 ) {
+    var lastPage by remember { mutableIntStateOf(0) }
+
     ComposableLifecycle { _, event ->
         when (event) {
             Lifecycle.Event.ON_START -> {
@@ -36,6 +46,12 @@ internal fun SearchDetailRoute(
     }
 
     BaseComposable(viewModel = viewModel) { uiState ->
+        LaunchedEffect(Unit) {
+            viewModel.currentPage.collectLatest { currentPage ->
+                lastPage = currentPage
+            }
+        }
+
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
@@ -49,7 +65,17 @@ internal fun SearchDetailRoute(
             modifier = modifier,
             uiState = uiState,
             handleLoadStates = viewModel::handleLoadErrorStates,
-            onBackClick = navigateBack,
+            onBackClick = {
+                analyticsHelper.reportAction(
+                    action = SearchDetailAction.SCROLL,
+                    screen = ScreenType.SEARCH_DETAIL,
+                    params = {
+                        param(KEYWORD_NAME, uiState.keyword)
+                        param(PAGINATION_COUNT, "$lastPage")
+                    }
+                )
+                navigateBack()
+            },
             onMemeClick = { memeId ->
                 analyticsHelper.reportAction(
                     action = SearchDetailAction.CLICK_MEME,
@@ -72,9 +98,6 @@ internal fun SearchDetailRoute(
                     }
                 )
             },
-            onScrollContent = {
-                Timber.e("LOADING")
-            }
         )
     }
 }
