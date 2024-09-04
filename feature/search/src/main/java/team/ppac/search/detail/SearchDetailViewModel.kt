@@ -10,6 +10,10 @@ import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
@@ -21,6 +25,7 @@ import team.ppac.search.detail.model.toSearchResultUiModel
 import team.ppac.search.detail.mvi.SearchDetailIntent
 import team.ppac.search.detail.mvi.SearchDetailSideEffect
 import team.ppac.search.detail.mvi.SearchDetailUiState
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,9 +35,11 @@ class SearchDetailViewModel @Inject constructor(
     private val watchMemeUseCase: WatchMemeUseCase,
 ) : BaseViewModel<SearchDetailUiState, SearchDetailSideEffect, SearchDetailIntent>(savedStateHandle) {
 
+    val currentPage: MutableSharedFlow<Int> = MutableSharedFlow(replay = 1)
+
     init {
-        val keyword = savedStateHandle.get<String>("keyword") ?: ""
-        getSearchResults(keyword)
+        val keyword = savedStateHandle.get<String>("keyword").orEmpty()
+        getSearchResults(keyword, getCurrentPage = { currentPage.tryEmit(it) })
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): SearchDetailUiState {
@@ -44,7 +51,7 @@ class SearchDetailViewModel @Inject constructor(
     override suspend fun handleIntent(intent: SearchDetailIntent) {
         when (intent) {
             is SearchDetailIntent.ClickErrorRetry -> {
-                getSearchResults(currentState.keyword)
+                getSearchResults(currentState.keyword, getCurrentPage = { currentPage.tryEmit(it) })
                 updateErrorState(isError = false)
             }
 
@@ -80,11 +87,14 @@ class SearchDetailViewModel @Inject constructor(
         }
     }
 
-    private fun getSearchResults(keyword: String) = launch {
+    private fun getSearchResults(
+        keyword: String,
+        getCurrentPage: (Int) -> Unit
+    ) = launch {
         updateLoadingState(true)
         delay(300L)
 
-        val paginationResults = getSearchMemeUseCase(keyword)
+        val paginationResults = getSearchMemeUseCase(keyword, getCurrentPage)
         val totalMemeCount = paginationResults.totalMemeCount
         val searchResults = paginationResults.memes
             .map { pagingData ->
