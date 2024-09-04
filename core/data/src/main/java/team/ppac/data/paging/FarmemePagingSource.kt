@@ -8,12 +8,14 @@ internal const val STARTING_PAGE = 1
 
 internal class FarmemePagingSource<T : Any>(
     private val executor: suspend (Int) -> List<T>,
+    private val getCurrentPage: (Int) -> Unit,
 ) : PagingSource<Int, T>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
         val currentPage = params.key ?: STARTING_PAGE
 
         return try {
             val response = executor(currentPage)
+            getCurrentPage(currentPage)
 
             LoadResult.Page(
                 data = response,
