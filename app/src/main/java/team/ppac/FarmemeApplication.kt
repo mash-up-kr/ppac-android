@@ -2,6 +2,7 @@ package team.ppac
 
 import android.app.Application
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import dagger.hilt.android.HiltAndroidApp
 import team.ppac.crashlytics.logger.CrashlyticsLoggerTree
 import team.ppac.local.datasource.AppConfig
@@ -18,12 +19,18 @@ class FarmemeApplication : Application() {
     lateinit var analytics: FirebaseAnalytics
 
     @Inject
+    lateinit var crashlytics: FirebaseCrashlytics
+
+    @Inject
     lateinit var appConfig: AppConfig
+
+    private val deviceId by lazy { appConfig.deviceId }
 
     override fun onCreate() {
         super.onCreate()
         initTimber()
         initAnalytics()
+        initCrashlytics()
         initAppsFlyer()
     }
 
@@ -36,8 +43,11 @@ class FarmemeApplication : Application() {
     }
 
     private fun initAnalytics() {
-        val deviceId = appConfig.deviceId
         analytics.setUserId(deviceId)
+    }
+
+    private fun initCrashlytics() {
+        crashlytics.setUserId(deviceId)
     }
 
     private fun initAppsFlyer() {
