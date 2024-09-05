@@ -112,7 +112,10 @@ internal fun RecommendationScreen(
                                 .getTop(this)
                                 .toDp()
                         })
-                        .padding(top = 38.dp),
+                        .padding(
+                            top = 38.dp,
+                            bottom = TabBarHeight + 48.dp
+                        ),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     Image(
@@ -121,7 +124,7 @@ internal fun RecommendationScreen(
                     )
                     Spacer(modifier = Modifier.padding(top = 10.dp))
                     Text(
-                        text = "이 번주 이 밈 어때!",
+                        text = "이번 주 이 밈 어때!",
                         style = FarmemeTheme.typography.heading.large.bold,
                         color = FarmemeTheme.textColor.primary,
                     )
