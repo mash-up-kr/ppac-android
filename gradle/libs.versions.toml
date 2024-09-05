@@ -2,8 +2,8 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-appVersion = "1.0.8"
-versionCode = "8"
+appVersion = "1.0.9"
+versionCode = "9"
 composeCompiler = "1.5.11"
 namespace = "team.ppac"
 
