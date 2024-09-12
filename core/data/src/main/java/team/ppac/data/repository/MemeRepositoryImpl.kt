@@ -3,11 +3,14 @@ package team.ppac.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import team.ppac.data.mapper.toMeme
+import team.ppac.data.paging.FarmemePagingSource
 import team.ppac.data.paging.ITEMS_PER_PAGE
 import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.model.MemeWithPagination
+import team.ppac.domain.model.paging.PageData
+import team.ppac.domain.model.paging.PagingInfo
 import team.ppac.domain.repository.MemeRepository
 import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.remote.datasource.MemeDataSource
@@ -46,14 +49,26 @@ internal class MemeRepositoryImpl @Inject constructor(
         return MemeWithPagination(
             totalMemeCount = totalMemeCount,
             memes = createPager(
-                executor = { page ->
-                    memeDataSource.getSearchMemes(
-                        keyword = keyword,
-                        page = page,
-                        size = ITEMS_PER_PAGE,
-                    ).memeList.map { it.toMeme() }
-                },
-                getCurrentPage = getCurrentPage
+                pagingSourceFactory = {
+                    FarmemePagingSource(
+                        getCurrentPage = getCurrentPage,
+                        executor = { page ->
+                            val remoteSearchMemes = memeDataSource.getSearchMemes(
+                                keyword = keyword,
+                                page = page,
+                                size = ITEMS_PER_PAGE,
+                            )
+
+                            PageData(
+                                data = remoteSearchMemes.memeList.map { it.toMeme() },
+                                pagingInfo = PagingInfo(
+                                    totalPagingCount = remoteSearchMemes.pagination.total,
+                                    totalPage = remoteSearchMemes.pagination.totalPages
+                                )
+                            )
+                        }
+                    )
+                }
             ).flow
         )
     }

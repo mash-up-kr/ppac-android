@@ -7,9 +7,12 @@ import team.ppac.core.datastore.UserData
 import team.ppac.data.mapper.toMeme
 import team.ppac.data.mapper.toUser
 import team.ppac.data.paging.ITEMS_PER_PAGE
+import team.ppac.data.paging.SavedMemePagingSource
 import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.User
+import team.ppac.domain.model.paging.PageData
+import team.ppac.domain.model.paging.PagingInfo
 import team.ppac.domain.repository.UserRepository
 import team.ppac.local.datasource.AppConfig
 import team.ppac.local.datasource.UserLocalDataSource
@@ -45,13 +48,25 @@ internal class UserRepositoryImpl @Inject constructor(
 
     override fun getUserSavedMemes(getCurrentPage: (Int) -> Unit): Flow<PagingData<Meme>> {
         return createPager(
-            getCurrentPage = getCurrentPage
-        ) { page ->
-            userRemoteDataSource.getUserSavedMemes(
-                page = page,
-                size = ITEMS_PER_PAGE,
-            ).memeList.map { it.toMeme() }
-        }.flow
+            pagingSourceFactory = {
+                SavedMemePagingSource(
+                    getCurrentPage = getCurrentPage,
+                    executor = { page ->
+                        val remoteData = userRemoteDataSource.getUserSavedMemes(
+                            page = page,
+                            size = ITEMS_PER_PAGE,
+                        )
+                        PageData(
+                            data = remoteData.memeList.map { it.toMeme() },
+                            pagingInfo = PagingInfo(
+                                totalPagingCount = remoteData.pagination.total,
+                                totalPage = remoteData.pagination.totalPages
+                            )
+                        )
+                    }
+                )
+            }
+        ).flow
     }
 
     override suspend fun getUserRecentMemes(): List<Meme> {
