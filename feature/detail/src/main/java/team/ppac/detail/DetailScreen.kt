@@ -33,6 +33,7 @@ import team.ppac.detail.component.DetailContent
 import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailUiState
+import team.ppac.detail.util.DetailScreenSize
 
 @Composable
 internal fun DetailScreen(
@@ -46,9 +47,8 @@ internal fun DetailScreen(
     onHashTagsClick: () -> Unit,
 ) {
     val configuration = LocalConfiguration.current
-    val screenWidthPx = configuration.screenWidthDp.dp
-    val screenHeightPx = configuration.screenHeightDp.dp
-
+    val currentDetailScreenSize =
+        DetailScreenSize.from(configuration.screenWidthDp.dp, configuration.screenHeightDp.dp)
     FarmemeScaffold(
         modifier = modifier,
         topBar = {
@@ -114,7 +114,7 @@ internal fun DetailScreen(
                     .clip(FarmemeRadius.Radius20.shape)
                     .background(FarmemeTheme.backgroundColor.white),
             ) {
-                if (screenHeightPx < 640.dp) {
+                if (currentDetailScreenSize == DetailScreenSize.SMALL) {
                     Box(
                         modifier = Modifier.padding(10.dp),
                         contentAlignment = Alignment.BottomCenter
@@ -126,6 +126,7 @@ internal fun DetailScreen(
                             onClickFunnyButton = onClickFunnyButton,
                             onReactionButtonPositioned = onReactionButtonPosition,
                             onHashTagsClick = onHashTagsClick,
+                            currentDetailScreenSize = currentDetailScreenSize
                         )
                     }
                 } else {
@@ -138,7 +139,8 @@ internal fun DetailScreen(
                             saveBitmap = saveBitmap,
                             onClickFunnyButton = onClickFunnyButton,
                             onReactionButtonPositioned = onReactionButtonPosition,
-                            onHashTagsClick = onHashTagsClick
+                            onHashTagsClick = onHashTagsClick,
+                            currentDetailScreenSize = currentDetailScreenSize
                         )
                     }
                 }
