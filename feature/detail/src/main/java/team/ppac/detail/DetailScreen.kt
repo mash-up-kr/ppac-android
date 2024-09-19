@@ -23,16 +23,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
-import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.detail.component.DetailBottomBar
 import team.ppac.detail.component.DetailContent
-import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailUiState
+import team.ppac.detail.mvi.DetailUiState.Companion.PREVIEW_STATE
 import team.ppac.detail.util.DetailScreenSize
 
 @Composable
@@ -153,20 +152,7 @@ internal fun DetailScreen(
 @Composable
 fun PreviewDetailScreen() {
     DetailScreen(
-        uiState = DetailUiState(
-            memeId = "",
-            detailMemeUiModel = DetailMemeUiModel(
-                imageUrl = "",
-                name = "나는 공부를 찢어",
-                hashTags = persistentListOf("공부", "학생", "시험기간", "힘듦", "피곤"),
-                sourceDescription = "출처에 대한 내용이 들어갑니다.",
-                isSavedMeme = false,
-                reactionCount = 0,
-                isReaction = false,
-            ),
-            isError = false,
-            isLoading = false,
-        ),
+        uiState = PREVIEW_STATE,
         onClickFunnyButton = {},
         onReactionButtonPosition = { _ -> },
         onClickBackButton = {},

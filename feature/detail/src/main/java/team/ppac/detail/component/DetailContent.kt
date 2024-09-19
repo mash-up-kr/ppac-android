@@ -339,7 +339,7 @@ private fun DetailFunnyButton(
 fun PreviewDetailContent() {
     DetailContent(
         modifier = Modifier,
-        uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel,
+        uiModel = DetailUiState.PREVIEW_STATE.detailMemeUiModel,
         saveBitmap = {},
         onClickFunnyButton = {},
         onReactionButtonPositioned = { _ -> },
