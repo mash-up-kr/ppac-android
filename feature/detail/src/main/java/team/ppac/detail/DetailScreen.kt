@@ -16,7 +16,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,10 +43,8 @@ internal fun DetailScreen(
     onClickButtonButtons: (DetailIntent.ClickBottomButton) -> Unit,
     saveBitmap: (bitmap: Bitmap) -> Unit,
     onHashTagsClick: () -> Unit,
+    currentDetailScreenSize: DetailScreenSize,
 ) {
-    val configuration = LocalConfiguration.current
-    val currentDetailScreenSize =
-        DetailScreenSize.from(configuration.screenWidthDp.dp, configuration.screenHeightDp.dp)
     FarmemeScaffold(
         modifier = modifier,
         topBar = {
@@ -158,6 +155,7 @@ fun PreviewDetailScreen() {
         onClickBackButton = {},
         onClickButtonButtons = {},
         saveBitmap = {},
-        onHashTagsClick = {}
+        onHashTagsClick = {},
+        currentDetailScreenSize = DetailScreenSize.MEDIUM
     )
 }
