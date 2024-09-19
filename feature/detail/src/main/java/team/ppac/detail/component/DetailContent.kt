@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -102,8 +103,9 @@ internal fun DetailContent(
                     ),
                     reactionCount = uiModel.reactionCount,
                     isReaction = uiModel.isReaction,
+                    isLoading = isLoading,
                     onClickFunnyButton = onClickFunnyButton,
-                    onReactionButtonPositioned = onReactionButtonPositioned
+                    onReactionButtonPositioned = onReactionButtonPositioned,
                 )
             }
         }
@@ -225,6 +227,7 @@ fun DetailFunnyButton(
     modifier: Modifier = Modifier,
     reactionCount: Int,
     isReaction: Boolean,
+    isLoading: Boolean,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
 ) {
@@ -240,10 +243,12 @@ fun DetailFunnyButton(
             .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
                 onClick = {
-                    coroutineScope.launch {
-                        lottieAnimatable.animate(composition = lottieComposition)
+                    if(!isLoading) {
+                        coroutineScope.launch {
+                            lottieAnimatable.animate(composition = lottieComposition)
+                        }
+                        onClickFunnyButton()
                     }
-                    onClickFunnyButton()
                 }
             )
             .onGloballyPositioned {
