@@ -9,7 +9,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.register.mvi.RegisterUiState
 
-
 @Composable
 internal fun RegisterScreen(
     uiState: RegisterUiState,
