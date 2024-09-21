@@ -93,6 +93,7 @@ dependencies {
     implementation(project(":feature:search"))
     implementation(project(":feature:setting"))
     implementation(project(":feature:splash"))
+    implementation(project(":feature:register"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle)
