@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -98,12 +99,14 @@ internal fun DetailContent(
                 DetailFunnyButton(
                     modifier = Modifier.mapTextSkeletonModifierIfNeed(
                         isLoading = isLoading,
-                        height = 46.dp
+                        height = 46.dp,
+                        shape = FarmemeRadius.Radius10.shape,
                     ),
                     reactionCount = uiModel.reactionCount,
                     isReaction = uiModel.isReaction,
+                    isLoading = isLoading,
                     onClickFunnyButton = onClickFunnyButton,
-                    onReactionButtonPositioned = onReactionButtonPositioned
+                    onReactionButtonPositioned = onReactionButtonPositioned,
                 )
             }
         }
@@ -125,9 +128,11 @@ private fun Modifier.mapImageSkeletonModifierIfNeed(
 
 private fun Modifier.mapTextSkeletonModifierIfNeed(
     isLoading: Boolean,
-    height: Dp
+    height: Dp,
+    shape: RoundedCornerShape,
 ): Modifier {
     return if (isLoading) Modifier
+        .clip(shape)
         .fillMaxWidth()
         .height(height)
         .showSkeleton(true)
@@ -177,7 +182,11 @@ internal fun DetailHashTags(
     onHashTagsClick: () -> Unit,
 ) {
     Text(
-        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 30.dp),
+        modifier = Modifier.mapTextSkeletonModifierIfNeed(
+            isLoading = isLoading,
+            height = 30.dp,
+            shape = FarmemeRadius.Radius4.shape,
+        ),
         text = name.truncateDisplayedString(16),
         color = FarmemeTheme.textColor.primary,
         style = FarmemeTheme.typography.heading.large.semibold,
@@ -185,7 +194,11 @@ internal fun DetailHashTags(
     )
     Spacer(modifier = Modifier.height(5.dp))
     DetailTags(
-        modifier = Modifier.mapTextSkeletonModifierIfNeed(isLoading = isLoading, height = 18.dp),
+        modifier = Modifier.mapTextSkeletonModifierIfNeed(
+            isLoading = isLoading,
+            height = 18.dp,
+            shape = FarmemeRadius.Radius4.shape,
+        ),
         hashTags = hashTags.truncateDisplayedList(6),
         onHashTagsClick = onHashTagsClick
     )
@@ -195,6 +208,7 @@ internal fun DetailHashTags(
             modifier = Modifier.mapTextSkeletonModifierIfNeed(
                 isLoading = isLoading,
                 height = 15.dp,
+                shape = FarmemeRadius.Radius4.shape
             ),
             text = "출처 : ${sourceDescription.truncateDisplayedString(32)}",
             color = FarmemeTheme.textColor.assistive,
@@ -225,6 +239,7 @@ fun DetailFunnyButton(
     modifier: Modifier = Modifier,
     reactionCount: Int,
     isReaction: Boolean,
+    isLoading: Boolean,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
 ) {
@@ -240,10 +255,12 @@ fun DetailFunnyButton(
             .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
                 onClick = {
-                    coroutineScope.launch {
-                        lottieAnimatable.animate(composition = lottieComposition)
+                    if (!isLoading) {
+                        coroutineScope.launch {
+                            lottieAnimatable.animate(composition = lottieComposition)
+                        }
+                        onClickFunnyButton()
                     }
-                    onClickFunnyButton()
                 }
             )
             .onGloballyPositioned {
