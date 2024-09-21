@@ -27,6 +27,7 @@ fun FarmemeNavHost(
     navController: NavHostController,
     navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
+    navigateToRegister: () -> Unit,
 ) {
     NavHost(
         modifier = modifier,

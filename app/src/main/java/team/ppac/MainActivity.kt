@@ -17,6 +17,7 @@ import team.ppac.navigation.FarmemeNavHost
 import team.ppac.navigation.component.FarmemeBottomBar
 import team.ppac.navigation.navigateToTopLevelDestination
 import team.ppac.navigator.DetailNavigator
+import team.ppac.navigator.RegisterNavigator
 import team.ppac.navigator.SettingNavigator
 import javax.inject.Inject
 
@@ -28,6 +29,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var settingNavigator: SettingNavigator
+
+    @Inject
+    lateinit var registerNavigator: RegisterNavigator
 
     @Inject
     lateinit var analyticsHelper: AnalyticsHelper
@@ -73,6 +77,9 @@ class MainActivity : ComponentActivity() {
                         navigateToSetting = {
                             settingNavigator.navigateFrom(this@MainActivity)
                         },
+                        navigateToRegister = {
+                            registerNavigator.navigateFrom(this@MainActivity)
+                        }
                     )
                 }
             }
