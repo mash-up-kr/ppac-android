@@ -11,9 +11,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.model.MemeWatchType
@@ -25,7 +22,6 @@ import team.ppac.search.detail.model.toSearchResultUiModel
 import team.ppac.search.detail.mvi.SearchDetailIntent
 import team.ppac.search.detail.mvi.SearchDetailSideEffect
 import team.ppac.search.detail.mvi.SearchDetailUiState
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,6 +35,9 @@ class SearchDetailViewModel @Inject constructor(
 
     init {
         val keyword = savedStateHandle.get<String>("keyword").orEmpty()
+        reduce {
+            copy(keyword = keyword)
+        }
         getSearchResults(keyword, getCurrentPage = { currentPage.tryEmit(it) })
     }
 
@@ -94,15 +93,28 @@ class SearchDetailViewModel @Inject constructor(
         updateLoadingState(true)
         delay(300L)
 
-        val paginationResults = getSearchMemeUseCase(keyword, getCurrentPage)
-        val totalMemeCount = paginationResults.totalMemeCount
-        val searchResults = paginationResults.memes
-            .map { pagingData ->
-                pagingData.map { it.toSearchResultUiModel() }
-            }.cachedIn(viewModelScope)
+        runCatching {
+            val paginationResults = getSearchMemeUseCase(keyword, getCurrentPage)
+            val totalMemeCount = paginationResults.totalMemeCount
+            val searchResults = paginationResults.memes
+                .map { pagingData ->
+                    pagingData.map { it.toSearchResultUiModel() }
+                }.cachedIn(viewModelScope)
 
-        updateLoadingState(false)
-        updateSearchResults(totalMemeCount, keyword, searchResults)
+            updateLoadingState(false)
+            updateSearchResults(totalMemeCount, keyword, searchResults)
+        }.onFailure {
+            when (it) {
+                is FarmemeNetworkException -> {
+                    reduce {
+                        copy(
+                            isError = true,
+                            isLoading = false,
+                        )
+                    }
+                }
+            }
+        }
     }
 
     private fun updateSearchResults(
