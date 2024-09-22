@@ -8,6 +8,7 @@ import team.ppac.common.android.base.BaseComposable
 @Composable
 internal fun RegisterRoute(
     viewModel: RegisterViewModel = hiltViewModel(),
+    navigateToBack: () -> Unit,
 ) {
     BaseComposable(viewModel = viewModel) { uiState ->
         LaunchedEffect(key1 = viewModel) {
@@ -20,6 +21,7 @@ internal fun RegisterRoute(
 
         RegisterScreen(
             uiState = uiState,
+            navigateToBack = navigateToBack,
         )
     }
 }
