@@ -410,4 +410,14 @@ object FarmemeIcon {
         contentDescription = null,
         tint = Color.Unspecified
     )
+
+    @Composable
+    fun Required(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_required),
+        contentDescription = null,
+        tint = Color.Unspecified
+    )
 }
