@@ -29,6 +29,8 @@ class DetailViewModel @Inject constructor(
     private val emitRefreshEventUseCase: EmitRefreshEventUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
+    var isFirstClickEvent : Boolean = false
+    var reactionCount = 0
     init {
         launch {
             getMeme(currentState.memeId)
@@ -51,8 +53,13 @@ class DetailViewModel @Inject constructor(
     override suspend fun handleIntent(intent: DetailIntent) {
         when (intent) {
             is DetailIntent.ClickFunnyButton -> {
-                incrementReactionCount()
-                postSideEffect(DetailSideEffect.RunRisingEffect)
+                if(reactionCount == 0 && "연타"){
+                    incrementReactionCount()
+                    postSideEffect(DetailSideEffect.RunRisingEffect)
+                    reactionCount++
+                } else {
+                    updateReactionCount()
+                }
             }
 
             is DetailIntent.ClickBackButton -> {
@@ -154,17 +161,22 @@ class DetailViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    private suspend fun updateReactionCount(reactionCount :Int){
         runCatching {
-            reactMemeUseCase(currentState.memeId)
+            reactMemeUseCase(currentState.memeId,reactionCount)
         }.onFailure {
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
-                        reactionCount = detailMemeUiModel.reactionCount - 1,
+                        reactionCount = detailMemeUiModel.reactionCount - reactionCount,
                         isReaction = false
                     )
                 )
             }
+        }.onSuccess {
+            reactionCount = 0
         }
     }
 
