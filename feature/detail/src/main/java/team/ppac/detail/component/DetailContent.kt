@@ -5,7 +5,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -65,51 +64,36 @@ internal fun DetailContent(
     onReactionButtonPositioned: (Offset) -> Unit,
     onHashTagsClick: () -> Unit,
 ) {
-    Box(
-        modifier = modifier
-            .border(
-                width = 2.dp,
-                color = FarmemeTheme.borderColor.primary,
-                shape = FarmemeRadius.Radius20.shape,
-            )
-            .clip(FarmemeRadius.Radius20.shape)
-            .background(FarmemeTheme.backgroundColor.white),
+    DetailImage(
+        imageUrl = uiModel.imageUrl,
+        isLoading = isLoading,
+        saveBitmap = saveBitmap,
+    )
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 10.dp)
+            .padding(top = 20.dp, bottom = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier.padding(10.dp),
-        ) {
-            DetailImage(
-                imageUrl = uiModel.imageUrl,
+        DetailHashTags(
+            name = uiModel.name,
+            sourceDescription = uiModel.sourceDescription,
+            hashTags = uiModel.hashTags,
+            isLoading = isLoading,
+            onHashTagsClick = onHashTagsClick
+        )
+        DetailFunnyButton(
+            modifier = Modifier.mapTextSkeletonModifierIfNeed(
                 isLoading = isLoading,
-                saveBitmap = saveBitmap,
-            )
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 10.dp)
-                    .padding(top = 20.dp, bottom = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                DetailHashTags(
-                    name = uiModel.name,
-                    sourceDescription = uiModel.sourceDescription,
-                    hashTags = uiModel.hashTags,
-                    isLoading = isLoading,
-                    onHashTagsClick = onHashTagsClick
-                )
-                DetailFunnyButton(
-                    modifier = Modifier.mapTextSkeletonModifierIfNeed(
-                        isLoading = isLoading,
-                        height = 46.dp,
-                        shape = FarmemeRadius.Radius10.shape,
-                    ),
-                    reactionCount = uiModel.reactionCount,
-                    isReaction = uiModel.isReaction,
-                    isLoading = isLoading,
-                    onClickFunnyButton = onClickFunnyButton,
-                    onReactionButtonPositioned = onReactionButtonPositioned,
-                )
-            }
-        }
+                height = 46.dp,
+                shape = FarmemeRadius.Radius10.shape,
+            ),
+            reactionCount = uiModel.reactionCount,
+            isReaction = uiModel.isReaction,
+            isLoading = isLoading,
+            onClickFunnyButton = onClickFunnyButton,
+            onReactionButtonPositioned = onReactionButtonPositioned
+        )
     }
 }
 

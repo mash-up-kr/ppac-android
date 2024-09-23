@@ -3,18 +3,23 @@ package team.ppac.detail
 import android.graphics.Bitmap
 import android.os.Build
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
@@ -22,6 +27,7 @@ import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
+import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.detail.component.DetailBottomBar
 import team.ppac.detail.component.DetailContent
 import team.ppac.detail.model.DetailMemeUiModel
@@ -39,6 +45,10 @@ internal fun DetailScreen(
     saveBitmap: (bitmap: Bitmap) -> Unit,
     onHashTagsClick: () -> Unit,
 ) {
+    val configuration = LocalConfiguration.current
+    val screenWidthPx = configuration.screenWidthDp.dp
+    val screenHeightPx = configuration.screenHeightDp.dp
+
     FarmemeScaffold(
         modifier = modifier,
         topBar = {
@@ -94,14 +104,45 @@ internal fun DetailScreen(
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            DetailContent(
-                uiModel = uiState.detailMemeUiModel,
-                isLoading = uiState.isLoading,
-                saveBitmap = saveBitmap,
-                onClickFunnyButton = onClickFunnyButton,
-                onReactionButtonPositioned = onReactionButtonPosition,
-                onHashTagsClick = onHashTagsClick
-            )
+            Box(
+                modifier = modifier
+                    .border(
+                        width = 2.dp,
+                        color = FarmemeTheme.borderColor.primary,
+                        shape = FarmemeRadius.Radius20.shape,
+                    )
+                    .clip(FarmemeRadius.Radius20.shape)
+                    .background(FarmemeTheme.backgroundColor.white),
+            ) {
+                if (screenHeightPx < 640.dp) {
+                    Box(
+                        modifier = Modifier.padding(10.dp),
+                        contentAlignment = Alignment.BottomCenter
+                    ) {
+                        DetailContent(
+                            uiModel = uiState.detailMemeUiModel,
+                            isLoading = uiState.isLoading,
+                            saveBitmap = saveBitmap,
+                            onClickFunnyButton = onClickFunnyButton,
+                            onReactionButtonPositioned = onReactionButtonPosition,
+                            onHashTagsClick = onHashTagsClick,
+                        )
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier.padding(10.dp),
+                    ) {
+                        DetailContent(
+                            uiModel = uiState.detailMemeUiModel,
+                            isLoading = uiState.isLoading,
+                            saveBitmap = saveBitmap,
+                            onClickFunnyButton = onClickFunnyButton,
+                            onReactionButtonPositioned = onReactionButtonPosition,
+                            onHashTagsClick = onHashTagsClick
+                        )
+                    }
+                }
+            }
         }
     }
 }
