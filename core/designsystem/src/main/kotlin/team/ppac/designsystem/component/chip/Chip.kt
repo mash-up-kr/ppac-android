@@ -2,6 +2,7 @@ package team.ppac.designsystem.component.chip
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
@@ -48,13 +49,23 @@ fun FarmemeSmallChip(
 @Composable
 fun FarmemeMediumChip(
     modifier: Modifier = Modifier,
+    chipColors: ChipColors = defaultChipColors().copy(
+        disabledTextColor = FarmemeTheme.textColor.primary,
+    ),
     text: String,
+    enabled: Boolean = false,
     onClick: () -> Unit = { },
 ) {
+    val (textColor, backgroundColor) = if (enabled) {
+        chipColors.textColor to chipColors.backgroundColor
+    } else {
+        chipColors.disabledTextColor to chipColors.disabledBackgroundColor
+    }
+
     Box(
         modifier = modifier
             .clip(FarmemeRadius.Radius20.shape)
-            .background(color = FarmemeTheme.backgroundColor.assistive)
+            .background(color = backgroundColor)
             .noRippleClickable(onClick = onClick)
             .padding(
                 horizontal = 16.dp,
@@ -65,7 +76,7 @@ fun FarmemeMediumChip(
         Text(
             text = text,
             style = FarmemeTheme.typography.body.medium.medium,
-            color = FarmemeTheme.textColor.primary,
+            color = textColor,
         )
     }
 }
@@ -87,26 +98,30 @@ fun defaultChipColors() = ChipColors(
 
 @Composable
 @Preview
-fun FarmemeSmallChipEnabledPreview() {
-    FarmemeSmallChip(
-        text = "Text",
-        enabled = true,
-    )
-}
-
-@Composable
-@Preview
-fun FarmemeSmallChipDisabledPreview() {
-    FarmemeSmallChip(
-        text = "Text",
-        enabled = false,
-    )
+fun FarmemeSmallChipPreview() {
+    Column {
+        FarmemeSmallChip(
+            text = "Text",
+            enabled = true,
+        )
+        FarmemeSmallChip(
+            text = "Text",
+            enabled = false,
+        )
+    }
 }
 
 @Composable
 @Preview
 fun FarmemeMediumChipPreview() {
-    FarmemeMediumChip(
-        text = "Text",
-    )
+    Column {
+        FarmemeMediumChip(
+            text = "Text",
+            enabled = true,
+        )
+        FarmemeMediumChip(
+            text = "Text",
+            enabled = false,
+        )
+    }
 }
