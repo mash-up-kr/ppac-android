@@ -62,6 +62,6 @@ private fun Modifier.singleClickable(
         enabled = enabled,
         onClickLabel = onClickLabel,
         role = role,
-        onClick = { multipleEventsCutter.processEvent(onClick) },
+        onClick = { onClick() }, // Todo(hyejin.ju) 함수 분리해야함
     )
 }

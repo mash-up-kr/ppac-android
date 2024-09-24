@@ -5,7 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.common.kotlin.model.ReactionState
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.detail.mapper.toDetailMemeUiModel
 import team.ppac.detail.mvi.DetailIntent
@@ -29,8 +31,8 @@ class DetailViewModel @Inject constructor(
     private val emitRefreshEventUseCase: EmitRefreshEventUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
-    var isFirstClickEvent : Boolean = false
-    var reactionCount = 0
+    private val reactionState = ReactionState()
+
     init {
         launch {
             getMeme(currentState.memeId)
@@ -50,15 +52,24 @@ class DetailViewModel @Inject constructor(
         }
     }
 
+
     override suspend fun handleIntent(intent: DetailIntent) {
         when (intent) {
             is DetailIntent.ClickFunnyButton -> {
-                if(reactionCount == 0 && "연타"){
+                if (!reactionState.isUpdating && reactionState.isDoubleClickEvent()) {
                     incrementReactionCount()
                     postSideEffect(DetailSideEffect.RunRisingEffect)
-                    reactionCount++
+                    reactionState.addReactionCount(1)
+                    if (reactionState.isFirstClickEvent) {
+                        reactionState.setIsFirstClickEvent(false)
+                        launch {
+                            updateReactionCountWithDelay()
+                        }
+                    }
                 } else {
-                    updateReactionCount()
+                    incrementReactionCount()
+                    postSideEffect(DetailSideEffect.RunRisingEffect)
+                    updateReactionCount(1)
                 }
             }
 
@@ -163,20 +174,26 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun updateReactionCount(reactionCount :Int){
+    private suspend fun updateReactionCountWithDelay() {
+        delay(1000)
+        reactionState.startUpdate()
+        updateReactionCount(reactionState.reactionCount) // Todo(hyejin.ju) API 연결 해야함
+        reactionState.releaseState()
+        reactionState.endUpdate()
+    }
+
+    private suspend fun updateReactionCount(reactionCount: Int) {
         runCatching {
-            reactMemeUseCase(currentState.memeId,reactionCount)
+            reactMemeUseCase(currentState.memeId)
         }.onFailure {
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
-                        reactionCount = detailMemeUiModel.reactionCount - reactionCount,
+                        reactionCount = detailMemeUiModel.reactionCount - 1,
                         isReaction = false
                     )
                 )
             }
-        }.onSuccess {
-            reactionCount = 0
         }
     }
 
