@@ -410,4 +410,14 @@ object FarmemeIcon {
         contentDescription = null,
         tint = Color.Unspecified
     )
+
+    @Composable
+    fun UpLoad(
+        modifier: Modifier = Modifier,
+    )= Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_upload_16),
+        contentDescription = null,
+        tint = Color.Unspecified
+    )
 }
