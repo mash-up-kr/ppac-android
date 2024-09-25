@@ -3,6 +3,7 @@ package team.ppac.designsystem.component.button
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -45,9 +46,10 @@ fun FarmemeCircleButton(
 @Composable
 fun FarmemeWeakButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color,
-    text: String,
-    textColor: Color,
+    backgroundColor: Color = FarmemeTheme.backgroundColor.white,
+    text: String = "",
+    textColor: Color = FarmemeTheme.textColor.primary,
+    withStar: Boolean = false,
     onClick: () -> Unit = { },
     icon: @Composable () -> Unit,
 ) {
@@ -67,6 +69,10 @@ fun FarmemeWeakButton(
             style = FarmemeTheme.typography.body.xLarge.semibold,
             color = textColor,
         )
+        if (withStar) {
+            Spacer(Modifier.width(4.dp))
+            FarmemeIcon.Required(modifier = Modifier.align(Alignment.Top))
+        }
     }
 }
 
@@ -109,12 +115,21 @@ fun FarmemeCircleButtonPreview() {
 @Composable
 @Preview
 fun FarmemeWeakButtonPreview() {
-    FarmemeWeakButton(
-        backgroundColor = FarmemeTheme.backgroundColor.assistive,
-        icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
-        text = "버튼",
-        textColor = FarmemeTheme.textColor.primary,
-    )
+    Column {
+        FarmemeWeakButton(
+            backgroundColor = FarmemeTheme.backgroundColor.assistive,
+            icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
+            text = "버튼",
+            textColor = FarmemeTheme.textColor.primary,
+        )
+        FarmemeWeakButton(
+            backgroundColor = FarmemeTheme.backgroundColor.assistive,
+            icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
+            text = "버튼",
+            textColor = FarmemeTheme.textColor.primary,
+            withStar = true,
+        )
+    }
 }
 
 @Composable
