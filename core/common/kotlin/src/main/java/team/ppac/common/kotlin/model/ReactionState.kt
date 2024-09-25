@@ -28,7 +28,6 @@ class ReactionState {
 
     fun startUpdate() {
         _isUpdating.compareAndSet(false, true)
-            .also { print("isRelease Setting = ${_isUpdating.get()}") }
     }
 
     fun endUpdate() {

@@ -177,19 +177,19 @@ class DetailViewModel @Inject constructor(
     private suspend fun updateReactionCountWithDelay() {
         delay(1000)
         reactionState.startUpdate()
-        updateReactionCount(reactionState.reactionCount) // Todo(hyejin.ju) API 연결 해야함
+        updateReactionCount(reactionState.reactionCount)
         reactionState.releaseState()
         reactionState.endUpdate()
     }
 
     private suspend fun updateReactionCount(reactionCount: Int) {
         runCatching {
-            reactMemeUseCase(currentState.memeId)
+            reactMemeUseCase(currentState.memeId, reactionCount)
         }.onFailure {
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
-                        reactionCount = detailMemeUiModel.reactionCount - 1,
+                        reactionCount = detailMemeUiModel.reactionCount - reactionCount,
                         isReaction = false
                     )
                 )

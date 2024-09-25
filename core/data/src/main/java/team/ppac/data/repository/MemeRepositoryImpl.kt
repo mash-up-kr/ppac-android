@@ -58,8 +58,8 @@ internal class MemeRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun reactMeme(memeId: String): Boolean {
-        return memeDataSource.reactMeme(memeId)
+    override suspend fun reactMeme(memeId: String, count: Int): Boolean {
+        return memeDataSource.reactMeme(memeId, count)
     }
 
     override suspend fun watchMeme(memeId: String, watchType: MemeWatchType): Boolean {

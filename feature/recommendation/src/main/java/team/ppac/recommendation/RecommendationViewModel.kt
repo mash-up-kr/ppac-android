@@ -175,19 +175,19 @@ class RecommendationViewModel @Inject constructor(
     private suspend fun updateReactionCountWithDelay(meme: Meme) {
         delay(1000)
         reactionState.startUpdate()
-        updateReactionCount(meme, reactionState.reactionCount) // Todo(hyejin.ju) API 연결 해야함
+        updateReactionCount(meme, reactionState.reactionCount)
         reactionState.releaseState()
         reactionState.endUpdate()
     }
 
     private suspend fun updateReactionCount(meme: Meme, reactionCount: Int) {
         runCatching {
-            reactMemeUseCase(meme.id)
+            reactMemeUseCase(meme.id, reactionCount)
         }.onFailure {
             reduce {
                 updateReaction(meme) {
                     it.copy(
-                        reactionCount = it.reactionCount - 1,
+                        reactionCount = it.reactionCount - reactionCount,
                         isReaction = false
                     )
                 }
