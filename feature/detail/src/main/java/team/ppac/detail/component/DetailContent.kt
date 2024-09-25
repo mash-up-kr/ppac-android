@@ -254,6 +254,7 @@ fun DetailFunnyButton(
             .background(color = FarmemeTheme.skeletonColor.primary)
             .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
+                isDebounceClick = false,
                 onClick = {
                     if (!isLoading) {
                         coroutineScope.launch {

@@ -56,6 +56,7 @@ internal fun ActionButtons(
                     val bound = it.boundsInWindow()
                     onReactionButtonPositioned(bound.topLeft)
                 },
+            isDebounceClick = false,
             backgroundColor = FarmemeTheme.backgroundColor.white,
             text = "",
             textColor = Color.Unspecified,

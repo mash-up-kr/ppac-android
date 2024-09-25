@@ -45,6 +45,7 @@ fun FarmemeCircleButton(
 @Composable
 fun FarmemeWeakButton(
     modifier: Modifier = Modifier,
+    isDebounceClick: Boolean = true,
     backgroundColor: Color,
     text: String,
     textColor: Color,
@@ -55,7 +56,7 @@ fun FarmemeWeakButton(
         modifier = modifier
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
-            .noRippleClickable(onClick = onClick)
+            .noRippleClickable(onClick = onClick, isDebounceClick = isDebounceClick)
             .padding(15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
