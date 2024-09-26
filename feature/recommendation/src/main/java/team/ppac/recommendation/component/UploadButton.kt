@@ -79,7 +79,7 @@ internal fun UploadButton(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                FarmemeIcon.UpLoad()
+                FarmemeIcon.Upload()
                 Spacer(Modifier.width(4.dp))
                 Text(
                     text = "나도 밈 올리기",

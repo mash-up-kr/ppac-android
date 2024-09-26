@@ -412,7 +412,7 @@ object FarmemeIcon {
     )
 
     @Composable
-    fun UpLoad(
+    fun Upload(
         modifier: Modifier = Modifier,
     )= Icon(
         modifier = modifier,
