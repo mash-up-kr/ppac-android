@@ -1,6 +1,7 @@
 package team.ppac.designsystem.component.textfield
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,11 +33,12 @@ fun FarmemeTextField(
     modifier: Modifier = Modifier,
     text: String,
     placeholder: String = "",
-    trailingContent: @Composable () -> Unit = {},
-    onTextChanged: (String) -> Unit,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    onTextChanged: (String) -> Unit,
+    trailingContent: @Composable () -> Unit = {},
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     BasicTextField(
         modifier = modifier,
@@ -46,6 +48,7 @@ fun FarmemeTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = true,
+        interactionSource = interactionSource,
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
@@ -85,13 +88,14 @@ fun FarmemeTextArea(
     modifier: Modifier = Modifier,
     text: String,
     placeholder: String = "",
-    trailingContent: @Composable () -> Unit = {},
-    onTextChanged: (String) -> Unit = {},
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
+    onTextChanged: (String) -> Unit = {},
+    trailingContent: @Composable () -> Unit = {},
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
     BasicTextField(
         modifier = modifier,
@@ -102,6 +106,7 @@ fun FarmemeTextArea(
         keyboardActions = keyboardActions,
         singleLine = singleLine,
         maxLines = maxLines,
+        interactionSource = interactionSource,
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
