@@ -14,7 +14,7 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeIcon
 
 @Composable
-fun RegisterListHeader(
+internal fun RegisterListHeader(
     modifier: Modifier = Modifier,
     title: String,
 ) {
