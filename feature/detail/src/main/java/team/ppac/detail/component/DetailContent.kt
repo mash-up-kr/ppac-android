@@ -194,6 +194,7 @@ internal fun DetailHashTags(
     onHashTagsClick: () -> Unit,
     currentDetailScreenSize: DetailScreenSize
 ) {
+    val textColor =  if (currentDetailScreenSize == DetailScreenSize.SMALL) FarmemeTheme.textColor.inverse else FarmemeTheme.textColor.primary
     Text(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(
             isLoading = isLoading,
@@ -201,7 +202,7 @@ internal fun DetailHashTags(
             shape = FarmemeRadius.Radius4.shape,
         ),
         text = name.truncateDisplayedString(16),
-        color = if (currentDetailScreenSize == DetailScreenSize.SMALL) FarmemeTheme.textColor.inverse else FarmemeTheme.textColor.primary,
+        color = textColor,
         style = FarmemeTheme.typography.heading.large.semibold,
         overflow = TextOverflow.Ellipsis
     )
@@ -336,7 +337,7 @@ private fun DetailFunnyButton(
 
 @Composable
 @Preview(showBackground = true)
-fun PreviewDetailContent() {
+private fun PreviewDetailContent() {
     DetailContent(
         modifier = Modifier,
         uiModel = DetailUiState.PREVIEW_STATE.detailMemeUiModel,

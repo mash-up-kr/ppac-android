@@ -147,7 +147,7 @@ internal fun DetailScreen(
 
 @Preview
 @Composable
-fun PreviewDetailScreen() {
+private fun PreviewDetailScreen() {
     DetailScreen(
         uiState = PREVIEW_STATE,
         onClickFunnyButton = {},
