@@ -15,7 +15,50 @@ data class RegisterUiState(
         val INITIAL_STATE = RegisterUiState(
             isLoading = false,
             isError = false,
-            registerCategories = persistentListOf(),
+            registerCategories = persistentListOf(
+                RegisterCategoryUiModel(
+                    category = "감정",
+                    keywords = persistentListOf(
+                        "행복",
+                        "슬픈",
+                        "분노",
+                        "웃긴",
+                        "피곤",
+                        "절망",
+                        "현타",
+                        "당황",
+                        "무념무상",
+                    ),
+                ),
+                RegisterCategoryUiModel(
+                    category = "상황",
+                    keywords = persistentListOf(
+                        "행복",
+                        "슬픈",
+                        "분노",
+                        "웃긴",
+                        "피곤",
+                        "절망",
+                        "현타",
+                        "당황",
+                        "무념무상",
+                    ),
+                ),
+                RegisterCategoryUiModel(
+                    category = "콘텐츠",
+                    keywords = persistentListOf(
+                        "행복",
+                        "슬픈",
+                        "분노",
+                        "웃긴",
+                        "피곤",
+                        "절망",
+                        "현타",
+                        "당황",
+                        "무념무상",
+                    ),
+                )
+            ),
         )
     }
 }
