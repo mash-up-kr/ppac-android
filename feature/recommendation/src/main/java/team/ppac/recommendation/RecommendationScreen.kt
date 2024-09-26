@@ -59,8 +59,7 @@ import team.ppac.domain.model.Meme
 import team.ppac.recommendation.component.ActionButtons
 import team.ppac.recommendation.component.HeroModulePager
 import team.ppac.recommendation.component.KeywordsRow
-import team.ppac.recommendation.component.SeenMemeProgressBar
-import team.ppac.recommendation.component.UpLoadButton
+import team.ppac.recommendation.component.UploadButton
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationState
 import kotlin.math.roundToInt
@@ -150,7 +149,7 @@ internal fun RecommendationScreen(
                                 )
                         )
                     } else {
-                        UpLoadButton(
+                        UploadButton(
                             onClick = {
 
                             }
