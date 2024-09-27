@@ -98,7 +98,7 @@ fun defaultChipColors() = ChipColors(
 
 @Composable
 @Preview
-fun FarmemeSmallChipPreview() {
+private fun FarmemeSmallChipPreview() {
     Column {
         FarmemeSmallChip(
             text = "Text",
@@ -113,7 +113,7 @@ fun FarmemeSmallChipPreview() {
 
 @Composable
 @Preview
-fun FarmemeMediumChipPreview() {
+private fun FarmemeMediumChipPreview() {
     Column {
         FarmemeMediumChip(
             text = "Text",

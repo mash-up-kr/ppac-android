@@ -105,7 +105,7 @@ fun FarmemeFilledButton(
 
 @Composable
 @Preview
-fun FarmemeCircleButtonPreview() {
+private fun FarmemeCircleButtonPreview() {
     FarmemeCircleButton(
         backgroundColor = FarmemeTheme.backgroundColor.assistive,
         icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
@@ -114,7 +114,7 @@ fun FarmemeCircleButtonPreview() {
 
 @Composable
 @Preview
-fun FarmemeWeakButtonPreview() {
+private fun FarmemeWeakButtonPreview() {
     Column {
         FarmemeWeakButton(
             backgroundColor = FarmemeTheme.backgroundColor.assistive,
@@ -134,7 +134,7 @@ fun FarmemeWeakButtonPreview() {
 
 @Composable
 @Preview
-fun FarmemeFilledButtonPreview() {
+private fun FarmemeFilledButtonPreview() {
     FarmemeFilledButton(
         backgroundColor = FarmemeTheme.backgroundColor.primary,
         text = "버튼",

@@ -76,7 +76,7 @@ internal fun RegisterImageArea(
 
 @Preview
 @Composable
-internal fun RegisterImageAreaPreview() {
+private fun RegisterImageAreaPreview() {
     Column {
         RegisterImageArea(
             hasImage = true,

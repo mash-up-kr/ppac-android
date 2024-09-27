@@ -116,7 +116,7 @@ private fun SavedMemeEmpty(
 
 @Preview
 @Composable
-internal fun SavedMemeContentPreview() {
+private fun SavedMemeContentPreview() {
     SavedMemeContent(
         savedMemes = flowOf(PagingData.empty<Meme>()).collectAsLazyPagingItems(),
         onMemeClick = {},

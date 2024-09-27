@@ -320,7 +320,7 @@ fun DetailFunnyButton(
 
 @Composable
 @Preview(showBackground = true)
-fun PreviewDetailContent() {
+private fun PreviewDetailContent() {
     DetailContent(
         modifier = Modifier,
         uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel,

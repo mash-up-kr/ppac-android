@@ -89,12 +89,12 @@ internal fun FarmemeToolbar(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewBackTitleToolbar() {
+private fun PreviewBackTitleToolbar() {
     FarmemeBackToolBar(title = "키워드") {}
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewActionToolbar() {
+private fun PreviewActionToolbar() {
     FarmemeActionToolBar {}
 }
