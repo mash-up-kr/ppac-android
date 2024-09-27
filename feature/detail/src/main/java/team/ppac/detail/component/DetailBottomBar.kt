@@ -150,7 +150,7 @@ internal fun RowScope.DetailBottomButton(
 
 @Composable
 @Preview(showBackground = true)
-fun PreviewDetailBottomBar() {
+private fun PreviewDetailBottomBar() {
     DetailBottomBar(
         memeId = "",
         isSaved = false,

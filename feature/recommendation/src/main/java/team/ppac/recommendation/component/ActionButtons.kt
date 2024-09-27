@@ -15,7 +15,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
@@ -56,9 +55,6 @@ internal fun ActionButtons(
                     val bound = it.boundsInWindow()
                     onReactionButtonPositioned(bound.topLeft)
                 },
-            backgroundColor = FarmemeTheme.backgroundColor.white,
-            text = "",
-            textColor = Color.Unspecified,
             icon = {
                 if (meme.reactionCount == 0) {
                     Row(

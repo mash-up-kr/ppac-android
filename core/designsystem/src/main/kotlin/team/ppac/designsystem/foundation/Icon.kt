@@ -412,6 +412,26 @@ object FarmemeIcon {
     )
 
     @Composable
+    fun Required(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_required),
+        contentDescription = null,
+        tint = Color.Unspecified
+    )
+
+    @Composable
+    fun Image(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(R.drawable.ic_image_24),
+        contentDescription = null,
+        tint = Color.Unspecified
+    )
+
+    @Composable
     fun Upload(
         modifier: Modifier = Modifier,
     )= Icon(
