@@ -21,4 +21,5 @@ sealed class MyPageIntent : UiIntent {
     data object InitView : MyPageIntent()
     data object RefreshData : MyPageIntent()
     data class ClickCopy(val meme: Meme) : MyPageIntent()
+    data class ClickMemesTab(val currentTab: MyPageTab) : MyPageIntent()
 }

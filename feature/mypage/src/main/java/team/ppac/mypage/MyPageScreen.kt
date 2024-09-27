@@ -43,6 +43,7 @@ import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.mypage.component.MyPageLevelBox
+import team.ppac.mypage.component.MyPageMemesTabBar
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
@@ -51,6 +52,7 @@ import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
+import team.ppac.mypage.mvi.MyPageTab
 import team.ppac.mypage.mvi.MyPageUiState
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -126,14 +128,36 @@ internal fun MyPageScreen(
                         },
                         isLoading = uiState.isLoading,
                     )
+                    MyPageMemesTabBar(
+                        currentTab = uiState.currentTab,
+                        onClick = { tab ->
+                            onIntent(MyPageIntent.ClickMemesTab(currentTab = tab))
+                        },
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(FarmemeTheme.borderColor.tertiary),
+                    )
                     if (!uiState.isLoading) {
-                        SavedMemeContent(
-                            savedMemes = savedMemes,
-                            onMemeClick = { memeId ->
-                                onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                            },
-                            onCopyClick = { onIntent(MyPageIntent.ClickCopy(it)) }
-                        )
+                        when (uiState.currentTab) {
+                            MyPageTab.MY_MEMES -> {
+                                // TODO(ze-zeh) : 나의 밈
+                            }
+
+                            MyPageTab.SAVED_MEMES -> {
+                                SavedMemeContent(
+                                    savedMemes = savedMemes,
+                                    onMemeClick = { memeId ->
+                                        onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                                    },
+                                    onCopyClick = {
+                                        onIntent(MyPageIntent.ClickCopy(it))
+                                    },
+                                )
+                            }
+                        }
                     }
                 }
                 MyPagePullRefreshIndicator(

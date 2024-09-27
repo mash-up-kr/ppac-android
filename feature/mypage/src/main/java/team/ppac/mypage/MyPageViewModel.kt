@@ -85,6 +85,13 @@ class MyPageViewModel @Inject constructor(
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
             is MyPageIntent.ClickCopy -> postSideEffect(MyPageSideEffect.LogClickCopy(intent.meme))
+            is MyPageIntent.ClickMemesTab -> {
+                reduce {
+                    copy(
+                        currentTab = intent.currentTab,
+                    )
+                }
+            }
         }
     }
 
