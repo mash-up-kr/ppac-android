@@ -59,7 +59,7 @@ import team.ppac.domain.model.Meme
 import team.ppac.recommendation.component.ActionButtons
 import team.ppac.recommendation.component.HeroModulePager
 import team.ppac.recommendation.component.KeywordsRow
-import team.ppac.recommendation.component.SeenMemeProgressBar
+import team.ppac.recommendation.component.UploadButton
 import team.ppac.recommendation.mvi.RecommendationIntent
 import team.ppac.recommendation.mvi.RecommendationState
 import kotlin.math.roundToInt
@@ -122,51 +122,40 @@ internal fun RecommendationScreen(
                         painterResource(id = R.drawable.logo_farmeme),
                         contentDescription = null,
                     )
-                    Spacer(modifier = Modifier.padding(top = 10.dp))
+                    Spacer(modifier = Modifier.padding(top = 12.dp))
                     Text(
-                        text = "이번 주 이 밈 어때!",
+                        text = "NEW! 따끈따끈한 밈",
                         style = FarmemeTheme.typography.heading.large.bold,
                         color = FarmemeTheme.textColor.primary,
                     )
-                    Spacer(modifier = Modifier.padding(top = 16.dp))
+                    Spacer(modifier = Modifier.padding(top = 4.dp))
+                    Text(
+                        text = "최근에 사람들이 올린 밈 구경하세요.",
+                        style = FarmemeTheme.typography.body.medium.medium,
+                        color = FarmemeTheme.textColor.secondary,
+                    )
+                    Spacer(modifier = Modifier.padding(top = 20.dp))
                     if (state.isLoading) {
-                        Spacer(modifier = Modifier.padding(top = 20.dp))
                         Box(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
+                                .clip(RoundedCornerShape(10.dp))
                                 .showSkeleton(
                                     isLoading = state.isLoading,
                                     viewType = SkeletonViewType.Home
                                 )
                                 .size(
-                                    width = 200.dp,
-                                    height = 16.dp,
+                                    width = 130.dp,
+                                    height = 36.dp,
                                 )
                         )
                     } else {
-                        SeenMemeProgressBar(
-                            seenMemeCount = state.seenMemeCount,
-                        )
-                        Spacer(modifier = Modifier.padding(top = 8.dp))
-                        Text(
-                            text = when {
-                                state.seenMemeCount == 5 -> {
-                                    "완밈! 다음 주 밈도 기대해 주세요"
-                                }
+                        UploadButton(
+                            onClick = {
 
-                                state.level >= 2 -> {
-                                    "추천 밈 둘러보세요!"
-                                }
-
-                                else -> {
-                                    "밈 보고 레벨 포인트 받아요!"
-                                }
-                            },
-                            style = FarmemeTheme.typography.body.medium.medium,
-                            color = FarmemeTheme.textColor.secondary,
+                            }
                         )
                     }
-                    Spacer(modifier = Modifier.padding(top = 32.dp))
+                    Spacer(modifier = Modifier.padding(top = 28.dp))
                     when {
                         state.thisWeekMemes.isNotEmpty() -> {
                             HeroModulePager(
@@ -175,7 +164,13 @@ internal fun RecommendationScreen(
                                 onMovePage = onScrollPager,
                                 onLoadMeme = onLoadMeme
                             )
-                            Spacer(modifier = Modifier.padding(top = 20.dp))
+                            Spacer(modifier = Modifier.padding(top = 16.dp))
+                            Text(
+                                text= state.thisWeekMemes[heroModulePagerState.currentPage].title,
+                                style = FarmemeTheme.typography.heading.small.medium,
+                                color = FarmemeTheme.textColor.primary,
+                            )
+                            Spacer(modifier = Modifier.padding(top = 4.dp))
                             KeywordsRow(
                                 modifier = Modifier
                                     .fillMaxWidth()
