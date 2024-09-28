@@ -17,6 +17,7 @@ data class MyPageUiState(
     val currentTabType: MyPageTabType = MyPageTabType.REGISTERED_MEMES,
     val recentMemes: ImmutableList<Meme> = persistentListOf(),
     val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
+    val registeredMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
 ) : UiState {
     companion object {
         val INITIAL_STATE

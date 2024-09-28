@@ -48,8 +48,8 @@ import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
-import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.component.RegisteredMemeContent
+import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
@@ -64,6 +64,7 @@ internal fun MyPageScreen(
     onIntent: (MyPageIntent) -> Unit,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
+    val registeredMemes = uiState.registeredMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
         refreshing = uiState.isRefreshing,
         onRefresh = {
@@ -146,7 +147,7 @@ internal fun MyPageScreen(
                         when (uiState.currentTabType) {
                             MyPageTabType.REGISTERED_MEMES -> {
                                 RegisteredMemeContent(
-                                    registeredMemes = savedMemes, // TODO(ze-zeh) : API 연결 필요
+                                    registeredMemes = registeredMemes,
                                     onMemeClick = { memeId ->
                                         onIntent(MyPageIntent.ClickRegisteredMemeItem(memeId = memeId))
                                     },
