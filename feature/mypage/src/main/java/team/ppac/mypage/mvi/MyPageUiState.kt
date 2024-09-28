@@ -14,7 +14,7 @@ data class MyPageUiState(
     val isRefreshing: Boolean = false,
     val isError: Boolean = false,
     val levelUiModel: LevelUiModel = LevelUiModel(),
-    val currentTabType: MyPageTabType = MyPageTabType.MY_MEMES,
+    val currentTabType: MyPageTabType = MyPageTabType.UPLOADED_MEMES,
     val recentMemes: ImmutableList<Meme> = persistentListOf(),
     val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
 ) : UiState {
@@ -25,7 +25,7 @@ data class MyPageUiState(
 }
 
 enum class MyPageTabType(val title: String) {
-    MY_MEMES(title = "나의 밈"),
+    UPLOADED_MEMES(title = "나의 밈"),
     SAVED_MEMES(title = "나의 파밈함"),
     ;
 }

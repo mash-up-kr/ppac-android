@@ -42,7 +42,7 @@ import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.repository.SavedMemeEvent
-import team.ppac.mypage.component.MyMemeContent
+import team.ppac.mypage.component.UploadedMemeContent
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageMemesTabBar
 import team.ppac.mypage.component.MyPageProgressBar
@@ -144,9 +144,9 @@ internal fun MyPageScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     if (!uiState.isLoading) {
                         when (uiState.currentTabType) {
-                            MyPageTabType.MY_MEMES -> {
-                                MyMemeContent(
-                                    myMemes = savedMemes, // TODO(ze-zeh) : API 연결
+                            MyPageTabType.UPLOADED_MEMES -> {
+                                UploadedMemeContent(
+                                    uploadedMemes = savedMemes, // TODO(ze-zeh) : API 연결 필요
                                     onMemeClick = { memeId ->
                                         onIntent(MyPageIntent.ClickUploadedMemeItem(memeId = memeId))
                                     },
@@ -154,7 +154,7 @@ internal fun MyPageScreen(
                                         onIntent(MyPageIntent.ClickCopy(it))
                                     },
                                     onUploadClick = {
-                                        // TODO(ze-zeh) : Register 이동 Intent 추가
+                                        // TODO(ze-zeh) : Register 이동 Intent 추가 필요
                                     },
                                 )
                             }

@@ -23,7 +23,7 @@ fun EmptyMemeContent(
     onUploadClick: () -> Unit = {},
 ) {
     val (title, content) = when (tabType) {
-        MyPageTabType.MY_MEMES -> "올린 밈이 없어요" to "공유하고 싶은 밈이 있다면\n업로드해보세요."
+        MyPageTabType.UPLOADED_MEMES -> "올린 밈이 없어요" to "공유하고 싶은 밈이 있다면\n업로드해보세요."
         MyPageTabType.SAVED_MEMES -> "저장한 밈이 없어요" to "관심있는 밈을 저장하고\n필요할 때 편하게 사용해보세요."
     }
 
@@ -49,7 +49,7 @@ fun EmptyMemeContent(
                 color = FarmemeTheme.textColor.tertiary
             ),
         )
-        if (tabType == MyPageTabType.MY_MEMES) {
+        if (tabType == MyPageTabType.UPLOADED_MEMES) {
             Spacer(modifier = Modifier.size(20.dp))
             FarmemeFilledButton(
                 text = "밈 올리기",
@@ -63,5 +63,5 @@ fun EmptyMemeContent(
 @Preview(showBackground = true)
 @Composable
 private fun EmptyMemeContentPreview() {
-    EmptyMemeContent(tabType = MyPageTabType.MY_MEMES)
+    EmptyMemeContent(tabType = MyPageTabType.UPLOADED_MEMES)
 }
