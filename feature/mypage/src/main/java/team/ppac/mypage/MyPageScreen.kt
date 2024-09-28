@@ -49,7 +49,7 @@ import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
-import team.ppac.mypage.component.UploadedMemeContent
+import team.ppac.mypage.component.RegisteredMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
@@ -144,17 +144,17 @@ internal fun MyPageScreen(
                     Spacer(modifier = Modifier.height(20.dp))
                     if (!uiState.isLoading) {
                         when (uiState.currentTabType) {
-                            MyPageTabType.UPLOADED_MEMES -> {
-                                UploadedMemeContent(
-                                    uploadedMemes = savedMemes, // TODO(ze-zeh) : API 연결 필요
+                            MyPageTabType.REGISTERED_MEMES -> {
+                                RegisteredMemeContent(
+                                    registeredMemes = savedMemes, // TODO(ze-zeh) : API 연결 필요
                                     onMemeClick = { memeId ->
-                                        onIntent(MyPageIntent.ClickUploadedMemeItem(memeId = memeId))
+                                        onIntent(MyPageIntent.ClickRegisteredMemeItem(memeId = memeId))
                                     },
                                     onCopyClick = {
                                         onIntent(MyPageIntent.ClickCopy(it))
                                     },
-                                    onUploadClick = {
-                                        onIntent(MyPageIntent.ClickUpload)
+                                    onRegisterClick = {
+                                        onIntent(MyPageIntent.ClickRegister)
                                     },
                                 )
                             }

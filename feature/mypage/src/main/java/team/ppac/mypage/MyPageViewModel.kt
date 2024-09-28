@@ -72,12 +72,12 @@ class MyPageViewModel @Inject constructor(
                 memeId = intent.memeId
             )
 
-            is MyPageIntent.ClickUploadedMemeItem -> navigateToDetail(
+            is MyPageIntent.ClickRegisteredMemeItem -> navigateToDetail(
                 contentType = intent.contentType,
                 memeId = intent.memeId
             )
 
-            MyPageIntent.ClickUpload -> navigateToRegister()
+            MyPageIntent.ClickRegister -> navigateToRegister()
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             is MyPageIntent.ClickRetryButton -> {
                 initialAction()

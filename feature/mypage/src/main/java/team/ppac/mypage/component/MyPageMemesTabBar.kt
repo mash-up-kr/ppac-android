@@ -32,8 +32,8 @@ internal fun MyPageMemesTabBar(
     ) {
         MyPageMemesTab(
             modifier = Modifier.weight(1f),
-            currentTabType = MyPageTabType.UPLOADED_MEMES,
-            isSelected = currentTabType == MyPageTabType.UPLOADED_MEMES,
+            currentTabType = MyPageTabType.REGISTERED_MEMES,
+            isSelected = currentTabType == MyPageTabType.REGISTERED_MEMES,
             onClick = onClick,
         )
         Spacer(modifier = Modifier.width(8.dp))
@@ -85,7 +85,7 @@ private fun MyPageMemesTabBarPreview(
     modifier: Modifier = Modifier,
 ) {
     MyPageMemesTabBar(
-        currentTabType = MyPageTabType.UPLOADED_MEMES,
+        currentTabType = MyPageTabType.REGISTERED_MEMES,
         onClick = {},
     )
 }
@@ -97,7 +97,7 @@ private fun MyPageMemesTabPreview(
 ) {
     Column {
         MyPageMemesTab(
-            currentTabType = MyPageTabType.UPLOADED_MEMES,
+            currentTabType = MyPageTabType.REGISTERED_MEMES,
             isSelected = true,
             onClick = {},
         )
