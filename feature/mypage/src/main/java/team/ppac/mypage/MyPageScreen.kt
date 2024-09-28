@@ -42,7 +42,6 @@ import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.repository.SavedMemeEvent
-import team.ppac.mypage.component.UploadedMemeContent
 import team.ppac.mypage.component.MyPageLevelBox
 import team.ppac.mypage.component.MyPageMemesTabBar
 import team.ppac.mypage.component.MyPageProgressBar
@@ -50,6 +49,7 @@ import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
 import team.ppac.mypage.component.SavedMemeContent
+import team.ppac.mypage.component.UploadedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
@@ -154,7 +154,7 @@ internal fun MyPageScreen(
                                         onIntent(MyPageIntent.ClickCopy(it))
                                     },
                                     onUploadClick = {
-                                        // TODO(ze-zeh) : Register 이동 Intent 추가 필요
+                                        onIntent(MyPageIntent.ClickUpload)
                                     },
                                 )
                             }

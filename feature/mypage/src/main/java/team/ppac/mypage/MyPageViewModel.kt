@@ -77,6 +77,7 @@ class MyPageViewModel @Inject constructor(
                 memeId = intent.memeId
             )
 
+            MyPageIntent.ClickUpload -> navigateToRegister()
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             is MyPageIntent.ClickRetryButton -> {
                 initialAction()
@@ -111,6 +112,10 @@ class MyPageViewModel @Inject constructor(
 
     private fun navigateToSetting() {
         postSideEffect(MyPageSideEffect.NavigateToSetting)
+    }
+
+    private fun navigateToRegister() {
+        postSideEffect(MyPageSideEffect.NavigateToRegister)
     }
 
     private fun initialAction() {

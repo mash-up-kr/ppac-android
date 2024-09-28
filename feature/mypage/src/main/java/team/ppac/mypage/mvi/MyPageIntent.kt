@@ -23,6 +23,7 @@ sealed class MyPageIntent : UiIntent {
         val memeId: String
     ) : MyPageIntent()
 
+    data object ClickUpload : MyPageIntent()
     data object ClickRetryButton : MyPageIntent()
     data object InitView : MyPageIntent()
     data object RefreshData : MyPageIntent()
