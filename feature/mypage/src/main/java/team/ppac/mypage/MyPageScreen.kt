@@ -52,7 +52,7 @@ import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
-import team.ppac.mypage.mvi.MyPageTab
+import team.ppac.mypage.mvi.MyPageTabType
 import team.ppac.mypage.mvi.MyPageUiState
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -129,9 +129,9 @@ internal fun MyPageScreen(
                         isLoading = uiState.isLoading,
                     )
                     MyPageMemesTabBar(
-                        currentTab = uiState.currentTab,
+                        currentTabType = uiState.currentTabType,
                         onClick = { tab ->
-                            onIntent(MyPageIntent.ClickMemesTab(currentTab = tab))
+                            onIntent(MyPageIntent.ClickMemesTab(currentTabType = tab))
                         },
                     )
                     Spacer(
@@ -141,12 +141,12 @@ internal fun MyPageScreen(
                             .background(FarmemeTheme.borderColor.tertiary),
                     )
                     if (!uiState.isLoading) {
-                        when (uiState.currentTab) {
-                            MyPageTab.MY_MEMES -> {
+                        when (uiState.currentTabType) {
+                            MyPageTabType.MY_MEMES -> {
                                 // TODO(ze-zeh) : 나의 밈
                             }
 
-                            MyPageTab.SAVED_MEMES -> {
+                            MyPageTabType.SAVED_MEMES -> {
                                 SavedMemeContent(
                                     savedMemes = savedMemes,
                                     onMemeClick = { memeId ->

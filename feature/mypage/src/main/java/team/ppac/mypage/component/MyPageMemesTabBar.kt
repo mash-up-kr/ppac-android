@@ -17,13 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.util.extension.noRippleClickable
-import team.ppac.mypage.mvi.MyPageTab
+import team.ppac.mypage.mvi.MyPageTabType
 
 @Composable
 internal fun MyPageMemesTabBar(
     modifier: Modifier = Modifier,
-    currentTab: MyPageTab,
-    onClick: (MyPageTab) -> Unit,
+    currentTabType: MyPageTabType,
+    onClick: (MyPageTabType) -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -32,15 +32,15 @@ internal fun MyPageMemesTabBar(
     ) {
         MyPageMemesTab(
             modifier = Modifier.weight(1f),
-            currentTab = MyPageTab.MY_MEMES,
-            isSelected = currentTab == MyPageTab.MY_MEMES,
+            currentTabType = MyPageTabType.MY_MEMES,
+            isSelected = currentTabType == MyPageTabType.MY_MEMES,
             onClick = onClick,
         )
         Spacer(modifier = Modifier.width(8.dp))
         MyPageMemesTab(
             modifier = Modifier.weight(1f),
-            currentTab = MyPageTab.SAVED_MEMES,
-            isSelected = currentTab == MyPageTab.SAVED_MEMES,
+            currentTabType = MyPageTabType.SAVED_MEMES,
+            isSelected = currentTabType == MyPageTabType.SAVED_MEMES,
             onClick = onClick,
         )
     }
@@ -49,9 +49,9 @@ internal fun MyPageMemesTabBar(
 @Composable
 internal fun MyPageMemesTab(
     modifier: Modifier = Modifier,
-    currentTab: MyPageTab,
+    currentTabType: MyPageTabType,
     isSelected: Boolean,
-    onClick: (MyPageTab) -> Unit,
+    onClick: (MyPageTabType) -> Unit,
 ) {
     val textColor =
         if (isSelected) FarmemeTheme.textColor.primary else FarmemeTheme.textColor.tertiary
@@ -59,13 +59,13 @@ internal fun MyPageMemesTab(
 
     Column(
         modifier = modifier.noRippleClickable(onClick = {
-            onClick(currentTab)
+            onClick(currentTabType)
         }),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = currentTab.title,
+            text = currentTabType.title,
             color = textColor,
             style = FarmemeTheme.typography.body.xLarge.semibold,
         )
@@ -85,7 +85,7 @@ private fun MyPageMemesTabBarPreview(
     modifier: Modifier = Modifier,
 ) {
     MyPageMemesTabBar(
-        currentTab = MyPageTab.MY_MEMES,
+        currentTabType = MyPageTabType.MY_MEMES,
         onClick = {},
     )
 }
@@ -97,12 +97,12 @@ private fun MyPageMemesTabPreview(
 ) {
     Column {
         MyPageMemesTab(
-            currentTab = MyPageTab.MY_MEMES,
+            currentTabType = MyPageTabType.MY_MEMES,
             isSelected = true,
             onClick = {},
         )
         MyPageMemesTab(
-            currentTab = MyPageTab.SAVED_MEMES,
+            currentTabType = MyPageTabType.SAVED_MEMES,
             isSelected = false,
             onClick = {},
         )

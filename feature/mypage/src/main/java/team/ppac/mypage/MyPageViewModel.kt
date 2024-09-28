@@ -88,7 +88,7 @@ class MyPageViewModel @Inject constructor(
             is MyPageIntent.ClickMemesTab -> {
                 reduce {
                     copy(
-                        currentTab = intent.currentTab,
+                        currentTabType = intent.currentTabType,
                     )
                 }
             }
