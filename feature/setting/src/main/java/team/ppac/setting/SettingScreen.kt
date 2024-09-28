@@ -102,9 +102,7 @@ private fun SettingBody(
         if (hasNewAppVersion) {
             Spacer(modifier = Modifier.height(16.dp))
             FarmemeFilledButton(
-                backgroundColor = FarmemeTheme.backgroundColor.primary,
                 text = "앱 업데이트하기",
-                textColor = FarmemeTheme.textColor.inverse,
                 onClick = onAppUpdateClick,
             )
         }

@@ -79,9 +79,9 @@ fun FarmemeWeakButton(
 @Composable
 fun FarmemeFilledButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color,
+    backgroundColor: Color = FarmemeTheme.backgroundColor.primary,
     text: String,
-    textColor: Color,
+    textColor: Color = FarmemeTheme.textColor.inverse,
     onClick: () -> Unit = { },
 ) {
     Box(
@@ -136,8 +136,6 @@ private fun FarmemeWeakButtonPreview() {
 @Preview
 private fun FarmemeFilledButtonPreview() {
     FarmemeFilledButton(
-        backgroundColor = FarmemeTheme.backgroundColor.primary,
         text = "버튼",
-        textColor = FarmemeTheme.textColor.inverse,
     )
 }
