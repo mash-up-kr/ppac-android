@@ -64,4 +64,10 @@ internal interface MemeApi {
         @Part("source") source: RequestBody,
         @Part("keywordIds[]") keywordIds: ArrayList<RequestBody>,
     ): UploadMemeResponse
+
+    // Search
+    @GET("/api/meme/search")
+    suspend fun searchMeme(
+        @Query("q") query: String
+    ): SavedMemesResponse
 }
