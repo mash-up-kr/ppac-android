@@ -148,13 +148,13 @@ internal fun MyPageScreen(
                                 MyMemeContent(
                                     myMemes = savedMemes, // TODO(ze-zeh) : API 연결
                                     onMemeClick = { memeId ->
-                                        onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                                     },
+                                        onIntent(MyPageIntent.ClickUploadedMemeItem(memeId = memeId))
+                                    },
                                     onCopyClick = {
                                         onIntent(MyPageIntent.ClickCopy(it))
                                     },
                                     onUploadClick = {
-                                        // TODO(ze-zeh) : Intent 추가
+                                        // TODO(ze-zeh) : Register 이동 Intent 추가
                                     },
                                 )
                             }
