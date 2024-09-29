@@ -24,24 +24,26 @@ import team.ppac.domain.model.Meme
 import team.ppac.mypage.mvi.MyPageTabType
 
 @Composable
-internal fun SavedMemeContent(
+internal fun RegisteredMemeContent(
     modifier: Modifier = Modifier,
-    savedMemes: LazyPagingItems<Meme>,
+    registeredMemes: LazyPagingItems<Meme>,
     onMemeClick: (String) -> Unit,
     onCopyClick: (Meme) -> Unit,
+    onRegisterClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
     ) {
-        if (savedMemes.itemCount > 0) {
-            SavedMemeList(
-                savedMemes = savedMemes,
+        if (registeredMemes.itemCount > 0) {
+            RegisteredMemeList(
+                registeredMemes = registeredMemes,
                 onMemeItemClick = onMemeClick,
-                onCopyClick = onCopyClick,
+                onCopyClick = onCopyClick
             )
         } else {
             EmptyMemeContent(
-                tabType = MyPageTabType.SAVED_MEMES,
+                tabType = MyPageTabType.REGISTERED_MEMES,
+                onUploadClick = onRegisterClick,
             )
         }
         Spacer(modifier = Modifier.height(50.dp))
@@ -49,16 +51,16 @@ internal fun SavedMemeContent(
 }
 
 @Composable
-private fun SavedMemeList(
+private fun RegisteredMemeList(
     modifier: Modifier = Modifier,
-    savedMemes: LazyPagingItems<Meme>,
+    registeredMemes: LazyPagingItems<Meme>,
     onMemeItemClick: (String) -> Unit,
     onCopyClick: (Meme) -> Unit,
 ) {
     LazyVerticalStaggeredGrid(
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(max = (FARMEME_MEME_ITEM_MAX_HEIGHT * savedMemes.itemCount).dp)
+            .heightIn(max = (FARMEME_MEME_ITEM_MAX_HEIGHT * registeredMemes.itemCount).dp)
             .wrapContentHeight(),
         userScrollEnabled = false,
         columns = StaggeredGridCells.Fixed(2),
@@ -69,8 +71,8 @@ private fun SavedMemeList(
         ),
         verticalItemSpacing = 20.dp,
     ) {
-        items(count = savedMemes.itemCount) { index ->
-            val meme = savedMemes[index]
+        items(count = registeredMemes.itemCount) { index ->
+            val meme = registeredMemes[index]
 
             if (meme != null) {
                 FarmemeMemeItem(
@@ -80,7 +82,9 @@ private fun SavedMemeList(
                     lolCount = 0,
                     imageUrl = meme.imageUrl,
                     onMemeClick = onMemeItemClick,
-                    onCopyClick = { onCopyClick(meme) }
+                    onCopyClick = {
+                        onCopyClick(meme)
+                    },
                 )
             }
         }
@@ -89,10 +93,11 @@ private fun SavedMemeList(
 
 @Preview
 @Composable
-private fun SavedMemeContentPreview() {
-    SavedMemeContent(
-        savedMemes = flowOf(PagingData.empty<Meme>()).collectAsLazyPagingItems(),
+private fun RegisteredMemeContentPreview() {
+    RegisteredMemeContent(
+        registeredMemes = flowOf(PagingData.empty<Meme>()).collectAsLazyPagingItems(),
         onMemeClick = {},
         onCopyClick = {},
+        onRegisterClick = {},
     )
 }

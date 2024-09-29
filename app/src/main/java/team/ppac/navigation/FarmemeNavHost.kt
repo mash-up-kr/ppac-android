@@ -52,6 +52,7 @@ fun FarmemeNavHost(
             analyticsHelper = analyticsHelper,
             navigateToDetail = navigateToDetail,
             navigateToSetting = navigateToSetting,
+            navigateToRegister = navigateToRegister,
         )
     }
 }

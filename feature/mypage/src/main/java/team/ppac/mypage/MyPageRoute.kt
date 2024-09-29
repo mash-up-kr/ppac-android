@@ -24,7 +24,6 @@ import team.ppac.common.android.util.ComposableLifecycle
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.mypage.mvi.MyPageIntent
 import team.ppac.mypage.mvi.MyPageSideEffect
-import timber.log.Timber
 
 @Composable
 internal fun MyPageRoute(
@@ -32,6 +31,7 @@ internal fun MyPageRoute(
     viewModel: MyPageViewModel = hiltViewModel(),
     navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
+    navigateToRegister: () -> Unit,
 ) {
     var lastPage by remember { mutableIntStateOf(0) }
 
@@ -84,6 +84,15 @@ internal fun MyPageRoute(
                         )
 
                         navigateToSetting()
+                    }
+
+                    MyPageSideEffect.NavigateToRegister -> {
+                        analyticsHelper.reportAction(
+                            action = MyPageAction.CLICK_REGISTER,
+                            screen = ScreenType.MY_PAGE
+                        )
+
+                        navigateToRegister()
                     }
 
                     is MyPageSideEffect.ShowLevelUpSnackBar -> {

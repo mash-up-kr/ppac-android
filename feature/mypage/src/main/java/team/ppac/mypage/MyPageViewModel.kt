@@ -72,6 +72,12 @@ class MyPageViewModel @Inject constructor(
                 memeId = intent.memeId
             )
 
+            is MyPageIntent.ClickRegisteredMemeItem -> navigateToDetail(
+                contentType = intent.contentType,
+                memeId = intent.memeId
+            )
+
+            MyPageIntent.ClickRegister -> navigateToRegister()
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             is MyPageIntent.ClickRetryButton -> {
                 initialAction()
@@ -85,6 +91,13 @@ class MyPageViewModel @Inject constructor(
             MyPageIntent.InitView -> initialAction()
             MyPageIntent.RefreshData -> refreshAction()
             is MyPageIntent.ClickCopy -> postSideEffect(MyPageSideEffect.LogClickCopy(intent.meme))
+            is MyPageIntent.ClickMemesTab -> {
+                reduce {
+                    copy(
+                        currentTabType = intent.currentTabType,
+                    )
+                }
+            }
         }
     }
 
@@ -99,6 +112,10 @@ class MyPageViewModel @Inject constructor(
 
     private fun navigateToSetting() {
         postSideEffect(MyPageSideEffect.NavigateToSetting)
+    }
+
+    private fun navigateToRegister() {
+        postSideEffect(MyPageSideEffect.NavigateToRegister)
     }
 
     private fun initialAction() {

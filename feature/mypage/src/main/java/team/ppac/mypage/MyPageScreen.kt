@@ -43,14 +43,17 @@ import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.mypage.component.MyPageLevelBox
+import team.ppac.mypage.component.MyPageMemesTabBar
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
+import team.ppac.mypage.component.RegisteredMemeContent
 import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
+import team.ppac.mypage.mvi.MyPageTabType
 import team.ppac.mypage.mvi.MyPageUiState
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -61,6 +64,7 @@ internal fun MyPageScreen(
     onIntent: (MyPageIntent) -> Unit,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
+    val registeredMemes = uiState.registeredMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
         refreshing = uiState.isRefreshing,
         onRefresh = {
@@ -126,14 +130,48 @@ internal fun MyPageScreen(
                         },
                         isLoading = uiState.isLoading,
                     )
+                    MyPageMemesTabBar(
+                        currentTabType = uiState.currentTabType,
+                        onClick = { tab ->
+                            onIntent(MyPageIntent.ClickMemesTab(currentTabType = tab))
+                        },
+                    )
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(FarmemeTheme.borderColor.tertiary),
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
                     if (!uiState.isLoading) {
-                        SavedMemeContent(
-                            savedMemes = savedMemes,
-                            onMemeClick = { memeId ->
-                                onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
-                            },
-                            onCopyClick = { onIntent(MyPageIntent.ClickCopy(it)) }
-                        )
+                        when (uiState.currentTabType) {
+                            MyPageTabType.REGISTERED_MEMES -> {
+                                RegisteredMemeContent(
+                                    registeredMemes = registeredMemes,
+                                    onMemeClick = { memeId ->
+                                        onIntent(MyPageIntent.ClickRegisteredMemeItem(memeId = memeId))
+                                    },
+                                    onCopyClick = {
+                                        onIntent(MyPageIntent.ClickCopy(it))
+                                    },
+                                    onRegisterClick = {
+                                        onIntent(MyPageIntent.ClickRegister)
+                                    },
+                                )
+                            }
+
+                            MyPageTabType.SAVED_MEMES -> {
+                                SavedMemeContent(
+                                    savedMemes = savedMemes,
+                                    onMemeClick = { memeId ->
+                                        onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                                    },
+                                    onCopyClick = {
+                                        onIntent(MyPageIntent.ClickCopy(it))
+                                    },
+                                )
+                            }
+                        }
                     }
                 }
                 MyPagePullRefreshIndicator(

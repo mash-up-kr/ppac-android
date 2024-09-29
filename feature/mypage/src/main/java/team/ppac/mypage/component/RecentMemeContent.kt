@@ -61,7 +61,7 @@ internal fun RecentMemeContent(
             } else {
                 RecentMemeEmpty()
             }
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(46.dp))
         }
     }
 }

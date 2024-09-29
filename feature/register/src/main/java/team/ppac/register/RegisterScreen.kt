@@ -53,6 +53,7 @@ internal fun RegisterScreen(
         }
     ) {
         LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
