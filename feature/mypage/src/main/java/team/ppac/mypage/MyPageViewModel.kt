@@ -80,12 +80,9 @@ class MyPageViewModel @Inject constructor(
             MyPageIntent.ClickRegister -> navigateToRegister()
             MyPageIntent.ClickSettingButton -> navigateToSetting()
             is MyPageIntent.ClickRetryButton -> {
+                reduce { copy(isLoading = true) }
                 initialAction()
-                reduce {
-                    copy(
-                        isError = false,
-                    )
-                }
+                reduce { copy(isError = false) }
             }
 
             MyPageIntent.InitView -> initialAction()
