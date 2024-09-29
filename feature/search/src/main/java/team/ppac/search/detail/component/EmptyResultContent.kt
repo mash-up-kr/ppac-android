@@ -1,5 +1,6 @@
 package team.ppac.search.detail.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,10 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
-import team.ppac.designsystem.foundation.FarmemeIcon
 
 @Composable
 fun EmptyResultContent(
@@ -28,7 +29,11 @@ fun EmptyResultContent(
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            FarmemeIcon.EmptyResult()
+            Image(
+                modifier = Modifier.size(80.dp),
+                painter = painterResource(id = team.ppac.designsystem.R.drawable.img_empty),
+                contentDescription = null,
+            )
             Spacer(modifier = Modifier.size(20.dp))
             Text(
                 text = "밈이 없어요",
