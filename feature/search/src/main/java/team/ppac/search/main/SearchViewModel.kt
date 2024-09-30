@@ -50,7 +50,8 @@ class SearchViewModel @Inject constructor(
             }
 
             is SearchIntent.ClickSearch -> {
-                showServiceOpenDialog(true)
+//                showServiceOpenDialog(true)
+                postSideEffect(SearchSideEffect.NavigateToSearchResult)
             }
 
             is SearchIntent.ClickKeywordCard -> {
