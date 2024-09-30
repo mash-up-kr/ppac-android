@@ -52,6 +52,10 @@ internal class MemeDataSourceImpl @Inject constructor(
         return memeApi.watchMeme(memeId, type)
     }
 
+    override suspend fun shareMeme(memeId: String): Boolean {
+        return memeApi.shareMeme(memeId)
+    }
+
     override suspend fun uploadMeme(
         keywordIds: List<String>,
         memeImageUri: String,

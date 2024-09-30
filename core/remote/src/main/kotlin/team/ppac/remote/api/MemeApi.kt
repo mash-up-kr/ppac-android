@@ -45,6 +45,11 @@ internal interface MemeApi {
         @Path("type") type: String,
     ): Boolean
 
+    @POST("/api/meme/{memeId}/share")
+    suspend fun shareMeme(
+        @Path("memeId") memeId: String,
+    ): Boolean
+
     @Multipart
     @POST("/api/meme")
     suspend fun postMeme(
