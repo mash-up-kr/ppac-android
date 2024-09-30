@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -36,6 +37,7 @@ import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.R
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
+import team.ppac.detail.util.DetailScreenSize
 import kotlin.math.roundToInt
 
 @Composable
@@ -46,7 +48,10 @@ internal fun DetailRoute(
     navigateToBack: () -> Unit,
 ) {
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
 
+    val currentDetailScreenSize =
+        DetailScreenSize.from(configuration.screenWidthDp.dp, configuration.screenHeightDp.dp)
     val lottieComposition by rememberLottieComposition(
         LottieCompositionSpec.RawRes(R.raw.lol_rising_effect)
     )
@@ -59,7 +64,6 @@ internal fun DetailRoute(
     val saveBitmap: (Bitmap) -> Unit = {
         bitmap = it
     }
-
     BaseComposable(viewModel = viewModel) { uiState ->
         ComposableLifecycle { _, event ->
             when (event) {
@@ -183,7 +187,8 @@ internal fun DetailRoute(
                     },
                     onClickButtonButtons = viewModel::intent,
                     saveBitmap = saveBitmap,
-                    onHashTagsClick = { viewModel.intent(DetailIntent.ClickHashtags) }
+                    onHashTagsClick = { viewModel.intent(DetailIntent.ClickHashtags) },
+                    currentDetailScreenSize = currentDetailScreenSize,
                 )
                 LottieAnimation(
                     modifier = Modifier

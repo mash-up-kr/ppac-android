@@ -14,11 +14,19 @@ data class MyPageUiState(
     val isRefreshing: Boolean = false,
     val isError: Boolean = false,
     val levelUiModel: LevelUiModel = LevelUiModel(),
+    val currentTabType: MyPageTabType = MyPageTabType.REGISTERED_MEMES,
     val recentMemes: ImmutableList<Meme> = persistentListOf(),
     val savedMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
+    val registeredMemes: Flow<PagingData<Meme>> = flowOf(PagingData.empty()),
 ) : UiState {
     companion object {
         val INITIAL_STATE
             get() = MyPageUiState()
     }
+}
+
+enum class MyPageTabType(val title: String) {
+    REGISTERED_MEMES(title = "나의 밈"),
+    SAVED_MEMES(title = "나의 파밈함"),
+    ;
 }

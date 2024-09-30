@@ -15,7 +15,9 @@ class RegisterActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             FarmemeTheme {
-                RegisterRoute()
+                RegisterRoute(
+                    navigateToBack = { finish() }
+                )
             }
         }
         noTransitionAnimation()

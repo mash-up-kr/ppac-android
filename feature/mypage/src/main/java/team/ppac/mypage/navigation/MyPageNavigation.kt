@@ -15,6 +15,7 @@ fun NavGraphBuilder.myPageScreen(
     analyticsHelper: AnalyticsHelper,
     navigateToDetail: (String) -> Unit,
     navigateToSetting: () -> Unit,
+    navigateToRegister: () -> Unit,
 ) {
     composable(
         route = MY_PAGE_ROUTE
@@ -23,6 +24,7 @@ fun NavGraphBuilder.myPageScreen(
             analyticsHelper = analyticsHelper,
             navigateToDetail = navigateToDetail,
             navigateToSetting = navigateToSetting,
+            navigateToRegister = navigateToRegister,
         )
     }
 }

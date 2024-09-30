@@ -45,10 +45,11 @@ fun FarmemeCircleButton(
 @Composable
 fun FarmemeWeakButton(
     modifier: Modifier = Modifier,
+    backgroundColor: Color = FarmemeTheme.backgroundColor.white,
+    text: String = "",
+    textColor: Color = FarmemeTheme.textColor.primary,
+    withStar: Boolean = false,
     isDebounceClick: Boolean = true,
-    backgroundColor: Color,
-    text: String,
-    textColor: Color,
     onClick: () -> Unit = { },
     icon: @Composable () -> Unit,
 ) {
@@ -68,15 +69,19 @@ fun FarmemeWeakButton(
             style = FarmemeTheme.typography.body.xLarge.semibold,
             color = textColor,
         )
+        if (withStar) {
+            Spacer(Modifier.width(4.dp))
+            FarmemeIcon.Required(modifier = Modifier.align(Alignment.Top))
+        }
     }
 }
 
 @Composable
 fun FarmemeFilledButton(
     modifier: Modifier = Modifier,
-    backgroundColor: Color,
+    backgroundColor: Color = FarmemeTheme.backgroundColor.primary,
     text: String,
-    textColor: Color,
+    textColor: Color = FarmemeTheme.textColor.inverse,
     onClick: () -> Unit = { },
 ) {
     Box(
@@ -100,7 +105,7 @@ fun FarmemeFilledButton(
 
 @Composable
 @Preview
-fun FarmemeCircleButtonPreview() {
+private fun FarmemeCircleButtonPreview() {
     FarmemeCircleButton(
         backgroundColor = FarmemeTheme.backgroundColor.assistive,
         icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
@@ -109,21 +114,28 @@ fun FarmemeCircleButtonPreview() {
 
 @Composable
 @Preview
-fun FarmemeWeakButtonPreview() {
-    FarmemeWeakButton(
-        backgroundColor = FarmemeTheme.backgroundColor.assistive,
-        icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
-        text = "버튼",
-        textColor = FarmemeTheme.textColor.primary,
-    )
+private fun FarmemeWeakButtonPreview() {
+    Column {
+        FarmemeWeakButton(
+            backgroundColor = FarmemeTheme.backgroundColor.assistive,
+            icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
+            text = "버튼",
+            textColor = FarmemeTheme.textColor.primary,
+        )
+        FarmemeWeakButton(
+            backgroundColor = FarmemeTheme.backgroundColor.assistive,
+            icon = { FarmemeIcon.Copy(Modifier.size(20.dp)) },
+            text = "버튼",
+            textColor = FarmemeTheme.textColor.primary,
+            withStar = true,
+        )
+    }
 }
 
 @Composable
 @Preview
-fun FarmemeFilledButtonPreview() {
+private fun FarmemeFilledButtonPreview() {
     FarmemeFilledButton(
-        backgroundColor = FarmemeTheme.backgroundColor.primary,
         text = "버튼",
-        textColor = FarmemeTheme.textColor.inverse,
     )
 }

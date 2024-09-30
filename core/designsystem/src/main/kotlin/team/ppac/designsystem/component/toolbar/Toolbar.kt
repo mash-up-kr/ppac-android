@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalLayoutApi::class)
-
 package team.ppac.designsystem.component.toolbar
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,14 +9,50 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.designsystem.FarmemeTheme
+import team.ppac.designsystem.component.textfield.FarmemeSearchTextField
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.util.extension.noRippleClickable
+
+@Composable
+fun FarmemeSearchToolbar(
+    modifier: Modifier = Modifier,
+    text: String,
+    onTextChanged: (String) -> Unit,
+    navigationIcon: (@Composable () -> Unit)? = null,
+) {
+    Row(
+        modifier = modifier
+            .padding(
+                horizontal = 20.dp,
+                vertical = 10.dp
+            )
+            .statusBarsPadding()
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier.size(20.dp)
+        ) {
+            navigationIcon?.invoke()
+        }
+        Spacer(modifier = Modifier.size(12.dp))
+        FarmemeSearchTextField(
+            modifier = Modifier.fillMaxWidth(),
+            text = text,
+            onTextChanged = onTextChanged
+        )
+    }
+}
 
 @Composable
 fun FarmemeActionToolBar(onClickActionIcon: () -> Unit) {
@@ -89,12 +122,25 @@ internal fun FarmemeToolbar(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewBackTitleToolbar() {
+private fun PreviewSearchToolbar() {
+    var text by remember { mutableStateOf("") }
+    FarmemeSearchToolbar(
+        text = text,
+        onTextChanged = { text = it },
+        navigationIcon = {
+            FarmemeIcon.Back()
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewBackTitleToolbar() {
     FarmemeBackToolBar(title = "키워드") {}
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewActionToolbar() {
+private fun PreviewActionToolbar() {
     FarmemeActionToolBar {}
 }

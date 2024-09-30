@@ -3,6 +3,7 @@ package team.ppac.mypage
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,8 +15,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
@@ -28,9 +31,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import team.ppac.common.android.component.FarmemeMemeItem
 import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.util.showSkeleton
 import team.ppac.common.android.util.visibility
@@ -41,16 +46,19 @@ import team.ppac.designsystem.component.scaffold.type.BackgroundColorType
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeActionToolBar
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.domain.model.Meme
 import team.ppac.domain.repository.SavedMemeEvent
+import team.ppac.mypage.component.EmptyMemeContent
 import team.ppac.mypage.component.MyPageLevelBox
+import team.ppac.mypage.component.MyPageMemesTabBar
 import team.ppac.mypage.component.MyPageProgressBar
 import team.ppac.mypage.component.MyPagePullRefreshIndicator
 import team.ppac.mypage.component.MyPageSpeechBubble
 import team.ppac.mypage.component.RecentMemeContent
-import team.ppac.mypage.component.SavedMemeContent
 import team.ppac.mypage.model.LevelUiModel
 import team.ppac.mypage.model.MyPageLevel
 import team.ppac.mypage.mvi.MyPageIntent
+import team.ppac.mypage.mvi.MyPageTabType
 import team.ppac.mypage.mvi.MyPageUiState
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -61,6 +69,7 @@ internal fun MyPageScreen(
     onIntent: (MyPageIntent) -> Unit,
 ) {
     val savedMemes = uiState.savedMemes.collectAsLazyPagingItems()
+    val registeredMemes = uiState.registeredMemes.collectAsLazyPagingItems()
     val pullRefreshState = rememberPullRefreshState(
         refreshing = uiState.isRefreshing,
         onRefresh = {
@@ -99,48 +108,132 @@ internal fun MyPageScreen(
                     },
                 )
             } else {
-                Column(
+                MyPageContent(
                     modifier = Modifier
                         .navigationBarsPadding()
-                        .padding(bottom = TabBarHeight)
-                        .verticalScroll(rememberScrollState()),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    MyPageBody(
-                        levelUiModel = uiState.levelUiModel,
-                        isLoading = uiState.isLoading,
-                        onSettingClick = {
-                            onIntent(MyPageIntent.ClickSettingButton)
-                        },
-                    )
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(10.dp)
-                            .background(FarmemeTheme.skeletonColor.primary),
-                    )
-                    RecentMemeContent(
-                        recentMemes = uiState.recentMemes,
-                        onMemeClick = { memeId ->
-                            onIntent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
-                        },
-                        isLoading = uiState.isLoading,
-                    )
-                    if (!uiState.isLoading) {
-                        SavedMemeContent(
-                            savedMemes = savedMemes,
+                        .padding(bottom = TabBarHeight),
+                    uiState = uiState,
+                    onIntent = onIntent,
+                    savedMemes = savedMemes,
+                    registeredMemes = registeredMemes,
+                )
+            }
+            MyPagePullRefreshIndicator(
+                isRefreshing = uiState.isRefreshing,
+                pullRefreshState = pullRefreshState,
+            )
+        }
+    }
+}
+
+@Composable
+private fun MyPageContent(
+    modifier: Modifier = Modifier,
+    uiState: MyPageUiState,
+    onIntent: (MyPageIntent) -> Unit,
+    savedMemes: LazyPagingItems<Meme>,
+    registeredMemes: LazyPagingItems<Meme>,
+) {
+    LazyVerticalStaggeredGrid(
+        modifier = modifier.wrapContentHeight(),
+        columns = StaggeredGridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(space = (-28).dp),
+    ) {
+        item(span = StaggeredGridItemSpan.FullLine) {
+            MyPageBody(
+                levelUiModel = uiState.levelUiModel,
+                isLoading = uiState.isLoading,
+                onSettingClick = {
+                    onIntent(MyPageIntent.ClickSettingButton)
+                },
+            )
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(10.dp)
+                    .background(FarmemeTheme.skeletonColor.primary),
+            )
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
+            RecentMemeContent(
+                recentMemes = uiState.recentMemes,
+                onMemeClick = { memeId ->
+                    onIntent(MyPageIntent.ClickRecentMemeItem(memeId = memeId))
+                },
+                isLoading = uiState.isLoading,
+            )
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
+            MyPageMemesTabBar(
+                currentTabType = uiState.currentTabType,
+                onClick = { tab ->
+                    onIntent(MyPageIntent.ClickMemesTab(currentTabType = tab))
+                },
+            )
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(FarmemeTheme.borderColor.tertiary),
+            )
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+        if (!uiState.isLoading) {
+            val memes = when (uiState.currentTabType) {
+                MyPageTabType.REGISTERED_MEMES -> registeredMemes
+                MyPageTabType.SAVED_MEMES -> savedMemes
+            }
+
+            if (memes.itemCount > 0) {
+                items(count = memes.itemCount) { index ->
+                    val meme = memes[index]
+
+                    if (meme != null) {
+                        FarmemeMemeItem(
+                            modifier = Modifier
+                                .padding(
+                                    start = 20.dp,
+                                    end = 20.dp,
+                                    bottom = 20.dp,
+                                ),
+                            memeId = meme.id,
+                            memeTitle = meme.title,
+                            lolCount = meme.reactionCount,
+                            imageUrl = meme.imageUrl,
                             onMemeClick = { memeId ->
-                                onIntent(MyPageIntent.ClickSavedMemeItem(memeId = memeId))
+                                onIntent(
+                                    when (uiState.currentTabType) {
+                                        MyPageTabType.REGISTERED_MEMES -> MyPageIntent.ClickRegisteredMemeItem(
+                                            memeId = memeId
+                                        )
+
+                                        MyPageTabType.SAVED_MEMES -> MyPageIntent.ClickSavedMemeItem(
+                                            memeId = memeId
+                                        )
+                                    }
+                                )
                             },
-                            onCopyClick = { onIntent(MyPageIntent.ClickCopy(it)) }
+                            onCopyClick = { onIntent(MyPageIntent.ClickCopy(meme)) },
                         )
                     }
                 }
-                MyPagePullRefreshIndicator(
-                    isRefreshing = uiState.isRefreshing,
-                    pullRefreshState = pullRefreshState,
-                )
+            } else {
+                item(span = StaggeredGridItemSpan.FullLine) {
+                    EmptyMemeContent(
+                        tabType = uiState.currentTabType,
+                        onUploadClick = { onIntent(MyPageIntent.ClickRegister) },
+                    )
+                }
             }
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
+            Spacer(modifier = Modifier.height(30.dp))
         }
     }
 }

@@ -38,10 +38,8 @@ fun FarmemeErrorScreen(
         )
         Spacer(modifier = Modifier.size(24.dp))
         FarmemeFilledButton(
-            backgroundColor = FarmemeTheme.backgroundColor.primary,
             text = "새로고침하기",
-            textColor = FarmemeTheme.textColor.inverse,
-            onClick = onRetryClick
+            onClick = onRetryClick,
         )
     }
 }

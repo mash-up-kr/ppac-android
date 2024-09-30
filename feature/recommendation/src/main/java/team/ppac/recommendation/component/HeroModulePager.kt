@@ -85,11 +85,11 @@ fun HeroModulePager(
                             BlurEffect(
                                 lerp(
                                     start = 1f,
-                                    stop = 270f / 10f, // 270 / 10
+                                    stop = 280f / 10f,
                                     fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
                                 ), lerp(
                                     start = 1f,
-                                    stop = 310f / 10f, // 310 / 10
+                                    stop = 280f / 10f,
                                     fraction = pageOffset.absoluteValue.coerceIn(0f, 1f),
                                 )
                             )
@@ -115,7 +115,7 @@ fun HeroModulePager(
                             this
                         }
                     }
-                    .height(310.dp))
+                    .height(280.dp))
             {
                 AsyncImage(
                     modifier = Modifier
