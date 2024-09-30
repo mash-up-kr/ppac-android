@@ -28,13 +28,12 @@ fun FarmemeSearchToolbar(
     modifier: Modifier = Modifier,
     text: String,
     onTextChanged: (String) -> Unit,
-    navigationIcon: (@Composable () -> Unit)? = null,
 ) {
     Row(
         modifier = modifier
             .padding(
                 horizontal = 20.dp,
-                vertical = 10.dp
+                vertical = 16.dp
             )
             .statusBarsPadding()
             .fillMaxWidth(),
@@ -43,7 +42,7 @@ fun FarmemeSearchToolbar(
         Box(
             modifier = Modifier.size(20.dp)
         ) {
-            navigationIcon?.invoke()
+            FarmemeIcon.Back(Modifier.size(20.dp))
         }
         Spacer(modifier = Modifier.size(12.dp))
         FarmemeSearchTextField(
@@ -127,9 +126,6 @@ private fun PreviewSearchToolbar() {
     FarmemeSearchToolbar(
         text = text,
         onTextChanged = { text = it },
-        navigationIcon = {
-            FarmemeIcon.Back()
-        }
     )
 }
 
