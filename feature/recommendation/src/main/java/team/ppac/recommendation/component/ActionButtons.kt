@@ -57,8 +57,6 @@ internal fun ActionButtons(
                 },
             isDebounceClick = false,
             backgroundColor = FarmemeTheme.backgroundColor.white,
-            text = "",
-            textColor = Color.Unspecified,
             icon = {
                 if (meme.reactionCount == 0) {
                     Row(
