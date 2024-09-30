@@ -19,12 +19,16 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +42,7 @@ import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.component.FarmemeMemeItem
 import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.util.showSkeleton
+import team.ppac.common.android.util.systemBarHeight
 import team.ppac.common.android.util.visibility
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
@@ -134,8 +139,16 @@ private fun MyPageContent(
     savedMemes: LazyPagingItems<Meme>,
     registeredMemes: LazyPagingItems<Meme>,
 ) {
+    val staggeredGridState = rememberLazyStaggeredGridState()
+    val showStickyHeader by remember {
+        derivedStateOf {
+            staggeredGridState.firstVisibleItemIndex > 3
+        }
+    }
+
     LazyVerticalStaggeredGrid(
         modifier = modifier.wrapContentHeight(),
+        state = staggeredGridState,
         columns = StaggeredGridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(space = (-28).dp),
     ) {
@@ -166,7 +179,11 @@ private fun MyPageContent(
             )
         }
         item(span = StaggeredGridItemSpan.FullLine) {
+            Spacer(modifier = Modifier.height(40.dp - systemBarHeight))
+        }
+        item(span = StaggeredGridItemSpan.FullLine) {
             MyPageMemesTabBar(
+                modifier = Modifier.padding(top = systemBarHeight),
                 currentTabType = uiState.currentTabType,
                 onClick = { tab ->
                     onIntent(MyPageIntent.ClickMemesTab(currentTabType = tab))
@@ -234,6 +251,20 @@ private fun MyPageContent(
         }
         item(span = StaggeredGridItemSpan.FullLine) {
             Spacer(modifier = Modifier.height(30.dp))
+        }
+    }
+    if (showStickyHeader) {
+        Box(
+            modifier = Modifier
+                .background(color = FarmemeTheme.backgroundColor.white)
+                .padding(top = systemBarHeight),
+        ) {
+            MyPageMemesTabBar(
+                currentTabType = uiState.currentTabType,
+                onClick = { tab ->
+                    onIntent(MyPageIntent.ClickMemesTab(currentTabType = tab))
+                },
+            )
         }
     }
 }
