@@ -18,6 +18,7 @@ import team.ppac.search.detail.navigation.navigateToSearchDetail
 import team.ppac.search.detail.navigation.searchDetailScreen
 import team.ppac.search.main.navigation.navigateToSearch
 import team.ppac.search.main.navigation.searchScreen
+import team.ppac.search.result.navigation.searchResultScreen
 
 @Composable
 fun FarmemeNavHost(
@@ -47,6 +48,9 @@ fun FarmemeNavHost(
             analyticsHelper = analyticsHelper,
             navigateBack = { navController.popBackStack() },
             navigateToMemeDetail = navigateToDetail
+        )
+        searchResultScreen(
+            navigateBack = { navController.popBackStack() },
         )
         myPageScreen(
             analyticsHelper = analyticsHelper,
