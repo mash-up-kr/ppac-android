@@ -74,7 +74,7 @@ internal fun SearchDetailScreen(
                     uiState.isLoading -> {
                         SearchDetailLoadingContent(
                             modifier = Modifier.fillMaxSize(),
-                            uiState = uiState
+                            isLoading = uiState.isLoading
                         )
                     }
 
