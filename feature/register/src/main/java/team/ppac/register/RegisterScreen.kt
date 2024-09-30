@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.toImmutableList
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
@@ -59,12 +61,16 @@ internal fun RegisterScreen(
                 modifier = Modifier.padding(bottom = 36.dp),
                 text = "등록하기",
                 enabled = true,
-                onClick = { },
+                onClick = {
+                    onIntent(RegisterIntent.ClickRegister)
+                },
             )
         }
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             item {
@@ -95,6 +101,10 @@ internal fun RegisterScreen(
             items(items = uiState.registerCategories) { registerCategory ->
                 RegisterCategoryContent(
                     uiModel = registerCategory,
+                    selectedKeywords = uiState.selectedKeywords.toImmutableList(),
+                    onKeywordClick = {
+                        onIntent(RegisterIntent.OnKeywordClick(it))
+                    }
                 )
             }
             item { Spacer(modifier = Modifier.height(120.dp)) }
