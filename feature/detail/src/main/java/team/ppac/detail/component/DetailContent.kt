@@ -5,7 +5,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +23,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -54,6 +56,8 @@ import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.designsystem.util.extension.rippleClickable
 import team.ppac.detail.model.DetailMemeUiModel
 import team.ppac.detail.mvi.DetailUiState
+import team.ppac.detail.util.DetailScreenSize
+import team.ppac.detail.util.toImageSize
 
 @Composable
 internal fun DetailContent(
@@ -64,52 +68,58 @@ internal fun DetailContent(
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
     onHashTagsClick: () -> Unit,
+    currentDetailScreenSize: DetailScreenSize
 ) {
-    Box(
-        modifier = modifier
-            .border(
-                width = 2.dp,
-                color = FarmemeTheme.borderColor.primary,
-                shape = FarmemeRadius.Radius20.shape,
-            )
-            .clip(FarmemeRadius.Radius20.shape)
-            .background(FarmemeTheme.backgroundColor.white),
-    ) {
-        Column(
-            modifier = Modifier.padding(10.dp),
-        ) {
-            DetailImage(
-                imageUrl = uiModel.imageUrl,
-                isLoading = isLoading,
-                saveBitmap = saveBitmap,
-            )
-            Column(
+    Box {
+        DetailImage(
+            imageUrl = uiModel.imageUrl,
+            isLoading = isLoading,
+            saveBitmap = saveBitmap,
+            currentDetailScreenSize = currentDetailScreenSize
+        )
+        if (currentDetailScreenSize == DetailScreenSize.SMALL) {
+            Box(
                 modifier = Modifier
-                    .padding(horizontal = 10.dp)
-                    .padding(top = 20.dp, bottom = 10.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                DetailHashTags(
-                    name = uiModel.name,
-                    sourceDescription = uiModel.sourceDescription,
-                    hashTags = uiModel.hashTags,
-                    isLoading = isLoading,
-                    onHashTagsClick = onHashTagsClick
-                )
-                DetailFunnyButton(
-                    modifier = Modifier.mapTextSkeletonModifierIfNeed(
-                        isLoading = isLoading,
-                        height = 46.dp,
-                        shape = FarmemeRadius.Radius10.shape,
-                    ),
-                    reactionCount = uiModel.reactionCount,
-                    isReaction = uiModel.isReaction,
-                    isLoading = isLoading,
-                    onClickFunnyButton = onClickFunnyButton,
-                    onReactionButtonPositioned = onReactionButtonPositioned,
-                )
-            }
+                    .matchParentSize()
+                    .graphicsLayer(alpha = 0.80f)
+                    .clip(FarmemeRadius.Radius10.shape)
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(Color.Transparent, FarmemeTheme.iconColor.secondary),
+                            startY = 320f,
+                            endY = 1000f
+                        )
+                    )
+            )
         }
+    }
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 10.dp)
+            .padding(top = 20.dp, bottom = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        DetailHashTags(
+            name = uiModel.name,
+            sourceDescription = uiModel.sourceDescription,
+            hashTags = uiModel.hashTags,
+            isLoading = isLoading,
+            onHashTagsClick = onHashTagsClick,
+            currentDetailScreenSize = currentDetailScreenSize,
+        )
+        DetailFunnyButton(
+            modifier = Modifier.mapTextSkeletonModifierIfNeed(
+                isLoading = isLoading,
+                height = 46.dp,
+                shape = FarmemeRadius.Radius10.shape,
+            ),
+            reactionCount = uiModel.reactionCount,
+            isReaction = uiModel.isReaction,
+            isLoading = isLoading,
+            onClickFunnyButton = onClickFunnyButton,
+            onReactionButtonPositioned = onReactionButtonPositioned,
+            currentDetailScreenSize = currentDetailScreenSize,
+        )
     }
 }
 
@@ -144,7 +154,9 @@ private fun DetailImage(
     imageUrl: String,
     isLoading: Boolean,
     saveBitmap: (Bitmap) -> Unit,
+    currentDetailScreenSize: DetailScreenSize,
 ) {
+    val (widthDp, heightDp) = currentDetailScreenSize.toImageSize()
     Box(
         modifier = Modifier.clip(FarmemeRadius.Radius10.shape)
     ) {
@@ -160,12 +172,12 @@ private fun DetailImage(
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .background(FarmemeTheme.backgroundColor.black)
-                .width(330.dp)
-                .height(352.dp)
+                .width(widthDp)
+                .height(heightDp)
                 .mapImageSkeletonModifierIfNeed(
                     isLoading = isLoading,
-                    width = 330.dp,
-                    height = 352.dp
+                    width = widthDp,
+                    height = heightDp,
                 ),
             onSuccess = { saveBitmap(it.result.drawable.toBitmap()) }
         )
@@ -180,7 +192,9 @@ internal fun DetailHashTags(
     hashTags: ImmutableList<String>,
     isLoading: Boolean,
     onHashTagsClick: () -> Unit,
+    currentDetailScreenSize: DetailScreenSize
 ) {
+    val textColor =  if (currentDetailScreenSize == DetailScreenSize.SMALL) FarmemeTheme.textColor.inverse else FarmemeTheme.textColor.primary
     Text(
         modifier = Modifier.mapTextSkeletonModifierIfNeed(
             isLoading = isLoading,
@@ -188,7 +202,7 @@ internal fun DetailHashTags(
             shape = FarmemeRadius.Radius4.shape,
         ),
         text = name.truncateDisplayedString(16),
-        color = FarmemeTheme.textColor.primary,
+        color = textColor,
         style = FarmemeTheme.typography.heading.large.semibold,
         overflow = TextOverflow.Ellipsis
     )
@@ -200,7 +214,8 @@ internal fun DetailHashTags(
             shape = FarmemeRadius.Radius4.shape,
         ),
         hashTags = hashTags.truncateDisplayedList(6),
-        onHashTagsClick = onHashTagsClick
+        onHashTagsClick = onHashTagsClick,
+        currentDetailScreenSize = currentDetailScreenSize
     )
     if (sourceDescription.isNotEmpty()) {
         Spacer(modifier = Modifier.height(11.dp))
@@ -225,23 +240,25 @@ internal fun DetailTags(
     modifier: Modifier,
     hashTags: List<String>,
     onHashTagsClick: () -> Unit,
+    currentDetailScreenSize: DetailScreenSize,
 ) {
     Text(
         modifier = modifier.noRippleClickable(onClick = onHashTagsClick),
         text = hashTags.joinToString(" ") { "#$it" },
-        color = FarmemeTheme.textColor.tertiary,
+        color = if (currentDetailScreenSize == DetailScreenSize.SMALL) FarmemeTheme.textColor.disabled else FarmemeTheme.textColor.tertiary,
         style = FarmemeTheme.typography.body.large.medium,
     )
 }
 
 @Composable
-fun DetailFunnyButton(
+private fun DetailFunnyButton(
     modifier: Modifier = Modifier,
     reactionCount: Int,
     isReaction: Boolean,
     isLoading: Boolean,
     onClickFunnyButton: () -> Unit,
     onReactionButtonPositioned: (Offset) -> Unit,
+    currentDetailScreenSize: DetailScreenSize,
 ) {
     val lottieComposition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lol_move_effect))
     val coroutineScope = rememberCoroutineScope()
@@ -251,7 +268,7 @@ fun DetailFunnyButton(
             .fillMaxWidth()
             .height(46.dp)
             .clip(FarmemeRadius.Radius10.shape)
-            .background(color = FarmemeTheme.skeletonColor.primary)
+            .background(color = if (currentDetailScreenSize == DetailScreenSize.SMALL) FarmemeTheme.backgroundColor.white else FarmemeTheme.skeletonColor.primary)
             .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
                 onClick = {
@@ -323,11 +340,12 @@ fun DetailFunnyButton(
 private fun PreviewDetailContent() {
     DetailContent(
         modifier = Modifier,
-        uiModel = DetailUiState.INITIAL_STATE.detailMemeUiModel,
+        uiModel = DetailUiState.PREVIEW_STATE.detailMemeUiModel,
         saveBitmap = {},
         onClickFunnyButton = {},
         onReactionButtonPositioned = { _ -> },
         isLoading = false,
-        onHashTagsClick = {}
+        onHashTagsClick = {},
+        currentDetailScreenSize = DetailScreenSize.MEDIUM
     )
 }
