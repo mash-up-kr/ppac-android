@@ -13,7 +13,8 @@ internal fun SearchResultRoute(
     BaseComposable(viewModel = viewModel) { uiState ->
         SearchResultScreen(
             modifier = modifier,
-            uiState = uiState
+            uiState = uiState,
+            onQueryChange = viewModel::updateSearchQuery
         )
     }
 }
