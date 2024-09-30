@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchResultViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
-): BaseViewModel<SearchResultUiState, SearchResultSideEffect, SearchResultIntent>(savedStateHandle){
+    savedStateHandle: SavedStateHandle,
+) : BaseViewModel<SearchResultUiState, SearchResultSideEffect, SearchResultIntent>(savedStateHandle) {
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): SearchResultUiState {
         return SearchResultUiState.INITIAL_STATE
@@ -23,5 +23,9 @@ class SearchResultViewModel @Inject constructor(
 
     override fun handleClientException(throwable: Throwable) {
         TODO("Not yet implemented")
+    }
+
+    fun updateSearchQuery(query: String) {
+        reduce { copy(query = query) }
     }
 }

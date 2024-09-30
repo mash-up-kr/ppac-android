@@ -4,11 +4,13 @@ import team.ppac.common.android.base.UiState
 
 data class SearchResultUiState(
     val isLoading: Boolean,
+    val query: String
 ) : UiState {
 
     companion object {
         val INITIAL_STATE = SearchResultUiState(
-            isLoading = true
+            isLoading = true,
+            query = ""
         )
     }
 }
