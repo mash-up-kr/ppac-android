@@ -33,6 +33,18 @@ class RegisterViewModel @Inject constructor(
                     copy(imageUri = intent.uri)
                 }
             }
+
+            is RegisterIntent.InputSource -> {
+                reduce {
+                    copy(source = intent.source)
+                }
+            }
+
+            is RegisterIntent.InputTitle -> {
+                reduce {
+                    copy(title = intent.title)
+                }
+            }
         }
     }
 }

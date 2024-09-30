@@ -10,6 +10,8 @@ data class RegisterUiState(
     val isError: Boolean,
     val registerCategories: ImmutableList<RegisterCategoryUiModel>,
     val imageUri: String,
+    val title: String,
+    val source: String,
 ) : UiState {
 
     companion object {
@@ -60,7 +62,9 @@ data class RegisterUiState(
                     ),
                 )
             ),
-            imageUri = ""
+            imageUri = "",
+            title = "",
+            source = "",
         )
     }
 }

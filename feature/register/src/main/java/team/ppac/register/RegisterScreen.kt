@@ -73,7 +73,15 @@ internal fun RegisterScreen(
                     imageUri = uiState.imageUri,
                 )
             }
-            item { RegisterInputArea() }
+            item {
+                RegisterInputArea(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    title = uiState.title,
+                    onTitleChanged = { onIntent(RegisterIntent.InputTitle(it)) },
+                    source = uiState.source,
+                    onSourceChanged = { onIntent(RegisterIntent.InputSource(it)) },
+                )
+            }
             item {
                 Divider(
                     modifier = Modifier.fillMaxWidth(),
@@ -81,7 +89,9 @@ internal fun RegisterScreen(
                     thickness = 10.dp,
                 )
             }
-            item { RegisterKeywordHeader() }
+            item {
+                RegisterKeywordHeader(modifier = Modifier.padding(horizontal = 20.dp))
+            }
             items(items = uiState.registerCategories) { registerCategory ->
                 RegisterCategoryContent(
                     uiModel = registerCategory,
