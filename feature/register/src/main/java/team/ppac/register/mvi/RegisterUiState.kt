@@ -8,7 +8,8 @@ import team.ppac.register.model.RegisterCategoryUiModel
 data class RegisterUiState(
     val isLoading: Boolean,
     val isError: Boolean,
-    val registerCategories: ImmutableList<RegisterCategoryUiModel>
+    val registerCategories: ImmutableList<RegisterCategoryUiModel>,
+    val imageUri: String,
 ) : UiState {
 
     companion object {
@@ -59,6 +60,7 @@ data class RegisterUiState(
                     ),
                 )
             ),
+            imageUri = ""
         )
     }
 }

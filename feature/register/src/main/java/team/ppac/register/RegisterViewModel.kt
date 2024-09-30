@@ -27,8 +27,12 @@ class RegisterViewModel @Inject constructor(
     }
 
     override suspend fun handleIntent(intent: RegisterIntent) {
-//        when (intent) {
-//
-//        }
+        when (intent) {
+            is RegisterIntent.SetImageFromGallery -> {
+                reduce {
+                    copy(imageUri = intent.uri)
+                }
+            }
+        }
     }
 }

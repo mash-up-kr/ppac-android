@@ -13,22 +13,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.button.FarmemeCircleButton
 import team.ppac.designsystem.component.button.FarmemeWeakButton
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
 internal fun RegisterImageArea(
     modifier: Modifier = Modifier,
-    hasImage: Boolean,
-    loadImage: () -> Unit = {},
+    imageUri: String,
+    loadImage: () -> Unit,
 ) {
     val borderColor =
-        if (hasImage) FarmemeTheme.borderColor.primary else FarmemeTheme.borderColor.tertiary
+        if (imageUri.isNotEmpty()) FarmemeTheme.borderColor.primary else FarmemeTheme.borderColor.tertiary
 
     Box(
         modifier = modifier
@@ -41,10 +46,11 @@ internal fun RegisterImageArea(
                 color = borderColor,
                 shape = FarmemeRadius.Radius20.shape,
             )
-            .background(FarmemeTheme.backgroundColor.assistive),
+            .background(FarmemeTheme.backgroundColor.assistive)
+            .noRippleClickable(onClick = loadImage),
         contentAlignment = Alignment.Center,
     ) {
-        if (!hasImage) {
+        if (imageUri.isEmpty()) {
             FarmemeWeakButton(
                 text = "이미지 등록",
                 withStar = true,
@@ -56,11 +62,19 @@ internal fun RegisterImageArea(
                 }
             )
         } else {
-            // AsyncImage
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(FarmemeTheme.backgroundColor.brandAssistive),
+            )
+            AsyncImage(
+                modifier = Modifier.matchParentSize(),
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(imageUri)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
             )
             FarmemeCircleButton(
                 modifier = Modifier
@@ -79,10 +93,12 @@ internal fun RegisterImageArea(
 private fun RegisterImageAreaPreview() {
     Column {
         RegisterImageArea(
-            hasImage = true,
+            loadImage = {},
+            imageUri = "",
         )
         RegisterImageArea(
-            hasImage = false,
+            loadImage = {},
+            imageUri = "asdf",
         )
     }
 }

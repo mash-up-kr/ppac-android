@@ -23,6 +23,12 @@ interface MemeRepository {
 
     suspend fun emitRefreshEvent()
     val savedMemeEventFlow: Flow<SavedMemeEvent>
+    suspend fun uploadMeme(
+        memeId: String,
+        memeImageUri: String,
+        memeTitle: String,
+        memeSource: String,
+    ): Boolean
 }
 
 sealed class SavedMemeEvent {

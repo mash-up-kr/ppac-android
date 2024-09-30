@@ -1,5 +1,8 @@
 package team.ppac.register
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,13 +25,21 @@ import team.ppac.register.component.RegisterCategoryContent
 import team.ppac.register.component.RegisterImageArea
 import team.ppac.register.component.RegisterInputArea
 import team.ppac.register.component.RegisterKeywordHeader
+import team.ppac.register.mvi.RegisterIntent
 import team.ppac.register.mvi.RegisterUiState
 
 @Composable
 internal fun RegisterScreen(
     uiState: RegisterUiState,
     navigateToBack: () -> Unit,
+    onIntent: (RegisterIntent) -> Unit,
 ) {
+    val imagePicker =
+        rememberLauncherForActivityResult(contract = ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                onIntent(RegisterIntent.SetImageFromGallery(uri.toString()))
+            }
+        }
     FarmemeScaffold(
         modifier = Modifier.navigationBarsPadding(),
         topBar = {
@@ -48,7 +59,7 @@ internal fun RegisterScreen(
                 modifier = Modifier.padding(bottom = 36.dp),
                 text = "등록하기",
                 enabled = true,
-                onClick = {},
+                onClick = { },
             )
         }
     ) {
@@ -58,7 +69,8 @@ internal fun RegisterScreen(
         ) {
             item {
                 RegisterImageArea(
-                    hasImage = false,
+                    loadImage = { imagePicker.launch(PickVisualMediaRequest(mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly)) },
+                    imageUri = uiState.imageUri,
                 )
             }
             item { RegisterInputArea() }
@@ -86,5 +98,6 @@ private fun RegisterScreenPreview() {
     RegisterScreen(
         uiState = RegisterUiState.INITIAL_STATE,
         navigateToBack = {},
+        onIntent = {},
     )
 }

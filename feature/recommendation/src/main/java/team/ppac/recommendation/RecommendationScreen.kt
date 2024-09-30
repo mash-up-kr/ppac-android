@@ -77,6 +77,7 @@ internal fun RecommendationScreen(
     onRetryClick: () -> Unit,
     onLoadMeme: (Int, Bitmap) -> Unit,
     onScrollPager: (Int, Meme) -> Unit,
+    onUpload: () -> Unit,
     onActionButtonsIntentClick: (RecommendationIntent.ClickButton) -> Unit,
 ) {
     val heroModulePagerState = rememberPagerState { state.thisWeekMemes.size }
@@ -151,7 +152,7 @@ internal fun RecommendationScreen(
                     } else {
                         UploadButton(
                             onClick = {
-
+                                onUpload()
                             }
                         )
                     }
