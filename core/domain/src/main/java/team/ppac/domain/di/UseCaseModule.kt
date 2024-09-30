@@ -39,6 +39,7 @@ import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCaseImpl
 import team.ppac.domain.usecase.SetLevelUseCase
 import team.ppac.domain.usecase.SetLevelUseCaseImpl
+import team.ppac.domain.usecase.ShareMemeUseCase
 import team.ppac.domain.usecase.UploadMemeUseCase
 import team.ppac.domain.usecase.UploadMemeUseCaseImpl
 import team.ppac.domain.usecase.WatchMemeUseCase
@@ -118,6 +119,10 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindEmitRefreshEventUseCase(impl: EmitRefreshEventUseCaseImpl): EmitRefreshEventUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindShareMemeUseCase(impl: SaveMemeUseCaseImpl): ShareMemeUseCase
 
     @Binds
     @ViewModelScoped
