@@ -204,7 +204,7 @@ private fun MyPageContent(
                                 ),
                             memeId = meme.id,
                             memeTitle = meme.title,
-                            lolCount = 0,
+                            lolCount = meme.reactionCount,
                             imageUrl = meme.imageUrl,
                             onMemeClick = { memeId ->
                                 onIntent(
