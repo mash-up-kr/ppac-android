@@ -21,12 +21,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.common.android.util.showSkeleton
 import team.ppac.designsystem.foundation.FarmemeRadius
-import team.ppac.search.detail.mvi.SearchDetailUiState
 
 @Composable
 internal fun SearchDetailLoadingContent(
     modifier: Modifier = Modifier,
-    uiState: SearchDetailUiState,
+    isLoading: Boolean,
 ) {
     Column(
         modifier = modifier
@@ -38,7 +37,7 @@ internal fun SearchDetailLoadingContent(
                 .height(18.dp)
                 .padding(start = 20.dp)
                 .clip(FarmemeRadius.Radius4.shape)
-                .showSkeleton(isLoading = uiState.isLoading)
+                .showSkeleton(isLoading = isLoading)
         )
         Spacer(modifier = Modifier.size(20.dp))
         Row(
@@ -56,7 +55,7 @@ internal fun SearchDetailLoadingContent(
                             .fillMaxWidth()
                             .height(210.dp)
                             .clip(RoundedCornerShape(16.dp))
-                            .showSkeleton(isLoading = uiState.isLoading)
+                            .showSkeleton(isLoading = isLoading)
                     )
                     Spacer(modifier = Modifier.size(10.dp))
                     Box(
@@ -64,7 +63,7 @@ internal fun SearchDetailLoadingContent(
                             .fillMaxWidth()
                             .height(18.dp)
                             .clip(FarmemeRadius.Radius4.shape)
-                            .showSkeleton(isLoading = uiState.isLoading)
+                            .showSkeleton(isLoading = isLoading)
                     )
                     Spacer(modifier = Modifier.size(10.dp))
                     Box(
@@ -72,7 +71,7 @@ internal fun SearchDetailLoadingContent(
                             .width(80.dp)
                             .height(18.dp)
                             .clip(FarmemeRadius.Radius4.shape)
-                            .showSkeleton(isLoading = uiState.isLoading)
+                            .showSkeleton(isLoading = isLoading)
                     )
                 }
             }
@@ -86,7 +85,7 @@ private fun SearchDetailLoadingContentPreview() {
     Box(modifier = Modifier.background(Color.White)) {
         SearchDetailLoadingContent(
             modifier = Modifier.fillMaxSize(),
-            uiState = SearchDetailUiState.INITIAL_STATE
+            isLoading = true
         )
     }
 }

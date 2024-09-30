@@ -14,7 +14,11 @@ internal fun SearchResultRoute(
         SearchResultScreen(
             modifier = modifier,
             uiState = uiState,
-            onQueryChange = viewModel::updateSearchQuery
+            onQueryChange = viewModel::updateSearchQuery,
+            handleLoadStates = viewModel::handleLoadErrorStates,
+            onRetryClick = {},
+            onMemeClick = {},
+            onCopyClick = { _, _ ->},
         )
     }
 }

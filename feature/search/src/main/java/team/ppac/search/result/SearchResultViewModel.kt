@@ -1,8 +1,11 @@
 package team.ppac.search.result
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.search.result.mvi.SearchResultIntent
 import team.ppac.search.result.mvi.SearchResultSideEffect
 import team.ppac.search.result.mvi.SearchResultUiState
@@ -27,5 +30,26 @@ class SearchResultViewModel @Inject constructor(
 
     fun updateSearchQuery(query: String) {
         reduce { copy(query = query) }
+    }
+
+    fun handleLoadErrorStates(loadStates: LoadStates) {
+        val errorLoadState = arrayOf(
+            loadStates.prepend,
+            loadStates.append,
+            loadStates.refresh
+        ).filterIsInstance(LoadState.Error::class.java).firstOrNull()
+
+        val exception = errorLoadState?.error
+        if (exception != null) {
+            when (exception) {
+                is FarmemeNetworkException -> {
+                    updateErrorState(isError = true)
+                }
+            }
+        }
+    }
+
+    private fun updateErrorState(isError: Boolean) {
+        reduce { copy(isError = isError) }
     }
 }
