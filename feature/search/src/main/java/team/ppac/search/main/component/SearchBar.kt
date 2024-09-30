@@ -49,7 +49,7 @@ internal fun FarmemeSearchBar(
             Spacer(modifier = Modifier.size(12.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "\uD83D\uDEA7 검색은 오픈 준비 중!",
+                text = "찾고 싶은 밈 있어?",
                 style = FarmemeTheme.typography.body.large.medium.copy(
                     color = FarmemeTheme.textColor.tertiary
                 )

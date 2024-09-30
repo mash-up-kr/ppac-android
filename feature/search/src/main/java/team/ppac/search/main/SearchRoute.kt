@@ -22,6 +22,7 @@ internal fun SearchRoute(
     analyticsHelper: AnalyticsHelper,
     viewModel: SearchViewModel = hiltViewModel(),
     navigateToSearchDetail: (String) -> Unit,
+    navigateToSearchResult: () -> Unit,
 ) {
     ComposableLifecycle { _, event ->
         when (event) {
@@ -38,6 +39,7 @@ internal fun SearchRoute(
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
                     is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.argument)
+                    is SearchSideEffect.NavigateToSearchResult -> navigateToSearchResult()
                 }
             }
         }
