@@ -8,6 +8,8 @@ sealed interface RecommendationSideEffect : UiSideEffect {
     data class CopyClipBoard(val selectedMemeIndex: Int) : RecommendationSideEffect
     data class ShareLink(val memeId: String) : RecommendationSideEffect
     data object LogHashTagsClicked : RecommendationSideEffect
+    data object NavigateToRegister : RecommendationSideEffect
+
     data class LogSaveMeme(val meme: Meme) : RecommendationSideEffect
     data class LogSaveMemeCancel(val meme: Meme) : RecommendationSideEffect
 }

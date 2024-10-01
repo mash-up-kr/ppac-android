@@ -139,6 +139,10 @@ class RecommendationViewModel @Inject constructor(
                     copy(isError = false)
                 }
             }
+
+            RecommendationIntent.ClickUpload -> {
+                postSideEffect(RecommendationSideEffect.NavigateToRegister)
+            }
         }
     }
 

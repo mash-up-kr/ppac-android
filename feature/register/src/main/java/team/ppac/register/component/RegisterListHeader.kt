@@ -19,9 +19,7 @@ internal fun RegisterListHeader(
     title: String,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier = modifier.fillMaxWidth(),
     ) {
         Text(
             text = title,

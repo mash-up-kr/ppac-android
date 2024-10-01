@@ -39,7 +39,8 @@ fun FarmemeNavHost(
         exitTransition = { ExitTransition.None },
     ) {
         recommendationScreen(
-            analyticsHelper = analyticsHelper
+            analyticsHelper = analyticsHelper,
+            navigateToRegister = navigateToRegister,
         )
         searchScreen(
             analyticsHelper = analyticsHelper,
