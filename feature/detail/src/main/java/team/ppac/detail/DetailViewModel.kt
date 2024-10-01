@@ -173,6 +173,7 @@ class DetailViewModel @Inject constructor(
 
     private suspend fun incrementShareCount() {
         shareMemeUseCase(currentState.memeId)
+        emitRefreshEventUseCase()
     }
 
     companion object {

@@ -17,6 +17,7 @@ import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
+import team.ppac.domain.usecase.ShareMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.recommendation.mvi.RecommendationIntent
@@ -33,6 +34,7 @@ class RecommendationViewModel @Inject constructor(
     private val saveMemeUseCase: SaveMemeUseCase,
     private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
     private val watchMemeUseCase: WatchMemeUseCase,
+    private val shareMemeUseCase: ShareMemeUseCase,
 ) : BaseViewModel<RecommendationState, RecommendationSideEffect, RecommendationIntent>(
     savedStateHandle
 ) {
@@ -85,6 +87,7 @@ class RecommendationViewModel @Inject constructor(
             }
 
             is RecommendationIntent.ClickButton.Share -> {
+                shareMemeUseCase(intent.meme.id)
                 postSideEffect(RecommendationSideEffect.ShareLink(intent.meme.id))
             }
 
