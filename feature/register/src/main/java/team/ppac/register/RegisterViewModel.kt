@@ -6,6 +6,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toImmutableSet
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
+import team.ppac.domain.usecase.UploadMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.register.model.RegisterCategoryUiModel
 import team.ppac.register.mvi.RegisterIntent
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getRecommendKeywordsUseCase: GetRecommendKeywordsUseCase,
+    private val uploadMemeUseCase: UploadMemeUseCase
 ) : BaseViewModel<RegisterUiState, RegisterSideEffect, RegisterIntent>(savedStateHandle) {
 
     init {
@@ -38,6 +40,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
+        println(">> $throwable")
         if (throwable is FarmemeNetworkException) {
             reduce {
                 copy(isError = true)
@@ -80,8 +83,12 @@ class RegisterViewModel @Inject constructor(
             }
 
             RegisterIntent.ClickRegister -> {
-
-
+                uploadMemeUseCase(
+                    keywordIds = currentState.selectedKeywords.map { it.id },
+                    memeTitle = currentState.title,
+                    memeSource = currentState.source,
+                    memeImageUri = currentState.imageUri
+                )
             }
         }
     }

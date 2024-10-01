@@ -18,4 +18,10 @@ interface MemeDataSource {
         memeId: String,
         type: String,
     ): Boolean
+    suspend fun uploadMeme(
+        keywordIds: List<String>,
+        memeImageUri: String,
+        memeTitle: String,
+        memeSource: String
+    ): Boolean
 }

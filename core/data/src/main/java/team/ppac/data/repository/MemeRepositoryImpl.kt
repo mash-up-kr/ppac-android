@@ -72,12 +72,17 @@ internal class MemeRepositoryImpl @Inject constructor(
         get() = _savedMemeEventFlow
 
     override suspend fun uploadMeme(
-        memeId: String,
+        keywordIds: List<String>,
         memeImageUri: String,
         memeTitle: String,
-        memeSource: String,
+        memeSource: String
     ): Boolean {
-        return false // TODO
+        return memeDataSource.uploadMeme(
+            keywordIds = keywordIds,
+            memeTitle = memeTitle,
+            memeImageUri = memeImageUri,
+            memeSource = memeSource
+        )
     }
 
     override suspend fun emitRefreshEvent() {

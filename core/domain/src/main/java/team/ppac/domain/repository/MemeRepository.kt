@@ -1,6 +1,5 @@
 package team.ppac.domain.repository
 
-import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
@@ -15,6 +14,7 @@ interface MemeRepository {
         keyword: String,
         getCurrentPage: (Int) -> Unit
     ): MemeWithPagination
+
     suspend fun reactMeme(memeId: String): Boolean
     suspend fun watchMeme(
         memeId: String,
@@ -24,10 +24,10 @@ interface MemeRepository {
     suspend fun emitRefreshEvent()
     val savedMemeEventFlow: Flow<SavedMemeEvent>
     suspend fun uploadMeme(
-        memeId: String,
+        keywordIds: List<String>,
         memeImageUri: String,
         memeTitle: String,
-        memeSource: String,
+        memeSource: String
     ): Boolean
 }
 
