@@ -3,7 +3,7 @@ package team.ppac.remote.datasource.impl
 import team.ppac.remote.api.MemeApi
 import team.ppac.remote.datasource.MemeDataSource
 import team.ppac.remote.model.response.meme.MemeResponse
-import team.ppac.remote.model.response.user.SavedMemesResponse
+import team.ppac.remote.model.response.user.MemesResponse
 import javax.inject.Inject
 
 internal class MemeDataSourceImpl @Inject constructor(
@@ -25,7 +25,7 @@ internal class MemeDataSourceImpl @Inject constructor(
         return memeApi.deleteSavedMeme(memeId)
     }
 
-    override suspend fun getSearchMemes(keyword: String, page: Int, size: Int): SavedMemesResponse {
+    override suspend fun getSearchMemes(keyword: String, page: Int, size: Int): MemesResponse {
         return memeApi.getSearchMemes(keyword, page, size)
     }
 
