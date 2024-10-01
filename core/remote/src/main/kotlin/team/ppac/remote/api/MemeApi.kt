@@ -68,6 +68,8 @@ internal interface MemeApi {
     // Search
     @GET("/api/meme/search")
     suspend fun searchMeme(
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("size") pageSize: Int,
     ): SavedMemesResponse
 }
