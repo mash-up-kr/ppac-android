@@ -19,12 +19,15 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.chip.FarmemeMediumChip
+import team.ppac.domain.model.Keyword
 import team.ppac.register.model.RegisterCategoryUiModel
 
 @Composable
 internal fun RegisterCategoryContent(
     modifier: Modifier = Modifier,
     uiModel: RegisterCategoryUiModel,
+    selectedKeywords: ImmutableList<Keyword>,
+    onKeywordClick: (Keyword) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -32,7 +35,8 @@ internal fun RegisterCategoryContent(
         RegisterCategoryHeader(title = uiModel.category)
         RegisterCategoryChips(
             keywords = uiModel.keywords,
-            onKeywordClick = {},
+            selectedKeywords = selectedKeywords,
+            onKeywordClick = onKeywordClick,
         )
         Spacer(modifier = Modifier.height(24.dp))
     }
@@ -42,8 +46,9 @@ internal fun RegisterCategoryContent(
 @Composable
 internal fun RegisterCategoryChips(
     modifier: Modifier = Modifier,
-    keywords: ImmutableList<String>,
-    onKeywordClick: (String) -> Unit,
+    keywords: ImmutableList<Keyword>,
+    selectedKeywords: ImmutableList<Keyword>,
+    onKeywordClick: (Keyword) -> Unit,
 ) {
     FlowRow(
         modifier = modifier
@@ -55,7 +60,8 @@ internal fun RegisterCategoryChips(
         repeat(keywords.size) { index ->
             val keyword = keywords[index]
             FarmemeMediumChip(
-                text = keyword,
+                text = keyword.name,
+                enabled = selectedKeywords.contains(keyword),
                 onClick = { onKeywordClick(keyword) }
             )
         }
@@ -64,28 +70,21 @@ internal fun RegisterCategoryChips(
 
 @Preview
 @Composable
-private fun RegisterCategoryContentPreview() {
-    RegisterCategoryContent(
-        uiModel = RegisterCategoryUiModel.INITIAL_STATE,
-    )
-}
-
-@Preview
-@Composable
 private fun RegisterCategoryChipsPreview() {
     Box(modifier = Modifier.background(FarmemeTheme.backgroundColor.white)) {
         RegisterCategoryChips(
             keywords = persistentListOf(
-                "행복",
-                "슬픈",
-                "분노",
-                "웃긴",
-                "피곤",
-                "절망",
-                "현타",
-                "당황",
-                "무념무상",
+                Keyword(
+                    id = "",
+                    name = "행복",
+                    searchCount = null,
+                    createdAt = null,
+                    updatedAt = null,
+                    category = null,
+                    imageUrl = null,
+                )
             ),
+            selectedKeywords = persistentListOf(),
             onKeywordClick = {}
         )
     }

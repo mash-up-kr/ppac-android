@@ -18,6 +18,8 @@ import team.ppac.search.detail.navigation.navigateToSearchDetail
 import team.ppac.search.detail.navigation.searchDetailScreen
 import team.ppac.search.main.navigation.navigateToSearch
 import team.ppac.search.main.navigation.searchScreen
+import team.ppac.search.result.navigation.navigateToSearchResult
+import team.ppac.search.result.navigation.searchResultScreen
 
 @Composable
 fun FarmemeNavHost(
@@ -37,16 +39,21 @@ fun FarmemeNavHost(
         exitTransition = { ExitTransition.None },
     ) {
         recommendationScreen(
-            analyticsHelper = analyticsHelper
+            analyticsHelper = analyticsHelper,
+            navigateToRegister = navigateToRegister,
         )
         searchScreen(
             analyticsHelper = analyticsHelper,
-            navigateToSearchDetail = { navController.navigateToSearchDetail(it) }
+            navigateToSearchDetail = { navController.navigateToSearchDetail(it) },
+            navigateToSearchResult = { navController.navigateToSearchResult() }
         )
         searchDetailScreen(
             analyticsHelper = analyticsHelper,
             navigateBack = { navController.popBackStack() },
             navigateToMemeDetail = navigateToDetail
+        )
+        searchResultScreen(
+            navigateBack = { navController.popBackStack() },
         )
         myPageScreen(
             analyticsHelper = analyticsHelper,

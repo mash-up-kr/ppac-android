@@ -13,12 +13,14 @@ fun NavController.navigateToRecommendation(navOptions: NavOptions) = navigate(RE
 
 fun NavGraphBuilder.recommendationScreen(
     analyticsHelper: AnalyticsHelper,
+    navigateToRegister: () -> Unit
 ) {
     composable(
         route = RECOMMENDATION_ROUTE
     ) {
         RecommendationRoute(
-            analyticsHelper = analyticsHelper
+            analyticsHelper = analyticsHelper,
+            navigateToRegister = navigateToRegister,
         )
     }
 }
