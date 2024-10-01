@@ -24,6 +24,12 @@ internal interface UserApi {
         @Query("size") size: Int,
     ): MemesResponse
 
+    @GET("api/user/registered-memes")
+    suspend fun getUserRegisteredMemes(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): MemesResponse
+
     @GET("api/user/recent-memes")
     suspend fun getUserRecentMemes(): List<MemeResponse>
 }

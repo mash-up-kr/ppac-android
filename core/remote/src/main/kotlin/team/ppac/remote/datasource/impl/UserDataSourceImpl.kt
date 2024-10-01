@@ -23,6 +23,10 @@ internal class UserDataSourceImpl @Inject constructor(
         return userApi.getUserSavedMemes(page = page, size = size)
     }
 
+    override suspend fun getUserRegisteredMemes(page: Int, size: Int): MemesResponse {
+        return userApi.getUserRegisteredMemes(page = page, size = size)
+    }
+
     override suspend fun getUserRecentMemes(): List<MemeResponse> {
         return userApi.getUserRecentMemes()
     }
