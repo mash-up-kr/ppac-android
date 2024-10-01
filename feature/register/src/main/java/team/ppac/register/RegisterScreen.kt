@@ -100,9 +100,7 @@ internal fun RegisterScreen(
             )
         } else {
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .imePadding(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 item {
@@ -139,7 +137,13 @@ internal fun RegisterScreen(
                         }
                     )
                 }
-                item { Spacer(modifier = Modifier.height(120.dp)) }
+                item {
+                    Spacer(
+                        modifier = Modifier
+                            .height(120.dp)
+                            .imePadding()
+                    )
+                }
             }
         }
     }
