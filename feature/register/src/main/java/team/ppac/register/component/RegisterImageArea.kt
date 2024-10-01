@@ -65,7 +65,7 @@ internal fun RegisterImageArea(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(FarmemeTheme.backgroundColor.brandAssistive),
+                    .background(FarmemeTheme.backgroundColor.primary),
             )
             AsyncImage(
                 modifier = Modifier.matchParentSize(),
@@ -74,7 +74,7 @@ internal fun RegisterImageArea(
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
             )
             FarmemeCircleButton(
                 modifier = Modifier

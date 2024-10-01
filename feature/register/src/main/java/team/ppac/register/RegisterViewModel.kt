@@ -8,6 +8,7 @@ import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetRecommendKeywordsUseCase
 import team.ppac.domain.usecase.UploadMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
+import team.ppac.errorhandling.FarmemeNetworkException.Companion.UNKNOWN_ERROR
 import team.ppac.register.model.RegisterCategoryUiModel
 import team.ppac.register.mvi.RegisterIntent
 import team.ppac.register.mvi.RegisterSideEffect
@@ -22,17 +23,7 @@ class RegisterViewModel @Inject constructor(
 ) : BaseViewModel<RegisterUiState, RegisterSideEffect, RegisterIntent>(savedStateHandle) {
 
     init {
-        launch {
-            val registerCategories = getRecommendKeywordsUseCase().map { recommendKeyword ->
-                RegisterCategoryUiModel(
-                    category = recommendKeyword.category,
-                    keywords = recommendKeyword.keywords.toImmutableList(),
-                )
-            }.toImmutableList()
-            reduce {
-                copy(registerCategories = registerCategories)
-            }
-        }
+        getCategories()
     }
 
     override fun createInitialState(savedStateHandle: SavedStateHandle): RegisterUiState {
@@ -42,8 +33,32 @@ class RegisterViewModel @Inject constructor(
     override fun handleClientException(throwable: Throwable) {
         println(">> $throwable")
         if (throwable is FarmemeNetworkException) {
+            if (throwable.code == UNKNOWN_ERROR) {
+                showSnackbar(message = "밈 등록에 실패했어요")
+            } else {
+                reduce {
+                    copy(isError = true)
+                }
+            }
+        } else {
+            showSnackbar(message = "밈 등록에 실패했어요")
+        }
+    }
+
+    private fun getCategories() {
+        launch {
+            val registerCategories = getRecommendKeywordsUseCase().map { recommendKeyword ->
+                RegisterCategoryUiModel(
+                    category = recommendKeyword.category,
+                    keywords = recommendKeyword.keywords.toImmutableList(),
+                )
+            }.toImmutableList()
             reduce {
-                copy(isError = true)
+                copy(
+                    registerCategories = registerCategories,
+                    isLoading = false,
+                    isError = false,
+                )
             }
         }
     }
@@ -78,17 +93,30 @@ class RegisterViewModel @Inject constructor(
                         reduce {
                             copy(selectedKeywords = (currentState.selectedKeywords + intent.keyword).toImmutableSet())
                         }
+                    } else {
+                        showSnackbar(message = "최대 개수를 초과했어요")
                     }
                 }
             }
 
             RegisterIntent.ClickRegister -> {
-                uploadMemeUseCase(
+                val isUploadSuccess = uploadMemeUseCase(
                     keywordIds = currentState.selectedKeywords.map { it.id },
                     memeTitle = currentState.title,
                     memeSource = currentState.source,
                     memeImageUri = currentState.imageUri
                 )
+                if (isUploadSuccess) {
+                    reduce {
+                        copy(uploadMemeResultDialogVisible = true)
+                    }
+                } else {
+                    showSnackbar(message = "밈 등록에 실패했어요")
+                }
+            }
+
+            RegisterIntent.OnRetry -> {
+                getCategories()
             }
         }
     }

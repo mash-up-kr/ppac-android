@@ -13,11 +13,13 @@ interface MemeDataSource {
         page: Int,
         size: Int,
     ): SavedMemesResponse
+
     suspend fun reactMeme(memeId: String): Boolean
     suspend fun watchMeme(
         memeId: String,
         type: String,
     ): Boolean
+
     suspend fun uploadMeme(
         keywordIds: List<String>,
         memeImageUri: String,

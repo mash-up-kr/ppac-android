@@ -9,4 +9,5 @@ sealed interface RegisterIntent : UiIntent {
     data class InputSource(val source: String) : RegisterIntent
     data class OnKeywordClick(val keyword: Keyword) : RegisterIntent
     data object ClickRegister : RegisterIntent
+    data object OnRetry : RegisterIntent
 }

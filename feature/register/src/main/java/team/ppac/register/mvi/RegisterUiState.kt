@@ -16,6 +16,7 @@ data class RegisterUiState(
     val imageUri: String,
     val title: String,
     val source: String,
+    val uploadMemeResultDialogVisible: Boolean,
 ) : UiState {
 
     companion object {
@@ -27,6 +28,7 @@ data class RegisterUiState(
             imageUri = "",
             title = "",
             source = "",
+            uploadMemeResultDialogVisible = false,
         )
     }
 }

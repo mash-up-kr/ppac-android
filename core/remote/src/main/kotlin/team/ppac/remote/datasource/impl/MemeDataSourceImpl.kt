@@ -56,19 +56,21 @@ internal class MemeDataSourceImpl @Inject constructor(
         memeTitle: String,
         memeSource: String
     ): Boolean {
-        val file = getFileFromUri(memeImageUri.toUri()) ?: return false
+        val file =
+            getFileFromUri(memeImageUri.toUri()) ?: throw IllegalStateException("파일을 찾을 수 없습니다.")
         val imageBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val imagePart = MultipartBody.Part.createFormData("image", file.name, imageBody)
 
         val keywords = keywordIds.map { MultipartBody.Part.createFormData("keywordIds", it) }
         val title = MultipartBody.Part.createFormData("title", memeTitle)
         val source = MultipartBody.Part.createFormData("source", memeSource)
-        return memeApi.postMeme(
+        memeApi.postMeme(
             title = title,
             image = imagePart,
             source = source,
             keywordIds = keywords
         )
+        return true
     }
 
     private fun getFileFromUri(uri: Uri): File? {
