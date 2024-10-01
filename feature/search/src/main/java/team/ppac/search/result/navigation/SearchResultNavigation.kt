@@ -15,6 +15,8 @@ fun NavGraphBuilder.searchResultScreen(
     composable(
         route = SEARCH_RESULT_ROUTE
     ) {
-        SearchResultRoute()
+        SearchResultRoute(
+            navigateBack = navigateBack
+        )
     }
 }

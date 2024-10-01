@@ -6,6 +6,8 @@ import androidx.paging.LoadStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.errorhandling.FarmemeNetworkException
+import team.ppac.search.result.mvi.ClickBackButton
+import team.ppac.search.result.mvi.NavigateBack
 import team.ppac.search.result.mvi.SearchResultIntent
 import team.ppac.search.result.mvi.SearchResultSideEffect
 import team.ppac.search.result.mvi.SearchResultUiState
@@ -21,11 +23,17 @@ class SearchResultViewModel @Inject constructor(
     }
 
     override suspend fun handleIntent(intent: SearchResultIntent) {
-        TODO("Not yet implemented")
+        when (intent) {
+            ClickBackButton -> postNavigateBackEffect()
+        }
     }
 
     override fun handleClientException(throwable: Throwable) {
         TODO("Not yet implemented")
+    }
+
+    private fun postNavigateBackEffect() {
+        postSideEffect(NavigateBack)
     }
 
     fun updateSearchQuery(query: String) {

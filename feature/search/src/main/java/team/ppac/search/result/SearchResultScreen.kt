@@ -29,6 +29,7 @@ internal fun SearchResultScreen(
     onRetryClick: () -> Unit,
     onMemeClick: (String) -> Unit,
     onCopyClick: (String, String) -> Unit,
+    onBackClick: () -> Unit,
 ) {
     val searchResults = uiState.searchResults.collectPagingItemsWithHandleState(handleLoadStates)
 
@@ -49,7 +50,8 @@ internal fun SearchResultScreen(
                 topBar = {
                     FarmemeSearchToolbar(
                         text = uiState.query,
-                        onTextChanged = onQueryChange
+                        onTextChanged = onQueryChange,
+                        onBackClick = onBackClick
                     )
                 }
             ) { paddingValues ->
