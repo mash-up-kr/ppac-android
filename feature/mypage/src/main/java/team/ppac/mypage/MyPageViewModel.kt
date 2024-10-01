@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import team.ppac.common.android.base.BaseViewModel
 import team.ppac.domain.usecase.GetLevelUseCase
 import team.ppac.domain.usecase.GetUserRecentMemesUseCase
+import team.ppac.domain.usecase.GetUserRegisteredMemesUseCase
 import team.ppac.domain.usecase.GetUserSavedMemesUseCase
 import team.ppac.domain.usecase.GetUserUseCase
 import team.ppac.domain.usecase.RefreshEventUseCase
@@ -27,6 +28,7 @@ class MyPageViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getUserUseCase: GetUserUseCase,
     getUserSavedMemesUseCase: GetUserSavedMemesUseCase,
+    getUserRegisteredMemesUseCase: GetUserRegisteredMemesUseCase,
     private val getUserRecentMemesUseCase: GetUserRecentMemesUseCase,
     private val setLevelUseCase: SetLevelUseCase,
     private val getLevelUseCase: GetLevelUseCase,
@@ -40,10 +42,12 @@ class MyPageViewModel @Inject constructor(
         val savedMemes =
             getUserSavedMemesUseCase(getCurrentPage = { currentPage.tryEmit(it) })
                 .cachedIn(viewModelScope)
+        val registeredMemes = getUserRegisteredMemesUseCase().cachedIn(viewModelScope)
 
         reduce {
             copy(
-                savedMemes = savedMemes
+                savedMemes = savedMemes,
+                registeredMemes = registeredMemes,
             )
         }
     }
