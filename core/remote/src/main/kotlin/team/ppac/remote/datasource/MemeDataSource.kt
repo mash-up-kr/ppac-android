@@ -35,6 +35,8 @@ interface MemeDataSource {
     ): Boolean
 
     suspend fun searchMeme(
-        query: String
+        query: String,
+        page: Int,
+        size: Int,
     ): SavedMemesResponse
 }

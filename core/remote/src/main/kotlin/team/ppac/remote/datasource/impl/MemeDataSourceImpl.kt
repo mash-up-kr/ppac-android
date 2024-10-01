@@ -112,7 +112,7 @@ internal class MemeDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun searchMeme(query: String): SavedMemesResponse {
-        return memeApi.searchMeme(query)
+    override suspend fun searchMeme(query: String, page: Int, size: Int): SavedMemesResponse {
+        return memeApi.searchMeme(query, page, size)
     }
 }
