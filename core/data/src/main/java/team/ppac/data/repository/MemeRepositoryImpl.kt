@@ -18,6 +18,10 @@ import javax.inject.Inject
 internal class MemeRepositoryImpl @Inject constructor(
     private val memeDataSource: MemeDataSource,
 ) : MemeRepository {
+    private val _savedMemeEventFlow = MutableSharedFlow<SavedMemeEvent>()
+    override val savedMemeEventFlow: Flow<SavedMemeEvent>
+        get() = _savedMemeEventFlow
+
     override suspend fun getMeme(memeId: String): Meme {
         return memeDataSource.getMemeById(memeId).toMeme()
     }
@@ -68,14 +72,30 @@ internal class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.watchMeme(memeId, watchType.name.lowercase())
     }
 
+    override suspend fun searchMeme(query: String): MemeWithPagination {
+        val totalMemeCount = memeDataSource.searchMeme(
+            query = query,
+            page = 1,
+            size = ITEMS_PER_PAGE
+        ).pagination.total
+
+        return MemeWithPagination(
+            totalMemeCount = totalMemeCount,
+            memes = createPager(
+                executor = { page ->
+                    memeDataSource.searchMeme(
+                        query = query,
+                        page = page,
+                        size = ITEMS_PER_PAGE,
+                    ).memeList.map { it.toMeme() }
+                },
+            ).flow
+        )
+    }
+
     override suspend fun shareMeme(memeId: String): Boolean {
         return memeDataSource.shareMeme(memeId)
     }
-
-    private val _savedMemeEventFlow = MutableSharedFlow<SavedMemeEvent>()
-
-    override val savedMemeEventFlow: Flow<SavedMemeEvent>
-        get() = _savedMemeEventFlow
 
     override suspend fun uploadMeme(
         keywordIds: List<String>,

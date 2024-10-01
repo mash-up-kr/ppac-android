@@ -7,6 +7,8 @@ import team.ppac.domain.model.MemeWithPagination
 import team.ppac.domain.model.ReactionMeme
 
 interface MemeRepository {
+
+    val savedMemeEventFlow: Flow<SavedMemeEvent>
     suspend fun getMeme(memeId: String): Meme
     suspend fun getRecommendMemes(): List<Meme>
     suspend fun saveMeme(memeId: String): Boolean
@@ -20,11 +22,11 @@ interface MemeRepository {
         memeId: String,
         watchType: MemeWatchType,
     ): Boolean
+    suspend fun searchMeme(query: String): MemeWithPagination
     suspend fun shareMeme(
         memeId: String
     ): Boolean
     suspend fun emitRefreshEvent()
-    val savedMemeEventFlow: Flow<SavedMemeEvent>
     suspend fun uploadMeme(
         keywordIds: List<String>,
         memeImageUri: String,

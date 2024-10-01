@@ -39,6 +39,8 @@ import team.ppac.domain.usecase.SampleUseCase
 import team.ppac.domain.usecase.SampleUseCaseImpl
 import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCaseImpl
+import team.ppac.domain.usecase.SearchMemeUseCase
+import team.ppac.domain.usecase.SearchMemeUseCaseImpl
 import team.ppac.domain.usecase.SetLevelUseCase
 import team.ppac.domain.usecase.SetLevelUseCaseImpl
 import team.ppac.domain.usecase.ShareMemeUseCase
@@ -134,4 +136,8 @@ internal abstract class UseCaseModule {
     @Binds
     @ViewModelScoped
     abstract fun bindUploadMemeUseCase(impl: UploadMemeUseCaseImpl): UploadMemeUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindSearchMemeUseCase(impl: SearchMemeUseCaseImpl): SearchMemeUseCase
 }
