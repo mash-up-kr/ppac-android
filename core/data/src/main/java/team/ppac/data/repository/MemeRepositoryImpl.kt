@@ -66,6 +66,10 @@ internal class MemeRepositoryImpl @Inject constructor(
         return memeDataSource.watchMeme(memeId, watchType.name.lowercase())
     }
 
+    override suspend fun shareMeme(memeId: String): Boolean {
+        return memeDataSource.shareMeme(memeId)
+    }
+
     private val _savedMemeEventFlow = MutableSharedFlow<SavedMemeEvent>()
 
     override val savedMemeEventFlow: Flow<SavedMemeEvent>
