@@ -12,7 +12,6 @@ import retrofit2.http.Query
 import team.ppac.remote.model.response.meme.MemeResponse
 import team.ppac.remote.model.response.user.MemesResponse
 import team.ppac.remote.model.response.meme.UploadMemeResponse
-import team.ppac.remote.model.response.user.SavedMemesResponse
 
 internal interface MemeApi {
     @GET("api/meme/{memeId}")
