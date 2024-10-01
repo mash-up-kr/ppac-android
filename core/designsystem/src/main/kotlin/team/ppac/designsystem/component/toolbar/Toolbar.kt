@@ -28,6 +28,7 @@ fun FarmemeSearchToolbar(
     modifier: Modifier = Modifier,
     text: String,
     onTextChanged: (String) -> Unit,
+    onBackClick: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -42,7 +43,11 @@ fun FarmemeSearchToolbar(
         Box(
             modifier = Modifier.size(20.dp)
         ) {
-            FarmemeIcon.Back(Modifier.size(20.dp))
+            FarmemeIcon.Back(
+                Modifier
+                    .size(20.dp)
+                    .noRippleClickable(onClick = onBackClick)
+            )
         }
         Spacer(modifier = Modifier.size(12.dp))
         FarmemeSearchTextField(
@@ -126,6 +131,7 @@ private fun PreviewSearchToolbar() {
     FarmemeSearchToolbar(
         text = text,
         onTextChanged = { text = it },
+        onBackClick = {}
     )
 }
 
