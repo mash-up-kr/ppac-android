@@ -254,7 +254,7 @@ private fun MyPageContent(
         }
     }
     if (showStickyHeader) {
-        Box(
+        Column(
             modifier = Modifier
                 .background(color = FarmemeTheme.backgroundColor.white)
                 .padding(top = systemBarHeight),
@@ -264,6 +264,12 @@ private fun MyPageContent(
                 onClick = { tab ->
                     onIntent(MyPageIntent.ClickMemesTab(currentTabType = tab))
                 },
+            )
+            Spacer(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(FarmemeTheme.borderColor.tertiary),
             )
         }
     }
