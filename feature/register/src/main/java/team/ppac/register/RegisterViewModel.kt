@@ -31,6 +31,7 @@ class RegisterViewModel @Inject constructor(
     }
 
     override fun handleClientException(throwable: Throwable) {
+        println(">> $throwable")
         if (throwable is FarmemeNetworkException) {
             if (throwable.code == UNKNOWN_ERROR) {
                 showSnackbar(message = "밈 등록에 실패했어요")

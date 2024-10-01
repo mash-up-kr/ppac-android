@@ -1,6 +1,7 @@
 package team.ppac.remote.api
 
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -47,9 +48,9 @@ internal interface MemeApi {
     @Multipart
     @POST("/api/meme")
     suspend fun postMeme(
-        @Part title: MultipartBody.Part,
         @Part image: MultipartBody.Part,
-        @Part source: MultipartBody.Part,
-        @Part keywordIds: List<MultipartBody.Part>,
+        @Part("title") title: RequestBody,
+        @Part("source") source: RequestBody,
+        @Part("keywordIds[]") keywordIds: ArrayList<RequestBody>,
     ): UploadMemeResponse
 }

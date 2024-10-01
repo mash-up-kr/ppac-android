@@ -8,6 +8,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import team.ppac.remote.api.MemeApi
 import team.ppac.remote.datasource.MemeDataSource
 import team.ppac.remote.model.response.meme.MemeResponse
@@ -17,6 +18,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import javax.inject.Inject
+
 
 internal class MemeDataSourceImpl @Inject constructor(
     private val memeApi: MemeApi,
@@ -61,14 +63,15 @@ internal class MemeDataSourceImpl @Inject constructor(
         val imageBody = file.asRequestBody("image/*".toMediaTypeOrNull())
         val imagePart = MultipartBody.Part.createFormData("image", file.name, imageBody)
 
-        val keywords = keywordIds.map { MultipartBody.Part.createFormData("keywordIds", it) }
-        val title = MultipartBody.Part.createFormData("title", memeTitle)
-        val source = MultipartBody.Part.createFormData("source", memeSource)
+        val titleRequest = memeTitle.toRequestBody("text/plain".toMediaTypeOrNull())
+        val sourceRequest = memeSource.toRequestBody("text/plain".toMediaTypeOrNull())
+        val keywordIdRequests =
+            keywordIds.map { it.toRequestBody("text/plain".toMediaTypeOrNull()) }
         memeApi.postMeme(
-            title = title,
             image = imagePart,
-            source = source,
-            keywordIds = keywords
+            title = titleRequest,
+            source = sourceRequest,
+            keywordIds = ArrayList(keywordIdRequests)
         )
         return true
     }
