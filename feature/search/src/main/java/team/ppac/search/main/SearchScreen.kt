@@ -1,23 +1,33 @@
 package team.ppac.search.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.common.android.component.error.FarmemeErrorScreen
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
+import team.ppac.designsystem.component.textfield.FarmemeSearchTextField
+import team.ppac.designsystem.component.toolbar.FarmemeSearchToolbar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.util.extension.ColumnSpacerByWeightWithMinHeight
 import team.ppac.search.main.component.FarmemeSearchBar
@@ -36,6 +46,7 @@ internal fun SearchScreen(
     onHotKeywordMemeClick: (String) -> Unit,
     onRetryClick: () -> Unit,
 ) {
+    var query by remember { mutableStateOf("") }
     FarmemeScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -65,10 +76,24 @@ internal fun SearchScreen(
                     contentPadding = PaddingValues(bottom = TabBarHeight),
                 ) {
                     stickyHeader {
-                        FarmemeSearchBar(
-                            modifier = Modifier,
-                            onSearchClick = onSearchBarClick
-                        )
+                        Column(
+                            modifier = Modifier.background(FarmemeTheme.backgroundColor.white)
+                        ) {
+                            FarmemeSearchTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(
+                                        horizontal = 20.dp,
+                                        vertical = 6.dp
+                                    ),
+                                text = query,
+                                onTextChanged = { query = it }
+                            )
+                            Divider(
+                                modifier = Modifier.fillMaxWidth(),
+                                color = FarmemeTheme.backgroundColor.assistive,
+                            )
+                        }
                     }
                     item {
                         FarmemeListHeader(
