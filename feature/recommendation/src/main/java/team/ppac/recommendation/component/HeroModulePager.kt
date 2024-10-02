@@ -52,7 +52,7 @@ fun HeroModulePager(
     HorizontalPager(
         modifier = modifier,
         state = pagerState,
-        contentPadding = PaddingValues(horizontal = 60.dp),
+        contentPadding = PaddingValues(horizontal = 55.dp),
         pageSpacing = 12.dp,
         beyondBoundsPageCount = 3,
     ) { page ->
