@@ -6,7 +6,7 @@ import team.ppac.remote.model.response.meme.MemeResponse
 import team.ppac.remote.model.response.pagination.PaginationResponse
 
 @JsonClass(generateAdapter = true)
-data class SavedMemesResponse(
+data class MemesResponse(
     @field:Json(name = "pagination")
     val pagination: PaginationResponse,
     @field:Json(name = "memeList")

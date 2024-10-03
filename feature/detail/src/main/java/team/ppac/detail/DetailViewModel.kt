@@ -18,6 +18,7 @@ import team.ppac.domain.usecase.EmitRefreshEventUseCase
 import team.ppac.domain.usecase.GetMemeUseCase
 import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
+import team.ppac.domain.usecase.ShareMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import javax.inject.Inject
 
@@ -29,6 +30,7 @@ class DetailViewModel @Inject constructor(
     private val deleteSavedMemeUseCase: DeleteSavedMemeUseCase,
     private val reactMemeUseCase: ReactMemeUseCase,
     private val emitRefreshEventUseCase: EmitRefreshEventUseCase,
+    private val shareMemeUseCase: ShareMemeUseCase,
 ) : BaseViewModel<DetailUiState, DetailSideEffect, DetailIntent>(savedStateHandle) {
 
     private val reactionState = ReactionState()
@@ -82,6 +84,7 @@ class DetailViewModel @Inject constructor(
             }
 
             is DetailIntent.ClickBottomButton.Share -> {
+                incrementShareCount()
                 postSideEffect(DetailSideEffect.ShareLink(intent.memeId))
             }
 
@@ -195,6 +198,11 @@ class DetailViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    private suspend fun incrementShareCount() {
+        shareMemeUseCase(currentState.memeId)
+        emitRefreshEventUseCase()
     }
 
     companion object {

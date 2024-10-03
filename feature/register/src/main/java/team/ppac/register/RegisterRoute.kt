@@ -22,6 +22,7 @@ internal fun RegisterRoute(
         RegisterScreen(
             uiState = uiState,
             navigateToBack = navigateToBack,
+            onIntent = viewModel::intent,
         )
     }
 }

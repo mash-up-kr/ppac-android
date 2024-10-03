@@ -1,4 +1,4 @@
-package team.ppac.splash
+package team.ppac.register.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,24 +13,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
 
 @Composable
-fun NetworkErrorDialog(
+internal fun UploadMemeResultDialog(
     modifier: Modifier = Modifier,
-    isCancellable: Boolean = false,
     onConfirmClick: () -> Unit,
-    onDismiss: () -> Unit = {},
+    onDismiss: () -> Unit,
 ) {
     Dialog(
         onDismissRequest = onDismiss,
-        properties = DialogProperties(
-            dismissOnBackPress = isCancellable,
-            dismissOnClickOutside = isCancellable
-        )
     ) {
         Column(
             modifier = modifier
@@ -44,7 +38,7 @@ fun NetworkErrorDialog(
         ) {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "네트워크 연결이 불안정해요",
+                text = "밈 올리기 성공!",
                 style = FarmemeTheme.typography.heading.medium.semibold.copy(
                     color = FarmemeTheme.textColor.primary
                 ),
@@ -52,7 +46,7 @@ fun NetworkErrorDialog(
             Spacer(modifier = Modifier.size(8.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = "잠시 후 다시 시도해주세요",
+                text = "마이페이지에서 확인할 수 있어요",
                 style = FarmemeTheme.typography.body.large.medium.copy(
                     color = FarmemeTheme.textColor.secondary
                 ),

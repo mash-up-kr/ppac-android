@@ -1,7 +1,7 @@
 package team.ppac.remote.datasource
 
 import team.ppac.remote.model.response.meme.MemeResponse
-import team.ppac.remote.model.response.user.SavedMemesResponse
+import team.ppac.remote.model.response.user.MemesResponse
 
 interface MemeDataSource {
     suspend fun getMemeById(memeId: String): MemeResponse
@@ -12,10 +12,18 @@ interface MemeDataSource {
         keyword: String,
         page: Int,
         size: Int,
-    ): SavedMemesResponse
-    suspend fun reactMeme(memeId: String, count: Int): Boolean
+    ): MemesResponse
+    suspend fun reactMeme(memeId: String): Boolean
     suspend fun watchMeme(
         memeId: String,
         type: String,
+    ): Boolean
+    suspend fun shareMeme(memeId: String): Boolean
+
+    suspend fun uploadMeme(
+        keywordIds: List<String>,
+        memeImageUri: String,
+        memeTitle: String,
+        memeSource: String
     ): Boolean
 }

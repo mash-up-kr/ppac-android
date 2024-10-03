@@ -26,7 +26,7 @@ data class MyPageUiState(
 }
 
 enum class MyPageTabType(val title: String) {
-    REGISTERED_MEMES(title = "나의 밈"),
+    REGISTERED_MEMES(title = "내가 올린 밈"),
     SAVED_MEMES(title = "나의 파밈함"),
     ;
 }

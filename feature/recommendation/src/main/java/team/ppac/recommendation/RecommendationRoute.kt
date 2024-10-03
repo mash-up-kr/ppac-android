@@ -30,6 +30,7 @@ import team.ppac.recommendation.mvi.RecommendationSideEffect
 @Composable
 internal fun RecommendationRoute(
     analyticsHelper: AnalyticsHelper,
+    navigateToRegister: () -> Unit,
     viewModel: RecommendationViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
@@ -138,6 +139,10 @@ internal fun RecommendationRoute(
                             screen = ScreenType.RECOMMENDATION,
                         )
                     }
+
+                    RecommendationSideEffect.NavigateToRegister -> {
+                        navigateToRegister()
+                    }
                 }
             }
         }
@@ -169,6 +174,9 @@ internal fun RecommendationRoute(
                 memeBitmap[index] = bitmap
             },
             onActionButtonsIntentClick = viewModel::intent,
+            onUpload = {
+                viewModel.intent(RecommendationIntent.ClickUpload)
+            }
         )
     }
 }

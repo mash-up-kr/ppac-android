@@ -19,9 +19,17 @@ interface MemeRepository {
         memeId: String,
         watchType: MemeWatchType,
     ): Boolean
-
+    suspend fun shareMeme(
+        memeId: String
+    ): Boolean
     suspend fun emitRefreshEvent()
     val savedMemeEventFlow: Flow<SavedMemeEvent>
+    suspend fun uploadMeme(
+        keywordIds: List<String>,
+        memeImageUri: String,
+        memeTitle: String,
+        memeSource: String
+    ): Boolean
 }
 
 sealed class SavedMemeEvent {
