@@ -68,10 +68,10 @@ fun FarmemeNavHost(
 fun NavHostController.navigateToTopLevelDestination(topLevelDestination: FarmemeTopDestination) {
     val topLevelNavOptions = navOptions {
         popUpTo(this@navigateToTopLevelDestination.graph.findStartDestination().id) {
-            saveState = true
+            saveState = false
         }
-        launchSingleTop = true
-        restoreState = true
+        launchSingleTop = false
+        restoreState = false
     }
 
     when (topLevelDestination) {
