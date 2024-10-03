@@ -38,5 +38,5 @@ data class SearchResultResponse(
     @field:Json(name = "updatedAt")
     val updatedAt: String,
     @field:Json(name = "deviceId")
-    val deviceId: String,
+    val deviceId: String? = null,
 )
