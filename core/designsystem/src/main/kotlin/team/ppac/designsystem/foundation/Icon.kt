@@ -430,4 +430,14 @@ object FarmemeIcon {
         contentDescription = null,
         tint = Color.Unspecified
     )
+
+    @Composable
+    fun StrokeDot(
+        modifier: Modifier = Modifier,
+    ) = Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_stroke),
+        contentDescription = null,
+        tint = Color.Unspecified
+    )
 }
