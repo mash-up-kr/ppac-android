@@ -13,5 +13,6 @@ enum class FarmemeRadius(val shape: RoundedCornerShape) {
     Radius35(RoundedCornerShape(size = 35.dp)),
     Radius40(RoundedCornerShape(size = 40.dp)),
     RadiusTop30(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp)),
+    RadiusTop20(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
     RadiusBottom30(RoundedCornerShape(bottomStart = 30.dp, bottomEnd = 30.dp)),
 }
