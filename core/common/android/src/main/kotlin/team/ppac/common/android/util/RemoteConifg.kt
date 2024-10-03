@@ -65,13 +65,17 @@ fun needToUpdateVersion(context: Context): Boolean {
     Timber.tag(TAG).i("needToUpdateVersion: currentAppVersion= $currentAppVersion")
     return latestVersion.isNotEmpty() && latestVersion != currentAppVersion
 }
-fun launchGooglePlayStore(context: Context) {
+
+fun launchGooglePlayStore(context: Context): Boolean {
     if (checkGooglePlayServices(context)) {
         val uri = "market://details?id=${context.packageName}"
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
         context.startActivity(intent)
+        return true
     }
+    return false
 }
+
 private fun checkGooglePlayServices(context: Context): Boolean {
     val googleApiAvailability = GoogleApiAvailability.getInstance()
     val status = googleApiAvailability.isGooglePlayServicesAvailable(context)

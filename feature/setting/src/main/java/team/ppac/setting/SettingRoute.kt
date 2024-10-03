@@ -23,6 +23,10 @@ internal fun SettingRoute(
 ) {
     val context = LocalContext.current
 
+    LaunchedEffect(Unit) {
+        viewModel.intent(SettingIntent.InitView(context))
+    }
+
     ComposableLifecycle { _, event ->
         when (event) {
             Lifecycle.Event.ON_START -> {
@@ -59,7 +63,7 @@ internal fun SettingRoute(
             uiState = uiState,
             navigateToBack = { viewModel.intent(SettingIntent.ClickBackButton) },
             navigateToPrivacyPolicy = { viewModel.intent(SettingIntent.ClickPrivacyPolicy) },
-            onAppUpdateClick = { viewModel.intent(SettingIntent.ClickAppUpdateButton) }
+            onAppUpdateClick = { viewModel.intent(SettingIntent.ClickAppUpdateButton(context)) }
         )
     }
 }

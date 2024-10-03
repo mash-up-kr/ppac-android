@@ -45,14 +45,12 @@ internal fun SettingScreen(
         ) {
             item {
                 FarmemeBackToolBar(
-                    title = "설정",
-                    onBackIconClick = navigateToBack
+                    title = "설정", onBackIconClick = navigateToBack
                 )
             }
             item {
                 SettingBody(
-                    hasNewAppVersion = uiState.hasNewAppVersion,
-                    onAppUpdateClick = onAppUpdateClick
+                    hasNewAppVersion = uiState.hasNewAppVersion, onAppUpdateClick = onAppUpdateClick
                 )
             }
             item {
@@ -121,12 +119,10 @@ private fun SettingBody(
 @Preview
 @Composable
 private fun SettingScreenPreview() {
-    SettingScreen(
-        uiState = SettingUiState.INITIAL_STATE,
+    SettingScreen(uiState = SettingUiState.INITIAL_STATE,
         navigateToBack = {},
         navigateToPrivacyPolicy = {},
-        onAppUpdateClick = {}
-    )
+        onAppUpdateClick = {})
 }
 
 private fun getVersionName(context: Context): String {
