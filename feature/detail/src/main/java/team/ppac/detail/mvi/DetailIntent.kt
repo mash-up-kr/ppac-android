@@ -11,6 +11,9 @@ sealed interface DetailIntent : UiIntent {
 
     data object ClickHashtags : DetailIntent
 
+    data object ClickOption : DetailIntent
+    data object ClickBottomSheetDismiss : DetailIntent
+
     sealed interface ClickBottomButton : DetailIntent {
         data object Copy : ClickBottomButton
         data class Farmeme(val isSavedMeme: Boolean) : ClickBottomButton
