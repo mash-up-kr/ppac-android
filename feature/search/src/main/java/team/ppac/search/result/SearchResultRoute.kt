@@ -6,21 +6,24 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.search.result.mvi.ClickBackButton
+import team.ppac.search.result.mvi.ClickErrorRetry
+import team.ppac.search.result.mvi.ClickMeme
 import team.ppac.search.result.mvi.NavigateBack
-import timber.log.Timber
+import team.ppac.search.result.mvi.NavigateToMemeDetail
 
 @Composable
 internal fun SearchResultRoute(
     modifier: Modifier = Modifier,
     viewModel: SearchResultViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
+    navigateToMemeDetail: (String) -> Unit,
 ) {
     BaseComposable(viewModel = viewModel) { uiState ->
-        Timber.e("$uiState")
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
-                    NavigateBack -> navigateBack()
+                    is NavigateBack -> navigateBack()
+                    is NavigateToMemeDetail -> navigateToMemeDetail(sideEffect.memeId)
                 }
             }
         }
@@ -31,8 +34,8 @@ internal fun SearchResultRoute(
             onQueryChange = viewModel::updateSearchQuery,
             onInputDone = viewModel::getSearchResults,
             handleLoadStates = viewModel::handleLoadErrorStates,
-            onRetryClick = {},
-            onMemeClick = {},
+            onRetryClick = { viewModel.intent(ClickErrorRetry) },
+            onMemeClick = { viewModel.intent(ClickMeme(it)) },
             onCopyClick = { _, _ -> },
             onBackClick = { viewModel.intent(ClickBackButton) }
         )

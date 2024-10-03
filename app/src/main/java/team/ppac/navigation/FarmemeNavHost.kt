@@ -54,6 +54,7 @@ fun FarmemeNavHost(
         )
         searchResultScreen(
             navigateBack = { navController.popBackStack() },
+            navigateToMemeDetail = navigateToDetail
         )
         myPageScreen(
             analyticsHelper = analyticsHelper,
