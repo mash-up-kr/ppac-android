@@ -49,9 +49,8 @@ class SplashViewModel @Inject constructor(
     override suspend fun handleIntent(intent: SplashIntent) {
         when (intent) {
             SplashIntent.ClickDialogConfirm -> {
-                reduce {
-                    copy(isNetworkError = false)
-                }
+                reduce { copy(isNetworkError = false) }
+                postSideEffect(SplashSideEffect.ForceFinish)
             }
         }
     }

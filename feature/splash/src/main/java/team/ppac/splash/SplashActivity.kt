@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import dagger.hilt.android.AndroidEntryPoint
+import team.ppac.common.android.extension.forceKillApplication
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.navigator.MainNavigator
 import team.ppac.splash.mvi.SplashIntent
@@ -45,6 +46,10 @@ class SplashActivity : ComponentActivity() {
                                 activity = this@SplashActivity,
                                 withFinish = true
                             )
+                        }
+
+                        SplashSideEffect.ForceFinish -> {
+                            this@SplashActivity.forceKillApplication()
                         }
                     }
                 }
