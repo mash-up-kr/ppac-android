@@ -12,12 +12,18 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.SearchMemeUseCase
+import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.search.detail.model.SearchResultUiModel
 import team.ppac.search.detail.model.toSearchResultUiModel
+import team.ppac.search.detail.mvi.SearchDetailSideEffect
 import team.ppac.search.result.mvi.ClickBackButton
+import team.ppac.search.result.mvi.ClickErrorRetry
+import team.ppac.search.result.mvi.ClickMeme
 import team.ppac.search.result.mvi.NavigateBack
+import team.ppac.search.result.mvi.NavigateToMemeDetail
 import team.ppac.search.result.mvi.SearchResultIntent
 import team.ppac.search.result.mvi.SearchResultSideEffect
 import team.ppac.search.result.mvi.SearchResultUiState
@@ -28,6 +34,7 @@ import javax.inject.Inject
 class SearchResultViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val searchMemeUseCase: SearchMemeUseCase,
+    private val watchMemeUseCase: WatchMemeUseCase,
 ) : BaseViewModel<SearchResultUiState, SearchResultSideEffect, SearchResultIntent>(savedStateHandle) {
 
     init {
@@ -42,8 +49,28 @@ class SearchResultViewModel @Inject constructor(
 
     override suspend fun handleIntent(intent: SearchResultIntent) {
         when (intent) {
-            ClickBackButton -> postNavigateBackEffect()
+            is ClickBackButton -> postNavigateBackEffect()
+            is ClickErrorRetry -> {
+                getSearchResults(currentState.query)
+                updateErrorState(isError = false)
+            }
+            is ClickMeme -> {
+                runCatching {
+                    watchMemeUseCase(
+                        memeId = intent.memeId,
+                        watchType = MemeWatchType.SEARCH
+                    )
+                }.onSuccess {
+                    postNavigateToMemeDetailEffect(intent.memeId)
+                }.onFailure {
+                    // 에러 처리
+                }
+            }
         }
+    }
+
+    private fun postNavigateToMemeDetailEffect(memeId: String) {
+        postSideEffect(NavigateToMemeDetail(memeId = memeId))
     }
 
     override fun handleClientException(throwable: Throwable) {}

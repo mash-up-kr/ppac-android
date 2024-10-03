@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import team.ppac.search.result.SearchResultRoute
+import team.ppac.search.result.mvi.NavigateToMemeDetail
 
 const val SEARCH_RESULT_ROUTE = "search_result"
 
@@ -15,6 +16,7 @@ fun NavController.navigateToSearchResult(
 
 fun NavGraphBuilder.searchResultScreen(
     navigateBack: () -> Unit,
+    navigateToMemeDetail: (String) -> Unit,
 ) {
     composable(
         route = "$SEARCH_RESULT_ROUTE/{query}",
@@ -25,7 +27,8 @@ fun NavGraphBuilder.searchResultScreen(
         )
     ) {
         SearchResultRoute(
-            navigateBack = navigateBack
+            navigateBack = navigateBack,
+            navigateToMemeDetail = navigateToMemeDetail
         )
     }
 }
