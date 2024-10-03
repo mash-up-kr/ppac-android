@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -48,6 +49,15 @@ internal fun RegisterScreen(
                 onIntent(RegisterIntent.SetImageFromGallery(uri.toString()))
             }
         }
+
+    LaunchedEffect(key1 = uiState) {
+        if (uiState.title.isNotEmpty() && uiState.source.isNotEmpty() && uiState.imageUri.isNotEmpty() && uiState.selectedKeywords.isNotEmpty()) {
+            onIntent(RegisterIntent.ChangeButtonState(true))
+        } else {
+            onIntent(RegisterIntent.ChangeButtonState(false))
+        }
+    }
+
     FarmemeScaffold(
         modifier = Modifier.navigationBarsPadding(),
         topBar = {
@@ -81,7 +91,7 @@ internal fun RegisterScreen(
                             .align(Alignment.BottomCenter)
                             .padding(bottom = 36.dp),
                         text = "등록하기",
-                        enabled = true,
+                        enabled = uiState.isRegisterButtonEnabled,
                         onClick = {
                             onIntent(RegisterIntent.ClickRegister)
                         },

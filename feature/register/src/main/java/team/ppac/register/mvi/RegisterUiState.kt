@@ -11,6 +11,7 @@ import team.ppac.register.model.RegisterCategoryUiModel
 data class RegisterUiState(
     val isLoading: Boolean,
     val isError: Boolean,
+    val isRegisterButtonEnabled: Boolean,
     val registerCategories: ImmutableList<RegisterCategoryUiModel>,
     val selectedKeywords: ImmutableSet<Keyword>,
     val imageUri: String,
@@ -23,6 +24,7 @@ data class RegisterUiState(
         val INITIAL_STATE = RegisterUiState(
             isLoading = false,
             isError = false,
+            isRegisterButtonEnabled = false,
             registerCategories = persistentListOf(),
             selectedKeywords = persistentSetOf(),
             imageUri = "",
