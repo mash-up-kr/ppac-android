@@ -13,8 +13,9 @@ import retrofit2.http.Query
 import team.ppac.remote.model.request.meme.ReactMemeRequest
 import team.ppac.remote.model.response.meme.MemeResponse
 import team.ppac.remote.model.response.meme.ReactionMemeResponse
-import team.ppac.remote.model.response.user.MemesResponse
+import team.ppac.remote.model.response.meme.SearchMemeResponse
 import team.ppac.remote.model.response.meme.UploadMemeResponse
+import team.ppac.remote.model.response.user.MemesResponse
 
 internal interface MemeApi {
     @GET("api/meme/{memeId}")
@@ -71,5 +72,5 @@ internal interface MemeApi {
         @Query("q") query: String,
         @Query("page") page: Int,
         @Query("size") pageSize: Int,
-    ): SavedMemesResponse
+    ): SearchMemeResponse
 }

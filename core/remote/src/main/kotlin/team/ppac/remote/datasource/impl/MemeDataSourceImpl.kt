@@ -14,6 +14,7 @@ import team.ppac.remote.datasource.MemeDataSource
 import team.ppac.remote.model.request.meme.ReactMemeRequest
 import team.ppac.remote.model.response.meme.MemeResponse
 import team.ppac.remote.model.response.meme.ReactionMemeResponse
+import team.ppac.remote.model.response.meme.SearchMemeResponse
 import team.ppac.remote.model.response.user.MemesResponse
 import java.io.File
 import java.io.FileOutputStream
@@ -112,7 +113,7 @@ internal class MemeDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun searchMeme(query: String, page: Int, size: Int): SavedMemesResponse {
+    override suspend fun searchMeme(query: String, page: Int, size: Int): SearchMemeResponse {
         return memeApi.searchMeme(query, page, size)
     }
 }
