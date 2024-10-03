@@ -70,7 +70,7 @@ fun NavHostController.navigateToTopLevelDestination(topLevelDestination: Farmeme
         popUpTo(this@navigateToTopLevelDestination.graph.findStartDestination().id) {
             saveState = false
         }
-        launchSingleTop = false
+        launchSingleTop = true
         restoreState = false
     }
 
