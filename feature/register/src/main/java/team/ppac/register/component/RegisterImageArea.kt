@@ -56,8 +56,8 @@ internal fun RegisterImageArea(
                 withStar = true,
                 onClick = loadImage,
                 icon = {
-                    FarmemeIcon.Image(
-                        modifier = Modifier.size(20.dp),
+                    FarmemeIcon.Media(
+                        modifier = Modifier.size(18.dp),
                     )
                 }
             )
@@ -82,7 +82,7 @@ internal fun RegisterImageArea(
                     .padding(12.dp),
                 backgroundColor = FarmemeTheme.backgroundColor.white,
                 onClick = loadImage,
-                icon = { FarmemeIcon.Image(modifier = Modifier.size(20.dp)) },
+                icon = { FarmemeIcon.Media(modifier = Modifier.size(20.dp)) },
             )
         }
     }

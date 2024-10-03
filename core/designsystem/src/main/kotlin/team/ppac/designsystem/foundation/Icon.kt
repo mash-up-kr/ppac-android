@@ -412,11 +412,11 @@ object FarmemeIcon {
     )
 
     @Composable
-    fun Image(
+    fun Media(
         modifier: Modifier = Modifier,
     ) = Icon(
         modifier = modifier,
-        painter = painterResource(R.drawable.ic_image_24),
+        painter = painterResource(R.drawable.ic_media_24),
         contentDescription = null,
         tint = Color.Unspecified
     )
