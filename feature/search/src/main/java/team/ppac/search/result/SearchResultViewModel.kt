@@ -12,7 +12,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
-import team.ppac.domain.usecase.GetSearchMemeUseCase
 import team.ppac.domain.usecase.SearchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
 import team.ppac.search.detail.model.SearchResultUiModel
@@ -22,6 +21,7 @@ import team.ppac.search.result.mvi.NavigateBack
 import team.ppac.search.result.mvi.SearchResultIntent
 import team.ppac.search.result.mvi.SearchResultSideEffect
 import team.ppac.search.result.mvi.SearchResultUiState
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -52,32 +52,32 @@ class SearchResultViewModel @Inject constructor(
         postSideEffect(NavigateBack)
     }
 
-    private fun getSearchResults(query: String) = launch {
-        updateLoadingState(true)
-        delay(300L)
-        val paginationResults = searchMemeUseCase(query)
-        val totalMemeCount = paginationResults.totalMemeCount
-        val searchResults = paginationResults.memes
-            .map { pagingData ->
-                pagingData.map { it.toSearchResultUiModel() }
-            }.cachedIn(viewModelScope)
+    fun getSearchResults(query: String) = launch {
+        runCatching {
+            updateLoadingState(true)
+            delay(300L)
+            val paginationResults = searchMemeUseCase(query)
+            val totalMemeCount = paginationResults.totalMemeCount
+            val searchResults = paginationResults.memes
+                .map { pagingData ->
+                    pagingData.map {
+                        it.toSearchResultUiModel() }
+                }.cachedIn(viewModelScope)
 
-        updateLoadingState(false)
-        updateSearchResults(totalMemeCount, searchResults)
-//        runCatching {
-//
-//        }.onFailure {
-//            when (it) {
-//                is FarmemeNetworkException -> {
-//                    reduce {
-//                        copy(
-//                            isError = true,
-//                            isLoading = false,
-//                        )
-//                    }
-//                }
-//            }
-//        }
+            updateLoadingState(false)
+            updateSearchResults(totalMemeCount, searchResults)
+        }.onFailure {
+            when (it) {
+                is FarmemeNetworkException -> {
+                    reduce {
+                        copy(
+                            isError = true,
+                            isLoading = false,
+                        )
+                    }
+                }
+            }
+        }
     }
 
     fun updateSearchQuery(query: String) {

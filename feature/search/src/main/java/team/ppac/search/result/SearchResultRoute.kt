@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.search.result.mvi.ClickBackButton
 import team.ppac.search.result.mvi.NavigateBack
+import timber.log.Timber
 
 @Composable
 internal fun SearchResultRoute(
@@ -15,7 +16,7 @@ internal fun SearchResultRoute(
     navigateBack: () -> Unit,
 ) {
     BaseComposable(viewModel = viewModel) { uiState ->
-
+        Timber.e("$uiState")
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
