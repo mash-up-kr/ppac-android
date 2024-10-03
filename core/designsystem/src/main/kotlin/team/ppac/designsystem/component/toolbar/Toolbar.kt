@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,7 +30,9 @@ fun FarmemeSearchToolbar(
     modifier: Modifier = Modifier,
     text: String,
     onTextChanged: (String) -> Unit,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     Row(
         modifier = modifier
@@ -53,7 +57,9 @@ fun FarmemeSearchToolbar(
         FarmemeSearchTextField(
             modifier = Modifier.fillMaxWidth(),
             text = text,
-            onTextChanged = onTextChanged
+            onTextChanged = onTextChanged,
+            keyboardActions = keyboardActions,
+            keyboardOptions = keyboardOptions
         )
     }
 }

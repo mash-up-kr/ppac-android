@@ -6,8 +6,12 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.paging.LoadStates
 import team.ppac.common.android.component.error.FarmemeErrorScreen
@@ -26,6 +30,7 @@ internal fun SearchResultScreen(
     uiState: SearchResultUiState,
     handleLoadStates: (LoadStates) -> Unit,
     onQueryChange: (String) -> Unit,
+    onInputDone: (String) -> Unit,
     onRetryClick: () -> Unit,
     onMemeClick: (String) -> Unit,
     onCopyClick: (String, String) -> Unit,
@@ -51,7 +56,14 @@ internal fun SearchResultScreen(
                     FarmemeSearchToolbar(
                         text = uiState.query,
                         onTextChanged = onQueryChange,
-                        onBackClick = onBackClick
+                        onBackClick = onBackClick,
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = { onInputDone(uiState.query) }
+                        ),
                     )
                 }
             ) { paddingValues ->
