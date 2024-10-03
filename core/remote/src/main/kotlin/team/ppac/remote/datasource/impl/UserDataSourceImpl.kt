@@ -4,7 +4,7 @@ import team.ppac.remote.api.UserApi
 import team.ppac.remote.datasource.UserRemoteDataSource
 import team.ppac.remote.model.request.user.PostUserRequest
 import team.ppac.remote.model.response.meme.MemeResponse
-import team.ppac.remote.model.response.user.SavedMemesResponse
+import team.ppac.remote.model.response.user.MemesResponse
 import team.ppac.remote.model.response.user.UserResponse
 import javax.inject.Inject
 
@@ -19,8 +19,12 @@ internal class UserDataSourceImpl @Inject constructor(
         return userApi.getUser()
     }
 
-    override suspend fun getUserSavedMemes(page: Int, size: Int): SavedMemesResponse {
+    override suspend fun getUserSavedMemes(page: Int, size: Int): MemesResponse {
         return userApi.getUserSavedMemes(page = page, size = size)
+    }
+
+    override suspend fun getUserRegisteredMemes(page: Int, size: Int): MemesResponse {
+        return userApi.getUserRegisteredMemes(page = page, size = size)
     }
 
     override suspend fun getUserRecentMemes(): List<MemeResponse> {

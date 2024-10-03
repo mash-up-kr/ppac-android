@@ -54,6 +54,15 @@ internal class UserRepositoryImpl @Inject constructor(
         }.flow
     }
 
+    override fun getUserRegisteredMemes(): Flow<PagingData<Meme>> {
+        return createPager { page ->
+            userRemoteDataSource.getUserRegisteredMemes(
+                page = page,
+                size = ITEMS_PER_PAGE,
+            ).memeList.map { it.toMeme() }
+        }.flow
+    }
+
     override suspend fun getUserRecentMemes(): List<Meme> {
         return userRemoteDataSource.getUserRecentMemes().map { it.toMeme() }
     }

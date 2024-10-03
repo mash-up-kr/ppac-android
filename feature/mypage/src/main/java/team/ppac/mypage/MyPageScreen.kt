@@ -80,6 +80,7 @@ internal fun MyPageScreen(
         onRefresh = {
             onIntent(MyPageIntent.RefreshData)
             savedMemes.refresh()
+            registeredMemes.refresh()
         },
     )
 

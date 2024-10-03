@@ -6,7 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import team.ppac.remote.model.request.user.PostUserRequest
 import team.ppac.remote.model.response.meme.MemeResponse
-import team.ppac.remote.model.response.user.SavedMemesResponse
+import team.ppac.remote.model.response.user.MemesResponse
 import team.ppac.remote.model.response.user.UserResponse
 
 internal interface UserApi {
@@ -22,7 +22,13 @@ internal interface UserApi {
     suspend fun getUserSavedMemes(
         @Query("page") page: Int,
         @Query("size") size: Int,
-    ): SavedMemesResponse
+    ): MemesResponse
+
+    @GET("api/user/registered-memes")
+    suspend fun getUserRegisteredMemes(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): MemesResponse
 
     @GET("api/user/recent-memes")
     suspend fun getUserRecentMemes(): List<MemeResponse>
