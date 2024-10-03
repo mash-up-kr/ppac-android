@@ -9,6 +9,7 @@ data class DetailUiState(
     val detailMemeUiModel: DetailMemeUiModel,
     val isError: Boolean,
     val isLoading: Boolean,
+    val showOptionBottomSheet: Boolean,
 ) : UiState {
 
     companion object {
@@ -25,6 +26,7 @@ data class DetailUiState(
             ),
             isError = false,
             isLoading = false,
+            showOptionBottomSheet = false,
         )
 
         val PREVIEW_STATE = DetailUiState(
@@ -40,6 +42,7 @@ data class DetailUiState(
             ),
             isError = false,
             isLoading = false,
+            showOptionBottomSheet = false,
         )
     }
 }
