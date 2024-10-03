@@ -22,7 +22,7 @@ internal fun SearchRoute(
     analyticsHelper: AnalyticsHelper,
     viewModel: SearchViewModel = hiltViewModel(),
     navigateToSearchDetail: (String) -> Unit,
-    navigateToSearchResult: () -> Unit,
+    navigateToSearchResult: (String) -> Unit,
 ) {
     ComposableLifecycle { _, event ->
         when (event) {
@@ -39,7 +39,7 @@ internal fun SearchRoute(
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
                     is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.argument)
-                    is SearchSideEffect.NavigateToSearchResult -> navigateToSearchResult()
+                    is SearchSideEffect.NavigateToSearchResult -> navigateToSearchResult(sideEffect.argument)
                 }
             }
         }
@@ -54,10 +54,10 @@ internal fun SearchRoute(
         SearchScreen(
             modifier = modifier,
             uiState = uiState,
-            onSearchBarClick = {
+            onQueryChanged = viewModel::updateQuery,
+            onInputDone = { query ->
                 analyticsHelper.reportAction(SearchAction.CLICK_SEARCH_BAR, ScreenType.SEARCH)
-
-                viewModel.intent(SearchIntent.ClickSearch)
+                viewModel.intent(SearchIntent.InputDone(query))
             },
             onKeywordClick = { category, keyword ->
                 analyticsHelper.reportAction(

@@ -14,7 +14,7 @@ fun NavController.navigateToSearch(navOptions: NavOptions) = navigate(SEARCH_ROU
 fun NavGraphBuilder.searchScreen(
     analyticsHelper: AnalyticsHelper,
     navigateToSearchDetail: (String) -> Unit,
-    navigateToSearchResult: () -> Unit,
+    navigateToSearchResult: (String) -> Unit,
 ) {
     composable(
         route = SEARCH_ROUTE

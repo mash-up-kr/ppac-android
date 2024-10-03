@@ -49,9 +49,8 @@ class SearchViewModel @Inject constructor(
                 updateErrorState(isError = false)
             }
 
-            is SearchIntent.ClickSearch -> {
-//                showServiceOpenDialog(true)
-                postSideEffect(SearchSideEffect.NavigateToSearchResult)
+            is SearchIntent.InputDone -> {
+                postSideEffect(SearchSideEffect.NavigateToSearchResult(argument = intent.query))
             }
 
             is SearchIntent.ClickKeywordCard -> {
@@ -70,6 +69,10 @@ class SearchViewModel @Inject constructor(
                 showServiceOpenDialog(false)
             }
         }
+    }
+
+    fun updateQuery(query: String) {
+        reduce { copy(query = query) }
     }
 
     private fun getSearchScreenUiContent() = launch {
