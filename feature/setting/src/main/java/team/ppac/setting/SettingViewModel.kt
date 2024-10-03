@@ -34,9 +34,6 @@ class SettingViewModel @Inject constructor(
                     postSideEffect(SettingSideEffect.UpdateApp)
                 }
             }
-            is SettingIntent.CheckNewAppVersionAvailable -> reduce {
-                copy(hasNewAppVersion = intent.hasNewAppVersion)
-            }
         }
     }
 

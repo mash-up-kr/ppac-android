@@ -8,5 +8,4 @@ sealed class SettingIntent : UiIntent {
     data object ClickBackButton : SettingIntent()
     data object ClickPrivacyPolicy : SettingIntent()
     data class ClickAppUpdateButton(val context: Context) : SettingIntent()
-    data class CheckNewAppVersionAvailable(val hasNewAppVersion: Boolean) : SettingIntent()
 }
