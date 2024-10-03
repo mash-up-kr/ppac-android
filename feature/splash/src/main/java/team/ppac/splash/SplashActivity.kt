@@ -72,9 +72,6 @@ class SplashActivity : ComponentActivity() {
                     onConfirmClick = {
                         viewModel.intent(SplashIntent.ClickDialogConfirm)
                     },
-                    onDismiss = {
-                        viewModel.intent(SplashIntent.ClickDialogConfirm)
-                    }
                 )
             }
         }
