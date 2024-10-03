@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,8 +25,10 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
-import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
+import team.ppac.designsystem.component.toolbar.FarmemeToolbar
+import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.foundation.FarmemeRadius
+import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.detail.component.DetailBottomBar
 import team.ppac.detail.component.DetailContent
 import team.ppac.detail.mvi.DetailIntent
@@ -44,13 +47,27 @@ internal fun DetailScreen(
     saveBitmap: (bitmap: Bitmap) -> Unit,
     onHashTagsClick: () -> Unit,
     currentDetailScreenSize: DetailScreenSize,
+    onOptionClick: () -> Unit,
 ) {
     FarmemeScaffold(
         modifier = modifier,
         topBar = {
-            FarmemeBackToolBar(
+            FarmemeToolbar(
                 title = "밈 자세히 보기",
-                onBackIconClick = onClickBackButton,
+                navigationIcon = {
+                    FarmemeIcon.Back(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .noRippleClickable(onClick = onClickBackButton)
+                    )
+                },
+                actionIcon = {
+                    FarmemeIcon.StrokeDot(
+                        modifier = Modifier
+                            .size(20.dp)
+                            .noRippleClickable(onClick = onOptionClick)
+                    )
+                }
             )
         },
         backgroundImage = {
@@ -156,6 +173,7 @@ private fun PreviewDetailScreen() {
         onClickButtonButtons = {},
         saveBitmap = {},
         onHashTagsClick = {},
+        onOptionClick = {},
         currentDetailScreenSize = DetailScreenSize.MEDIUM
     )
 }
