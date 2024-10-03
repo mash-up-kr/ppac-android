@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.foundation.FarmemeRadius
 import team.ppac.designsystem.util.extension.noRippleClickable
@@ -20,11 +21,16 @@ import team.ppac.designsystem.util.extension.noRippleClickable
 @Composable
 fun NetworkErrorDialog(
     modifier: Modifier = Modifier,
+    isCancellable: Boolean = false,
     onConfirmClick: () -> Unit,
-    onDismiss: () -> Unit,
+    onDismiss: () -> Unit = {},
 ) {
     Dialog(
         onDismissRequest = onDismiss,
+        properties = DialogProperties(
+            dismissOnBackPress = isCancellable,
+            dismissOnClickOutside = isCancellable
+        )
     ) {
         Column(
             modifier = modifier
