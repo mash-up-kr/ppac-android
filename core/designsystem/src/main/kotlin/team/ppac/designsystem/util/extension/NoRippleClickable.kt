@@ -15,13 +15,15 @@ import team.ppac.common.kotlin.model.MultipleEventsCutter
 @SuppressLint("UnnecessaryComposedModifier")
 fun Modifier.noRippleClickable(
     enabled: Boolean = true,
+    isDebounceClick: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ): Modifier = composed {
     this then singleClickable(
         indication = null,
         enabled = enabled,
+        isDebounceClick = isDebounceClick,
         onClickLabel = onClickLabel,
         role = role,
         onClick = onClick
@@ -31,17 +33,19 @@ fun Modifier.noRippleClickable(
 @SuppressLint("UnnecessaryComposedModifier")
 fun Modifier.rippleClickable(
     rippleColor: Color = Color.Unspecified,
+    isDebounceClick: Boolean = true,
     enabled: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ): Modifier = composed {
     this then singleClickable(
         indication = rememberRipple(color = rippleColor),
         enabled = enabled,
+        isDebounceClick = isDebounceClick,
         onClickLabel = onClickLabel,
         role = role,
-        onClick = onClick
+        onClick = onClick,
     )
 }
 
@@ -49,19 +53,23 @@ fun Modifier.rippleClickable(
 private fun Modifier.singleClickable(
     indication: Indication?,
     enabled: Boolean = true,
+    debounceMillis: Long = 300L,
+    isDebounceClick: Boolean = true,
     onClickLabel: String? = null,
     role: Role? = null,
-    debounceMillis: Long = 300L,
     onClick: () -> Unit,
 ): Modifier = composed {
     val multipleEventsCutter = remember { MultipleEventsCutter(debounceMillis) }
-
     clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = indication,
         enabled = enabled,
         onClickLabel = onClickLabel,
         role = role,
-        onClick = { multipleEventsCutter.processEvent(onClick) },
+        onClick = if (isDebounceClick) {
+            { multipleEventsCutter.processEvent(onClick) }
+        } else {
+            { onClick() }
+        },
     )
 }

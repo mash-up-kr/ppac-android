@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.model.MemeWithPagination
+import team.ppac.domain.model.ReactionMeme
 
 interface MemeRepository {
     suspend fun getMeme(memeId: String): Meme
@@ -14,8 +15,7 @@ interface MemeRepository {
         keyword: String,
         getCurrentPage: (Int) -> Unit
     ): MemeWithPagination
-
-    suspend fun reactMeme(memeId: String): Boolean
+    suspend fun reactMeme(memeId: String, count: Int): ReactionMeme
     suspend fun watchMeme(
         memeId: String,
         watchType: MemeWatchType,

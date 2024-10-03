@@ -55,6 +55,8 @@ internal fun ActionButtons(
                     val bound = it.boundsInWindow()
                     onReactionButtonPositioned(bound.topLeft)
                 },
+            isDebounceClick = false,
+            backgroundColor = FarmemeTheme.backgroundColor.white,
             icon = {
                 if (meme.reactionCount == 0) {
                     Row(

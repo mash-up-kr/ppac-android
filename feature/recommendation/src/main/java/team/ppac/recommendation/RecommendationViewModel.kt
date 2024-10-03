@@ -10,7 +10,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.common.kotlin.model.ReactionState
 import team.ppac.designsystem.foundation.FarmemeIcon
+import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.DeleteSavedMemeUseCase
 import team.ppac.domain.usecase.GetThisWeekRecommendMemesUseCase
@@ -38,6 +40,8 @@ class RecommendationViewModel @Inject constructor(
 ) : BaseViewModel<RecommendationState, RecommendationSideEffect, RecommendationIntent>(
     savedStateHandle
 ) {
+    private val reactionState = ReactionState()
+
     init {
         launch {
             initialAction()
@@ -59,26 +63,34 @@ class RecommendationViewModel @Inject constructor(
     override suspend fun handleIntent(intent: RecommendationIntent) {
         when (intent) {
             is RecommendationIntent.ClickButton.LoL -> {
-                postSideEffect(RecommendationSideEffect.RunRisingEffect(intent.meme))
-                reduce {
-                    updateReaction(intent.meme) {
-                        it.copy(
-                            reactionCount = it.reactionCount + 1,
-                            isReaction = true,
-                        )
-                    }
-                }
-                runCatching {
-                    reactMemeUseCase(intent.meme.id)
-                }.onFailure {
+                if (!reactionState.isUpdating && reactionState.isDoubleClickEvent()) {
+                    postSideEffect(RecommendationSideEffect.RunRisingEffect(intent.meme))
                     reduce {
                         updateReaction(intent.meme) {
                             it.copy(
-                                reactionCount = it.reactionCount - 1,
-                                isReaction = false
+                                reactionCount = it.reactionCount + 1,
+                                isReaction = true,
                             )
                         }
                     }
+                    reactionState.addReactionCount(1)
+                    if (reactionState.isFirstClickEvent) {
+                        reactionState.setIsFirstClickEvent(false)
+                        launch {
+                            updateReactionCountWithDelay(intent.meme)
+                        }
+                    }
+                } else {
+                    postSideEffect(RecommendationSideEffect.RunRisingEffect(intent.meme))
+                    reduce {
+                        updateReaction(intent.meme) {
+                            it.copy(
+                                reactionCount = it.reactionCount + 1,
+                                isReaction = true,
+                            )
+                        }
+                    }
+                    updateReactionCount(intent.meme, 1)
                 }
             }
 
@@ -166,4 +178,28 @@ class RecommendationViewModel @Inject constructor(
             }
         }
     }
+
+    private suspend fun updateReactionCountWithDelay(meme: Meme) {
+        delay(1000)
+        reactionState.startUpdate()
+        updateReactionCount(meme, reactionState.reactionCount)
+        reactionState.releaseState()
+        reactionState.endUpdate()
+    }
+
+    private suspend fun updateReactionCount(meme: Meme, reactionCount: Int) {
+        runCatching {
+            reactMemeUseCase(meme.id, reactionCount)
+        }.onFailure {
+            reduce {
+                updateReaction(meme) {
+                    it.copy(
+                        reactionCount = it.reactionCount - reactionCount,
+                        isReaction = false
+                    )
+                }
+            }
+        }
+    }
+
 }

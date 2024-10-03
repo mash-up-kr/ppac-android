@@ -271,6 +271,7 @@ private fun DetailFunnyButton(
             .background(color = if (currentDetailScreenSize == DetailScreenSize.SMALL) FarmemeTheme.backgroundColor.white else FarmemeTheme.skeletonColor.primary)
             .rippleClickable(
                 rippleColor = FarmemeTheme.skeletonColor.secondary,
+                isDebounceClick = false,
                 onClick = {
                     if (!isLoading) {
                         coroutineScope.launch {

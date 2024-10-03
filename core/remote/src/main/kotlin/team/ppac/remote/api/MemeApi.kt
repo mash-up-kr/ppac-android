@@ -2,6 +2,7 @@ package team.ppac.remote.api
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -9,7 +10,9 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+import team.ppac.remote.model.request.meme.ReactMemeRequest
 import team.ppac.remote.model.response.meme.MemeResponse
+import team.ppac.remote.model.response.meme.ReactionMemeResponse
 import team.ppac.remote.model.response.user.MemesResponse
 import team.ppac.remote.model.response.meme.UploadMemeResponse
 
@@ -37,7 +40,10 @@ internal interface MemeApi {
     ): MemesResponse
 
     @POST("/api/meme/{memeId}/reaction")
-    suspend fun reactMeme(@Path("memeId") memeId: String): Boolean
+    suspend fun reactMeme(
+        @Path("memeId") memeId: String,
+        @Body reactMemeRequest: ReactMemeRequest
+    ): ReactionMemeResponse
 
     @POST("/api/meme/{memeId}/watch/{type}")
     suspend fun watchMeme(

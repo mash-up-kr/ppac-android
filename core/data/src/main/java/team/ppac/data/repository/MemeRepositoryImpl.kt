@@ -3,11 +3,13 @@ package team.ppac.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import team.ppac.data.mapper.toMeme
+import team.ppac.data.mapper.toReactionMeme
 import team.ppac.data.paging.ITEMS_PER_PAGE
 import team.ppac.data.paging.createPager
 import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.model.MemeWithPagination
+import team.ppac.domain.model.ReactionMeme
 import team.ppac.domain.repository.MemeRepository
 import team.ppac.domain.repository.SavedMemeEvent
 import team.ppac.remote.datasource.MemeDataSource
@@ -58,8 +60,8 @@ internal class MemeRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun reactMeme(memeId: String): Boolean {
-        return memeDataSource.reactMeme(memeId)
+    override suspend fun reactMeme(memeId: String, count: Int): ReactionMeme {
+        return memeDataSource.reactMeme(memeId, count).toReactionMeme()
     }
 
     override suspend fun watchMeme(memeId: String, watchType: MemeWatchType): Boolean {

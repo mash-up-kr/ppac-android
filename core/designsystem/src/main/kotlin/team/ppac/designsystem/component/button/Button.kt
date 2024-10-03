@@ -50,6 +50,7 @@ fun FarmemeWeakButton(
     text: String = "",
     textColor: Color = FarmemeTheme.textColor.primary,
     withStar: Boolean = false,
+    isDebounceClick: Boolean = true,
     onClick: () -> Unit = { },
     icon: @Composable () -> Unit,
 ) {
@@ -57,7 +58,7 @@ fun FarmemeWeakButton(
         modifier = modifier
             .clip(FarmemeRadius.Radius25.shape)
             .background(color = backgroundColor)
-            .noRippleClickable(onClick = onClick)
+            .noRippleClickable(onClick = onClick, isDebounceClick = isDebounceClick)
             .padding(15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
