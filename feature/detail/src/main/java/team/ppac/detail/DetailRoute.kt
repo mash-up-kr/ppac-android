@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -41,6 +42,7 @@ import team.ppac.common.android.util.shareOneLink
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
 import team.ppac.designsystem.component.dialog.FarmemeBottomSheetDialog
+import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.util.DetailScreenSize
@@ -52,6 +54,7 @@ internal fun DetailRoute(
     analyticsHelper: AnalyticsHelper,
     viewModel: DetailViewModel = hiltViewModel(),
     navigateToBack: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
@@ -177,10 +180,15 @@ internal fun DetailRoute(
             ) {
                 Text(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .padding(vertical = 15.dp)
-                        .background(FarmemeTheme.backgroundColor.white),
+                        .background(FarmemeTheme.backgroundColor.white)
+                        .noRippleClickable(onClick = navigateToReport),
                     text = "신고하기",
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    style = FarmemeTheme.typography.body.xLarge.medium.copy(
+                        color = FarmemeTheme.textColor.primary
+                    )
                 )
             }
         }
