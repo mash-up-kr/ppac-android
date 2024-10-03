@@ -12,13 +12,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import team.ppac.common.android.component.error.FarmemeErrorScreen
@@ -27,10 +27,8 @@ import team.ppac.designsystem.component.list.FarmemeListHeader
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.textfield.FarmemeSearchTextField
-import team.ppac.designsystem.component.toolbar.FarmemeSearchToolbar
 import team.ppac.designsystem.foundation.FarmemeIcon
 import team.ppac.designsystem.util.extension.ColumnSpacerByWeightWithMinHeight
-import team.ppac.search.main.component.FarmemeSearchBar
 import team.ppac.search.main.component.HotKeywordContent
 import team.ppac.search.main.component.MemeCategoryContent
 import team.ppac.search.main.component.SearchLoadingContent
@@ -41,12 +39,12 @@ import team.ppac.search.main.mvi.SearchUiState
 internal fun SearchScreen(
     modifier: Modifier = Modifier,
     uiState: SearchUiState,
-    onSearchBarClick: () -> Unit,
+    onQueryChanged: (String) -> Unit,
+    onInputDone: (String) -> Unit,
     onKeywordClick: (String, String) -> Unit,
     onHotKeywordMemeClick: (String) -> Unit,
     onRetryClick: () -> Unit,
 ) {
-    var query by remember { mutableStateOf("") }
     FarmemeScaffold(
         modifier = modifier
             .fillMaxSize()
@@ -86,8 +84,15 @@ internal fun SearchScreen(
                                         horizontal = 20.dp,
                                         vertical = 6.dp
                                     ),
-                                text = query,
-                                onTextChanged = { query = it }
+                                text = uiState.query,
+                                onTextChanged = onQueryChanged,
+                                keyboardOptions = KeyboardOptions(
+                                    keyboardType = KeyboardType.Text,
+                                    imeAction = ImeAction.Done
+                                ),
+                                keyboardActions = KeyboardActions(
+                                    onDone = { onInputDone(uiState.query) }
+                                ),
                             )
                             Divider(
                                 modifier = Modifier.fillMaxWidth(),
@@ -143,7 +148,8 @@ internal fun SearchScreen(
 private fun MyPageScreenPreview() {
     SearchScreen(
         uiState = SearchUiState.INITIAL_STATE,
-        onSearchBarClick = {},
+        onQueryChanged = {},
+        onInputDone = {},
         onKeywordClick = { _, _ -> },
         onHotKeywordMemeClick = {},
         onRetryClick = {}

@@ -45,7 +45,7 @@ fun FarmemeNavHost(
         searchScreen(
             analyticsHelper = analyticsHelper,
             navigateToSearchDetail = { navController.navigateToSearchDetail(it) },
-            navigateToSearchResult = { navController.navigateToSearchResult() }
+            navigateToSearchResult = { navController.navigateToSearchResult(it) }
         )
         searchDetailScreen(
             analyticsHelper = analyticsHelper,

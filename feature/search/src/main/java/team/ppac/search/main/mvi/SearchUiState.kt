@@ -9,6 +9,7 @@ import team.ppac.search.main.model.RecommendKeywordUiModel
 data class SearchUiState(
     val isLoading: Boolean,
     val isError: Boolean,
+    val query: String,
     val showServiceOpenDialog: Boolean,
     val hotKeywords: ImmutableList<HotKeywordUiModel>,
     val memeCategories: ImmutableList<RecommendKeywordUiModel>,
@@ -18,6 +19,7 @@ data class SearchUiState(
         val INITIAL_STATE = SearchUiState(
             isLoading = true,
             isError = false,
+            query = "",
             showServiceOpenDialog = false,
             hotKeywords = persistentListOf(),
             memeCategories = persistentListOf(),
