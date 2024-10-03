@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
@@ -40,6 +39,7 @@ internal fun RegisterInputArea(
         Spacer(modifier = Modifier.height(12.dp))
         FarmemeTextField(
             text = title,
+            placeholder = "예) 러키비키잖아",
             onTextChanged = {
                 if (it.length <= MAX_TITLE_LENGTH) {
                     onTitleChanged(it)
@@ -65,6 +65,7 @@ internal fun RegisterInputArea(
         Spacer(modifier = Modifier.height(12.dp))
         FarmemeTextArea(
             text = source,
+            placeholder = "예) 무한도전, 핀터레스트",
             onTextChanged = {
                 if (it.length <= MAX_SOURCE_LENGTH) {
                     onSourceChanged(it)

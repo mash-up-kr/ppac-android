@@ -99,6 +99,14 @@ class RegisterViewModel @Inject constructor(
                 }
             }
 
+            is RegisterIntent.ChangeButtonState -> {
+                reduce {
+                    copy(
+                        isRegisterButtonEnabled = intent.enabled
+                    )
+                }
+            }
+
             RegisterIntent.ClickRegister -> {
                 val isUploadSuccess = uploadMemeUseCase(
                     keywordIds = currentState.selectedKeywords.map { it.id },
