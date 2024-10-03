@@ -12,6 +12,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import team.ppac.remote.model.request.meme.ReactMemeRequest
 import team.ppac.remote.model.response.meme.MemeResponse
+import team.ppac.remote.model.response.meme.ReactionMemeResponse
 import team.ppac.remote.model.response.user.MemesResponse
 import team.ppac.remote.model.response.meme.UploadMemeResponse
 
@@ -42,7 +43,7 @@ internal interface MemeApi {
     suspend fun reactMeme(
         @Path("memeId") memeId: String,
         @Body reactMemeRequest: ReactMemeRequest
-    ): Boolean
+    ): ReactionMemeResponse
 
     @POST("/api/meme/{memeId}/watch/{type}")
     suspend fun watchMeme(

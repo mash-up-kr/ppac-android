@@ -20,6 +20,7 @@ import team.ppac.domain.usecase.ReactMemeUseCase
 import team.ppac.domain.usecase.SaveMemeUseCase
 import team.ppac.domain.usecase.ShareMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -166,7 +167,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun incrementReactionCount() {
+    private fun incrementReactionCount() {
         reduce {
             copy(
                 detailMemeUiModel = detailMemeUiModel.copy(
@@ -189,6 +190,7 @@ class DetailViewModel @Inject constructor(
         runCatching {
             reactMemeUseCase(currentState.memeId, reactionCount)
         }.onFailure {
+            Timber.tag(TAG).i("updateReactionCount failMessage= $it")
             reduce {
                 copy(
                     detailMemeUiModel = detailMemeUiModel.copy(
