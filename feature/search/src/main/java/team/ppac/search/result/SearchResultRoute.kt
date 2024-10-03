@@ -29,6 +29,7 @@ internal fun SearchResultRoute(
             modifier = modifier,
             uiState = uiState,
             onQueryChange = viewModel::updateSearchQuery,
+            onInputDone = viewModel::getSearchResults,
             handleLoadStates = viewModel::handleLoadErrorStates,
             onRetryClick = {},
             onMemeClick = {},
