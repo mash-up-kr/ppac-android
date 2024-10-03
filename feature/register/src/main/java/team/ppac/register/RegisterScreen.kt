@@ -72,7 +72,7 @@ internal fun RegisterScreen(
                             .background(
                                 brush = Brush.verticalGradient(
                                     0f to FarmemeTheme.backgroundColor.white.copy(alpha = 0f),
-                                    1f to FarmemeTheme.backgroundColor.white.copy(alpha = 1f),
+                                    0.7f to FarmemeTheme.backgroundColor.white.copy(alpha = 1f),
                                 )
                             )
                     )
