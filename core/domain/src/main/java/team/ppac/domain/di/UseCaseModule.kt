@@ -79,7 +79,6 @@ internal abstract class UseCaseModule {
     @ViewModelScoped
     abstract fun bindGetUserRegisteredMemesUseCase(impl: GetUserRegisteredMemesUseCaseImpl): GetUserRegisteredMemesUseCase
 
-
     @Binds
     @ViewModelScoped
     abstract fun bindGetUserRecentMemesUseCase(impl: GetUserRecentMemesUseCaseImpl): GetUserRecentMemesUseCase
