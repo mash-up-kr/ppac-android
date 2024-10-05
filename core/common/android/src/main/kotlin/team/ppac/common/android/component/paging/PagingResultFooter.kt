@@ -1,4 +1,4 @@
-package team.ppac.search.detail.component
+package team.ppac.common.android.component.paging
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

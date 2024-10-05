@@ -13,28 +13,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.paging.LoadStates
+import team.ppac.common.android.component.empty.EmptyResultContent
+import team.ppac.common.android.component.paging.PagingMemesContent
 import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.extension.collectPagingItemsWithHandleState
 import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
-import team.ppac.search.detail.component.EmptyResultContent
-import team.ppac.search.detail.component.SearchDetailLoadingContent
-import team.ppac.search.detail.component.SearchDetailResultContent
-import team.ppac.search.detail.mvi.SearchDetailUiState
+import team.ppac.search.detail.component.KeywordCollectionLoadingContent
+import team.ppac.search.detail.mvi.KeywordCollectionUiState
 
 @Composable
-internal fun SearchDetailScreen(
+internal fun KeywordCollectionScreen(
     modifier: Modifier = Modifier,
-    uiState: SearchDetailUiState,
+    uiState: KeywordCollectionUiState,
     handleLoadStates: (LoadStates) -> Unit,
     onBackClick: () -> Unit,
     onMemeClick: (String) -> Unit,
     onRetryClick: () -> Unit,
     onCopyClick: (String, String) -> Unit,
 ) {
-    val searchResults = uiState.searchResults.collectPagingItemsWithHandleState(handleLoadStates)
+    val memes = uiState.memes.collectPagingItemsWithHandleState(handleLoadStates)
 
     when {
         uiState.isError -> {
@@ -72,7 +72,7 @@ internal fun SearchDetailScreen(
 
                 when {
                     uiState.isLoading -> {
-                        SearchDetailLoadingContent(
+                        KeywordCollectionLoadingContent(
                             modifier = Modifier.fillMaxSize(),
                             isLoading = uiState.isLoading
                         )
@@ -85,9 +85,9 @@ internal fun SearchDetailScreen(
                             if (uiState.totalMemeCount == 0) {
                                 EmptyResultContent()
                             } else {
-                                SearchDetailResultContent(
+                                PagingMemesContent(
                                     totalItemCount = uiState.totalMemeCount,
-                                    searchResults = searchResults,
+                                    pagingItems = memes,
                                     onMemeClick = onMemeClick,
                                     onCopyClick = onCopyClick,
                                 )
@@ -103,8 +103,8 @@ internal fun SearchDetailScreen(
 @Preview
 @Composable
 private fun SearchDetailScreenPreview() {
-    SearchDetailScreen(
-        uiState = SearchDetailUiState.INITIAL_STATE,
+    KeywordCollectionScreen(
+        uiState = KeywordCollectionUiState.INITIAL_STATE,
         handleLoadStates = {},
         onBackClick = {},
         onMemeClick = {},

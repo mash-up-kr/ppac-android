@@ -21,7 +21,7 @@ internal fun SearchRoute(
     modifier: Modifier = Modifier,
     analyticsHelper: AnalyticsHelper,
     viewModel: SearchViewModel = hiltViewModel(),
-    navigateToSearchDetail: (String) -> Unit,
+    navigateToKeywordCollection: (String) -> Unit,
     navigateToSearchResult: (String) -> Unit,
 ) {
     ComposableLifecycle { _, event ->
@@ -38,7 +38,7 @@ internal fun SearchRoute(
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
-                    is SearchSideEffect.NavigateToSearchDetail -> navigateToSearchDetail(sideEffect.argument)
+                    is SearchSideEffect.NavigateToKeywordCollection -> navigateToKeywordCollection(sideEffect.argument)
                     is SearchSideEffect.NavigateToSearchResult -> navigateToSearchResult(sideEffect.argument)
                 }
             }

@@ -14,14 +14,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.paging.LoadStates
+import team.ppac.common.android.component.empty.EmptyResultContent
 import team.ppac.common.android.component.error.FarmemeErrorScreen
+import team.ppac.common.android.component.paging.PagingItemsLoadingContent
+import team.ppac.common.android.component.paging.PagingMemesContent
 import team.ppac.common.android.extension.collectPagingItemsWithHandleState
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeSearchToolbar
-import team.ppac.search.detail.component.EmptyResultContent
-import team.ppac.search.detail.component.SearchDetailLoadingContent
-import team.ppac.search.detail.component.SearchDetailResultContent
 import team.ppac.search.result.mvi.SearchResultUiState
 
 @Composable
@@ -76,7 +76,7 @@ internal fun SearchResultScreen(
 
                 when {
                     uiState.isLoading -> {
-                        SearchDetailLoadingContent(
+                        PagingItemsLoadingContent(
                             modifier = Modifier.fillMaxSize(),
                             isLoading = uiState.isLoading
                         )
@@ -89,9 +89,9 @@ internal fun SearchResultScreen(
                             if (uiState.totalMemeCount == 0) {
                                 EmptyResultContent()
                             } else {
-                                SearchDetailResultContent(
+                                PagingMemesContent(
                                     totalItemCount = uiState.totalMemeCount,
-                                    searchResults = searchResults,
+                                    pagingItems = searchResults,
                                     onMemeClick = onMemeClick,
                                     onCopyClick = onCopyClick,
                                 )
