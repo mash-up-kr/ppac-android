@@ -1,4 +1,4 @@
-package team.ppac.search.detail
+package team.ppac.feature.keyword_collection
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,8 +21,8 @@ import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.component.scaffold.FarmemeScaffold
 import team.ppac.designsystem.component.tabbar.TabBarHeight
 import team.ppac.designsystem.component.toolbar.FarmemeBackToolBar
-import team.ppac.search.detail.component.KeywordCollectionLoadingContent
-import team.ppac.search.detail.mvi.KeywordCollectionUiState
+import team.ppac.common.android.component.paging.PagingItemsLoadingContent
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionUiState
 
 @Composable
 internal fun KeywordCollectionScreen(
@@ -72,7 +72,7 @@ internal fun KeywordCollectionScreen(
 
                 when {
                     uiState.isLoading -> {
-                        KeywordCollectionLoadingContent(
+                        PagingItemsLoadingContent(
                             modifier = Modifier.fillMaxSize(),
                             isLoading = uiState.isLoading
                         )

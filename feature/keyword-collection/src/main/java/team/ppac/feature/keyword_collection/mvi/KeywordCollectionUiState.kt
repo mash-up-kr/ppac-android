@@ -1,4 +1,4 @@
-package team.ppac.search.detail.mvi
+package team.ppac.feature.keyword_collection.mvi
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow

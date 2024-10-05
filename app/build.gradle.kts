@@ -94,6 +94,7 @@ dependencies {
     implementation(project(":feature:setting"))
     implementation(project(":feature:splash"))
     implementation(project(":feature:register"))
+    implementation(project(":feature:keyword-collection"))
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle)
