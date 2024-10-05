@@ -1,4 +1,4 @@
-package team.ppac.search.detail.navigation
+package team.ppac.feature.keyword_collection.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import team.ppac.analytics.AnalyticsHelper
-import team.ppac.search.detail.KeywordCollectionRoute
+import team.ppac.feature.keyword_collection.KeywordCollectionRoute
 
 const val KEYWORD_COLLECTION_ROUTE = "keyword_collection"
 

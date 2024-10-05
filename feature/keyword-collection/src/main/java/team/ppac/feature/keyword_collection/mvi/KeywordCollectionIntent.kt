@@ -1,4 +1,4 @@
-package team.ppac.search.detail.mvi
+package team.ppac.feature.keyword_collection.mvi
 
 import team.ppac.common.android.base.UiIntent
 

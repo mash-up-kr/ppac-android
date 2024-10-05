@@ -1,4 +1,4 @@
-package team.ppac.search.detail
+package team.ppac.feature.keyword_collection
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,8 +19,8 @@ import team.ppac.analytics.action.SearchDetailAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.util.ComposableLifecycle
-import team.ppac.search.detail.mvi.KeywordCollectionIntent
-import team.ppac.search.detail.mvi.KeywordCollectionSideEffect
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionIntent
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionSideEffect
 
 @Composable
 internal fun KeywordCollectionRoute(

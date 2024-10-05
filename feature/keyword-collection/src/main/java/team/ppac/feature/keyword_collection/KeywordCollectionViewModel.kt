@@ -1,4 +1,4 @@
-package team.ppac.search.detail
+package team.ppac.feature.keyword_collection
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -16,9 +16,9 @@ import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.GetSearchMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
-import team.ppac.search.detail.mvi.KeywordCollectionIntent
-import team.ppac.search.detail.mvi.KeywordCollectionSideEffect
-import team.ppac.search.detail.mvi.KeywordCollectionUiState
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionIntent
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionSideEffect
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionUiState
 import javax.inject.Inject
 
 @HiltViewModel
