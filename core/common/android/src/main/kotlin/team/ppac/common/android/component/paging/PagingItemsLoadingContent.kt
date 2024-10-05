@@ -1,4 +1,4 @@
-package team.ppac.search.detail.component
+package team.ppac.common.android.component.paging
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,7 +23,7 @@ import team.ppac.common.android.util.showSkeleton
 import team.ppac.designsystem.foundation.FarmemeRadius
 
 @Composable
-internal fun SearchDetailLoadingContent(
+fun PagingItemsLoadingContent(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
 ) {
@@ -81,9 +81,9 @@ internal fun SearchDetailLoadingContent(
 
 @Preview
 @Composable
-private fun SearchDetailLoadingContentPreview() {
+private fun PagingItemsLoadingContentPreview() {
     Box(modifier = Modifier.background(Color.White)) {
-        SearchDetailLoadingContent(
+        PagingItemsLoadingContent(
             modifier = Modifier.fillMaxSize(),
             isLoading = true
         )

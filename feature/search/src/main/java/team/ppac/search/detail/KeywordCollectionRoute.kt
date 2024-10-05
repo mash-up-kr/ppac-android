@@ -2,10 +2,8 @@ package team.ppac.search.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -21,15 +19,14 @@ import team.ppac.analytics.action.SearchDetailAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.util.ComposableLifecycle
-import team.ppac.search.detail.mvi.SearchDetailIntent
-import team.ppac.search.detail.mvi.SearchDetailSideEffect
-import timber.log.Timber
+import team.ppac.search.detail.mvi.KeywordCollectionIntent
+import team.ppac.search.detail.mvi.KeywordCollectionSideEffect
 
 @Composable
-internal fun SearchDetailRoute(
+internal fun KeywordCollectionRoute(
     modifier: Modifier = Modifier,
     analyticsHelper: AnalyticsHelper,
-    viewModel: SearchDetailViewModel = hiltViewModel(),
+    viewModel: KeywordCollectionViewModel = hiltViewModel(),
     navigateBack: () -> Unit,
     navigateToMemeDetail: (String) -> Unit,
 ) {
@@ -55,13 +52,13 @@ internal fun SearchDetailRoute(
         LaunchedEffect(key1 = viewModel) {
             viewModel.sideEffect.collect { sideEffect ->
                 when (sideEffect) {
-                    is SearchDetailSideEffect.NavigateToMemeDetail ->
+                    is KeywordCollectionSideEffect.NavigateToMemeDetail ->
                         navigateToMemeDetail(sideEffect.memeId)
                 }
             }
         }
 
-        SearchDetailScreen(
+        KeywordCollectionScreen(
             modifier = modifier,
             uiState = uiState,
             handleLoadStates = viewModel::handleLoadErrorStates,
@@ -85,9 +82,9 @@ internal fun SearchDetailRoute(
                     }
                 )
 
-                viewModel.intent(SearchDetailIntent.ClickMeme(memeId))
+                viewModel.intent(KeywordCollectionIntent.ClickMeme(memeId))
             },
-            onRetryClick = { viewModel.intent(SearchDetailIntent.ClickErrorRetry) },
+            onRetryClick = { viewModel.intent(KeywordCollectionIntent.ClickErrorRetry) },
             onCopyClick = { memeId, memeTitle ->
                 analyticsHelper.reportAction(
                     action = SearchDetailAction.CLICK_COPY,

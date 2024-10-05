@@ -1,4 +1,4 @@
-package team.ppac.search.detail.component
+package team.ppac.common.android.component.empty
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

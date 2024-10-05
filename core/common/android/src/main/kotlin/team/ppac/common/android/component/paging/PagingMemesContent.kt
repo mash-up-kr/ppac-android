@@ -1,4 +1,4 @@
-package team.ppac.search.detail.component
+package team.ppac.common.android.component.paging
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.offset
@@ -7,18 +7,22 @@ import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
+import kotlinx.coroutines.flow.emptyFlow
 import team.ppac.common.android.component.FarmemeMemeItem
-import team.ppac.search.detail.model.SearchResultUiModel
+import team.ppac.domain.model.Meme
 
 @Composable
-fun SearchDetailResultContent(
+fun PagingMemesContent(
     modifier: Modifier = Modifier,
     totalItemCount: Int,
-    searchResults: LazyPagingItems<SearchResultUiModel>,
+    pagingItems: LazyPagingItems<Meme>,
     onMemeClick: (String) -> Unit,
     onCopyClick: (String, String) -> Unit,
 ) {
@@ -32,25 +36,25 @@ fun SearchDetailResultContent(
             SearchDetailResultHeader(totalCount = totalItemCount)
         }
         items(
-            count = searchResults.itemCount,
-            key = searchResults.itemKey(SearchResultUiModel::memeId)
+            count = pagingItems.itemCount,
+            key = pagingItems.itemKey(Meme::id)
         ) { index ->
-            val searchResult = searchResults[index] ?: return@items
+            val searchResult = pagingItems[index] ?: return@items
 
             with(searchResult) {
                 FarmemeMemeItem(
                     modifier = Modifier.offset(y = (-20).dp),
-                    memeId = memeId,
-                    memeTitle = memeTitle,
-                    lolCount = lolCount,
+                    memeId = id,
+                    memeTitle = title,
+                    lolCount = reactionCount,
                     imageUrl = imageUrl,
                     onMemeClick = onMemeClick,
-                    onCopyClick = { onCopyClick(memeId, memeTitle) },
+                    onCopyClick = { onCopyClick(id, title) },
                 )
             }
         }
 
-        searchResults.apply {
+        pagingItems.apply {
             when {
                 loadState.append is LoadState.NotLoading && loadState.append.endOfPaginationReached -> {
                     item(span = StaggeredGridItemSpan.FullLine) {
@@ -60,4 +64,15 @@ fun SearchDetailResultContent(
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun PagingMemesContentPreview() {
+    PagingMemesContent(
+        totalItemCount = 10,
+        pagingItems = emptyFlow<PagingData<Meme>>().collectAsLazyPagingItems(),
+        onMemeClick = {},
+        onCopyClick = { _, _ -> }
+    )
 }
