@@ -114,7 +114,19 @@ class DetailViewModel @Inject constructor(
             is DetailIntent.ClickHashtags -> {
                 postSideEffect(DetailSideEffect.LogHashTagsClicked)
             }
+
+            is DetailIntent.ClickOption -> {
+                showOptionBottomSheet(true)
+            }
+
+            is DetailIntent.ClickBottomSheetDismiss -> {
+                showOptionBottomSheet(false)
+            }
         }
+    }
+
+    private fun showOptionBottomSheet(showOptionBottomSheet: Boolean) {
+        reduce { copy(showOptionBottomSheet = showOptionBottomSheet) }
     }
 
     private suspend fun getMeme(memeId: String) {

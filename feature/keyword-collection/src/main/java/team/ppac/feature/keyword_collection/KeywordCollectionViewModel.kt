@@ -1,4 +1,4 @@
-package team.ppac.search.detail
+package team.ppac.feature.keyword_collection
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
@@ -6,30 +6,29 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.GetSearchMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
-import team.ppac.search.detail.model.SearchResultUiModel
-import team.ppac.search.detail.model.toSearchResultUiModel
-import team.ppac.search.detail.mvi.SearchDetailIntent
-import team.ppac.search.detail.mvi.SearchDetailSideEffect
-import team.ppac.search.detail.mvi.SearchDetailUiState
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionIntent
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionSideEffect
+import team.ppac.feature.keyword_collection.mvi.KeywordCollectionUiState
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchDetailViewModel @Inject constructor(
+class KeywordCollectionViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getSearchMemeUseCase: GetSearchMemeUseCase,
     private val watchMemeUseCase: WatchMemeUseCase,
-) : BaseViewModel<SearchDetailUiState, SearchDetailSideEffect, SearchDetailIntent>(savedStateHandle) {
+) : BaseViewModel<KeywordCollectionUiState, KeywordCollectionSideEffect, KeywordCollectionIntent>(
+    savedStateHandle
+) {
 
     val currentPage: MutableSharedFlow<Int> = MutableSharedFlow(replay = 1)
 
@@ -41,27 +40,27 @@ class SearchDetailViewModel @Inject constructor(
         getSearchResults(keyword, getCurrentPage = { currentPage.tryEmit(it) })
     }
 
-    override fun createInitialState(savedStateHandle: SavedStateHandle): SearchDetailUiState {
-        return SearchDetailUiState.INITIAL_STATE
+    override fun createInitialState(savedStateHandle: SavedStateHandle): KeywordCollectionUiState {
+        return KeywordCollectionUiState.INITIAL_STATE
     }
 
     override fun handleClientException(throwable: Throwable) {}
 
-    override suspend fun handleIntent(intent: SearchDetailIntent) {
+    override suspend fun handleIntent(intent: KeywordCollectionIntent) {
         when (intent) {
-            is SearchDetailIntent.ClickErrorRetry -> {
+            is KeywordCollectionIntent.ClickErrorRetry -> {
                 getSearchResults(currentState.keyword, getCurrentPage = { currentPage.tryEmit(it) })
                 updateErrorState(isError = false)
             }
 
-            is SearchDetailIntent.ClickMeme -> {
+            is KeywordCollectionIntent.ClickMeme -> {
                 runCatching {
                     watchMemeUseCase(
                         memeId = intent.memeId,
                         watchType = MemeWatchType.SEARCH
                     )
                 }.onSuccess {
-                    postSideEffect(SearchDetailSideEffect.NavigateToMemeDetail(memeId = intent.memeId))
+                    postSideEffect(KeywordCollectionSideEffect.NavigateToMemeDetail(memeId = intent.memeId))
                 }.onFailure {
                     // 에러 처리
                 }
@@ -88,7 +87,7 @@ class SearchDetailViewModel @Inject constructor(
 
     private fun getSearchResults(
         keyword: String,
-        getCurrentPage: (Int) -> Unit
+        getCurrentPage: (Int) -> Unit,
     ) = launch {
         updateLoadingState(true)
         delay(300L)
@@ -97,9 +96,7 @@ class SearchDetailViewModel @Inject constructor(
             val paginationResults = getSearchMemeUseCase(keyword, getCurrentPage)
             val totalMemeCount = paginationResults.totalMemeCount
             val searchResults = paginationResults.memes
-                .map { pagingData ->
-                    pagingData.map { it.toSearchResultUiModel() }
-                }.cachedIn(viewModelScope)
+                .cachedIn(viewModelScope)
 
             updateLoadingState(false)
             updateSearchResults(totalMemeCount, keyword, searchResults)
@@ -120,13 +117,13 @@ class SearchDetailViewModel @Inject constructor(
     private fun updateSearchResults(
         totalMemeCount: Int,
         keyword: String,
-        searchResults: Flow<PagingData<SearchResultUiModel>>,
+        searchResults: Flow<PagingData<Meme>>,
     ) {
         reduce {
             copy(
                 totalMemeCount = totalMemeCount,
                 keyword = keyword,
-                searchResults = searchResults
+                memes = searchResults
             )
         }
     }

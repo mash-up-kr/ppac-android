@@ -6,19 +6,15 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import team.ppac.common.android.base.BaseViewModel
+import team.ppac.domain.model.Meme
 import team.ppac.domain.model.MemeWatchType
 import team.ppac.domain.usecase.SearchMemeUseCase
 import team.ppac.domain.usecase.WatchMemeUseCase
 import team.ppac.errorhandling.FarmemeNetworkException
-import team.ppac.search.detail.model.SearchResultUiModel
-import team.ppac.search.detail.model.toSearchResultUiModel
-import team.ppac.search.detail.mvi.SearchDetailSideEffect
 import team.ppac.search.result.mvi.ClickBackButton
 import team.ppac.search.result.mvi.ClickErrorRetry
 import team.ppac.search.result.mvi.ClickMeme
@@ -27,7 +23,6 @@ import team.ppac.search.result.mvi.NavigateToMemeDetail
 import team.ppac.search.result.mvi.SearchResultIntent
 import team.ppac.search.result.mvi.SearchResultSideEffect
 import team.ppac.search.result.mvi.SearchResultUiState
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,6 +49,7 @@ class SearchResultViewModel @Inject constructor(
                 getSearchResults(currentState.query)
                 updateErrorState(isError = false)
             }
+
             is ClickMeme -> {
                 runCatching {
                     watchMemeUseCase(
@@ -86,10 +82,7 @@ class SearchResultViewModel @Inject constructor(
             val paginationResults = searchMemeUseCase(query)
             val totalMemeCount = paginationResults.totalMemeCount
             val searchResults = paginationResults.memes
-                .map { pagingData ->
-                    pagingData.map {
-                        it.toSearchResultUiModel() }
-                }.cachedIn(viewModelScope)
+                .cachedIn(viewModelScope)
 
             updateLoadingState(false)
             updateSearchResults(totalMemeCount, searchResults)
@@ -130,7 +123,7 @@ class SearchResultViewModel @Inject constructor(
 
     private fun updateSearchResults(
         totalMemeCount: Int,
-        searchResults: Flow<PagingData<SearchResultUiModel>>,
+        searchResults: Flow<PagingData<Meme>>,
     ) {
         reduce {
             copy(

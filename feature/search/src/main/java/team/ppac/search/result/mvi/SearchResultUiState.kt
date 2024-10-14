@@ -4,14 +4,14 @@ import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import team.ppac.common.android.base.UiState
-import team.ppac.search.detail.model.SearchResultUiModel
+import team.ppac.domain.model.Meme
 
 data class SearchResultUiState(
     val isLoading: Boolean,
     val isError: Boolean,
     val query: String,
     val totalMemeCount: Int,
-    val searchResults: Flow<PagingData<SearchResultUiModel>>,
+    val searchResults: Flow<PagingData<Meme>>,
 ) : UiState {
 
     companion object {

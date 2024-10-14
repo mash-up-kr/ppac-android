@@ -2,8 +2,8 @@
 compileSdk = "34"
 minSdk = "26"
 targetSdk = "34"
-appVersion = "1.0.10"
-versionCode = "10"
+appVersion = "1.1.0"
+versionCode = "11"
 composeCompiler = "1.5.11"
 namespace = "team.ppac"
 
@@ -63,8 +63,6 @@ activity-ktx = "1.9.0"
 google-services = "4.4.2"
 firebase-bom = "33.1.1"
 firebase-crashlytics = "2.9.9"
-firebaseConfigKtx = "22.0.0"
-playServicesBase = "18.5.0"
 
 [libraries]
 # java
@@ -139,7 +137,6 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-firebase-config-ktx = { group = "com.google.firebase", name = "firebase-config-ktx", version.ref = "firebaseConfigKtx" }
 
 # appsflyer
 af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
@@ -148,9 +145,6 @@ af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "androidx-paging" }
 paging-common = { module = "androidx.paging:paging-common", version.ref = "androidx-paging" }
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "androidx-paging-compose" }
-
-#playstore
-play-services-base = { group = "com.google.android.gms", name = "play-services-base", version.ref = "playServicesBase" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

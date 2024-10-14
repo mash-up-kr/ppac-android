@@ -13,7 +13,7 @@ fun NavController.navigateToSearch(navOptions: NavOptions) = navigate(SEARCH_ROU
 
 fun NavGraphBuilder.searchScreen(
     analyticsHelper: AnalyticsHelper,
-    navigateToSearchDetail: (String) -> Unit,
+    navigateToKeywordCollection: (String) -> Unit,
     navigateToSearchResult: (String) -> Unit,
 ) {
     composable(
@@ -21,7 +21,7 @@ fun NavGraphBuilder.searchScreen(
     ) {
         SearchRoute(
             analyticsHelper = analyticsHelper,
-            navigateToSearchDetail = navigateToSearchDetail,
+            navigateToKeywordCollection = navigateToKeywordCollection,
             navigateToSearchResult = navigateToSearchResult,
         )
     }

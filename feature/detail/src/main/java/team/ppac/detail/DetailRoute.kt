@@ -2,9 +2,13 @@ package team.ppac.detail
 
 import android.graphics.Bitmap
 import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -15,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -34,7 +39,10 @@ import team.ppac.common.android.component.error.FarmemeErrorScreen
 import team.ppac.common.android.util.ComposableLifecycle
 import team.ppac.common.android.util.copyImageToClipBoard
 import team.ppac.common.android.util.shareOneLink
+import team.ppac.designsystem.FarmemeTheme
 import team.ppac.designsystem.R
+import team.ppac.designsystem.component.dialog.FarmemeBottomSheetDialog
+import team.ppac.designsystem.util.extension.noRippleClickable
 import team.ppac.detail.mvi.DetailIntent
 import team.ppac.detail.mvi.DetailSideEffect
 import team.ppac.detail.util.DetailScreenSize
@@ -46,6 +54,7 @@ internal fun DetailRoute(
     analyticsHelper: AnalyticsHelper,
     viewModel: DetailViewModel = hiltViewModel(),
     navigateToBack: () -> Unit,
+    navigateToReport: () -> Unit,
 ) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
@@ -165,6 +174,25 @@ internal fun DetailRoute(
             }
         }
 
+        if (uiState.showOptionBottomSheet) {
+            FarmemeBottomSheetDialog(
+                onBottomSheetDismiss = { viewModel.intent(DetailIntent.ClickBottomSheetDismiss) }
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 15.dp)
+                        .background(FarmemeTheme.backgroundColor.white)
+                        .noRippleClickable(onClick = navigateToReport),
+                    text = "신고하기",
+                    textAlign = TextAlign.Center,
+                    style = FarmemeTheme.typography.body.xLarge.medium.copy(
+                        color = FarmemeTheme.textColor.primary
+                    )
+                )
+            }
+        }
+
         Crossfade(targetState = uiState.isError) { isError ->
             if (isError) {
                 FarmemeErrorScreen(
@@ -188,6 +216,7 @@ internal fun DetailRoute(
                     onClickButtonButtons = viewModel::intent,
                     saveBitmap = saveBitmap,
                     onHashTagsClick = { viewModel.intent(DetailIntent.ClickHashtags) },
+                    onOptionClick = { viewModel.intent(DetailIntent.ClickOption) },
                     currentDetailScreenSize = currentDetailScreenSize,
                 )
                 LottieAnimation(

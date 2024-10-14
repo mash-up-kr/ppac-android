@@ -14,8 +14,8 @@ import team.ppac.mypage.navigation.navigateToMyPage
 import team.ppac.recommendation.navigation.RECOMMENDATION_ROUTE
 import team.ppac.recommendation.navigation.navigateToRecommendation
 import team.ppac.recommendation.navigation.recommendationScreen
-import team.ppac.search.detail.navigation.navigateToSearchDetail
-import team.ppac.search.detail.navigation.searchDetailScreen
+import team.ppac.feature.keyword_collection.navigation.navigateToKeywordCollection
+import team.ppac.feature.keyword_collection.navigation.keywordCollectionScreen
 import team.ppac.search.main.navigation.navigateToSearch
 import team.ppac.search.main.navigation.searchScreen
 import team.ppac.search.result.navigation.navigateToSearchResult
@@ -44,10 +44,10 @@ fun FarmemeNavHost(
         )
         searchScreen(
             analyticsHelper = analyticsHelper,
-            navigateToSearchDetail = { navController.navigateToSearchDetail(it) },
+            navigateToKeywordCollection = { navController.navigateToKeywordCollection(it) },
             navigateToSearchResult = { navController.navigateToSearchResult(it) }
         )
-        searchDetailScreen(
+        keywordCollectionScreen(
             analyticsHelper = analyticsHelper,
             navigateBack = { navController.popBackStack() },
             navigateToMemeDetail = navigateToDetail
@@ -68,10 +68,10 @@ fun FarmemeNavHost(
 fun NavHostController.navigateToTopLevelDestination(topLevelDestination: FarmemeTopDestination) {
     val topLevelNavOptions = navOptions {
         popUpTo(this@navigateToTopLevelDestination.graph.findStartDestination().id) {
-            saveState = true
+            saveState = false
         }
         launchSingleTop = true
-        restoreState = true
+        restoreState = false
     }
 
     when (topLevelDestination) {

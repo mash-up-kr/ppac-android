@@ -1,4 +1,4 @@
-package team.ppac.search.detail.navigation
+package team.ppac.feature.keyword_collection.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -6,28 +6,28 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import team.ppac.analytics.AnalyticsHelper
-import team.ppac.search.detail.SearchDetailRoute
+import team.ppac.feature.keyword_collection.KeywordCollectionRoute
 
-const val SEARCH_DETAIL_ROUTE = "search_detail"
+const val KEYWORD_COLLECTION_ROUTE = "keyword_collection"
 
-fun NavController.navigateToSearchDetail(
+fun NavController.navigateToKeywordCollection(
     keyword: String,
-) = navigate("$SEARCH_DETAIL_ROUTE/${keyword}")
+) = navigate("$KEYWORD_COLLECTION_ROUTE/${keyword}")
 
-fun NavGraphBuilder.searchDetailScreen(
+fun NavGraphBuilder.keywordCollectionScreen(
     analyticsHelper: AnalyticsHelper,
     navigateBack: () -> Unit,
     navigateToMemeDetail: (String) -> Unit,
 ) {
     composable(
-        route = "$SEARCH_DETAIL_ROUTE/{keyword}",
+        route = "$KEYWORD_COLLECTION_ROUTE/{keyword}",
         arguments = listOf(
             navArgument("keyword") {
                 type = NavType.StringType
             }
         )
     ) {
-        SearchDetailRoute(
+        KeywordCollectionRoute(
             analyticsHelper = analyticsHelper,
             navigateBack = navigateBack,
             navigateToMemeDetail = navigateToMemeDetail,

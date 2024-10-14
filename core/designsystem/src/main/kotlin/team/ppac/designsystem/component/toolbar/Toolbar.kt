@@ -92,7 +92,7 @@ fun FarmemeBackToolBar(title: String, onBackIconClick: () -> Unit) {
 }
 
 @Composable
-internal fun FarmemeToolbar(
+fun FarmemeToolbar(
     modifier: Modifier = Modifier,
     title: String = "",
     navigationIcon: (@Composable () -> Unit)? = null,
