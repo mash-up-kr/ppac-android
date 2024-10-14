@@ -10,7 +10,6 @@ import team.ppac.analytics.action.SettingsAction
 import team.ppac.analytics.type.ScreenType
 import team.ppac.common.android.base.BaseComposable
 import team.ppac.common.android.util.ComposableLifecycle
-import team.ppac.common.android.util.checkUpdate
 import team.ppac.setting.mvi.SettingIntent
 import team.ppac.setting.mvi.SettingSideEffect
 
@@ -50,16 +49,15 @@ internal fun SettingRoute(
         }
     }
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.intent(SettingIntent.CheckNewAppVersionAvailable(context.checkUpdate()))
-    }
-
     BaseComposable(viewModel = viewModel) { uiState ->
+        LaunchedEffect(Unit) {
+            viewModel.intent(SettingIntent.InitView(context))
+        }
         SettingScreen(
             uiState = uiState,
             navigateToBack = { viewModel.intent(SettingIntent.ClickBackButton) },
             navigateToPrivacyPolicy = { viewModel.intent(SettingIntent.ClickPrivacyPolicy) },
-            onAppUpdateClick = { viewModel.intent(SettingIntent.ClickAppUpdateButton) }
+            onAppUpdateClick = { viewModel.intent(SettingIntent.ClickAppUpdateButton(context)) }
         )
     }
 }

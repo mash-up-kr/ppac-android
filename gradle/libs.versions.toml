@@ -63,7 +63,6 @@ activity-ktx = "1.9.0"
 google-services = "4.4.2"
 firebase-bom = "33.1.1"
 firebase-crashlytics = "2.9.9"
-materialVersion = "1.12.0"
 
 [libraries]
 # java
@@ -138,9 +137,6 @@ activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
-
-# google
-google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
 # appsflyer
 af-android-sdk = { group = "com.appsflyer", name = "af-android-sdk", version.ref = "appsflyer" }
